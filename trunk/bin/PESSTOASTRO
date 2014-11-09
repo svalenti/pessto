@@ -5,7 +5,6 @@ import string
 import sys
 import re
 import os
-from ntt.util import readkey3, readhdr
 from optparse import OptionParser
 import numpy as np
 import time
@@ -78,15 +77,15 @@ if __name__ == "__main__":
     _t2 = option.tollerance2
     _minnum = option.match
     for img in imglist:
-        hdr = readhdr(img)
-        _instrume = readkey3(hdr, 'instrume')
+        hdr = ntt.util.readhdr(img)
+        _instrume = ntt.util.readkey3(hdr, 'instrume')
         if _astrometry:
             if _interactive:
-                hdr = readhdr(img)
+                hdr = ntt.util.readhdr(img)
                 ntt.efoscastrodef.wcsstart(img, '', '')
                 print 'find best match manually'
-                _RA = readkey3(hdr, 'RA')
-                _DEC = readkey3(hdr, 'DEC')
+                _RA = ntt.util.readkey3(hdr, 'RA')
+                _DEC = ntt.util.readkey3(hdr, 'DEC')
                 if not _crpix1:
                     _shiftx = 0
                 else:
@@ -161,7 +160,7 @@ if __name__ == "__main__":
 
                 ellgess = np.median(np.array(ell[pos1]))
                 if _instrume == 'efosc':
-                    fwhmgess = np.median(np.array(fw[pos1])) * .68 * 2.35 * readkey3(hdr, 'binx') * .12
+                    fwhmgess = np.median(np.array(fw[pos1])) * .68 * 2.35 * ntt.util.readkey3(hdr, 'binx') * .12
                 elif _instrume == 'sofi':
                     fwhmgess = np.median(np.array(fw[pos1])) * .68 * 2.35 * 0.288
                 mbkg3 = np.median(bkg[pos1])
@@ -264,8 +263,9 @@ if __name__ == "__main__":
                     print '### ', valore
                     ntt.util.updateheader(img, 0, {'zp' + ll: [str(valore), '']})
         if mbkg3:
-            if readkey3(readhdr(img), 'FLUXCAL') == 'ABSOLUTE':
-                ntt.util.updateheader(img, 0, {'ABMAGSAT': [float(mbkg3) + float(readkey3(readhdr(img), 'PHOTZP')),
+            if ntt.util.readkey3(ntt.util.readhdr(img), 'FLUXCAL') == 'ABSOLUTE':
+                ntt.util.updateheader(img, 0, {
+                    'ABMAGSAT': [float(mbkg3) + float(ntt.util.readkey3(ntt.util.readhdr(img), 'PHOTZP')),
                                                             'Saturation limit for point sources (AB mags)']})
             else:
                 ntt.util.updateheader(img, 0,
@@ -284,18 +284,18 @@ if __name__ == "__main__":
         ntt.util.phase3header(img)  # phase 3 definitions
         ntt.util.airmass(img)  # phase 3 definitions
         hedvec1['quality'] = ['Final', '']  # ntt.util.updateheader(img,0,'quality','Final')
-        if readkey3(hdr, 'tech'): hedvec1['PRODCATG'] = ['science.' + readkey3(hdr, 'tech').lower(),
+        if ntt.util.readkey3(hdr, 'tech'): hedvec1['PRODCATG'] = ['science.' + ntt.util.readkey3(hdr, 'tech').lower(),
                                                          'Data product category']
         if _instrume == 'sofi':
-            hedvec1['DIT'] = [readkey3(hdr, 'HIERARCH ESO DET DIT'), 'Detector Integration Time']
-            hedvec1['NTID'] = [readkey3(hdr, 'HIERARCH ESO DET NDIT'), 'Number of sub-integrations']
-            if not readkey3(readhdr(img), 'pixscale'): hedvec1['pixscale'] = [0.288,
+            hedvec1['DIT'] = [ntt.util.readkey3(hdr, 'HIERARCH ESO DET DIT'), 'Detector Integration Time']
+            hedvec1['NTID'] = [ntt.util.readkey3(hdr, 'HIERARCH ESO DET NDIT'), 'Number of sub-integrations']
+            if not ntt.util.readkey3(ntt.util.readhdr(img), 'pixscale'): hedvec1['pixscale'] = [0.288,
                                                                               'pixel/scale (arcsec)']
         else:
-            hedvec1['TEXPTIME'] = [readkey3(hdr, 'EXPTIME'), 'Total integ. time of all exposure']
-            if not readkey3(readhdr(img), 'pixscale'):    hedvec1['pixscale'] = [readkey3(readhdr(img), 'binx') * .12,
-                                                                                 'pixel/scale (arcsec)']
+            hedvec1['TEXPTIME'] = [ntt.util.readkey3(hdr, 'EXPTIME'), 'Total integ. time of all exposure']
+            if not ntt.util.readkey3(ntt.util.readhdr(img), 'pixscale'):
+                hedvec1['pixscale'] = [ntt.util.readkey3(ntt.util.readhdr(img), 'binx') * .12, 'pixel/scale (arcsec)']
         ntt.util.updateheader(img, 0, hedvec1)
-        _stop = time.time()
+    _stop = time.time()
     print '\n###time to run ' + str((_stop - _start) / 60.)
 # ################################################################################

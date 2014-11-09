@@ -57,6 +57,9 @@ if __name__ == "__main__":
                                                                  liststand, listatmo, _automaticex, _verbose)
     else:
         outputlist = []
-    if len(outputlist) >= 1: ntt.util.archivingtar(outputlist, rawfile)
+        rawfile=[]
+
+    if len(outputlist) >= 1:
+        ntt.util.archivingtar(outputlist, rawfile)
 
 # ###########################################################################################

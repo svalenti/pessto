@@ -29,6 +29,7 @@ if __name__ == "__main__":
 
     starttime = time.time()
     if len(args) > 1:
+        files=[]
         sys.argv.append('--help')
         option, args = parser.parse_args()
     elif len(args) == 1:
@@ -42,7 +43,7 @@ if __name__ == "__main__":
             hdr0 = ntt.util.readhdr(img)
             if not ntt.util.readkey3(hdr0, 'ARCFILE') and not ntt.util.readkey3(hdr0, 'ORIGFILE'):
                 _type = 'not good'
-            if not _type and img not in [ntt.util.readkey3(hdr0, 'ARCFILE'), ntt.utilreadkey3(hdr0, 'ORIGFILE'),
+            if not _type and img not in [ntt.util.readkey3(hdr0, 'ARCFILE'), ntt.util.readkey3(hdr0, 'ORIGFILE'),
                                          re.sub(':', '_', ntt.util.readkey3(hdr0, 'ARCFILE'))]:
                 _type = 'name not original or archive format'
             if not _type:
@@ -111,6 +112,7 @@ if __name__ == "__main__":
                                                                     listbias, listarc, _cosmic, _verbose)
     else:
         outputlist = []
+        rawfile=[]
     if len(outputlist) >= 1:
         ntt.util.archivingtar(outputlist, rawfile)
         print '\n### tar file: ' + re.sub('raw.list', 'tar.gz', rawfile)

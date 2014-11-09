@@ -54,6 +54,7 @@ if __name__ == "__main__":
         outputlist, rawfile = ntt.sofispec1Ddef.sofispec1Dredu(files, _interactive, _trace, _dispersionline,
                                                                _automaticex, _verbose)
     else:
+        rawfile=[]
         outputlist = []
     if len(outputlist) >= 1:
         ntt.util.archivingtar(outputlist, rawfile)

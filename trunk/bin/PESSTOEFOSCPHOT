@@ -89,6 +89,8 @@ if __name__ == "__main__":
     badpixelmask = option.badpixelmask
     option, args = parser.parse_args()
     if len(args) > 1:
+        files=[]
+        _interactive = 'False'
         sys.argv.append('--help')
         option, args = parser.parse_args()
     elif len(args) == 1:
@@ -103,8 +105,9 @@ if __name__ == "__main__":
         filterlist = []
         print 'making the list with raw data in the current directory ...... please wait'
         for img in listfile:
-            hdr = readhdr(img)
+            hdr = ntt.util.readhdr(img)
             _type = ''
+            _object=''
             if not ntt.util.readkey3(hdr, 'ARCFILE') and not ntt.util.readkey3(hdr, 'ORIGFILE'):
                 _type = 'not good'
             if not _type and img not in [ntt.util.readkey3(hdr, 'ARCFILE'), ntt.util.readkey3(hdr, 'ORIGFILE'),
@@ -197,7 +200,9 @@ if __name__ == "__main__":
                                                                   _archive, typefile, filenameobjects, _system, _cosmic,
                                                                   _verbose, method)
     else:
+        rawfile=''
         outputlist = []
+
     if len(outputlist) >= 1:
         ntt.util.archivingtar(outputlist, rawfile)
 

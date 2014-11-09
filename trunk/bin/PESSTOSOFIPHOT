@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import re
-import sys, glob
+import sys
+import glob
 import ntt
-from ntt.util import readhdr, readkey3
 from optparse import OptionParser
 
 description = "> Fast photometry pre-reduction of sofi images "
@@ -27,6 +27,7 @@ if __name__ == "__main__":
     option, args = parser.parse_args()
 
     if len(args) > 1:
+        files=[]
         sys.argv.append('--help')
         option, args = parser.parse_args()
     elif len(args) == 1:
@@ -36,27 +37,27 @@ if __name__ == "__main__":
         print '\n### making the list with raw data in the current directory ...... please wait'
         files = []
         for img in listfile:
-            hdr = readhdr(img)
+            hdr = ntt.util.readhdr(img)
             _type = ''
-            if not readkey3(hdr, 'ARCFILE') and not readkey3(hdr, 'ORIGFILE'):     _type = 'not good'
-            if not _type and img not in [readkey3(hdr, 'ARCFILE'), readkey3(hdr, 'ORIGFILE'),
-                                         re.sub(':', '_', readkey3(hdr, 'ARCFILE'))]:
+            if not ntt.util.readkey3(hdr, 'ARCFILE') and not ntt.util.readkey3(hdr, 'ORIGFILE'):     _type = 'not good'
+            if not _type and img not in [ntt.util.readkey3(hdr, 'ARCFILE'), ntt.util.readkey3(hdr, 'ORIGFILE'),
+                                         re.sub(':', '_', ntt.util.readkey3(hdr, 'ARCFILE'))]:
                 _type = 'not good'
-            if not _type and readkey3(hdr, 'instrume') != 'sofi':
+            if not _type and ntt.util.readkey3(hdr, 'instrume') != 'sofi':
                 _type = 'not good'
             if not _type:
-                _object = readkey3(hdr, 'object')
-                _filter = readkey3(hdr, 'filter')
+                _object = ntt.util.readkey3(hdr, 'object')
+                _filter = ntt.util.readkey3(hdr, 'filter')
                 if not _type and _filter.lower() in ['grf', 'gbf']:
                     _type = 'spectrum'
                 if not _type and _object.lower() in ['flat', 'dark', 'sky']:
                     _type = 'image'
             if not _type:
-                if str(readkey3(hdr, 'xcum')) != 'None' and str(readkey3(hdr, 'ycum')) != 'None':
+                if str(ntt.util.readkey3(hdr, 'xcum')) != 'None' and str(ntt.util.readkey3(hdr, 'ycum')) != 'None':
                     _type = 'image'
             if not _type:
-                print '\n### ' + readkey3(hdr, 'object'), readkey3(hdr, 'filter'), str(readkey3(hdr, 'xcum')), str(
-                    readkey3(hdr, 'ycum'))
+                print '\n### ' + ntt.util.readkey3(hdr, 'object'), ntt.util.readkey3(hdr, 'filter'), \
+                    str(ntt.util.readkey3(hdr, 'xcum')), str(ntt.util.readkey3(hdr, 'ycum'))
                 answ = raw_input('\n### What is it: image,flat,bias,illumin [1], other [2] ? [2] ')
                 if not answ:  answ = '2'
                 if answ == '1':

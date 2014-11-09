@@ -44,6 +44,7 @@ if __name__ == "__main__":
     outputfile = ntt.efoscfastspecdef.efoscfastredu(imglist, _listsens, _listarc, _trace, _dispersionline, _cosmic,
                                                     _interactive)
     print '\n#######################################\n### end of reduction \n### output files:'
-    for img in outputfile:          print img
+    for img in outputfile:
+        print img
 
 

@@ -7,8 +7,7 @@ import sys
 import re
 import ntt
 import datetime
-from pyfits import open as popen
-from ntt.util import readkey3, readhdr, readspectrum
+import pyfits
 from optparse import OptionParser
 
 if __name__ == "__main__":
@@ -91,7 +90,7 @@ if __name__ == "__main__":
     _host = _redshift = _objtype = _iauname = _dichroic = _contrib = _publish = _note = _reducer = _reducerdate = 'NULL'
     object1 = object2 = _spectype = _quality = 'NULL', 'NULL', 'NULL', 'NULL'
 
-    _observer0 = popen(lista[0])[0].header.get('observer')
+    _observer0 = pyfits.open(lista[0])[0].header.get('observer')
     if not _observer0:   _observer0 = 'NULL'
     print 'Please give (at least), the family name of the observer'
     _observer = raw_input('who observed the spectrum ' + lista[0] + '  [' + _observer0 + '] ? ')
@@ -102,7 +101,7 @@ if __name__ == "__main__":
     print 'Please give (at least), the family name of the reducer'
     _reducer = raw_input('who reduce the spectrum ' + lista[0] + '  [' + _reducer0 + '] ? ')
 
-    _quality = readkey3(readhdr(lista[0]), 'quality')
+    _quality = ntt.util.readkey3(ntt.util.readhdr(lista[0]), 'quality')
     if _quality not in ['Rapid', 'Final', 'Low', 'Med', 'High']:
         while _quality not in ['Rapid', 'Final', 'Low', 'Med', 'High']:
             _quality = raw_input('which type of spectra [[Rapid]/Final/Low/Med/High] ? ')
@@ -118,9 +117,9 @@ if __name__ == "__main__":
     else:
         _reducer0 = _reducer
     for image in lista:
-        hdr = readhdr(image)
+        hdr = ntt.util.readhdr(image)
         imageasci = re.sub('.fits', '.asci', image)
-        lam, fl = readspectrum(image)
+        lam, fl = ntt.util.readspectrum(image)
         f = open(imageasci, 'w')
         for i in range(0, len(lam)):
             f.write('%10s\t%10s\n' % (lam[i], fl[i]))
@@ -128,8 +127,8 @@ if __name__ == "__main__":
         filetar.append(imageasci)
         if lam.any() and fl.any():
             f = open('pessto_' + str(datenow) + '_' + str(_quality) + '_upload.txt', 'a')
-            _RA = readkey3(hdr, 'RA')
-            _DEC = readkey3(hdr, 'DEC')
+            _RA = ntt.util.readkey3(hdr, 'RA')
+            _DEC = ntt.util.readkey3(hdr, 'DEC')
             useheader = True
             if filenameobjects:
                 ###################################
@@ -142,23 +141,27 @@ if __name__ == "__main__":
                     useheader = False
                 else:
                     useheader = True
+                    _object0 = ntt.util.readkey3(hdr, 'object')
+            else:
+                _object0 = ntt.util.readkey3(hdr, 'object')
             if useheader:
                 print 'SN name should start with "sn" '
-                _object0 = readkey3(hdr, 'object')
                 _object = raw_input('which is the name of the object ' + image + '  [' + _object0 + '] ? ')
                 if not _object:
                     _object = _object0
                 else:
                     _object0 = _object
+            else:
+                _object=_object0
             ###################################
-            _exptime = readkey3(hdr, 'exptime')
-            _JD = readkey3(hdr, 'JD')
-            _grism = readkey3(hdr, 'grism')
-            _filter = readkey3(hdr, 'filter')
-            _airmass = readkey3(hdr, 'airmass')
+            _exptime = ntt.util.readkey3(hdr, 'exptime')
+            _JD = ntt.util.readkey3(hdr, 'JD')
+            _grism = ntt.util.readkey3(hdr, 'grism')
+            _filter = ntt.util.readkey3(hdr, 'filter')
+            _airmass = ntt.util.readkey3(hdr, 'airmass')
             goon = 'yes'
             while goon == 'yes':
-                _instrume = readkey3(hdr, 'instrume')
+                _instrume = ntt.util.readkey3(hdr, 'instrume')
                 if _instrume == 'efosc':
                     _instrume = '31'
                     goon = 'no'
@@ -168,9 +171,10 @@ if __name__ == "__main__":
                 else:
                     print 'instrument not recognise ? '
                     _instrume = raw_input('SOFI [34] or EFOSC [31] ?')
-                if _instrume in ['31', '34']:            goon = 'no'
+                if _instrume in ['31', '34']:
+                    goon = 'no'
                 #   slit
-            _slit = readkey3(hdr, 'slit')
+            _slit = ntt.util.readkey3(hdr, 'slit')
             try:
                 float(re.sub('slit', '', _slit))
                 _slit = float(re.sub('slit', '', _slit))
@@ -226,9 +230,9 @@ if __name__ == "__main__":
                 if not _spectype: _spectype = 'Object'
 
             _iauname = _iauname0
-            _UT = readkey3(hdr, 'ut')
+            _UT = ntt.util.readkey3(hdr, 'ut')
 
-            _date = readkey3(hdr, 'date-obs')
+            _date = ntt.util.readkey3(hdr, 'date-obs')
             if _date:
                 _date = _date[0:4] + '-' + _date[4:6] + '-' + _date[6:8]
             else:
