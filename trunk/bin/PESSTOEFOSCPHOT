@@ -5,7 +5,6 @@ import sys
 import glob
 import time
 import ntt
-from ntt.util import readhdr, readkey3
 from optparse import OptionParser
 
 description = "> Fast photometry reduction of efosc images "
@@ -106,30 +105,30 @@ if __name__ == "__main__":
         for img in listfile:
             hdr = readhdr(img)
             _type = ''
-            if not readkey3(hdr, 'ARCFILE') and not readkey3(hdr, 'ORIGFILE'):
+            if not ntt.util.readkey3(hdr, 'ARCFILE') and not ntt.util.readkey3(hdr, 'ORIGFILE'):
                 _type = 'not good'
-            if not _type and img not in [readkey3(hdr, 'ARCFILE'), readkey3(hdr, 'ORIGFILE'),
-                                         re.sub(':', '_', readkey3(hdr, 'ARCFILE'))]:
+            if not _type and img not in [ntt.util.readkey3(hdr, 'ARCFILE'), ntt.util.readkey3(hdr, 'ORIGFILE'),
+                                         re.sub(':', '_', ntt.util.readkey3(hdr, 'ARCFILE'))]:
                 _type = 'not good'
             if not _type:
-                _naxis1 = readkey3(hdr, 'NAXIS1')
-                _naxis2 = readkey3(hdr, 'NAXIS2')
+                _naxis1 = ntt.util.readkey3(hdr, 'NAXIS1')
+                _naxis2 = ntt.util.readkey3(hdr, 'NAXIS2')
                 if _naxis1 != 1030 or _naxis2 != 1030:
                     _type = 'not good'
-                if not _type and readkey3(hdr, 'speed') != 'fastL':
+                if not _type and ntt.util.readkey3(hdr, 'speed') != 'fastL':
                     _type = 'not good'
-                if not _type and readkey3(hdr, 'instrume') != 'efosc':
+                if not _type and ntt.util.readkey3(hdr, 'instrume') != 'efosc':
                     _type = 'not good'
-                _imagetype = readkey3(hdr, 'tech')
+                _imagetype = ntt.util.readkey3(hdr, 'tech')
                 if not _type and _imagetype == 'SPECTRUM':
                     _type = 'spectroscopic data'
                 if not _type:
-                    _exptime = readkey3(hdr, 'exptime')
-                    _filter = readkey3(hdr, 'filter')
+                    _exptime = ntt.util.readkey3(hdr, 'exptime')
+                    _filter = ntt.util.readkey3(hdr, 'filter')
                     if float(_exptime) == 0.0:
                         _type = 'bias'
                     if not _type:
-                        _object = readkey3(hdr, 'object')
+                        _object = ntt.util.readkey3(hdr, 'object')
                         if _filter.lower() in ['g782', 'r784', 'z623', 'u640', 'b639', 'v641', 'r642',
                                                'i705'] and _imagetype == 'IMAGE':
                             if 'sky,flat' in _object.lower():
@@ -137,10 +136,10 @@ if __name__ == "__main__":
                             elif 'dome' in _object.lower() or 'flat' in _object.lower():
                                 _type = 'flat2'
                     if not _type:
-                        _slit = readkey3(hdr, 'slit')
+                        _slit = ntt.util.readkey3(hdr, 'slit')
                         if _slit.lower() != 'free': _type = 'spectroscopic data'
                     if not _type:
-                        _catg = readkey3(hdr, 'catg')
+                        _catg = ntt.util.readkey3(hdr, 'catg')
                         if 'science' in _catg.lower() or 'acquisition' in _catg.lower():
                             _type = 'object'
                             if _filter not in filterlist: filterlist.append(_filter)
@@ -148,7 +147,7 @@ if __name__ == "__main__":
                             _type = 'not good'
                     if not _type:
                         print 'warning: object not recognized '
-                        _object = readkey3(hdr, 'object')
+                        _object = ntt.util.readkey3(hdr, 'object')
                         print img, _object, _imagetype, _filter
                         answ = raw_input('what is it: bias [1], flat [3], object[4], test [5] ?  [5] ')
                         if not answ:
