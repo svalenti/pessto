@@ -1,0 +1,60 @@
+#!/usr/bin/env python
+
+import re
+import sys
+import ntt
+from optparse import OptionParser
+
+description = "> Specroscopic reduction of sofi data (2D -> 1D)"
+usage = "%prog \t list2Dfile \t [options]"
+
+if __name__ == "__main__":
+    parser = OptionParser(usage=usage, description=description, version="%prog " + str(ntt.__version__))
+    # parser.add_option("-l", "--list",dest="input",default='listfiles',type="str", help='list of 2D wavelenght calibrated frame')
+    parser.add_option("-i", "--interactive", dest="interactive", action="store_true")
+    parser.add_option("-v", "--verbose", dest="verbose", action="store_true")
+    parser.add_option("-s", "--standard", dest="liststand", default='', type="str",
+                      help='use stadnard from this list (to be tested) ')
+    parser.add_option("-t", "--trace", dest="trace", action="store_true", help='trace extraction with another frame ')
+    parser.add_option("-d", "--dispersion", dest="dispersionline", action="store_true",
+                      help='chose interactively the dispersion line ')
+    parser.add_option("-A", "--Automatic", dest="automatic", action="store_true",
+                      help='extract spectrum with previous parameters in the database')
+    #     parser.add_option("-m", "--merge",dest="merge",action="store_false", help='merge dither exposures manually')
+
+    option, args = parser.parse_args()
+    if len(args) < 1:  # or  option.input=='listfiles':
+        sys.argv.append('--help')
+    option, args = parser.parse_args()
+    _verbose = option.verbose
+    if not _verbose:
+        _verbose = False
+    if option.interactive == None:
+        _interactive = 'No'
+    else:
+        _interactive = 'Yes'
+    if option.trace == None:
+        _trace = 'No'
+    else:
+        _trace = 'Yes'
+    if option.dispersionline == None:
+        _dispersionline = False
+    else:
+        _dispersionline = option.dispersionline
+    if option.automatic == None:
+        _automaticex = False
+    else:
+        _automaticex = option.automatic
+    #     if option.merge==None:     _mergeframe=True
+    #     else:                               _mergeframe=option.merge
+    liststand = option.liststand
+    files = ntt.util.readlist(args[0])
+    #     files=ntt.util.readlist(option.input)
+    if len(files) > 0:
+        outputlist, rawfile = ntt.sofispec1Ddef.sofispec1Dredu(files, _interactive, _trace, _dispersionline,
+                                                               _automaticex, _verbose)
+    else:
+        outputlist = []
+    if len(outputlist) >= 1:
+        ntt.util.archivingtar(outputlist, rawfile)
+        print '\n### tar file: ' + re.sub('raw.list', 'tar.gz', rawfile)

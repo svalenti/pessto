@@ -1,0 +1,207 @@
+#!/usr/bin/env python
+
+import re
+import sys
+import glob
+import time
+import ntt
+from ntt.util import readhdr, readkey3
+from optparse import OptionParser
+
+description = "> Fast photometry reduction of efosc images "
+usage = "%prog  \t [listfile -B bias (use this bias) -F flatlist (use these flats) ...... ]"
+
+if __name__ == "__main__":
+    parser = OptionParser(usage=usage, description=description, version="%prog " + str(ntt.__version__))
+    parser.add_option("-v", "--verbose", dest="verbose", action="store_true")
+    parser.add_option("-f", "--flat", dest="doflat", help='do not apply flat correction', action="store_false")
+    parser.add_option("-F", "--listflat", dest="listflat", default='', type="str", help='use flats from this list')
+    parser.add_option("-b", "--bias", dest="dobias", help='do not apply bias correction', action="store_false")
+    parser.add_option("-B", "--listbias", dest="listbias", default='', help='use this bias', type="str")
+    parser.add_option("-m", "--mask", dest="dobadpixel", action="store_false",
+                      help='do not apply bad pixel mask correction')
+    parser.add_option("-M", "--maskbadpixel", dest="badpixelmask", default='', type="str",
+                      help='use this bad pixel mask')
+    parser.add_option("-r", "--fringing", dest="listfringing", default='', type="str",
+                      help='use fringing frame fro this list')
+    parser.add_option("-a", "--archive", dest="archive", action="store_true",
+                      help=' use only calibration from archive')
+    parser.add_option("-t", "--type", dest="type", default='all', type="str",
+                      help='file type to be reduced all,calib,science \t [%default]')
+    parser.add_option("-c", "--correctobj", dest="correctobj", default='', type="str",
+                      help='file containing name of objects \t [%default]')
+    parser.add_option("-s", "--system", dest="system", default='filter', type="str",
+                      help='reference photometric system [landolt,sloan,filter] \t [%default]')
+    parser.add_option("-C", "--cosmic", dest="cosmic", action="store_true")
+    parser.add_option("--method", dest="method", default='vizir', type="str",
+                      help='method to query catalogue (iraf,vizir) \t[%default]')
+
+    option, args = parser.parse_args()
+    _verbose = option.verbose
+    filenameobjects = option.correctobj
+    _cosmic = option.cosmic
+    method = option.method
+    if not _cosmic:
+        _cosmic = False
+    if not _verbose:
+        _verbose = False
+    if option.archive == None:
+        _archive = False
+    else:
+        _archive = option.archive
+    if option.dobias == None:
+        _dobias = True
+    else:
+        _dobias = option.dobias
+    if option.dobadpixel == None:
+        _dobadpixel = True
+    else:
+        _dobadpixel = option.dobadpixel
+    if option.doflat == None:
+        _doflat = True
+    else:
+        _doflat = option.doflat
+    if option.listbias:
+        listbias = ntt.util.readlist(option.listbias)
+    else:
+        listbias = ''
+    if option.listflat:
+        listflat = ntt.util.readlist(option.listflat)
+    else:
+        listflat = ''
+    if option.listfringing:
+        listfringing = ntt.util.readlist(option.listfringing)
+    else:
+        listfringing = ''
+
+    starttime = time.time()
+    typefile = option.type
+    if typefile.lower in ['all', 'a']:
+        typefile = 'all'
+    elif typefile in ['calib', 'c']:
+        typefile = 'calib'
+    elif typefile in ['s', 'science']:
+        typefile = 'science'
+    _system = option.system
+    if _system not in ['filter', 'landolt', 'sloan']:
+        sys.argv.append('--help')
+
+    if typefile == 'science': _archive = True
+    badpixelmask = option.badpixelmask
+    option, args = parser.parse_args()
+    if len(args) > 1:
+        sys.argv.append('--help')
+        option, args = parser.parse_args()
+    elif len(args) == 1:
+        files = ntt.util.readlist(args[0])
+        _interactive = 'False'
+    else:
+        listfile = glob.glob('EFOSC*fits')
+        sciencelist = []
+        biaslist = []
+        flatlist = {}
+        flatlist2 = {}
+        filterlist = []
+        print 'making the list with raw data in the current directory ...... please wait'
+        for img in listfile:
+            hdr = readhdr(img)
+            _type = ''
+            if not readkey3(hdr, 'ARCFILE') and not readkey3(hdr, 'ORIGFILE'):
+                _type = 'not good'
+            if not _type and img not in [readkey3(hdr, 'ARCFILE'), readkey3(hdr, 'ORIGFILE'),
+                                         re.sub(':', '_', readkey3(hdr, 'ARCFILE'))]:
+                _type = 'not good'
+            if not _type:
+                _naxis1 = readkey3(hdr, 'NAXIS1')
+                _naxis2 = readkey3(hdr, 'NAXIS2')
+                if _naxis1 != 1030 or _naxis2 != 1030:
+                    _type = 'not good'
+                if not _type and readkey3(hdr, 'speed') != 'fastL':
+                    _type = 'not good'
+                if not _type and readkey3(hdr, 'instrume') != 'efosc':
+                    _type = 'not good'
+                _imagetype = readkey3(hdr, 'tech')
+                if not _type and _imagetype == 'SPECTRUM':
+                    _type = 'spectroscopic data'
+                if not _type:
+                    _exptime = readkey3(hdr, 'exptime')
+                    _filter = readkey3(hdr, 'filter')
+                    if float(_exptime) == 0.0:
+                        _type = 'bias'
+                    if not _type:
+                        _object = readkey3(hdr, 'object')
+                        if _filter.lower() in ['g782', 'r784', 'z623', 'u640', 'b639', 'v641', 'r642',
+                                               'i705'] and _imagetype == 'IMAGE':
+                            if 'sky,flat' in _object.lower():
+                                _type = 'flat'
+                            elif 'dome' in _object.lower() or 'flat' in _object.lower():
+                                _type = 'flat2'
+                    if not _type:
+                        _slit = readkey3(hdr, 'slit')
+                        if _slit.lower() != 'free': _type = 'spectroscopic data'
+                    if not _type:
+                        _catg = readkey3(hdr, 'catg')
+                        if 'science' in _catg.lower() or 'acquisition' in _catg.lower():
+                            _type = 'object'
+                            if _filter not in filterlist: filterlist.append(_filter)
+                        elif 'focus' in _object.lower():
+                            _type = 'not good'
+                    if not _type:
+                        print 'warning: object not recognized '
+                        _object = readkey3(hdr, 'object')
+                        print img, _object, _imagetype, _filter
+                        answ = raw_input('what is it: bias [1], flat [3], object[4], test [5] ?  [5] ')
+                        if not answ:
+                            answ = '5'
+                        if answ == '1':
+                            _type = 'bias'
+                        elif answ == '3':
+                            _type = 'flat'
+                        elif answ == '4':
+                            _type = 'object'
+                        elif answ == '5':
+                            _type = 'not good'
+            if _type == 'object':  sciencelist.append(img)
+            if _type == 'flat':
+                if _filter not in flatlist: flatlist[_filter] = []
+                flatlist[_filter].append(img)
+            if _type == 'flat2':
+                if _filter not in flatlist2: flatlist2[_filter] = []
+                flatlist2[_filter].append(img)
+            if _type == 'bias':    biaslist.append(img)
+
+        print '\n ####  select good  bias ###### \n'
+        biaslist = ntt.efoscphotredudef.rejectbias(biaslist, True)
+        files = list(biaslist) + list(sciencelist)
+        for _filter in filterlist:
+            print '\n###### check flat with filter ' + str(_filter) + '##### \n'
+            if _filter not in flatlist.keys():
+                if _filter in flatlist2.keys():
+                    if len(flatlist2[_filter]) >= 3: flatlist[_filter] = flatlist2[_filter]
+            elif len(flatlist[_filter]) <= 3:
+                if _filter in flatlist2.keys():
+                    if len(flatlist2[_filter]) >= 3: flatlist[_filter] = flatlist2[_filter]
+            if _filter in flatlist.keys():
+                flatlist[_filter] = ntt.efoscphotredudef.rejectflat(flatlist[_filter], True)
+                files = files + flatlist[_filter]
+
+        print '\n  writing the list in listfiles, if you want to reduce again the data using the files ' \
+              'selected use the option \n listfiles \n'
+        time.sleep(1)
+        _interactive = 'True'
+        f = open('listfiles', 'w')
+        for img in files: f.write(img + '\n')
+        f.close()
+    if len(files) > 0:
+        outputlist, rawfile = ntt.efoscphotredudef.efoscreduction(files, _interactive, _dobias, _doflat, listflat,
+                                                                  listbias, _dobadpixel, badpixelmask, listfringing,
+                                                                  _archive, typefile, filenameobjects, _system, _cosmic,
+                                                                  _verbose, method)
+    else:
+        outputlist = []
+    if len(outputlist) >= 1:
+        ntt.util.archivingtar(outputlist, rawfile)
+
+    stoptime = time.time()
+    print 'runnning time ' + str(stoptime - starttime)
+

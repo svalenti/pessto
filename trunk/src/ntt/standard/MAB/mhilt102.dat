@@ -1,0 +1,46 @@
+#*
+#*                   H I L 1 0 2
+#*
+#*   Table file for flux standard HIL102 based on data from
+#*   Stone, R.P.S., 1977. Astrophys. J., 218, 767.
+#*   Adapted from SPICA .OKE file of the same or similar name.
+#*
+#*   These data are directly measured fluxes and should be used accordingly.
+#*   This file is designed for use with the Figaro routine GSPIKE.
+#*
+#SET .Z.UNITS = "AB magnitudes"
+#SET .Z.LABEL = "Flux"
+#SET .Z.REVSCALE = 1
+#SET .Z.MAGFLAG = 1
+#SET .TABLE.BANDWIDTH =  49
+#SET .TABLE.LAMBDA_DOUBLE =  5263
+#*
+ 3200 11.98  50
+ 3250 11.92  50
+ 3300 11.80  50
+ 3350 11.78  50
+ 3400 11.73  50
+ 3450 11.71  50
+ 3500 11.66  50
+ 3571 11.63  50
+ 3636 11.59  50
+ 3704 11.55  50
+ 3862 11.31  50
+ 4036 11.24  50
+ 4167 11.16  50
+ 4255 11.13  50
+ 4464 11.03  50
+ 4566 10.95  50
+ 4785 10.87  50
+ 5000 10.73  50
+ 5263 10.53  50
+ 5556 10.35  50
+ 5840 10.28  50
+ 6056 10.22  50
+ 6436 10.13  50
+ 6790 10.01  50
+ 7100  9.93  50
+ 7550  9.86  50
+ 7780  9.81  50
+ 8090  9.74  50
+ 8370  9.72  50

@@ -1,0 +1,121 @@
+v1.0, 20120420 -- Initial release.
+------
+v1.1, 20120601 -- changes:
+
+-  date of observation is now fixed to the night of observation also for observation after the mid-night. If an object is observed in two consecutive nights (after midnight in the first night and before midnight during the second night ) and pre-reduced in two different folders will now different names. Multiple exposure during the same night will have a different name 'name_1,name_2,ecc'
+
+- all the iraf task are now unlearned before using them in order to don't use personal user iraf setting.
+- SOFI spectra re-extraction is skiped (using option -A) if the extraction was performed before.  
+- aperture informations from database/ directory added to the tar file
+- sofi photometry:  sky image added to the header as "skysub"
+- if header stdname not present in the standard file (reduced outside the pipeline), sens function crash, warning needed  DONE
+- unlearn task warning in efoscspec1d to be checked      DONE
+- the mask pylab plot on/off freeze on centos            DONE
+- replace flatcor and illcor in sofi images directly with image name instead of the long header ?  DONE
+- add A-B information in sofi spectrum (probably in the header as "skysub")  DONE
+- reduce standard alone if object not available          DONE
+- add a .list file with all raw data used to the tar     DONE
+- zeropoint landolt filters in sloan field to be check   DONE
+- question on extracting the spectrum again, not working any more   DONE 
+- adding JD_reduction in the names                       DONE
+- adding filetype keyword in the reduced files           DONE
+- question on shift (to be removed in not interactive way)  DONE
+- readkey divided in readhdr (to read the header) and readkey3 to connect to hierarch keywords (speed up a lot starting list)
+- range spectra included
+- sofi images combination performed with swarp
+- 2d SOFI flux calibrated spectra
+- weight mask
+- TRACE,PROV   added
+- limit magnitude                        DONE
+- MJD-END                                DONE
+- saturation level                       DONE
+- S/N					 DONE
+- mbkg sofi images fixed from sky image  DONE
+
+v1.1.3b, 20120920 -- changes:
+
+-  weight mask added using swarp
+-  pyfits.writeto write 32bit file  using numpy.float32
+-  cosmic correction added with lacos
+-  sofi arc now obtained as lamp ON - lamp OFF
+-  fixed residual in SOFI images, masking was not applied
+
+
+Next bugs/changes to be fixed:
+* strange continuum on sky dimension, to be checked
+- infrared sofi flux (wrong scale)  DONE
+- header for phase 3 	    	    DONE
+- updateheader  takes now a dictionary  
+
+v2.0.0  -changes:
+- working now with pyfits-3.0
+- last header for phase 3 added
+- query catalogue, now use vizquery
+
+
+v2.2.1 -changes to correct ESO realse
+- add this line to make working with iraf 2.16 
+  iraf.ccdred.instrument = "/dev/null" 
+- removed all this keywords ?
+   PC1_1 PC1_2 PC2_2 
+- change reference in the header
+util.py:            'REFERENC':['Smartt et al 2014','Bibliographic reference']
+- change way how mag limit is computed 
+maglim=_ZP -2.5 * log10( _sn/(_gain*_exptime) * (npix*(_mbkg*_gain)+(EFFRON**2)*npix)**(1./2.) )
+- change saturation mag 
+magsat=-2.5*math.log10(  (math.pi/(4*math.log(2.)))*(60000.-float(mbkg3))*((float(fwhmgess3)/0.24)**2)  )
+- change step in the wavelength calibration check from 1 A to .1 A
+- CDELT 1 CDELT2   commented 
+- problem   'ABMAGLIM = INF.0'  solved 
+-  SOFI images  Ncombine set to only images on source 
+- SPEC_SYE set to 1 
+
+sofi spec  2D 
+texp=float(readkey3(hdr,'dit'))*float(readkey3(hdr,'ndit'))
+mjdend=float(readkey3(hdr,'MJD-OBS'))+(float(readkey3(hdr,'ndit'))*float(readkey3(hdr,'dit'))+1.8)/(60.*60.*24.)
+_telapse=mjdend-float(readkey3(hdr,'MJD-OBS'))
+tmid=_telapse/2.	
+
+sofi spec 1D 
+'EXPTIME':[readkey3(hdr1,'EXPTIME')*len(listmerge),'Total integration time per pixel (s)'],\
+'TEXPTIME':[float(readkey3(hdr1,'TEXPTIME'))*len(listmerge),'Total integration time of all exposures (s)'],\
+_telapse=(max(mjdend)-min(mjdstart))# *86400
+_tmid=_telapse/2.
+
+sofi phot
+mjdend=float(readkey3(hdrn,'MJD-OBS'))+(float(readkey3(hdrn,'ndit'))*float(readkey3(hdrn,'dit'))+1.8)/(60.*60.*24.)
+texp=float(readkey3(hdrn,'dit'))*float(readkey3(hdrn,'ndit'))
+'TEXPTIME':[texp,'Total integ. time of all exposure (s)'],\
+'EXPTIME':[texp,'Total integ. time of all exposure (s) '+strtexp],\
+
+efosc spectra
+ 'TEXPTIME':[readkey3(hdr,'EXPTIME'),'Total integ. time of all exposure']}   
+               mjdend=float(readkey3(hdr,'MJD-OBS'))+(float(readkey3(hdr,'exptime'))*0.00001/(0.864))
+#               mjdend=float(readkey3(hdr,'MJD-OBS'))+float(readkey3(hdr,'exptime'))+1.8)/(60.*60.*24.)   ?? 
+               hedvec['TELAPSE']=[86400*(mjdend-float(readkey3(hdr,'MJD-OBS'))),'Total elapsed time [s]']  # second or days ?
+               hedvec['TMID']=[(mjdend+float(readkey3(hdr,'MJD-OBS')))/2.,' [d] MJD mid exposure']
+
+efosc phot
+'TEXPTIME':[readkey3(hdr,'EXPTIME'),'Total integ. time of all exposure']
+hedvec['MJD-END']=[float(readkey3(hdr,'MJD-OBS'))+(float(readkey3(hdr,'exptime'))*0.00001/(0.864)),'MJD-END = MJD-OBS + JD(exptime)']  correct ?
+
+- cut header longer than 68
+
+- compute EFFRON twice (also in the lim mag, since lim mag if computed before EFFRON and EFFRON keyword is still not update when limit is computed
+
+- efosc sensitivity function updated
+- sofi flat fields updated
+- using SDSS DR9 instead of DR7
+- added interactive zeropoint to PESSTOASTRO
+- added interactive astrometry to PESSTOASTRO
+ 
+############ test on v2.2.1 ######
+PESSTOFASTSPEC       run correctly and select new sensitivity function
+PESSTOEFOSC2DSPEC    run correctly   (wavelength check use steps .1 as implemented)
+PESSTOEFOSC1DSPEC    run correctly
+PESSTOEFOSCPHOT      run correctly
+long keyword cut correctly 
+
+
+
+

@@ -1,0 +1,100 @@
+#!/usr/bin/env python
+
+import re
+import sys, glob
+import ntt
+from ntt.util import readhdr, readkey3
+from optparse import OptionParser
+
+description = "> Fast photometry pre-reduction of sofi images "
+usage = "%prog  \t   [listfile  ... more options ]"
+
+if __name__ == "__main__":
+    parser = OptionParser(usage=usage, description=description, version="%prog " + str(ntt.__version__))
+    parser.add_option("-i", "--interactive", dest="interactive", action="store_true")
+    parser.add_option("-v", "--verbose", dest="verbose", action="store_true")
+    # parser.add_option("-l", "--list",dest="input",default='nofiles',type="str", help=' list of raw SOFI data')
+    parser.add_option("-f", "--flat", dest="doflat", action="store_false", help=' not apply FLAT corrections')
+    parser.add_option("-F", "--listflat", dest="listflat", default='', type="str", help='use flat from this list')
+    parser.add_option("-m", "--doill", dest="doill", action="store_false", help=' not apply illumination corrections')
+    parser.add_option("-M", "--illuminationlist", dest="listill", default='', type="str",
+                      help='use illumination file from this list')
+    parser.add_option("-c", "--docross", dest="docross", action="store_false", help=' not apply cross-talk corrections')
+    parser.add_option("-r", "--rejection", dest="regi", default="crreject",
+                      help=' rejection when combine images for sky')
+    parser.add_option("--method", dest="method", default='vizir', type="str",
+                      help='method to query catalogue (iraf,vizir) \t[%default]')
+    option, args = parser.parse_args()
+
+    if len(args) > 1:
+        sys.argv.append('--help')
+        option, args = parser.parse_args()
+    elif len(args) == 1:
+        files = ntt.util.readlist(args[0])
+    else:
+        listfile = glob.glob('*fits')
+        print '\n### making the list with raw data in the current directory ...... please wait'
+        files = []
+        for img in listfile:
+            hdr = readhdr(img)
+            _type = ''
+            if not readkey3(hdr, 'ARCFILE') and not readkey3(hdr, 'ORIGFILE'):     _type = 'not good'
+            if not _type and img not in [readkey3(hdr, 'ARCFILE'), readkey3(hdr, 'ORIGFILE'),
+                                         re.sub(':', '_', readkey3(hdr, 'ARCFILE'))]:
+                _type = 'not good'
+            if not _type and readkey3(hdr, 'instrume') != 'sofi':
+                _type = 'not good'
+            if not _type:
+                _object = readkey3(hdr, 'object')
+                _filter = readkey3(hdr, 'filter')
+                if not _type and _filter.lower() in ['grf', 'gbf']:
+                    _type = 'spectrum'
+                if not _type and _object.lower() in ['flat', 'dark', 'sky']:
+                    _type = 'image'
+            if not _type:
+                if str(readkey3(hdr, 'xcum')) != 'None' and str(readkey3(hdr, 'ycum')) != 'None':
+                    _type = 'image'
+            if not _type:
+                print '\n### ' + readkey3(hdr, 'object'), readkey3(hdr, 'filter'), str(readkey3(hdr, 'xcum')), str(
+                    readkey3(hdr, 'ycum'))
+                answ = raw_input('\n### What is it: image,flat,bias,illumin [1], other [2] ? [2] ')
+                if not answ:  answ = '2'
+                if answ == '1':
+                    _type = 'image'
+                elif answ == '2':
+                    _type = 'not good'
+            if _type == 'image':
+                files.append(img)
+    _verbose = option.verbose
+    if not _verbose:
+        _verbose = False
+    _interactive = option.interactive
+    if not _interactive:
+        _interactive = False
+    if option.doill == None:
+        _doill = True
+    else:
+        _doill = option.doill
+    if option.docross == None:
+        _docross = True
+    else:
+        _docross = option.docross
+    if option.doflat == None:
+        _doflat = True
+    else:
+        _doflat = option.doflat
+    if option.listill:
+        listill = ntt.util.readlist(option.listill)
+    else:
+        listill = ''
+    if option.listflat:
+        listflat = ntt.util.readlist(option.listflat)
+    else:
+        listflat = ''
+    method = option.method
+    _regi = option.regi
+    outputlist, rawfile = ntt.sofiphotredudef.sofireduction(files, listill, listflat, _docross, _doflat, _doill,
+                                                            _interactive, _regi, _verbose, method)
+    if len(outputlist) >= 1:
+        ntt.util.archivingtar(outputlist, rawfile)
+        print '\n### tar file: ' + re.sub('raw.list', 'tar.gz', rawfile)

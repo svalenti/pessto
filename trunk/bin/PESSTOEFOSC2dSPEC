@@ -1,0 +1,120 @@
+#!/usr/bin/env python
+
+import re
+import sys
+import glob
+import ntt
+import time
+from ntt.util import readhdr, readkey3
+from optparse import OptionParser
+
+description = "> Specroscopic pre-reduction of efosc data "
+usage = "%prog  \t [listfile -B bias (use this bias) -F flatlist (use these flats) .....]"
+
+if __name__ == "__main__":
+    parser = OptionParser(usage=usage, description=description, version="%prog " + str(ntt.__version__))
+    parser.add_option("-i", "--interactive", dest="interactive", action="store_true")
+    parser.add_option("-C", "--cosmic", dest="cosmic", action="store_true")
+    parser.add_option("-v", "--verbose", dest="verbose", action="store_true")
+    parser.add_option("-f", "--flat", dest="doflat", action="store_false")
+    parser.add_option("-F", "--listflat", dest="listflat", default='', type="str",
+                      help='name flat list \t [%default]')
+    parser.add_option("-b", "--bias", dest="dobias", action="store_false")
+    parser.add_option("-B", "--listbias", dest="listbias", default='', type="str",
+                      help='name bias list \t [%default]')
+    parser.add_option("-a", "--listarc", dest="listarc", default='', type="str",
+                      help='name arc list \t [%default]')
+    option, args = parser.parse_args()
+
+    # ###########################################################
+
+    starttime = time.time()
+    if len(args) > 1:
+        sys.argv.append('--help')
+        option, args = parser.parse_args()
+    elif len(args) == 1:
+        files = ntt.util.readlist(args[0])
+    else:
+        listfile = glob.glob('EFOSC*fits')
+        files = []
+        print 'making the list with raw data in the current directory ...... please wait'
+        for img in listfile:
+            _type = ''
+            hdr0 = readhdr(img)
+            if not readkey3(hdr0, 'ARCFILE') and not readkey3(hdr0, 'ORIGFILE'):
+                _type = 'not good'
+            if not _type and img not in [readkey3(hdr0, 'ARCFILE'), readkey3(hdr0, 'ORIGFILE'),
+                                         re.sub(':', '_', readkey3(hdr0, 'ARCFILE'))]:
+                _type = 'name not original or archive format'
+            if not _type:
+                _naxis1 = readkey3(hdr0, 'NAXIS1')
+                _naxis2 = readkey3(hdr0, 'NAXIS2')
+                if _naxis1 != 1030 or _naxis2 != 1030:
+                    _type = 'not standard dimension 1030x1030'
+                if not _type and readkey3(hdr0, 'speed') != 'fastL':
+                    _type = 'not slow reading ccd'
+                if not _type and readkey3(hdr0, 'instrume') != 'efosc':
+                    _type = 'not efosc intrument'
+                _imagetype = readkey3(hdr0, 'tech')
+                if not _type and _imagetype == 'SPECTRUM':
+                    _type = 'spectroscopic data'
+                _exptime = readkey3(hdr0, 'exptime')
+                if not _type:
+                    if float(_exptime) == 0.0:
+                        _type = 'bias'
+                if not _type and _imagetype == 'IMAGE':
+                    _type = 'image'
+                if not _type:
+                    print 'warning: object not recognized '
+                    _object = readkey3(hdr0, 'object')
+                    _filter = readkey3(hdr0, 'filter')
+                    print img, _object, _imagetype, _filter
+                    answ = raw_input('what is it: bias [1], flat [3], object[4], not spectra [5] ?  [5] ')
+                    if not answ:  answ = '5'
+                    if answ == '1':
+                        _type = 'bias'
+                    elif answ == '3':
+                        _type = 'flat'
+                    elif answ == '4':
+                        _type = 'object'
+                    elif answ == '5':
+                        _type = 'not good'
+            if _type in ['spectroscopic data', 'bias']:
+                files.append(img)
+    _verbose = option.verbose
+    if not _verbose: _verbose = False
+    _interactive = option.interactive
+    if not _interactive:   _interactive = False
+    _cosmic = option.cosmic
+    if not _cosmic:   _cosmic = False
+    if option.dobias == None:
+        _dobias = True
+    else:
+        _dobias = option.dobias
+    if option.doflat == None:
+        _doflat = True
+    else:
+        _doflat = option.doflat
+    if option.listbias:
+        listbias = ntt.util.readlist(option.listbias)
+    else:
+        listbias = ''
+    if option.listflat:
+        listflat = ntt.util.readlist(option.listflat)
+    else:
+        listflat = ''
+    if option.listarc:
+        listarc = ntt.util.readlist(option.listarc)
+    else:
+        listarc = ''
+    if len(files) > 0:
+        outputlist, rawfile = ntt.efoscspec2Ddef.efoscspecreduction(files, _interactive, _dobias, _doflat, listflat,
+                                                                    listbias, listarc, _cosmic, _verbose)
+    else:
+        outputlist = []
+    if len(outputlist) >= 1:
+        ntt.util.archivingtar(outputlist, rawfile)
+        print '\n### tar file: ' + re.sub('raw.list', 'tar.gz', rawfile)
+        print "\n### collect all 2d-frames in a list and run:  PESSTOEFOSC1dSPEC listfiles"
+    stoptime = time.time()
+    print 'runnning time ' + str(stoptime - starttime)

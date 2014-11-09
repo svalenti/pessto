@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+from optparse import OptionParser
+import pyfits
+from pyraf import iraf
+import ntt
+import string
+import os
+import re
+import glob
+
+usage = "%prog  -v"
+
+pessto_dir = ntt.__path__[0]
+
+if __name__ == "__main__":
+    parser = OptionParser(usage=usage, version="%prog " + str(ntt.__version__))
+    parser.add_option("-v", "--verbose", dest="verbose", action="store_true", default=False,
+                      help='Print tasks description')
+    option, args = parser.parse_args()
+
+
+def aiuto(verbose):  # ##################                ####################
+    import re, string, os
+
+    direc = re.sub('PESSTOEFOSCPHOT\n', '', os.popen('which PESSTOEFOSCPHOT').readlines()[0])
+    righe = glob.glob(direc + 'PESSTO*')
+    print "#" * 30 + "       PESSTO      " + "#" * 30
+    for r in righe:
+        prog = string.split(r, '/')[-1]
+        print prog, '-h  (show the help message)'
+    print "#" * 60 + "   @stefano"
+
+
+if __name__ == "__main__":
+    aiuto(option.verbose)

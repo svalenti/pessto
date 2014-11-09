@@ -1,0 +1,92 @@
+#!/usr/bin/env python
+
+
+import sys
+import glob
+import re
+import ntt
+from ntt.util import readhdr, readkey3
+from optparse import OptionParser
+
+description = "> Specroscopic pre-reduction of sofi data (2D)"
+usage = "%prog  \t [listfile ...  more options] "
+
+if __name__ == "__main__":
+    parser = OptionParser(usage=usage, description=description, version="%prog " + str(ntt.__version__))
+    parser.add_option("-i", "--interactive", dest="interactive", action="store_true")
+    parser.add_option("-v", "--verbose", dest="verbose", action="store_true")
+    # parser.add_option("-l", "--list",dest="input",default='nofiles',type="str", help='list of raw SOFI data ')
+    parser.add_option("-f", "--flat", dest="doflat", action="store_false", help='do not apply flat correction ')
+    parser.add_option("-F", "--listflat", dest="listflat", default='', type="str", help='use  flat from this list')
+    parser.add_option("-c", "--docross", dest="docross", action="store_false",
+                      help='do not apply cross-talk correction ')
+    option, args = parser.parse_args()
+
+    if len(args) > 1:
+        sys.argv.append('--help')
+        option, args = parser.parse_args()
+    elif len(args) == 1:
+        files = ntt.util.readlist(args[0])
+        _interactive = 'False'
+    else:
+        listfile = glob.glob('*fits')
+        print '\n### making the list with raw data in the current directory ...... please wait'
+        files = []
+        for img in listfile:
+            _type = ''
+            hdr = readhdr(img)
+            if not readkey3(hdr, 'ARCFILE') and not readkey3(hdr, 'ORIGFILE'):     _type = 'not good'
+            if not _type and img not in [readkey3(hdr, 'ARCFILE'), readkey3(hdr, 'ORIGFILE'),
+                                         re.sub(':', '_', readkey3(hdr, 'ARCFILE'))]:
+                _type = 'not good'
+            if not _type and readkey3(hdr, 'instrume') != 'sofi':
+                _type = 'not good'
+            if not _type:
+                _object = readkey3(hdr, 'object')
+                _filter = readkey3(hdr, 'filter')
+                if not _type and _filter.lower() in ['grf', 'gbf']:
+                    _type = 'spectrum'
+                if not _type and _object.lower() in ['flat', 'dark', 'sky']:
+                    _type = 'spectrum'
+            if not _type:
+                if str(readkey3(hdr, 'xcum')) != 'None' and str(readkey3(hdr, 'ycum')) != 'None':
+                    _type = 'image'
+            if not _type:
+                print '\n### ' + readkey3(hdr, 'object'), readkey3(hdr, 'filter'), str(readkey3(hdr, 'xcum')), str(
+                    readkey3(hdr, 'ycum'))
+                answ = raw_input('\n### What is it: spectrum,flat [1], other [2] ? [2] ')
+                if not answ:  answ = '2'
+                if answ == '1':
+                    _type = 'spectrum'
+                elif answ == '2':
+                    _type = 'not good'
+            if _type == 'spectrum':
+                files.append(img)
+    _verbose = option.verbose
+    if not _verbose:
+        _verbose = False
+    _interactive = option.interactive
+    if not _interactive:
+        _interactive = False
+    if option.doflat == None:
+        _doflat = True
+    else:
+        _doflat = option.doflat
+    if option.docross == None:
+        _docross = True
+    else:
+        _docross = option.docross
+    listflat = option.listflat
+    if listflat:
+        listflat = ntt.util.readlist(listflat)
+    else:
+        listflat = []
+    if len(files) > 0:
+        outputlist, rawfile = ntt.sofispec2Ddef.sofispecreduction(files, _interactive, _doflat, listflat, _docross,
+                                                                  _verbose)
+    else:
+        outputlist = []
+    if len(outputlist) >= 1:
+        ntt.util.archivingtar(outputlist, rawfile)
+        print '\n### tar file: ' + re.sub('raw.list', 'tar.gz', rawfile)
+        print "\n### collect all 2d-frames in a list and run:  PESSTOSOFI1dSPEC listfiles"

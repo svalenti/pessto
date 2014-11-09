@@ -1,0 +1,301 @@
+#!/usr/bin/env python
+
+import ntt
+import string
+import sys
+import re
+import os
+from ntt.util import readkey3, readhdr
+from optparse import OptionParser
+import numpy as np
+import time
+
+description = "> Fast astrometry of efosc and sofi images "
+usage = "%prog  listfile"
+from pyraf import iraf
+
+
+def xpa(arg):
+    import subprocess
+
+    subproc = subprocess.Popen('xpaset -p ds9 ' + arg, shell=True)
+    subproc.communicate()
+
+
+if __name__ == "__main__":
+    parser = OptionParser(usage=usage, description=description)
+    parser.add_option("-f", "--fit", dest="fitgeo", default='rxyscale', type="str",
+                      help='fit fitgeo \t rxyscale, xyscale, shift, general \t[%default]')
+    parser.add_option("-s", "--system", dest="system", default='filter', type="str",
+                      help='reference photometric system: landolt,sloan,2mass,filter(selected by filter) \t[%default]')
+    parser.add_option("-c", "--catalogue", dest="catalogue", default='inst', type="str",
+                      help='reference catalogue: usnoa2, usnob2, 2mass,sloan,inst(selected by instrument) \t[%default]')
+    parser.add_option("-m", "--method", dest="method", default='vizir', type="str",
+                      help='method to query catalogue (iraf,vizir) \t[%default]')
+    parser.add_option("-n", "--number1", dest="number1", default=40, type="int",
+                      help='number stars iteraction 1 \t [%default]')
+    parser.add_option("-N", "--number2", dest="number2", default=40, type="int",
+                      help='number stars iteraction 2 \t [%default]')
+    parser.add_option("-x", "--xmatch", dest="match", default=10, type="int",
+                      help='minimum number of stars to beleive astronomy \t [%default]')
+    parser.add_option("-M", "--number3", dest="number3", default=100, type="int",
+                      help='number stars iteraction 3 \t [%default]')
+    parser.add_option("-t", "--tollerance1", dest="tollerance1", default=100, type="int",
+                      help='tollerance (large) to cross match stars and catalogues  \t [%default]')
+    parser.add_option("-T", "--tollerance2", dest="tollerance2", default=30, type="int",
+                      help='tollerance (small) to cross match stars and catalogues \t [%default]')
+    parser.add_option("-i", "--interactive", dest="interactive", action="store_true")
+    parser.add_option("-z", "--zeropoint", dest="zeropoint", help='do zeropoint', action="store_true")
+    parser.add_option("-a", "--astrometry", dest="astrometry", help='do astrometry', action="store_true")
+    parser.add_option("-g", "--guess", dest="guess", help='guess astrometry', action="store_true")
+    parser.add_option("--crpix1", dest="crpix1", default='', type="str",
+                      help='crpix1  \t[%default]')
+    parser.add_option("--crpix2", dest="crpix2", default='', type="str",
+                      help='crpix2  \t[%default]')
+    option, args = parser.parse_args()
+    if len(args) < 1:
+        sys.argv.append('--help')
+        option, args = parser.parse_args()
+    _start = time.time()
+    imglist = ntt.readlist(args[0])
+    _interactive = option.interactive
+    if not _interactive:   _interactive = False
+    _zeropoint = option.zeropoint
+    if not _zeropoint: _zeropoint = False
+    _guess = option.guess
+    if not _guess: _guess = False
+    _fitgeo = option.fitgeo
+    _system = option.system
+    _catalogue = option.catalogue
+    _crpix1 = option.crpix1
+    _crpix2 = option.crpix2
+    _astrometry = option.astrometry
+    method = option.method
+    number1 = option.number1
+    number2 = option.number2
+    number3 = option.number3
+    _t1 = option.tollerance1
+    _t2 = option.tollerance2
+    _minnum = option.match
+    for img in imglist:
+        hdr = readhdr(img)
+        _instrume = readkey3(hdr, 'instrume')
+        if _astrometry:
+            if _interactive:
+                hdr = readhdr(img)
+                ntt.efoscastrodef.wcsstart(img, '', '')
+                print 'find best match manually'
+                _RA = readkey3(hdr, 'RA')
+                _DEC = readkey3(hdr, 'DEC')
+                if not _crpix1:
+                    _shiftx = 0
+                else:
+                    _shiftx = float(_crpix1)
+                if not _crpix2:
+                    _shifty = 0
+                else:
+                    _shifty = float(_crpix2)
+                answ = 'no'
+                while answ == 'no':
+                    ntt.display_image(img, 1, '', '', False)
+                    catvec = ntt.efoscastrodef.querycatalogue('2mass', img, 'vizir')
+                    for i in catvec:
+                        if i != 'mag':
+                            catvec[i] = catvec[i][np.argsort(catvec['mag'])][:100]
+                    catvec['mag'] = catvec['mag'][np.argsort(catvec['mag'])][:100]
+                    sexvec = ntt.efoscastrodef.sextractor(img)
+                    sexvec2 = [i for i in sexvec]
+                    for i in [0, 1, 2, 3, 5, 6]:
+                        sexvec2[i] = sexvec2[i][np.argsort((np.array(sexvec2[4])))][:100]
+                    sexvec2[4] = sexvec2[4][np.argsort((np.array(sexvec2[4])))][:100]
+                    xpix, ypix, fw, cl, cm, ell, bkg = sexvec2
+
+                    aa = [str(catvec['x'][i] + _shiftx) + ' ' + str(catvec['y'][i] + _shifty) for i in
+                          range(0, len(catvec['x']))]
+                    dd = [str(xpix[i]) + ' ' + str(ypix[i]) for i in range(0, len(xpix))]
+                    iraf.tvmark(1, 'STDIN', Stdin=list(aa), mark="circle", number='yes', label='no', radii=20,
+                                nxoffse=5, nyoffse=5, color=205, txsize=4)
+                    iraf.tvmark(1, 'STDIN', Stdin=list(dd), mark="circle", number='yes', label='no', radii=10,
+                                nxoffse=5, nyoffse=5, color=206, txsize=4)
+                    print 'mark one star with > x < in frame 1 that is present in tha catalogue (green points)'
+                    ime = iraf.imexam(input=img, frame=1, logfile='', keeplog='yes', imagecur='', wcs='logical',
+                                      use_disp='yes', Stdout=1)
+                    xuser, yuser, zuser = string.split(ime[0])
+                    dist, pos0, pos1 = ntt.efoscastrodef.crossmatchxy([float(xuser)], [float(yuser)], catvec['x'],
+                                                                      catvec['y'], 200)
+                    number = raw_input('which number it is ' + str(int(pos1[0]) + 1) + ' (green numbers) ? ')
+                    if not number:
+                        number = int(pos1[0])
+                    else:
+                        number = int(number) - 1
+                    _shiftx = float(xuser) - catvec['x'][number]
+                    _shifty = float(yuser) - catvec['y'][number]
+                    aa = [str(catvec['x'][i] + _shiftx) + ' ' + str(catvec['y'][i] + _shifty) for i in
+                          range(0, len(catvec['x']))]
+                    iraf.tvmark(1, 'STDIN', Stdin=list(aa), mark="circle", number='yes', label='no', radii=5,
+                                nxoffse=-5, nyoffse=5, color=204, txsize=4)
+                    answ = raw_input('are red catalog objects close to blue detections [y/n] [n] ? ')
+                    if not answ: answ = 'no'
+
+                print 'select 3 stars present in both catalog (blue and red) '
+                ime = iraf.imexam(input=img, frame=1, logfile='', keeplog='yes', imagecur='', wcs='logical',
+                                  use_disp='yes', Stdout=1)
+                xuser2, yuser2 = zip(*[string.split(i)[0:2] for i in ime])
+                xuser2, yuser2 = np.array(xuser2, float), np.array(yuser2, float)
+                dist, pos0, pos1 = ntt.efoscastrodef.crossmatchxy(xuser2, yuser2, xpix, ypix, 20)
+                print pos0, pos1
+                dist, pos00, pos11 = ntt.efoscastrodef.crossmatchxy(xuser2, yuser2, catvec['x'] + _shiftx,
+                                                                    catvec['y'] + _shifty, 20)
+                print pos00, pos11
+                lista = zip(np.array(xpix[pos1], str), np.array(ypix[pos1], str), np.array(catvec['ra'][pos11], str),
+                            np.array(catvec['dec'][pos11], str))
+                inputcmap = ['  '.join(i) for i in lista]
+                _ccmap1 = iraf.ccmap('STDIN', 'STDOUT', images=img, Stdin=inputcmap, fitgeome='rscale',
+                                     lngunit='degrees', update='yes', interact=False, Stdout=1)
+                rmsx, rmsy = np.array(
+                    string.split(string.split(_ccmap1[_ccmap1.index('Wcs mapping status') + 1], ':')[-1])[0:2], float)
+                astrostring = str(rmsx) + ' ' + str(rmsy) + ' ' + str(len(xuser2))
+                ntt.util.updateheader(img, 0, {'ASTROMET': [astrostring, 'rmsx rmsy nstars']})
+                rasys = 0.0000278
+                decsys = 0.0000278
+
+                ellgess = np.median(np.array(ell[pos1]))
+                if _instrume == 'efosc':
+                    fwhmgess = np.median(np.array(fw[pos1])) * .68 * 2.35 * readkey3(hdr, 'binx') * .12
+                elif _instrume == 'sofi':
+                    fwhmgess = np.median(np.array(fw[pos1])) * .68 * 2.35 * 0.288
+                mbkg3 = np.median(bkg[pos1])
+
+                print '\n### check astrometry: fine \n### rmsx rmsy nstars: ' + astrostring
+                ntt.util.updateheader(img, 0, {'PSF_FWHM': [fwhmgess, 'FHWM (arcsec) - computed with sectractor'],
+                                               'ELLIPTIC': [ellgess, 'ellipticity of point sources (1-b/a)'],
+                                               'CRDER1': [(1 / np.sqrt(2.)) * float(rmsx), 'Random error in axis 1'],
+                                               'CRDER2': [(1 / np.sqrt(2.)) * float(rmsy), 'Random error in axis 2'],
+                                               'CUNIT1': ['deg', 'unit of the coord. trans.'],
+                                               'CUNIT2': ['deg', 'unit of the coord. trans.'],
+                                               'CSYER1': [rasys, 'Systematic error (RA_m - Ra_ref)'],
+                                               'CSYER2': [decsys, 'Systematic error (DEC_m - DEC_ref)']})
+
+                # raw_input('dddd')
+            # ##############################################
+            else:
+                #_interactive=True
+                sexvec = ntt.efoscastrodef.sextractor(img)
+                try:
+                    if _instrume == 'sofi':
+                        if _catalogue == 'inst': _catalogue = '2mass'
+                        rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, mbkg3 = \
+                            ntt.efoscastrodef.efoscastroloop([img], _catalogue, _interactive, number1,
+                            number2, number3, 'rxyscale', _t1, _t2, sexvec, _guess, _minnum, method, _crpix1, _crpix2)
+                        if rmsx3 > 2 or rmsy3 > 2:
+                            rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, mbkg3 = \
+                                ntt.efoscastrodef.efoscastroloop([img], _catalogue, _interactive, int(number1 / 2.),
+                                int(number2 / 2.), int(number3 / 2.), 'rxyscale', _t1, _t2, sexvec, _guess,
+                                int(_minnum / 2.), method, _crpix1, _crpix2)
+                    else:
+                        for cat in ['2mass', 'usnoa2']:  #,'usnob1']:
+                            rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, mbkg3 = \
+                                ntt.efoscastrodef.efoscastroloop([img], cat, _interactive, number1,
+                                number2, number3, 'rxyscale', _t1, _t2, sexvec, _guess, _minnum, method, _crpix1,
+                                _crpix2)
+                            if rmsx3 <= 2 and rmsy3 <= 2: break
+                        print 'no good solution with ' + str(_minnum) + ' ' + str(number1)
+                        if rmsx3 > 2 and rmsy3 > 2:
+                            for cat in ['2mass', 'usnoa2']:  #,'usnob1']:
+                                rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, mbkg3 = \
+                                    ntt.efoscastrodef.efoscastroloop([img], cat, _interactive,
+                                    int(number1 / 2.), int(number2 / 2.), int(number3 / 2.), 'rxyscale', _t1, _t2,
+                                    sexvec, _guess, int(_minnum / 2.), method, _crpix1, _crpix2)
+                                if rmsx3 <= 2 and rmsy3 <= 2: break
+                            print 'no good solution with ' + str(_minnum / 2.) + ' ' + str(number1 / 2.)
+                            if rmsx3 > 2 and rmsy3 > 2:
+                                for cat in ['2mass', 'usnoa2']:  #,'usnob1']:
+                                    rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, mbkg3 = \
+                                        ntt.efoscastrodef.efoscastroloop([img], cat, _interactive, int(10), int(10),
+                                        int(25), 'rxyscale', _t1, _t2, sexvec, _guess, int(3), method)
+                    astrostring = str(rmsx3) + ' ' + str(rmsy3) + ' ' + str(num3)
+                    ntt.util.updateheader(img, 0, {'ASTROMET': [astrostring, 'rmsx rmsy nstars']})
+                except Exception, e:
+                    print e
+                    rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, mbkg3 = \
+                        '', '', '', '', '', '', '', '', ''
+                    print '\n### problem with astrometry, do you have network ? '
+                if fwhmgess and fwhmgess < 99:
+                    print '\n### check astrometry: fine \n### rmsx rmsy nstars: ' + astrostring
+                    ntt.util.updateheader(img, 0, {'PSF_FWHM': [fwhmgess, 'FHWM (arcsec) - computed with sectractor'],
+                                                   'ELLIPTIC': [ellgess, 'ellipticity of point sources (1-b/a)'],
+                                                   'CRDER1': [(1 / np.sqrt(2.)) * float(rmsx3),
+                                                              'Random error in axis 1'],
+                                                   'CRDER2': [(1 / np.sqrt(2.)) * float(rmsy3),
+                                                              'Random error in axis 2'],
+                                                   'CUNIT1': ['deg', 'unit of the coord. trans.'],
+                                                   'CUNIT2': ['deg', 'unit of the coord. trans.'],
+                                                   'CSYER1': [rasys3, 'Systematic error (RA_m - Ra_ref)'],
+                                                   'CSYER2': [decsys3, 'Systematic error (DEC_m - DEC_ref)']})
+                else:
+                    ntt.util.updateheader(img, 0, {'PSF_FWHM': [9999., 'FHWM (arcsec) - computed with sectractor'],
+                                                   'ELLIPTIC': [9999., 'ellipticity of point sources (1-b/a)'],
+                                                   'CRDER1': [9999., 'Random error in axis 1'],
+                                                   'CRDER2': [9999., 'Random error in axis 2'],
+                                                   'CUNIT1': ['deg', 'unit of the coord. trans.'],
+                                                   'CUNIT2': ['deg', 'unit of the coord. trans.'],
+                                                   'CSYER1': [9999., 'Systematic error (RA_m - Ra_ref)'],
+                                                   'CSYER2': [9999., 'Systematic error (DEC_m - DEC_ref)']})
+        else:
+            mbkg3 = ''
+
+        # ######################################################################################################
+        if _zeropoint:
+            try:
+                if _instrume == 'sofi':
+                    result = ntt.efoscastrodef.zeropoint(img, '2mass', False, _interactive)
+                else:
+                    result = ntt.efoscastrodef.zeropoint(img, _system, False, _interactive)
+            except:
+                result = ''
+        else:
+            print '\n###skip zeropoint'
+            result = ''
+        if result:
+            if os.path.isfile(re.sub('.fits', '.ph', img)):
+                print '\n### zeropoint ..... done'
+                for ll in result:
+                    valore = '%3.3s %6.6s %6.6s' % (str(ll), str(result[ll][1]), str(result[ll][0]))
+                    print '### ', valore
+                    ntt.util.updateheader(img, 0, {'zp' + ll: [str(valore), '']})
+        if mbkg3:
+            if readkey3(readhdr(img), 'FLUXCAL') == 'ABSOLUTE':
+                ntt.util.updateheader(img, 0, {'ABMAGSAT': [float(mbkg3) + float(readkey3(readhdr(img), 'PHOTZP')),
+                                                            'Saturation limit for point sources (AB mags)']})
+            else:
+                ntt.util.updateheader(img, 0,
+                                      {'ABMAGSAT': [float(mbkg3), 'Saturation limit for point sources (AB mags)']})
+        else:
+            ntt.util.updateheader(img, 0, {'ABMAGSAT': [9999., 'Saturation limit for point sources (AB mags)']})
+
+        hedvec1 = {}
+        maglim = ntt.util.limmag(img)
+        if maglim:
+            hedvec1['ABMAGLIM'] = [maglim,
+                                   '5-sigma limiting AB magnitude for point sources']
+        else:
+            hedvec1['ABMAGLIM'] = [9999.,
+                                   '5-sigma limiting AB magnitude for point sources']
+        ntt.util.phase3header(img)  # phase 3 definitions
+        ntt.util.airmass(img)  # phase 3 definitions
+        hedvec1['quality'] = ['Final', '']  # ntt.util.updateheader(img,0,'quality','Final')
+        if readkey3(hdr, 'tech'): hedvec1['PRODCATG'] = ['science.' + readkey3(hdr, 'tech').lower(),
+                                                         'Data product category']
+        if _instrume == 'sofi':
+            hedvec1['DIT'] = [readkey3(hdr, 'HIERARCH ESO DET DIT'), 'Detector Integration Time']
+            hedvec1['NTID'] = [readkey3(hdr, 'HIERARCH ESO DET NDIT'), 'Number of sub-integrations']
+            if not readkey3(readhdr(img), 'pixscale'): hedvec1['pixscale'] = [0.288,
+                                                                              'pixel/scale (arcsec)']
+        else:
+            hedvec1['TEXPTIME'] = [readkey3(hdr, 'EXPTIME'), 'Total integ. time of all exposure']
+            if not readkey3(readhdr(img), 'pixscale'):    hedvec1['pixscale'] = [readkey3(readhdr(img), 'binx') * .12,
+                                                                                 'pixel/scale (arcsec)']
+        ntt.util.updateheader(img, 0, hedvec1)
+        _stop = time.time()
+    print '\n###time to run ' + str((_stop - _start) / 60.)
+# ################################################################################
