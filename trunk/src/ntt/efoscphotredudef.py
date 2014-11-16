@@ -161,7 +161,7 @@ def efoscreduction(imglist,_interactive,_doflat,_dobias,listflat,listbias,_dobad
                   if biaslist:
                         for _date in biaslist:
                               print '\n do bias '+str(_date)+'\n'
-                              biaslist[_date]=rejectbias(biaslist[_date],False)
+                              biaslist[_date]=rejectbias(biaslist[_date],False,10)
                               if len(biaslist[_date])>=3:
                                     masterbiasfile='bias_'+str(_date)+'_'+str(MJDtoday)+'.fits'
                                     delete(masterbiasfile)
@@ -197,8 +197,10 @@ def efoscreduction(imglist,_interactive,_doflat,_dobias,listflat,listbias,_dobad
                                     if masterbiasfile and _interactive:
                                           aa,bb,cc=display_image(masterbiasfile,1,'','',False)
                                           answ=raw_input('is the masterbias ok [[y]/n] ?')
-                                          if not answ: answ='y'
-                                          if answ in ['n','no']: sys.exit('remove bad bias from input list and restart')
+                                          if not answ:
+                                              answ='y'
+                                          if answ in ['n','no']:
+                                              sys.exit('remove bad bias from input list and restart')
          else:               masterbiaslist=[]    
 ########## masterflat   #########################
       if _doflat:
@@ -613,29 +615,36 @@ def rejectflat(lista,_interactive):
      return listgood
 
 #####################################
-def rejectbias(lista,_interactive):
-     from pyfits import open as popen
+def rejectbias(lista,_interactive,nn=10):
+     import numpy as np
+     import ntt
      from pyraf import iraf
      iraf.images(_doprint=0)
-     from numpy import array, mean, std, compress
-     from ntt.util import display_image, delete
-     import os,string
+
      listgood=[]
      f=open('_listgoodbias','w')
      for img in lista:
            f.write(img+'\n')
      f.close()
-     biasstd=array(iraf.imstat('@_listgoodbias', fields='stddev',format='no',Stdout=1),float)
-     biasmedian=array(iraf.imstat('@_listgoodbias', fields='mean',format='no',Stdout=1),float)
-     lista1=compress((mean(biasstd)-2*std(biasstd)<=biasstd)&(mean(biasstd)+2*std(biasstd)>=biasstd)&\
-          (mean(biasmedian)-2*std(biasmedian)<=biasmedian)&(mean(biasmedian)+2*std(biasmedian)>=biasmedian), array(lista))
-     delete('_listgoodbias')
+     biasstd=np.array(iraf.imstat('@_listgoodbias', fields='stddev',format='no',Stdout=1),float)
+#     biasmedian=np.array(iraf.imstat('@_listgoodbias', fields='mean',format='no',Stdout=1),float)
+
+#     print lista
+     median=np.median(biasstd)
+     sigma=(np.percentile(biasstd,75)-np.percentile(biasstd,25))*1.349
+     lista1=np.compress((biasstd < (median+nn*sigma)) & (biasstd > (median-nn*sigma)),np.array(lista))
+#     lista1=np.compress((np.mean(biasstd)-2*np.std(biasstd)<=biasstd)&(np.mean(biasstd)+2*np.std(biasstd)>=biasstd)&
+#                        (np.mean(biasmedian)-2*np.std(biasmedian)<=biasmedian)&
+#                        (np.mean(biasmedian)+2*np.std(biasmedian)>=biasmedian), np.array(lista))
+     ntt.util.delete('_listgoodbias')
      for i in range(0,len(lista)):
-           if lista[i] not in lista1:      print lista[i]+' rejected'
-           else:                           print lista[i],biasstd[i]
+           if lista[i] not in lista1:
+               print lista[i]+' '+str(biasstd[i])+' rejected'
+           else:
+               print lista[i],biasstd[i]
      for img in lista1:
            if _interactive:
-               aa,bb,cc=display_image(img,1,'','',False)
+               aa,bb,cc=ntt.util.display_image(img,1,'','',False)
                titolo,result=iraf.imstat(img, Stdout=1)
 #               for i in range(1,len(string.split(result))): print string.split(titolo)[1:][i],string.split(result)[i]
                print titolo[1:]
@@ -643,15 +652,19 @@ def rejectbias(lista,_interactive):
                answ='nn'
                while answ not in ['g','G','b','s']:
                      answ=raw_input('good/bad  [[g]/b/G(all good)/s(stop) ] ? ')
-                     if not answ: answ='g'
-                     if answ not in ['g','G','b','s']: print 'warning: value not valid, try again'
-               if answ=='g':           listgood.append(img)
+                     if not answ:
+                         answ='g'
+                     if answ not in ['g','G','b','s']:
+                         print 'warning: value not valid, try again'
+               if answ=='g':
+                   listgood.append(img)
                elif answ=='G':
                        listgood=lista1
                        break
                elif answ=='s':
                      break
-           else:      listgood.append(img)
+           else:
+               listgood.append(img)
      return listgood
 
 ################################################################
@@ -667,8 +680,10 @@ def fringing2(img,fmask,_interactive,_verbose=False):
    from pyraf import iraf
    iraf.nproto(_doprint=0)
    iraf.unlearn('nproto.objmasks')
-   if _verbose: ver='yes'
-   else: ver='no'
+   if _verbose:
+       ver='yes'
+   else:
+       ver='no'
    hdr=readhdr(img)
    _filter=readkey3(hdr,'filter')
    _exptime=readkey3(hdr,'exptime')
@@ -676,11 +691,14 @@ def fringing2(img,fmask,_interactive,_verbose=False):
    imgout=img
    maskname=''
    if not readkey3(hdr,'FRICOR'):
-         if fmask:    fmask=searchfringe(img,fmask)[0]
-         if fmask:    print '###### use fringing mask from user '+fmask
+         if fmask:
+             fmask=searchfringe(img,fmask)[0]
+         if fmask:
+             print '###### use fringing mask from user '+fmask
          else:        
                fmask=searchfringe(img,'')[0]
-               if fmask:    print '###### use fringing mask from archive '+fmask
+               if fmask:
+                   print '###### use fringing mask from archive '+fmask
          if fmask:
                imgout=re.sub('.fits','_fr.fits',img)
                _trim=readkey3(hdr,'TRIM')
@@ -689,12 +707,18 @@ def fringing2(img,fmask,_interactive,_verbose=False):
                delete(maskname)
                if _trim and not _trimmask:
                      _trim='['+string.split(_trim,'[')[1]
-                     iraf.ccdred.ccdproc(fmask,output=maskname, overscan="no", trim="yes", zerocor="no", trimsec=_trim, flatcor="no",zero="",Stdout=1)
+                     iraf.ccdred.ccdproc(fmask,output=maskname, overscan="no", trim="yes", zerocor="no",
+                                         trimsec=_trim, flatcor="no",zero="",Stdout=1)
                elif _trim and _trimmask:
-                     if _trim==_trimmask:  os.system('cp '+str(fmask)+' '+str(maskname))
-                     else:  sys.exit('ERROR: fringing correction can be applied only to UNTRIMMED images or images with this trim '+str(_trimmask))
-               elif not _trim and _trimmask: sys.exit('ERROR: image is not trimmed while selected fringing mask is trimmed: '+str(_trimmask))
-               else:     os.system('cp '+str(fmask)+' '+str(maskname))
+                     if _trim==_trimmask:
+                         os.system('cp '+str(fmask)+' '+str(maskname))
+                     else:
+                         sys.exit('ERROR: fringing correction can be applied only to UNTRIMMED images or '
+                                  'images with this trim '+str(_trimmask))
+               elif not _trim and _trimmask:
+                   sys.exit('ERROR: image is not trimmed while selected fringing mask is trimmed: '+str(_trimmask))
+               else:
+                   os.system('cp '+str(fmask)+' '+str(maskname))
 
                iraf.nproto.objmasks1.fitxord=1
                iraf.nproto.objmasks1.fityord=1

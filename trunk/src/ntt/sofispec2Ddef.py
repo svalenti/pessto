@@ -61,8 +61,10 @@ def findsubimage(imglist):
             if abs(readkey3(readhdr(img2),'xcum')-xcum0)>10:
                 distance.append(abs(JD0-readkey3(readhdr(img2),'JD')))
                 imglist3.append(img2)
-        if len(distance)>0:         imgsub0=imglist3[argmin(distance)]
-        else:                       imgsub0=''
+        if len(distance)>0:
+            imgsub0=imglist3[argmin(distance)]
+        else:
+            imgsub0=''
         imgsub.append(imgsub0)
     return imgsub
 
@@ -82,8 +84,10 @@ def sofispecreduction(files,_interactive,_doflat,listflat,_docross,_verbose=Fals
     iraf.twodspec(_doprint=0)
     iraf.longslit(_doprint=0)
     iraf.specred(_doprint=0)
-    toforget = ['ccdred.flatcombine','ccdproc','specred.apall','longslit.identify','longslit.reidentify','longslit.fitcoords','specred.transform','specred.response','imutil.hedit']
-    for t in toforget: iraf.unlearn(t)
+    toforget = ['ccdred.flatcombine','ccdproc','specred.apall','longslit.identify','longslit.reidentify',
+                'longslit.fitcoords','specred.transform','specred.response','imutil.hedit']
+    for t in toforget:
+        iraf.unlearn(t)
     iraf.longslit.dispaxi=2
     iraf.longslit.mode='h'
     iraf.specred.dispaxi=2
@@ -146,9 +150,12 @@ def sofispecreduction(files,_interactive,_doflat,listflat,_docross,_verbose=Fals
                       flats[_date][_grism].append(img)
              elif _object.lower() =='lamp':
                  _lampid=(readkey3(hdr,'esoid'),readkey3(hdr,'grism'))
-                 if _lampid not in lamps1:    lamps1[_lampid]=[None,None]
-                 if readkey3(hdr,'lamp1')=='Xenon':  lamps1[_lampid][0]=img
-                 else:                               lamps1[_lampid][1]=img
+                 if _lampid not in lamps1:
+                     lamps1[_lampid]=[None,None]
+                 if readkey3(hdr,'lamp1')=='Xenon':
+                     lamps1[_lampid][0]=img
+                 else:
+                     lamps1[_lampid][1]=img
                  _type='lamp'
 #                 if readkey3(hdr,'lamp1')=='Xenon':
 #                     _type='lamp'
@@ -182,7 +189,10 @@ def sofispecreduction(files,_interactive,_doflat,listflat,_docross,_verbose=Fals
                 OBID[readkey3(hdr,'esoid'),_grism]=nameobj0
             fieldlist[_grism][nameobj0].append(img)
 
-        if _verbose: print img,_type,_object,_filter
+        if _verbose:
+            print img
+            print _type,_object,_filter
+            print 'lamps',lamps1
 
     lamps={}
     for _lampid in lamps1:
@@ -190,18 +200,22 @@ def sofispecreduction(files,_interactive,_doflat,listflat,_docross,_verbose=Fals
         output='arc_'+str(_lampid[0])+'_'+str(_lampid[1])+'.fits'
         if lamps1[_lampid][0] and lamps1[_lampid][1]:
             print lamps1[_lampid][0],lamps1[_lampid][1]
-            try:
-                ntt.delete(output)
-                iraf.imarith(lamps1[_lampid][0],'-',lamps1[_lampid][1],output=output,verbose='no')
-            except:            os.system('cp '+lamps1[_lampid][0]+' '+output)
+#            try:
+            ntt.util.delete(output)
+            iraf.imarith(lamps1[_lampid][0],'-',lamps1[_lampid][1],result=output,verbose='yes')
+#            except:
+#                print 'warning, lamp file not ON/OFF'
+#                os.system('cp '+lamps1[_lampid][0]+' '+output)
 
             lamp=output
         elif lamps1[_lampid][0] and not lamps1[_lampid][1]:
             os.system('cp '+lamps1[_lampid][0]+' '+output)
             lamp=output
         if lamp:
-            if  _lampid[1] not in lamps:      lamps[_lampid[1]]=[lamp]
-            else:                             lamps[_lampid[1]].append(lamp)
+            if  _lampid[1] not in lamps:
+                lamps[_lampid[1]]=[lamp]
+            else:
+                lamps[_lampid[1]].append(lamp)
 
     if _verbose:  
         print '\n### FIELDS\n',fieldlist
@@ -209,15 +223,18 @@ def sofispecreduction(files,_interactive,_doflat,listflat,_docross,_verbose=Fals
         print '\n### FLATS\n',flats
         print '\n### LAMPS\n',lamps
 
-    if not flats: sys.exit('\n### error: spectroscopic flat noa available, add flats in the directory and try again')
+    if not flats:
+        sys.exit('\n### error: spectroscopic flat noa available, add flats in the directory and try again')
 
     if not listflat:
       print '\n### list of available spectroscopic flats (ON,OFF):'
       for _date in flats:
         for _grism in flats[_date]:
             for img in flats[_date][_grism]:
-                if popen(img)[0].data.mean()>=2000:         print img,_grism,_date,'ON ? '
-                else:                                       print img,_grism,_date,'OFF ? '
+                if popen(img)[0].data.mean()>=2000:
+                    print img,_grism,_date,'ON ? '
+                else:
+                    print img,_grism,_date,'OFF ? '
       for _date in flats:
         for _grism in flats[_date]:
             flat={'ON':[],'OFF':[]}
@@ -296,25 +313,33 @@ def sofispecreduction(files,_interactive,_doflat,listflat,_docross,_verbose=Fals
             arclist=lamps[_grism]
             obj0=fieldlist[_grism][fieldlist[_grism].keys()[0]][0]
                 ##############              arc              ##########################
-            if arclist:       arcfile=ntt.util.searcharc(obj0,arclist)[0]
-            else:             arcfile=ntt.util.searcharc(obj0,'')[0]
+            if arclist:
+                arcfile=ntt.util.searcharc(obj0,arclist)[0]
+            else:
+                arcfile=ntt.util.searcharc(obj0,'')[0]
             if arcfile:
                     datea=readkey3(readhdr(arcfile),'date-night')
                     if arcfile[0]=='/':
                         os.system('cp '+arcfile+' '+string.split('/',arcfile)[-1])
                         arcfile=string.split('/',arcfile)[-1]
 
-                    if listflat and _doflat:      flat0=ntt.util.searchflat(arcfile,listflat)[0]
-                    else:                         flat0=''
-                    if flat0:  _flatcor='yes'
-                    else:      _flatcor='no'
+                    if listflat and _doflat:
+                        flat0=ntt.util.searchflat(arcfile,listflat)[0]
+                    else:
+                        flat0=''
+                    if flat0:
+                        _flatcor='yes'
+                    else:
+                        _flatcor='no'
 
                     delete('arc_'+datea+'_'+_grism+'_'+str(MJDtoday)+'.fits')
                     iraf.noao.imred.ccdred.ccdproc(arcfile,output='arc_'+datea+'_'+_grism+'_'+str(MJDtoday)+'.fits', overscan='no', trim='no', zerocor='no', flatcor=_flatcor, flat=flat0)
                     iraf.noao.imred.ccdred.ccdproc('arc_'+datea+'_'+_grism+'_'+str(MJDtoday)+'.fits',output='', overscan='no', trim='yes', zerocor='no', flatcor='no', flat='',trimsec='[30:1000,1:1024]')
                     arcfile='arc_'+datea+'_'+_grism+'_'+str(MJDtoday)+'.fits'
                     correctcard(arcfile)
-                    if arcfile not in outputlist:      outputlist.append(arcfile)
+                    print arcfile
+                    if arcfile not in outputlist:
+                        outputlist.append(arcfile)
                     ntt.util.updateheader(arcfile,0,{'FILETYPE':[41104,'pre-reduced 2D arc'],\
                                                      'SINGLEXP':[True,'TRUE if resulting from single exposure'],\
                                                      'M_EPOCH':[False,'TRUE if resulting from multiple epochs'],\
@@ -325,25 +350,69 @@ def sofispecreduction(files,_interactive,_doflat,listflat,_docross,_verbose=Fals
                     if not arcref:
                         identific=iraf.longslit.identify(images= arcfile, section= 'column 10', coordli='direc$standard/ident/Lines_XeAr_SOFI.dat',nsum=10, fwidth=7, order=3,mode='h',Stdout=1,verbose='yes')
                     else:
+                        print arcref
                         os.system('cp '+arcref+' .')
                         arcref=string.split(arcref,'/')[-1]
-                        if not os.path.isdir('database/'):   os.mkdir('database/')
+                        if not os.path.isdir('database/'):
+                            os.mkdir('database/')
                         if os.path.isfile(ntt.util.searcharc(obj0,'')[1]+'/database/id'+re.sub('.fits','',arcref)):
                                 os.system('cp '+ntt.util.searcharc(obj0,'')[1]+'/database/id'+re.sub('.fits','',arcref)+' database/')
-                        identific=iraf.longslit.reidentify(referenc=arcref, images= arcfile, interac=_interact, section= 'column 10',\
-                                             coordli='direc$standard/ident/Lines_XeAr_SOFI.dat', overrid='yes', step=0, newaps= 'no', nsum=5, nlost=2, mode='h',verbose='yes',Stdout=1)
+
+                        print arcref, arcfile
+#                        time.sleep(5)
+#                        os.system('rm -rf database/idarc_20130417_GR_56975')
+#                        raw_input('ddd')
+                        identific=iraf.longslit.reidentify(referenc=arcref, images= arcfile, interac='NO',#_interact,
+                                                           section= 'column 10', shift=0.0,
+                                                           coordli='direc$standard/ident/Lines_XeAr_SOFI.dat',
+                                                           overrid='yes', step=0, newaps= 'no', nsum=5, nlost=2,
+                                                           mode='h',verbose='yes',Stdout=1)
+#                        print identific
+#                        raw_input('ddd')
+                        identific=iraf.longslit.reidentify(referenc=arcref, images= arcfile, interac=_interact,
+                                                                   section= 'column 10', shift=1.0,
+                                                                   coordli='direc$standard/ident/Lines_XeAr_SOFI.dat',
+                                                                   overrid='yes', step=0, newaps= 'no', nsum=5, nlost=2,
+                                                                   mode='h', verbose='yes',Stdout=1)
+#                        fitsfile = ntt.efoscspec2Ddef.continumsub('new3.fits', 6, 1)
+                        # I need to run twice I don't know why
+#                        print identific
+#                        raw_input('ddd')
                         if _interactive:
                                 answ=raw_input('\n### do you like the identification [[y]/n]')
-                                if not answ: answ='y'
-                        else:  answ='y'
+                                if not answ:
+                                    answ='y'
+                        else:
+                            answ='y'
                         if answ in ['n','N','no','NO','No']:
                                 yy1=popen(arcref)[0].data[:,10:20].mean(1)
                                 xx1=arange(len(yy1))
                                 yy2=popen(arcfile)[0].data[:,10:20].mean(1)
                                 xx2=arange(len(yy2))
+
+                                ntt.util.delete('_new3.fits')
+                                hdu = pyfits.PrimaryHDU(yy1)
+                                hdulist = pyfits.HDUList([hdu])
+                                hdulist.writeto('_new3.fits')
+                                fitsfile=ntt.efoscspec2Ddef.continumsub('_new3.fits',4,1)
+                                yy1=popen(fitsfile)[0].data
+
+                                ntt.util.delete('_new3.fits')
+                                hdu = pyfits.PrimaryHDU(yy2)
+                                hdulist = pyfits.HDUList([hdu])
+                                hdulist.writeto('_new3.fits')
+                                fitsfile=ntt.efoscspec2Ddef.continumsub('_new3.fits',4,1)
+                                yy2=popen(fitsfile)[0].data
+
                                 _shift=ntt.efoscspec2Ddef.checkwavelength_arc(xx1,yy1,xx2,yy2,'','')*(-1)
-                                identific=iraf.longslit.reidentify(referenc=arcref, images= arcfile, interac='YES', section= 'column 10', shift=_shift,\
-                                              coordli='direc$standard/ident/Lines_XeAr_SOFI.dat', overrid='yes', step=0, newaps= 'no', nsum=5, nlost=2, mode='h', verbose='yes',Stdout=1)
+
+                                print arcref, arcfile,_shift
+                                identific=iraf.longslit.reidentify(referenc=arcref, images= arcfile, interac='YES',
+                                                                   section= 'column 10', shift=_shift,
+                                                                   coordli='direc$standard/ident/Lines_XeAr_SOFI.dat',
+                                                                   overrid='yes', step=0, newaps= 'no', nsum=5, nlost=2,
+                                                                   mode='h', verbose='yes',Stdout=1)
+
                                 answ=raw_input('\n### is it ok now ? [[y]/n] ')
                                 if not answ: answ='y'
                                 if answ in ['n','N','no','NO','No']:     sys.exit('\n### Warning: line identification with some problems')

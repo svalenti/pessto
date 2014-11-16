@@ -9,7 +9,6 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
     from ntt.util import readhdr, readkey3
     import ntt
     import numpy as np
-
     dv = ntt.dvex()
     scal = np.pi / 180.
     if not _interactive:

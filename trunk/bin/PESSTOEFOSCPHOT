@@ -25,6 +25,8 @@ if __name__ == "__main__":
                       help='use fringing frame fro this list')
     parser.add_option("-a", "--archive", dest="archive", action="store_true",
                       help=' use only calibration from archive')
+    parser.add_option("--sigmabias", dest="sigmabias", default=5, type='int',
+                      help=' sigma to reject bias frame \t [%default]')
     parser.add_option("-t", "--type", dest="type", default='all', type="str",
                       help='file type to be reduced all,calib,science \t [%default]')
     parser.add_option("-c", "--correctobj", dest="correctobj", default='', type="str",
@@ -40,6 +42,7 @@ if __name__ == "__main__":
     filenameobjects = option.correctobj
     _cosmic = option.cosmic
     method = option.method
+    sigmabias=option.sigmabias
     if not _cosmic:
         _cosmic = False
     if not _verbose:
@@ -163,17 +166,21 @@ if __name__ == "__main__":
                             _type = 'object'
                         elif answ == '5':
                             _type = 'not good'
-            if _type == 'object':  sciencelist.append(img)
+            if _type == 'object':
+                sciencelist.append(img)
             if _type == 'flat':
-                if _filter not in flatlist: flatlist[_filter] = []
+                if _filter not in flatlist:
+                    flatlist[_filter] = []
                 flatlist[_filter].append(img)
             if _type == 'flat2':
-                if _filter not in flatlist2: flatlist2[_filter] = []
+                if _filter not in flatlist2:
+                    flatlist2[_filter] = []
                 flatlist2[_filter].append(img)
-            if _type == 'bias':    biaslist.append(img)
+            if _type == 'bias':
+                biaslist.append(img)
 
         print '\n ####  select good  bias ###### \n'
-        biaslist = ntt.efoscphotredudef.rejectbias(biaslist, True)
+        biaslist = ntt.efoscphotredudef.rejectbias(biaslist, True,sigmabias)
         files = list(biaslist) + list(sciencelist)
         for _filter in filterlist:
             print '\n###### check flat with filter ' + str(_filter) + '##### \n'
