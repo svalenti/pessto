@@ -124,7 +124,7 @@ def fluxcalib2d(img2d, sensfun):  # flux calibrate 2d images
     ntt.util.delete(img2df)
     pyfits.writeto(img2df, np.float32(data2d), hdr2d)
     ntt.util.updateheader(img2df, 0, {'SENSFUN': [string.split(sensfun, '/')[-1], '']})
-    ntt.util.updateheader(img2df, 0, {'BUNIT': ['erg/cm2/s/A  10^20', 'Physical unit of array values']})
+    ntt.util.updateheader(img2df, 0, {'BUNIT': ['10^20 erg/cm2/s/Angstrom', 'Physical unit of array values']})
     return img2df
 
 

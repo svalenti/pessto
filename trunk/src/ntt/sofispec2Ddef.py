@@ -606,31 +606,38 @@ def sofispecreduction(files,_interactive,_doflat,listflat,_docross,_verbose=Fals
             #  change for DR2
 ############################
             texp=float(readkey3(hdr,'dit'))*float(readkey3(hdr,'ndit'))
-            mjdend=float(readkey3(hdr,'MJD-OBS'))+(float(readkey3(hdr,'ndit'))*float(readkey3(hdr,'dit'))+1.8)/(60.*60.*24.)
+            mjdend=float(readkey3(hdr,'MJD-OBS')) + (float(readkey3(hdr,'ndit'))*(float(readkey3(hdr,'dit'))+1.8))/(60.*60.*24.)
             strtexp=time.strftime('%H:%M:%S', time.gmtime(texp))
             _telapse=mjdend-float(readkey3(hdr,'MJD-OBS'))
             tmid=_telapse/2.
             ntt.util.updateheader(img,0,{'quality':['Final','fast or rapid reduction'],
                                          'BUNIT':['ADU','Physical unit of array values'],
-                                         'DIT':[readkey3(hdr,'dit'),'Detector Integration Time'],\
-                                         'NDIT':[readkey3(hdr,'ndit'),'Number of sub-integrations'],\
-                                         'TEXPTIME':[texp,'Total integration time of all exposures (s)'],\
-                                         'EXPTIME':[texp,'Total integration time. '+strtexp],\
+                                         'DIT':[readkey3(hdr,'dit'),'Detector Integration Time'],
+                                         'NDIT':[readkey3(hdr,'ndit'),'Number of sub-integrations'],
+                                         'TEXPTIME':[texp,'Total integration time of all exposures (s)'],
+                                         'EXPTIME':[texp,'Total integration time. '+strtexp],
                                          'MJD-END':[mjdend,'End of observations (days)'],
                                          'TELAPSE':[_telapse,'Total elapsed time [days]'],
                                          'TMID':[tmid,' [days] MJD mid exposure'],
-                                         'TITLE':[str(tmid)[0:9]+' '+str(readkey3(hdr,'object'))+' '+str(readkey3(hdr,'grism'))+' '+\
-                                                  str(readkey3(hdr,'filter'))+' '+str(readkey3(hdr,'slit')),'Dataset title'],\
-                                         'EXT_OBJ':[False,'TRUE if extended'],'CONTNORM':[False,'spectrum normalized to the continuum'],\
-                                         'TOT_FLUX':[False,'TRUE if phot cond and all src flux is captured'],\
-                                         'SPECSYS':['TOPOCENT','Reference frame for spectral coordinate'],\
-                                         'FLUXCAL':['ABSOLUTE','type of flux calibration'],'FLUXERR':[34.7,'Fractional uncertainty of the flux [%]'],\
+                                         'TITLE':[readkey3(hdr,'object'),'Dataset title'],
+                                         #'TITLE':[str(tmid)[0:9]+' '+str(readkey3(hdr,'object'))+' '+str(readkey3(hdr,'grism'))+' '+\
+                                         #         str(readkey3(hdr,'filter'))+' '+str(readkey3(hdr,'slit')),'Dataset title'],\
+                                         'EXT_OBJ':[False,'TRUE if extended'],
+                                         'CONTNORM':[False,'spectrum normalized to the continuum'],
+                                         'TOT_FLUX':[False,'TRUE if phot cond and all src flux is captured'],
+                                         'SPECSYS':['TOPOCENT','Reference frame for spectral coordinate'],
+                                         'FLUXCAL':['ABSOLUTE','type of flux calibration'],
+                                         'FLUXERR':[34.7,'Fractional uncertainty of the flux [%]'],
                                          'DISPELEM':['Gr#'+re.sub('Gr','',readkey3(hdr,'grism')),'Dispersive element name']})
-            if readkey3(hdr,'tech'):    ntt.util.updateheader(img,0,{'PRODCATG':['SCIENCE.IMAGE','Data product category']})
+            if readkey3(hdr,'tech'):
+                ntt.util.updateheader(img,0,{'PRODCATG':['SCIENCE.IMAGE','Data product category']})
             aaa=str(readkey3(hdr,'arcfiles'))+'\n'
             f.write(aaa)
-            try:     ntt.util.airmass(img)  #  phase 3 definitions
-            except:  print '\n### airmass not computed for image: ',img
-        else: print img+' is not a fits image'
+            try:
+                ntt.util.airmass(img)  #  phase 3 definitions
+            except:
+                print '\n### airmass not computed for image: ',img
+        else:
+            print img+' is not a fits image'
     f.close()
     return outputlist,'logfile_spec2d_'+str(reduceddata)+'_'+str(datenow)+'.raw.list'

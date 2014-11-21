@@ -757,6 +757,7 @@ def phase3header(img):
                'DATAMAX': [float(max(img_data[np.isfinite(img_data)])), 'Maximum pixel value'],
                'REFERENC': ['Smartt et al 2014', 'Bibliographic reference'],
                'ORIGIN': ['ESO', 'European Southern Observatory'],
+               'PI-COI': ['Smartt','PI-COI name'],
                'PROCSOFT': ['ntt_' + str(ntt.__version__), 'pipeline version']}
 
     if ntt.util.readkey3(hdr, 'filter'):

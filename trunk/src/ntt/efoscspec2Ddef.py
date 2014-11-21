@@ -803,10 +803,11 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                 hedvec['TELAPSE'] = [(mjdend - float(ntt.util.readkey3(hdr, 'MJD-OBS'))),
                                      'Total elapsed time [days]']  # second or days ?
                 hedvec['TMID'] = [(mjdend + float(ntt.util.readkey3(hdr, 'MJD-OBS'))) / 2., ' [d] MJD mid exposure']
-                hedvec['TITLE'] = [str(hedvec['TMID'][0])[0:9] + ' ' + str(ntt.util.readkey3(hdr, 'object')) +
-                                   ' ' + str(ntt.util.readkey3(hdr, 'grism')) + ' ' +
-                                   str(ntt.util.readkey3(hdr, 'filter')) + ' ' + str(ntt.util.readkey3(hdr, 'slit')),
-                                   'Dataset title']
+                hedvec['TITLE'] = [ntt.util.readkey3(hdr,'object'),'Dataset title']
+                #hedvec['TITLE'] = [str(hedvec['TMID'][0])[0:9] + ' ' + str(ntt.util.readkey3(hdr, 'object')) +
+                #                   ' ' + str(ntt.util.readkey3(hdr, 'grism')) + ' ' +
+                #                   str(ntt.util.readkey3(hdr, 'filter')) + ' ' + str(ntt.util.readkey3(hdr, 'slit')),
+                #                   'Dataset title']
             if ntt.util.readkey3(hdr, 'tech'):
                 hedvec['PRODCATG'] = ['SCIENCE.IMAGE', 'Data product category']
             hedvec['EXT_OBJ'] = [False, 'TRUE if extened']
