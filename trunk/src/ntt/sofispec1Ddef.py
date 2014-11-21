@@ -366,8 +366,8 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                         mjdstart.append(ntt.util.readkey3(hdrm, 'MJD-OBS'))
                     _dateobs = ntt.util.readkey3(ntt.util.readhdr(listmerge[np.argmin(mjdstart)]), 'DATE-OBS')
 
-                    _telapse = (max(mjdend) - min(mjdstart))  # *86400
-                    _tmid = _telapse / 2.
+                    _telapse = (max(mjdend) - min(mjdstart))*60.*60*24. # *86400
+                    _tmid =  (max(mjdend)+min(mjdstart))/2
 
                     _title = str(_tmid)[0:9] + ' ' + str(ntt.util.readkey3(hdr, 'object')) + ' ' + str(
                         ntt.util.readkey3(hdr, 'grism')) + ' ' + \
@@ -376,7 +376,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                                           {'MJD-OBS': [min(mjdstart), 'MJD start'],
                                            'MJD-END': [max(mjdend), 'MJD end'],
                                            'TELAPSE': [_telapse, 'Total elapsed time [days]'],
-                                           'TMID': [_tmid, ' [days] MJD mid exposure'],
+                                           'TMID': [_tmid, '[d] MJD mid exposure'],
                                            'TITLE': [_title, 'Dataset title'],
                                            'DATE-OBS': [_dateobs, 'Date of observation']})
                     # missing: merge airmass

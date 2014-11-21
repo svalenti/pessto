@@ -1042,9 +1042,15 @@ def limmag(img):
     _fwhm = ntt.util.readkey3(hdr, 'PSF_FWHM')
     _mbkg = ntt.util.readkey3(hdr, 'MBKG')  # background from sextractor
     _instrume = ntt.util.readkey3(hdr, 'instrume')
+
+    if 'NCOMBINE' in hdr:
+        _ncombine=ntt.util.readkey3(hdr, 'NCOMBINE')
+    else:
+        _ncombine=1
+
     #    CHANGE for DR2, EFRONN is defined after lim mag, need to compute again here
     if _instrume == 'sofi':
-        EFFRON = 12. * (math.sqrt(ntt.util.readkey3(hdr, 'NCOMBINE')) / math.sqrt(ntt.util.readkey3(hdr, 'ndit')))
+        EFFRON = 12. * (math.sqrt(float(_ncombine)) / math.sqrt(float(ntt.util.readkey3(hdr, 'ndit'))))
     else:
         if 'FLATCOR' in hdr and os.path.isfile(hdr['FLATCOR']):
             hdrn = ntt.util.readhdr(hdr['FLATCOR'])
@@ -1062,7 +1068,7 @@ def limmag(img):
                 nbias = 1
         else:
             nbias = 1
-        EFFRON = ntt.util.readkey3(hdr, 'ron') * math.sqrt(1. + 1. / nflat + 1. / nbias)
+        EFFRON = float(ntt.util.readkey3(hdr, 'ron')) * math.sqrt(1. + 1. / float(nflat) + 1. / float(nbias))
 
     check = 1
     if not _ZP:

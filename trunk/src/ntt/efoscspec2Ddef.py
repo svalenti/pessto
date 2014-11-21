@@ -725,7 +725,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                             hedvec['SPEC_BW'] = [(wavelmax * .1) - (wavelmin * .1), '[nm] Bandpass Width Wmax - Wmin']
                             hedvec['SPEC_VAL'] = [((wavelmax * .1) + (wavelmin * .1)) / 2., '[nm] Mean Wavelength']
                             hedvec['SPEC_BIN'] = [((wavelmax * .1) - (wavelmin * .1)) /
-                                                  float(ntt.util.readkey3(hdr, 'NAXIS2')),
+                                                  (float(ntt.util.readkey3(hdr, 'NAXIS2'))-1),
                                                   'average spectral coordinate bin size [nm/pix]']
                             #                        print wavelmin,wavelmax
                             #                        print float(readkey3(hdr,'NAXIS2'))
@@ -800,9 +800,9 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
 
                 hedvec['MJD-END'] = [mjdend, 'End of observations (days)']
                 #               hedvec['TELAPSE']=[86400*(mjdend-float(readkey3(hdr,'MJD-OBS'))),'Total elapsed time [days]']  # second or days ?
-                hedvec['TELAPSE'] = [(mjdend - float(ntt.util.readkey3(hdr, 'MJD-OBS'))),
+                hedvec['TELAPSE'] = [(mjdend - float(ntt.util.readkey3(hdr, 'MJD-OBS')))*60.*60*24.,
                                      'Total elapsed time [days]']  # second or days ?
-                hedvec['TMID'] = [(mjdend + float(ntt.util.readkey3(hdr, 'MJD-OBS'))) / 2., ' [d] MJD mid exposure']
+                hedvec['TMID'] = [(mjdend + float(ntt.util.readkey3(hdr, 'MJD-OBS'))) / 2., '[d] MJD mid exposure']
                 hedvec['TITLE'] = [ntt.util.readkey3(hdr,'object'),'Dataset title']
                 #hedvec['TITLE'] = [str(hedvec['TMID'][0])[0:9] + ' ' + str(ntt.util.readkey3(hdr, 'object')) +
                 #                   ' ' + str(ntt.util.readkey3(hdr, 'grism')) + ' ' +

@@ -109,7 +109,7 @@ def pesstocombine(imglist, _combine, _rejection, outputimage):
                                                         'Total integration time of all exposures (s)']})
     ntt.util.updateheader(outputimage, 0, {'EXPTIME': [ntt.util.readkey3(hdr, 'EXPTIME') * len(goodlist),
                                                        'Total integration time of all exposures (s)']})
-    ntt.util.updateheader(outputimage, 0, {'GAIN': [2. / 3. * len(goodlist) * ntt.util.readkey3(hdr, 'gain'),
+    ntt.util.updateheader(outputimage, 0, {'GAIN': [(2. / 3.) * len(goodlist) * ntt.util.readkey3(hdr, 'gain'),
                                                     'Total integration time of all exposures (s)']})
 
     num = 0
@@ -257,7 +257,7 @@ def pesstocombine2(imglist, _combine, outputimage):
     hedvec['SINGLEXP'] = [False, 'TRUE if resulting from single exposure']
     hedvec['TEXPTIME'] = [readkey3(hdr0, 'TEXPTIME') * len(imglist), 'Total integration time of all exposures (s)']
     hedvec['EXPTIME'] = [readkey3(hdr0, 'EXPTIME') * len(imglist), 'Total integration time of all exposures (s)']
-    hedvec['GAIN'] = [2. / 3. * len(imglist) * readkey3(hdr0, 'gain'), 'Total integration time of all exposures (s)']
+    hedvec['GAIN'] = [(2. / 3.) * len(imglist) * readkey3(hdr0, 'gain'), 'Total integration time of all exposures (s)']
     #     hedvec['NCOMBINE']:[len(imglist),'Number of raw science data']
     ntt.util.updateheader(outputimage, 0, hedvec)
     iraf.images(_doprint=0)
@@ -273,14 +273,14 @@ def pesstocombine2(imglist, _combine, outputimage):
         ntt.util.updateheader(outputimage, 0, {'TRACE' + str(num): [im, 'Originating file']})
         mjdend.append(readkey3(readhdr(im), 'MJD-END'))
         mjdstart.append(readkey3(readhdr(im), 'MJD-OBS'))
-    _telapse = (max(mjdend) - min(mjdstart))
-    _tmid = _telapse / 2.
+    _telapse = (max(mjdend) - min(mjdstart))*60.*60*24.
+    _tmid = (mjdend+float(readkey3(hdr,'MJD-OBS')))/2
     _dateobs = readkey3(readhdr(imglist[argmin(mjdstart)]), 'DATE-OBS')
 
     header0 = {'DATE-OBS': [_dateobs, 'Date the observation was started (UTC)'],
-               'MJD-OBS': [min(mjdstart), 'Start of observations (days)'], \
+               'MJD-OBS': [min(mjdstart), 'Start of observations (days)'],
                'MJD-END': [max(mjdend), 'End of observations (days)'],
-               'TELAPSE': [_telapse, 'Total elapsed time [days]'], 'TMID': [_tmid, ' [days] MJD mid exposure'], \
+               'TELAPSE': [_telapse, 'Total elapsed time [days]'], 'TMID': [_tmid, '[d] MJD mid exposure'],
                'ASSON1': [re.sub('.fits', '.weight.fits', outputimage), 'Name of associated file'],
                'ASSOC1': ['ANCILLARY.WEIGHTMAP', 'Associated weigh map image']}
     ntt.util.updateheader(outputimage, 0, header0)
@@ -530,11 +530,10 @@ def skysuboff(listaon, listaoff, _ron, _gain, _interactive, namesky, regi='crrej
     delete('imcombinelog')
     delete(namesky)
 
-    for im in listaoff:  ntt.util.updateheader(im, 0,
-                                               {'OBJMASK': [readkey3(readhdr('fastsub_' + im), 'OBJMASK'), 'mask']})
+    for im in listaoff:
+        ntt.util.updateheader(im, 0, {'OBJMASK': [readkey3(readhdr('fastsub_' + im), 'OBJMASK'), 'mask']})
     iraf.images.immatch.imcombine('@tmplist_off', output=namesky, masktyp='!OBJMASK', maskval=0, combine='median',
-                                  reject=regi, \
-                                  nlow=1, nhigh=2, \
+                                  reject=regi, nlow=1, nhigh=2,
                                   scale='mode', rdnoise=_ron, gain=_gain, offsets='', logfile='imcombinelog')
     for im in listaoff:  aaa = iraf.hedit(im, 'OBJMASK', delete='yes', update='yes', verify='no', Stdout=1)
 
@@ -752,7 +751,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                             _flatcor = 'no'
                         delete(nameobjnew)
                         iraf.noao.imred.ccdred.ccdproc('C' + nameobjnew, output=nameobjnew, overscan="no", trim="yes",
-                                                       zerocor="no", flatcor=_flatcor, \
+                                                       zerocor="no", flatcor=_flatcor,
                                                        illumco=_illumco, trimsec='[1:1024,1:1007]', biassec='',
                                                        flat=_masterflat, illum=_illum, Stdout=1)
                         correctcard(nameobjnew)
@@ -766,22 +765,22 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                         texp = float(readkey3(hdrn, 'dit')) * float(readkey3(hdrn, 'ndit'))
                         strtexp = time.strftime('%H:%M:%S', time.gmtime(texp))
 
-                        hedvec = {'DIT': [readkey3(hdrn, 'dit'), 'Integration Time'], \
-                                  'NDIT': [readkey3(hdrn, 'ndit'), 'Number of sub-integrations'], \
-                                  'FILETYPE': [32104, 'pre-reduced image'], \
-                                  'M_EPOCH': [False, 'TRUE if resulting from multiple epochs'], \
-                                  'SINGLEXP': [True, 'TRUE if resulting from single exposure'], \
-                                  'TEXPTIME': [texp, 'Total integ. time of all exposure (s)'], \
-                                  'EXPTIME': [texp, 'Total integ. time of all exposure (s) ' + strtexp], \
-                                  'PROV1': [readkey3(hdrn, 'ARCFILE'), 'Originating file'], \
-                                  'TRACE1': [readkey3(hdrn, 'ARCFILE'), 'Originating file'], \
+                        hedvec = {'DIT': [readkey3(hdrn, 'dit'), 'Integration Time'],
+                                  'NDIT': [readkey3(hdrn, 'ndit'), 'Number of sub-integrations'],
+                                  'FILETYPE': [32104, 'pre-reduced image'],
+                                  'M_EPOCH': [False, 'TRUE if resulting from multiple epochs'],
+                                  'SINGLEXP': [True, 'TRUE if resulting from single exposure'],
+                                  'TEXPTIME': [texp, 'Total integ. time of all exposure (s)'],
+                                  'EXPTIME': [texp, 'Total integ. time of all exposure (s) ' + strtexp],
+                                  'PROV1': [readkey3(hdrn, 'ARCFILE'), 'Originating file'],
+                                  'TRACE1': [readkey3(hdrn, 'ARCFILE'), 'Originating file'],
                                   'MJD-END': [mjdend, 'End of observations (days)']}
                         ntt.util.updateheader(nameobjnew, 0, hedvec)
                         ntt.util.airmass(nameobjnew)  #  phase 3 definitions
-                        if _doill and _illum: updateheader(nameobjnew, 0,
-                                                           {'ILLUMCOR': [_illum, 'illumination correction']})
-                        if _doflat and _masterflat: updateheader(nameobjnew, 0,
-                                                                 {'FLATCOR': [_masterflat, 'flat correction']})
+                        if _doill and _illum:
+                            updateheader(nameobjnew, 0, {'ILLUMCOR': [_illum, 'illumination correction']})
+                        if _doflat and _masterflat:
+                            updateheader(nameobjnew, 0, {'FLATCOR': [_masterflat, 'flat correction']})
                         delete('C' + nameobjnew)
                         fieldlist2[field][_set].append(nameobjnew)
     for i in fieldlist2:
@@ -1056,6 +1055,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                 else:
                     ntt.util.updateheader(nameobjnew, 0,
                                           {'ABMAGSAT': [9999., 'Saturation limit for point sources (AB mags)']})
+                print nameobjnew
                 maglim = ntt.util.limmag(nameobjnew)
                 if maglim:
                     ntt.util.updateheader(nameobjnew, 0,

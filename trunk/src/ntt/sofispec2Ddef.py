@@ -569,7 +569,7 @@ def sofispecreduction(files,_interactive,_doflat,listflat,_docross,_verbose=Fals
                             hedvec['XMAX']=[wavelmax,'[A]  maximum wavelength']
                             hedvec['SPEC_BW']=[(wavelmax*.1)-(wavelmin*.1),'[nm] Bandpass Width Wmax - Wmin']
                             hedvec['SPEC_VAL']=[((wavelmax*.1)+(wavelmin*.1))/2.,'[nm] Mean Wavelength']
-                            hedvec['SPEC_BIN']=[((wavelmax*.1)-(wavelmin*.1))/float(readkey3(hdr,'NAXIS2')),'Wavelength bin size [nm/pix]']
+                            hedvec['SPEC_BIN']=[((wavelmax*.1)-(wavelmin*.1))/(float(readkey3(hdr,'NAXIS2'))-1),'Wavelength bin size [nm/pix]']
                             hedvec['VOCLASS']=['SPECTRUM V1.0','VO Data Model']
                             hedvec['VOPUB']=['ESO/SAF','VO Publishing Authority']
 #                            hedvec['APERTURE']=[float(re.sub('slit','',readkey3(hdrt,'slit'))),'aperture width']
@@ -608,8 +608,9 @@ def sofispecreduction(files,_interactive,_doflat,listflat,_docross,_verbose=Fals
             texp=float(readkey3(hdr,'dit'))*float(readkey3(hdr,'ndit'))
             mjdend=float(readkey3(hdr,'MJD-OBS')) + (float(readkey3(hdr,'ndit'))*(float(readkey3(hdr,'dit'))+1.8))/(60.*60.*24.)
             strtexp=time.strftime('%H:%M:%S', time.gmtime(texp))
-            _telapse=mjdend-float(readkey3(hdr,'MJD-OBS'))
-            tmid=_telapse/2.
+            _telapse=(mjdend-float(readkey3(hdr,'MJD-OBS')))*60.*60*24.
+            #tmid=_telapse/2.
+            tmid=(mjdend+float(readkey3(hdr,'MJD-OBS')))/2
             ntt.util.updateheader(img,0,{'quality':['Final','fast or rapid reduction'],
                                          'BUNIT':['ADU','Physical unit of array values'],
                                          'DIT':[readkey3(hdr,'dit'),'Detector Integration Time'],
@@ -618,7 +619,7 @@ def sofispecreduction(files,_interactive,_doflat,listflat,_docross,_verbose=Fals
                                          'EXPTIME':[texp,'Total integration time. '+strtexp],
                                          'MJD-END':[mjdend,'End of observations (days)'],
                                          'TELAPSE':[_telapse,'Total elapsed time [days]'],
-                                         'TMID':[tmid,' [days] MJD mid exposure'],
+                                         'TMID':[tmid,'[d] MJD mid exposure'],
                                          'TITLE':[readkey3(hdr,'object'),'Dataset title'],
                                          #'TITLE':[str(tmid)[0:9]+' '+str(readkey3(hdr,'object'))+' '+str(readkey3(hdr,'grism'))+' '+\
                                          #         str(readkey3(hdr,'filter'))+' '+str(readkey3(hdr,'slit')),'Dataset title'],\
