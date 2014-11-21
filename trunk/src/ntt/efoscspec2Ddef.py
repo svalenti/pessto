@@ -813,7 +813,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
             hedvec['CONTNORM'] = [False, 'TRUE if normalised to the continuum']
             hedvec['TOT_FLUX'] = [False, 'TRUE if phot. cond. and all src flux is captured']
             hedvec['FLUXCAL'] = ['ABSOLUTE', 'Certifies the validity of PHOTZP']
-            hedvec['FLUXERR'] = [20., 'Fractional uncertainty of the flux [%]']
+            hedvec['FLUXERR'] = [15.2, 'Fractional uncertainty of the flux [%]']
             hedvec['SPECSYS'] = ['TOPOCENT', 'Observed frame']
             hedvec['DISPELEM'] = ['Gr#' + re.sub('Gr', '', ntt.util.readkey3(hdr, 'grism')), 'Dispersive element name']
             ntt.util.updateheader(img, 0, hedvec)

@@ -624,7 +624,7 @@ def sofispecreduction(files,_interactive,_doflat,listflat,_docross,_verbose=Fals
                                          'EXT_OBJ':[False,'TRUE if extended'],'CONTNORM':[False,'spectrum normalized to the continuum'],\
                                          'TOT_FLUX':[False,'TRUE if phot cond and all src flux is captured'],\
                                          'SPECSYS':['TOPOCENT','Reference frame for spectral coordinate'],\
-                                         'FLUXCAL':['ABSOLUTE','type of flux calibration'],'FLUXERR':[20.,'Fractional uncertainty of the flux [%]'],\
+                                         'FLUXCAL':['ABSOLUTE','type of flux calibration'],'FLUXERR':[34.7,'Fractional uncertainty of the flux [%]'],\
                                          'DISPELEM':['Gr#'+re.sub('Gr','',readkey3(hdr,'grism')),'Dispersive element name']})
             if readkey3(hdr,'tech'):    ntt.util.updateheader(img,0,{'PRODCATG':['SCIENCE.IMAGE','Data product category']})
             aaa=str(readkey3(hdr,'arcfiles'))+'\n'
