@@ -1,3 +1,25 @@
+def aperture(img):
+    import pyfits
+    import re
+
+    hdr = pyfits.open(img)[0].header
+    xmax =  hdr['NAXIS1']
+    center= float(xmax)/2.
+    xmin = -500
+    img2 = re.sub('.fits', '', img)
+    line = "# Sun 13:10:40 16-Jun-2013\nbegin	aperture " + img2 + " 1 "+str(center)+"  500.0\n" + \
+           "	 image	" + img2 + "\n	aperture	1\n	beam	1\n	center	"+str(center)+"  500.0\n" + \
+           "	 low	-450. " + str(xmin) + "\n	high	450. " + str(xmax) + "\n" \
+                                                                                  "	 background\n	 xmin -850.\n" + \
+           "	 xmax 850.\n	 function chebyshev\n		order 1\n		sample *\n" + \
+           "	 naverage -3\n	 niterate 0\n		low_reject 3.\n		high_reject 3.\n" + \
+           "	 grow 0.\n	 axis	1\n	 curve	5\n		2.\n		1.\n" + \
+           "	 1.\n		1020.\n		0\n"
+    f = open('database/ap' + img2, 'w')
+    f.write(line)
+    f.close()
+
+##########################################################################
 
 def choseflat(obj, listflat, setup, _JD0, _interactive):
     import ntt
@@ -135,8 +157,8 @@ def imreplace_region(img):
         iraf.imutil.imreplace(img + '[*,1:200]', value=1, lower='INDEF', upper='INDEF')
         print '### replace pixel 1:200 with 1 (y axes)'
     elif _grism == 'Gr11':
-        iraf.imutil.imreplace(img + '[*,1:200]', value=1, lower='INDEF', upper='INDEF')
-        print '### replace pixel 1:200 with 1 (y axes)'
+        iraf.imutil.imreplace(img + '[*,1:300]', value=1, lower='INDEF', upper='INDEF')
+        print '### replace pixel 1:300 with 1 (y axes)'
     else:
         print '### no replace '
 
@@ -222,7 +244,8 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                 _type = 'bias'
             if not _type:
                 _imagetype = ntt.util.readkey3(hdr, 'tech')
-                if _imagetype != 'SPECTRUM':    _type = 'photometric data'
+                if _imagetype != 'SPECTRUM':
+                    _type = 'photometric data'
             if not _type:
                 _object = ntt.util.readkey3(hdr, 'object')
                 _grism = ntt.util.readkey3(hdr, 'grism')
@@ -475,12 +498,24 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                                       'FILETYPE': [21102, 'flat field']}
                             ntt.util.updateheader(masterflat, 0, hedvec)
                             ntt.util.delete('n' + masterflat)
-                            iraf.specred.response(masterflat, normaliz=masterflat + '[' + str(minpixel) + ':' + str(
-                                maxpixel) + ',*]',
-                                                  response='n' + masterflat, interac=_inter, thresho='INDEF',
-                                                  sample=_sample, naverage=2,
-                                                  function='spline3', low_rej=3, high_rej=3, order=_order, niterat=20,
-                                                  grow=0, graphic='stdgraph')
+
+                            ntt.efoscspec2Ddef.aperture(masterflat)
+
+                            iraf.specred.apflatten(masterflat, output='n' + masterflat, interac=_inter, find='no',
+                                                   recenter='no', resize='no', edit='no', trace='no', fittrac='no',
+                                                   fitspec='yes', flatten='yes', aperture='', pfit='fit2d',
+                                                   clean='no', function='spline3', order=_order, sample='*', mode='ql')
+                            #print _order, _inter, masterflat
+                            #print minpixel, maxpixel
+                            #raw_input('test flat')
+
+                            #########################################################################################
+                            #iraf.specred.response(masterflat, normaliz=masterflat + '[' + str(minpixel) + ':' + str(
+                            #    maxpixel) + ',*]', response='n' + masterflat, interac=_inter, thresho='INDEF',
+                            #                      sample=_sample, naverage=2, function='spline3', low_rej=3,
+                            #                      high_rej=3, order=_order, niterat=20, grow=0, graphic='stdgraph')
+                            #########################################################################################
+
                             ntt.efoscspec2Ddef.imreplace_region('n' + masterflat)
                             nmasterflat = 'n' + masterflat
                             if nmasterflat not in outputlist:  outputlist.append(nmasterflat)
