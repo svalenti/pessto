@@ -1,6 +1,7 @@
 def aperture(img):
     import pyfits
     import re
+    import os
 
     hdr = pyfits.open(img)[0].header
     xmax =  hdr['NAXIS1']
@@ -15,6 +16,9 @@ def aperture(img):
            "	 naverage -3\n	 niterate 0\n		low_reject 3.\n		high_reject 3.\n" + \
            "	 grow 0.\n	 axis	1\n	 curve	5\n		2.\n		1.\n" + \
            "	 1.\n		1020.\n		0\n"
+    if not os.path.isdir('database/'):
+        os.mkdir('database/')
+
     f = open('database/ap' + img2, 'w')
     f.write(line)
     f.close()
@@ -291,30 +295,36 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
             check1.append(ii)
         if ii not in flatlist:
             check2.append(ii)
+
     if len(check2) > 0:
         for ii in check2:
             print '\n###Warning: flat with setup ' + str(ii) + ' are missing'
-            answ = raw_input('\n### skip this setup from reduction [s] or exit [e] ? [s] ')
+            answ = raw_input('\n### skip this setup from reduction [s] or exit [e] or go on [g] ? [s] ')
             if not answ: answ = 's'
             if answ in ['s', 'S']:
                 try:
                     objectlist.pop(ii)
                 except:
                     pass
-            else:
+            elif answ in ['e']:
                 sys.exit('\n### add to the following directory the missing files and try again.')
+            else:
+                pass
+
     if len(check1) > 0:
         for ii in check1:
             print '\n###Warning: arc with setup ' + str(ii) + ' are missing'
-            answ = raw_input('\n### skip this setup from reduction [s] or exit [e] ?  [s] ')
+            answ = raw_input('\n### skip this setup from reduction [s] or exit [e] or go on [g] ?  [s] ')
             if not answ: answ = 's'
             if answ in ['s', 'S']:
                 try:
                     objectlist.pop(ii)
                 except:
                     pass
-            else:
+            elif answ in ['e']:
                 sys.exit('\n### download the missing calibrations from ESO archive and try again.')
+            else:
+                pass
 
     ###### masterbias  #################
     if _dobias:
@@ -582,6 +592,9 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                             distance.append(arccos(
                                 sin(_dec1 * scal) * sin(_dec0 * scal) + cos(_dec1 * scal) * cos(_dec0 * scal) * cos(
                                     _ra1 - _ra0) * scal))
+                    if _verbose:
+                        print distance
+                        print flatgood
                     if not nmasterflat:
                         nmasterflat = flatgood[argmin(distance)]
                 else:
