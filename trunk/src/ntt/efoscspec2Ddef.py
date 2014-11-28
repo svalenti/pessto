@@ -414,60 +414,69 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
         if answ in ['YES', 'yes', 'y', 'Y', 'Yes']:
             ################# bias #########################################
             if _dobias:
-                if len(masterbiaslist) >= 2:
-                    masterbias = ntt.efoscphotredudef.searchbias(listobject[0], masterbiaslist)[0]
-                elif len(masterbiaslist) == 1:
-                    masterbias = masterbiaslist[0]
-                else:
-                    masterbias = ntt.efoscphotredudef.searchbias(listobject[0], '')[0]
-            else:
-                masterbias = ''
-            if _dobias and masterbias:
-                if masterbias[0] == '/':
-                    os.system('cp ' + masterbias + ' ' + string.split(masterbias, '/')[-1])
-                    masterbias = string.split(masterbias, '/')[-1]
-                tmasterbias = re.sub('.fits', '_' + ntt.util.readkey3(ntt.util.readhdr(listobject[0]), 'grism') +
-                                     '_' + ntt.util.readkey3(ntt.util.readhdr(listobject[0]), 'filter') +
-                                     '_' + str(MJDtoday) + '.fits', masterbias)
                 _zerocor = 'yes'
-                if not ntt.util.readkey3(ntt.util.readhdr(masterbias), 'TRIM'):
-                    ntt.util.delete(tmasterbias)
-                    iraf.ccdproc(masterbias, output=tmasterbias, overscan="no", trim="yes", zerocor='no', flatcor='no',
-                                 zero='', ccdtype='', fixpix='no', trimsec=_trimsec0, biassec='',
-                                 readaxi='column', Stdout=1)
-                else:
-                    os.system('cp ' + masterbias + ' ' + tmasterbias)
-                ntt.util.correctcard(tmasterbias)
-                headervecb = {'M_EPOCH': [True, 'TRUE if resulting from multiple epochs'],
-                              'SINGLEXP': [False, 'TRUE if resulting from single exposure'],
-                              'FILETYPE': [21201, 'bias']}
-                ntt.util.updateheader(tmasterbias, 0, headervecb)
-                if int(re.sub('\.', '', str(pyfits.__version__))[:2]) <= 30:
-                    ntt.util.updateheader(tmasterbias, 0, {'HIERARCH ESO INS FILT1 NAME': [setup[1], 'Filter name.']})
-                    ntt.util.updateheader(tmasterbias, 0, {
-                    'HIERARCH ESO INS GRIS1 NAME': ['Gr#' + re.sub('Gr', '', str(setup[0])), 'OPTIi name.']})
-                else:
-                    imm = pyfits.open(tmasterbias, mode='update')  # was this a bag ? (img instead of tmasterbias)
-                    header = imm[0].header
-                    try:
-                        header.pop('ESO INS FILT1 NAME')
-                    except:
-                        pass
-                    try:
-                        header.pop('ESO INS GRIS1 NAME')
-                    except:
-                        pass
-                    header['ESO INS GRIS1 NAME'] = (str(setup[1]), 'Filter name.')
-                    header['ESO INS FILT1 NAME'] = (str(setup[0]), 'OPTIi name.')
-                    imm.flush()
-                    imm.close()
-                if tmasterbias not in outputlist:  outputlist.append(tmasterbias)
+                masterbiaslist=masterbiaslist+glob.glob(ntt.__path__[0]+'/archive/efosc/bias/*')
+                allframes=listobject+listflat+listarc
+                biasneeded=[]
+                tmasterbiaslist=[]
+                for img0 in allframes:
+                    bias0 = ntt.util.choseclosest(img0, masterbiaslist)
+                    if bias0 not in biasneeded:
+                        biasneeded.append(bias0)
+                for masterbias in biasneeded:
+                    if masterbias[0] == '/':
+                        os.system('cp ' + masterbias + ' ' + string.split(masterbias, '/')[-1])
+                        masterbias = string.split(masterbias, '/')[-1]
+
+                    tmasterbias = re.sub('.fits', '_' + setup[0] + '_' + setup[1] + '_' + str(MJDtoday)
+                                         + '.fits', masterbias)
+
+                    tmasterbiaslist.append(tmasterbias)
+
+                    if not ntt.util.readkey3(ntt.util.readhdr(masterbias), 'TRIM'):
+                        ntt.util.delete(tmasterbias)
+                        iraf.ccdproc(masterbias, output=tmasterbias, overscan="no", trim="yes", zerocor='no',
+                                     flatcor='no', zero='', ccdtype='', fixpix='no', trimsec=_trimsec0, biassec='',
+                                     readaxi='column', Stdout=1)
+                    else:
+                        os.system('cp ' + masterbias + ' ' + tmasterbias)
+
+                    ntt.util.correctcard(tmasterbias)
+                    headervecb = {'M_EPOCH': [True, 'TRUE if resulting from multiple epochs'],
+                                  'SINGLEXP': [False, 'TRUE if resulting from single exposure'],
+                                  'FILETYPE': [21201, 'bias']}
+                    ntt.util.updateheader(tmasterbias, 0, headervecb)
+                    if int(re.sub('\.', '', str(pyfits.__version__))[:2]) <= 30:
+                        ntt.util.updateheader(tmasterbias, 0, {'HIERARCH ESO INS FILT1 NAME': [setup[1], 'Filter name.']})
+                        ntt.util.updateheader(tmasterbias, 0, {
+                        'HIERARCH ESO INS GRIS1 NAME': ['Gr#' + re.sub('Gr', '', str(setup[0])), 'OPTIi name.']})
+                    else:
+                        imm = pyfits.open(tmasterbias, mode='update')  # was this a bag ? (img instead of tmasterbias)
+                        header = imm[0].header
+                        try:
+                            header.pop('ESO INS FILT1 NAME')
+                        except:
+                            pass
+                        try:
+                            header.pop('ESO INS GRIS1 NAME')
+                        except:
+                            pass
+                        header['ESO INS GRIS1 NAME'] = (str(setup[1]), 'Filter name.')
+                        header['ESO INS FILT1 NAME'] = (str(setup[0]), 'OPTIi name.')
+                        imm.flush()
+                        imm.close()
+                    if tmasterbias not in outputlist:
+                        outputlist.append(tmasterbias)
+                    if _verbose:
+                        print tmasterbias
             else:
                 _zerocor = 'no'
+
+            print tmasterbiaslist
+
             ################   make all flats of this setup   #################################
             if _doflat:
-                maxpixel = 750
-                minpixel = 250
+                _flatcor='yes'
                 if _listflat:
                     flatgood = _listflat  # flat list from reducer
                 elif listflat:  # flat in the  raw data
@@ -492,6 +501,11 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                             f.close()
                             o.close()
                             ntt.util.delete(masterflat)
+                            if _dobias:
+                                tmasterbias = ntt.util.choseclosest(IDflat[ID][0], tmasterbiaslist)
+                            else:
+                                tmasterbias=''
+
                             iraf.ccdproc('@_flatlist', output='@_oflatlist', overscan="no", trim="yes", darkcor='no',
                                          fixpix='no', zerocor=_zerocor, flatcor="no", trimsec=_trimsec0,
                                          biassec='', zero=tmasterbias, readaxi='column', ccdtype='', Stdout=1)
@@ -528,8 +542,10 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
 
                             ntt.efoscspec2Ddef.imreplace_region('n' + masterflat)
                             nmasterflat = 'n' + masterflat
-                            if nmasterflat not in outputlist:  outputlist.append(nmasterflat)
-                            if nmasterflat not in flatgood:  flatgood.append(nmasterflat)
+                            if nmasterflat not in outputlist:
+                                outputlist.append(nmasterflat)
+                            if nmasterflat not in flatgood:
+                                flatgood.append(nmasterflat)
                             ntt.util.updateheader(nmasterflat, 0, {'FILETYPE': [21203, 'normalized flat field']})
                             ntt.util.updateheader(nmasterflat, 0, {'TRACE1': [masterflat, 'Originating file']})
                             num = 0
@@ -549,6 +565,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                 else:
                     flatgood = []
             else:
+                _flatcor = 'no'
                 flatgood = []
             ##################################################################################
             for obj in listobject:
@@ -562,10 +579,18 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                 for _set in setup:   nameout0 = nameout0 + '_' + _set
                 nameout0 = nameout0 + '_' + str(MJDtoday)
                 nameout0 = ntt.util.name_duplicate(obj, nameout0, '')
+
+                if _dobias:
+                    tmasterbias = ntt.util.choseclosest(obj, tmasterbiaslist)
+                else:
+                    tmasterbias = ''
+
                 print '### ' + str(obj) + '  -> ', str(nameout0), '\n'
                 ntt.util.display_image(obj, 1, '', '', False)
-                if len(flatgood) >= 1:
+                if len(flatgood) == 1:
                     _flatcor = 'yes'
+                    nmasterflat=flatgood[0]
+                elif len(flatgood) >= 2:
                     OBID = ntt.util.readkey3(hdr0, 'esoid')
                     _ra0 = ntt.util.readkey3(hdr0, 'RA')
                     _dec0 = ntt.util.readkey3(hdr0, 'DEC')
@@ -574,12 +599,15 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
 
                     scal = pi / 180.
                     distance = []
+                    JDvec = []
                     for ff in flatgood:
                         hdrf = ntt.util.readhdr(ff)
                         if ntt.util.readkey3(hdrf, 'esoid') == OBID:
                             nmasterflat = ff
+                            _flatcor = 'yes'
                             break
                         else:
+                            _JD1 = ntt.util.readkey3(hdrf, 'JD')
                             _ra1 = ntt.util.readkey3(hdrf, 'RA')
                             _dec1 = ntt.util.readkey3(hdrf, 'DEC')
                             # some flat,bias do not have ra and dec keywords
@@ -592,11 +620,17 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                             distance.append(arccos(
                                 sin(_dec1 * scal) * sin(_dec0 * scal) + cos(_dec1 * scal) * cos(_dec0 * scal) * cos(
                                     _ra1 - _ra0) * scal))
+                            JDvec.append(np.abs(_JD0-_JD1))
                     if _verbose:
+                        print JDvec
                         print distance
                         print flatgood
                     if not nmasterflat:
-                        nmasterflat = flatgood[argmin(distance)]
+                        #       select closer RA and DEC
+                        #nmasterflat = flatgood[argmin(distance)]
+                        #################       select closer in time           #######################
+                        nmasterflat = flatgood[argmin(JDvec)]
+                        _flatcor = 'yes'
                 else:
                     _flatcor = 'no'
                     nmasterflat = ''

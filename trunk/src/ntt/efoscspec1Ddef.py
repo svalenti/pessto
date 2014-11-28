@@ -481,7 +481,7 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
                           'FILETYPE': [22208, '1D wavelength and flux calibrated spectrum', ''],
                           #                     'SNR':[ntt.util.StoN(_imgf,50),'Average signal to noise ratio per pixel'],
                           'SNR': [ntt.util.StoN2(_imgf, False), 'Average signal to noise ratio per pixel'],
-                          'BUNIT': ['erg/cm2/s/A', 'Physical unit of array values'],
+                          'BUNIT': ['erg/cm2/s/Angstrom', 'Physical unit of array values'],
                           'TRACE1': [_imgex, 'Originating file'],
                           'ASSON1': [re.sub('_f.fits', '_2df.fits', _imgf), 'Name of associated file'],
                           'ASSOC1': ['ANCILLARY.2DSPECTRUM', 'Category of associated file']}

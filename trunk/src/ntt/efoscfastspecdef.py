@@ -181,7 +181,7 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
                     hedvec = {'SENSFUN': [string.split(sensfile, '/')[-1], 'sensitivity function'],
                               'FILETYPE': [22208, '1D wavelength and flux calibrated spectrum '],
                               'SNR': [ntt.util.StoN2(imgf, False), 'Average S/N ratio'],
-                              'BUNIT': ['erg/cm2/s/A', 'Flux Calibration Units'], 'TRACE1': [imgex, '']}
+                              'BUNIT': ['erg/cm2/s/Angstrom', 'Flux Calibration Units'], 'TRACE1': [imgex, '']}
                     ntt.util.updateheader(imgf, 0, hedvec)
                     imgout = imgf
                     imgd = ntt.efoscspec1Ddef.fluxcalib2d(img, sensfile)

@@ -522,6 +522,28 @@ def searchflat(img, listflat):
     return flatfile, directory
 
 
+
+###########################################################################
+def choseclosest(img0, listimg):
+    import ntt
+    import numpy as np
+
+    hdr0 = ntt.util.readhdr(img0)
+    JD0 = ntt.util.readkey3(hdr0, 'JD')
+    if listimg:
+        distance = []
+        for img in listimg:
+            hdrf = ntt.util.readhdr(img)
+            JDimg = ntt.util.readkey3(hdrf, 'JD')
+            distance.append(np.abs(JD0 - JDimg))
+        if len(distance) >= 1:
+            image = listimg[np.argmin(distance)]
+        else:
+            image = ''
+    else:
+        image = ''
+    return image
+
 ###########################################################################
 def readstandard(standardfile):
     import ntt
