@@ -570,7 +570,6 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
             ##################################################################################
             for obj in listobject:
                 hdr0 = ntt.util.readhdr(obj)
-                _JD0 = ntt.util.readkey3(hdr0, 'JD')
                 _object0 = ntt.util.readkey3(hdr0, 'object')
                 _object0 = re.sub(' ', '', _object0)
                 _object0 = re.sub('/', '_', _object0)
@@ -591,6 +590,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                     _flatcor = 'yes'
                     nmasterflat=flatgood[0]
                 elif len(flatgood) >= 2:
+                    _JD0 = ntt.util.readkey3(hdr0, 'JD')
                     OBID = ntt.util.readkey3(hdr0, 'esoid')
                     _ra0 = ntt.util.readkey3(hdr0, 'RA')
                     _dec0 = ntt.util.readkey3(hdr0, 'DEC')
@@ -652,9 +652,12 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                 if nameout0 not in outputlist:  outputlist.append(nameout0)
 
                 arcfile = ''
-                if _listarc:       arcfile = ntt.util.searcharc(obj, _listarc)[0]
-                if not arcfile:    arcfile = ntt.util.searcharc(obj, listarc)[0]
-                if not arcfile:    arcfile = ntt.util.searcharc(obj, '')[0]
+                if _listarc:
+                    arcfile = ntt.util.searcharc(obj, _listarc)[0]
+                if not arcfile:
+                    arcfile = ntt.util.searcharc(obj, listarc)[0]
+                if not arcfile:
+                    arcfile = ntt.util.searcharc(obj, '')[0]
                 if arcfile:
                     if arcfile[0] == '/':
                         os.system('cp ' + arcfile + ' arc_' + nameout0)
