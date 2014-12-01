@@ -111,7 +111,6 @@ def calibrationsofi(imgex, stdex, stdref, outputfile, _interactive):
     pyfits.writeto(outputfile, np.float32(dataex), hdrex)
     ntt.util.updateheader(outputfile, 0, {'SENSFUN': [stdex, 'tell stand frame'],
                                           'BUNIT': ['erg/cm2/s/Angstrom', 'Physical unit of array values']})
-    #    ntt.util.updateheader(outputfile,0,{'BUNIT':['erg/cm2/s/A','Flux Calibration Units']})
     # get sensitivity teluric function   
     senstelluric = 'senstel_' + ntt.util.readkey3(hdrstd, 'date-night') + '_' + \
                    ntt.util.readkey3(hdrstd, 'grism') + '_' + ntt.util.readkey3(hdrstd, 'filter')
