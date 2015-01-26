@@ -324,18 +324,19 @@ def crosstalk(inname, outname):
     iraf.imgeom(_doprint=0)
     iraf.ctio(_doprint=0)
     toforget = ['imgeom.blkavg', 'imutil.imcopy', 'imutil.imarith', 'ctio.imcreate']
-    for t in toforget: iraf.unlearn(t)
+    for t in toforget:
+        iraf.unlearn(t)
 
     delete("temp_sum.fits,temp_alpha.fits,temp_corr_A.fits,temp_corr_B.fits,temp_corr.fits," + outname)
     iraf.imgeom.blkavg(input=inname, output="temp_sum.fits", option="sum", b1=1024, b2=1)
     iraf.imutil.imarith("temp_sum.fits", "*", 1.4e-5, "temp_alpha.fits", verbose='no')
     iraf.imgeom.blkrep("temp_alpha.fits", "temp_corr_A.fits", 1024, 1)
-    iraf.ctio.imcreate("temp_corr_B.fits", naxis=2, naxis1=1024, naxis2=1024,
-                       header='new')  #  calculate the second part of the correction
+    iraf.ctio.imcreate("temp_corr_B.fits", naxis=2, naxis1=1024, naxis2=1024, header='new')
+    #  calculate the second part of the correction
     iraf.imutil.imcopy("temp_corr_A.fits[*,1:512]", "temp_corr_B.fits[*,513:1024]", verbose='no')
     iraf.imutil.imcopy("temp_corr_A.fits[*,513:1024]", "temp_corr_B.fits[*,1:512]", verbose='no')
-    iraf.imutil.imarith("temp_corr_A.fits", "+", "temp_corr_B.fits", "temp_corr.fits",
-                        verbose='no')  #  combine the 2 corrections
+    iraf.imutil.imarith("temp_corr_A.fits", "+", "temp_corr_B.fits", "temp_corr.fits", verbose='no')
+    #  combine the 2 corrections
     iraf.imutil.imarith(inname, "-", "temp_corr.fits", outname, verbose='no')  #  apply the correction
     #   delete the temporary images and files
     delete("temp_sum.fits,temp_alpha.fits,temp_corr_A.fits,temp_corr_B.fits,temp_corr.fits")
@@ -426,8 +427,9 @@ def skysub(lista, _ron, _gain, _interactive, regi='crreject'):
     ntt.util.delete('objmasklog')
     #  create object mask for each frame
     ccc = iraf.nproto.objmasks(images='@tmplist_fastsub', objmasks='@tmplist_mask', omtype='boolean', \
-                               blksize=-16, convolv='block 3 3', hsigma=4, lsigma=3, minpix=10, ngrow=2, agrow=4.,
-                               logfile='', Stdout=1)
+                            blksize=-16, convolv='block 3 3', hsigma=5, lsigma=4, minpix=10, ngrow=2, agrow=4.,
+#                            blksize=-16, convolv='block 3 3', hsigma=10, lsigma=10, minpix=10, ngrow=2, agrow=4.,
+                            logfile='', Stdout=1)
     ntt.util.delete('imcombinelog')
 
     # create sky masking the objects
@@ -502,7 +504,7 @@ def skysuboff(listaon, listaoff, _ron, _gain, _interactive, namesky, regi='crrej
     for im in listaon:
         gg.write(im + '\n')
         hh.write(re.sub('.fits', '_sky.fits', im) + '\n')  #'sky_'+im+'\n')
-        delete(re.sub('.fits', '_sky.fits', im))  #'sky_'+im)
+        ntt.util.delete(re.sub('.fits', '_sky.fits', im))  #'sky_'+im)
         listaout.append(re.sub('.fits', '_sky.fits', im))  # 'sky_'+im)
     gg.close()
     hh.close()
@@ -512,23 +514,23 @@ def skysuboff(listaon, listaoff, _ron, _gain, _interactive, namesky, regi='crrej
     for im in listaoff:
         gg.write(im + '\n')
         f.write('mask_' + im + '\n')
-        delete('mask_' + im)
+        ntt.util.delete('mask_' + im)
         hh.write('fastsub_' + re.sub('.fits', '', im) + '\n')
-        delete('fastsub_' + im)
+        ntt.util.delete('fastsub_' + im)
     f.close()
     gg.close()
     hh.close()
-    delete('fastskyoff.fits')
+    ntt.util.delete('fastskyoff.fits')
 
     iraf.flatcombine('@tmplist_off', output='fastskyoff.fits', rdnoise=_ron, gain=_gain, ccdtype='', combine='average',
                      reject='avsigclip')
     iraf.imarith('@tmplist_off', '-', 'fastskyoff.fits', result='@tmplist_s', verbose='no')
-    delete('logobjmask')
+    ntt.util.delete('logobjmask')
     ccc = iraf.nproto.objmasks(images='@tmplist_s', objmasks='@tmplist_mask', omtype='boolean', \
                                blksize=-16, convolv='block 3 3', hsigma=4, lsigma=3, minpix=10, ngrow=2, agrow=4.,
                                logfile='', Stdout=1)
-    delete('imcombinelog')
-    delete(namesky)
+    ntt.util.delete('imcombinelog')
+    ntt.util.delete(namesky)
 
     for im in listaoff:
         ntt.util.updateheader(im, 0, {'OBJMASK': [readkey3(readhdr('fastsub_' + im), 'OBJMASK'), 'mask']})
@@ -566,7 +568,6 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                   method='iraf'):
     from numpy import pi, cos, sin, arccos, array, argmin, min, isnan, sqrt
     from ntt.util import delete, readhdr, readkey3, delete, rangedata, name_duplicate, updateheader, correctcard
-    from pyfits import open as popen
     import time
     import ntt
     import datetime
@@ -580,7 +581,8 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
     iraf.ccdred(_doprint=0)
 
     toforget = ['ccdred.ccdproc', 'imutil.imarith']
-    for t in toforget: iraf.unlearn(t)
+    for t in toforget:
+        iraf.unlearn(t)
 
     iraf.ccdproc.darkcor = 'no'
     iraf.ccdproc.fixpix = 'no'
@@ -666,7 +668,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
         print listill
 
     ill = {}
-    if _doill:
+    if _doill and _doflat:
         for _set in flat:
             if listill:
                 for imgill in listill:
@@ -697,7 +699,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     answ = 'y'
                 if answ in ['YES', 'yes', 'y', 'Y']:
                     img = fieldlist[field][_set][0]
-                    if _doill and ill[_set]:
+                    if _doill and _set in ill:
                         if str(ill[_set])[0] == '/':
                             _illum = string.split(ill[_set], '/')[-1]
                             delete(_illum)
@@ -739,6 +741,8 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                             print '\n### image corrected for cross talk   ...... done '
                         else:
                             iraf.images.imutil.imcopy(image, 'C' + nameobjnew, verbose='no')
+                            correctcard('C' + nameobjnew)
+                            ntt.util.updateheader('C' + nameobjnew, 0, {'CROSSTAL': ['False', '']})
                         if _doill and _illum:
                             _illumco = 'yes'
                             print '### image corrected for illumination correction   ...... done '
@@ -781,7 +785,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                             updateheader(nameobjnew, 0, {'ILLUMCOR': [_illum, 'illumination correction']})
                         if _doflat and _masterflat:
                             updateheader(nameobjnew, 0, {'FLATCOR': [_masterflat, 'flat correction']})
-                        delete('C' + nameobjnew)
+                        ntt.util.delete('C' + nameobjnew)
                         fieldlist2[field][_set].append(nameobjnew)
     for i in fieldlist2:
         for fil in fieldlist2[i]:
@@ -928,7 +932,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                 nameobj = 'skyoff_' + nameobj + '_' + str(_setup) + '_' + str(MJDtoday)
                 namesky = name_duplicate(listaoff[0], nameobj, '')
                 if len(listaon) > num and len(listaoff) > num and readkey3(readhdr(listaon[0]), 'nexp') % num == 0 \
-                        and len(listaon) % num == 0 and len(listaoff) % num == 0:
+                        and len(listaon) % num == 0 and len(listaoff) % num == 0 and len(listaoff)==len(listaon):
                     #                                                                popen(lista[0])[0].header.get('nexp') % num == 0 \
                     nn = 0
                     mm = num
@@ -948,7 +952,42 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                                                                       namesky, _regi)
                 else:
                     print '\n### not enough images to do ON/OFF reduction'
-                    listaout = ''
+                    print '\n### select manually the images on and off to use '
+                    listaout = []
+                    skyfile = []
+                    goon=raw_input('stop this step ? [n/y]')
+                    while goon not in ['yes','YES','Y','y']:
+                        print 'liston'
+                        kk=0
+                        for gg in listaon:
+                            print gg,kk
+                            kk=kk+1
+                        kk = 0
+                        print 'listoff'
+                        for gg in listaoff:
+                            print gg,kk
+                            kk=kk+1
+
+                        ddd = raw_input('select list ON [ 0,1,2,3 ] ')
+                        listaon1=[]
+                        for ii in string.split(ddd,','):
+                            listaon1.append(listaon[int(ii)])
+                        print listaon1
+
+                        ddd1 = raw_input('select list OFF [ 0,1,2 ] ')
+                        listaoff1=[]
+                        for ii in string.split(ddd1,','):
+                            listaoff1.append(listaoff[int(ii)])
+                        print listaoff1
+
+                        listaout0, skyfile0 = ntt.sofiphotredudef.skysuboff(listaon1, listaoff1, _ron, _gain,
+                                                                            _interactive, namesky, _regi)
+                        print listaout0,listaout
+                        listaout = listaout + listaout0
+                        skyfile = skyfile + skyfile0
+
+                        goon=raw_input('stop this step ? [n/y]')
+
             if listaout:
                 outputobject = outputobject + listaout
                 outputobject = outputobject + skyfile
