@@ -232,17 +232,17 @@ def registersofi(imglist):
 
 def pesstocombine2(imglist, _combine, outputimage):
     import ntt
-    from ntt.util import delete, readhdr, readkey3, defswarp, updateheader
+    from ntt.util import readhdr, readkey3
     from pyraf import iraf
-    from numpy import array, min, max, argmin, float32
+    from numpy import min, max, argmin, float32
     import pyfits
     import string, os, sys, re
 
-    hdr0 = readhdr(imglist[0])
-    _ron = readkey3(hdr0, 'ron')
-    _gain = readkey3(hdr0, 'gain')
+    hdr0 = ntt.util.readhdr(imglist[0])
+    _ron = ntt.util.readkey3(hdr0, 'ron')
+    _gain = ntt.util.readkey3(hdr0, 'gain')
     inputimg = string.join(imglist, ",")
-    nameswarp = defswarp('default.swarp', outputimage, _combine, gain=_gain)
+    nameswarp = ntt.util.defswarp('default.swarp', outputimage, _combine, gain=_gain)
     os.system('swarp  ' + str(inputimg) + ' > _logsex')
     ntt.util.delete(nameswarp)
     ntt.util.delete('_logsex')
@@ -274,7 +274,8 @@ def pesstocombine2(imglist, _combine, outputimage):
         mjdend.append(readkey3(readhdr(im), 'MJD-END'))
         mjdstart.append(readkey3(readhdr(im), 'MJD-OBS'))
     _telapse = (max(mjdend) - min(mjdstart))*60.*60*24.
-    _tmid = (mjdend+float(readkey3(hdr,'MJD-OBS')))/2
+    _tmid = (max(mjdend) + min(mjdstart))/2
+#    _tmid = (mjdend+float(readkey3(hdr,'MJD-OBS')))/2
     _dateobs = readkey3(readhdr(imglist[argmin(mjdstart)]), 'DATE-OBS')
 
     header0 = {'DATE-OBS': [_dateobs, 'Date the observation was started (UTC)'],
@@ -291,12 +292,15 @@ def pesstocombine2(imglist, _combine, outputimage):
     data, hdr = pyfits.getdata(outputimage, 0, header=True)
     dataw, hdrw = pyfits.getdata(re.sub('.fits', '.weight.fits', outputimage), 0, header=True)
     ntt.util.delete(re.sub('.fits', '.weight.fits', outputimage))
-    if 'PRODCATG' in hdr: hdr.pop('PRODCATG')
-    if 'PC1_2' in hdr: hdr.pop('PC1_2')
-    if 'PC2_1' in hdr: hdr.pop('PC2_1')
+    if 'PRODCATG' in hdr:
+        hdr.pop('PRODCATG')
+    if 'PC1_2' in hdr:
+        hdr.pop('PC1_2')
+    if 'PC2_1' in hdr:
+        hdr.pop('PC2_1')
     pyfits.writeto(re.sub('.fits', '.weight.fits', outputimage), float32(dataw), hdr)
 
-    delete('detection*.txt,detections.cat,detection_sex*')
+    ntt.util.delete('detection*.txt,detections.cat,detection_sex*')
     return outputimage, re.sub('.fits', '.weight.fits', outputimage)
 
 
@@ -316,7 +320,7 @@ def sortbyJD(lista):
 
 
 def crosstalk(inname, outname):
-    from ntt.util import delete
+    import ntt
     from pyraf import iraf
 
     iraf.images(_doprint=0)
@@ -327,7 +331,7 @@ def crosstalk(inname, outname):
     for t in toforget:
         iraf.unlearn(t)
 
-    delete("temp_sum.fits,temp_alpha.fits,temp_corr_A.fits,temp_corr_B.fits,temp_corr.fits," + outname)
+    ntt.util.delete("temp_sum.fits,temp_alpha.fits,temp_corr_A.fits,temp_corr_B.fits,temp_corr.fits," + outname)
     iraf.imgeom.blkavg(input=inname, output="temp_sum.fits", option="sum", b1=1024, b2=1)
     iraf.imutil.imarith("temp_sum.fits", "*", 1.4e-5, "temp_alpha.fits", verbose='no')
     iraf.imgeom.blkrep("temp_alpha.fits", "temp_corr_A.fits", 1024, 1)
@@ -339,7 +343,7 @@ def crosstalk(inname, outname):
     #  combine the 2 corrections
     iraf.imutil.imarith(inname, "-", "temp_corr.fits", outname, verbose='no')  #  apply the correction
     #   delete the temporary images and files
-    delete("temp_sum.fits,temp_alpha.fits,temp_corr_A.fits,temp_corr_B.fits,temp_corr.fits")
+    ntt.util.delete("temp_sum.fits,temp_alpha.fits,temp_corr_A.fits,temp_corr_B.fits,temp_corr.fits")
 
 
 def searchill(flat, listill):
@@ -426,7 +430,7 @@ def skysub(lista, _ron, _gain, _interactive, regi='crreject'):
     iraf.imarith('@tmplist0', '-', 'fastsky_' + lista[0], result='@tmplist_fastsub', verbose='no')
     ntt.util.delete('objmasklog')
     #  create object mask for each frame
-    ccc = iraf.nproto.objmasks(images='@tmplist_fastsub', objmasks='@tmplist_mask', omtype='boolean', \
+    ccc = iraf.nproto.objmasks(images='@tmplist_fastsub', objmasks='@tmplist_mask', omtype='boolean',
                             blksize=-16, convolv='block 3 3', hsigma=5, lsigma=4, minpix=10, ngrow=2, agrow=4.,
 #                            blksize=-16, convolv='block 3 3', hsigma=10, lsigma=10, minpix=10, ngrow=2, agrow=4.,
                             logfile='', Stdout=1)
@@ -435,7 +439,7 @@ def skysub(lista, _ron, _gain, _interactive, regi='crreject'):
     # create sky masking the objects
     for im in lista:  ntt.util.updateheader(im, 0, {'OBJMASK': [readkey3(readhdr('fastsub_' + im), 'OBJMASK'), 'mask']})
     iraf.image.immatch.imcombine('@tmplist0', output='sky_' + lista[0], masktyp='!OBJMASK', maskval=0, combine='median',
-                                 reject=regi, \
+                                 reject=regi,
                                  scale='mode', statsec='[100:800,100:800]', offsets='', rdnoise=_ron, gain=_gain,
                                  nlow=1, nhigh=1, logfile='imcombinelog')
 
@@ -474,7 +478,7 @@ def skysub(lista, _ron, _gain, _interactive, regi='crreject'):
 def skysuboff(listaon, listaoff, _ron, _gain, _interactive, namesky, regi='crreject'):
     import re, string, os
     import ntt
-    from ntt.util import delete, updateheader, readkey3, readhdr
+    from ntt.util import readkey3, readhdr
     from pyraf import iraf
     from pyfits import open as popen
     from numpy import mean
@@ -486,7 +490,8 @@ def skysuboff(listaon, listaoff, _ron, _gain, _interactive, namesky, regi='crrej
     iraf.ccdred(_doprint=0)
     toforget = ['imutil.imarith', 'ccdred.ccdproc', 'nproto.objmasks', 'ccdred.flatcombine', 'imutil.hedit',
                 'immatch.imcombine']
-    for t in toforget: iraf.unlearn(t)
+    for t in toforget:
+        iraf.unlearn(t)
 
     iraf.nproto.objmasks1.fitxord = 1
     iraf.nproto.objmasks1.fityord = 1
@@ -526,14 +531,14 @@ def skysuboff(listaon, listaoff, _ron, _gain, _interactive, namesky, regi='crrej
                      reject='avsigclip')
     iraf.imarith('@tmplist_off', '-', 'fastskyoff.fits', result='@tmplist_s', verbose='no')
     ntt.util.delete('logobjmask')
-    ccc = iraf.nproto.objmasks(images='@tmplist_s', objmasks='@tmplist_mask', omtype='boolean', \
+    ccc = iraf.nproto.objmasks(images='@tmplist_s', objmasks='@tmplist_mask', omtype='boolean',
                                blksize=-16, convolv='block 3 3', hsigma=4, lsigma=3, minpix=10, ngrow=2, agrow=4.,
                                logfile='', Stdout=1)
     ntt.util.delete('imcombinelog')
     ntt.util.delete(namesky)
 
     for im in listaoff:
-        ntt.util.updateheader(im, 0, {'OBJMASK': [readkey3(readhdr('fastsub_' + im), 'OBJMASK'), 'mask']})
+        ntt.util.updateheader(im, 0, {'OBJMASK': [ntt.util.readkey3(ntt.util.readhdr('fastsub_' + im), 'OBJMASK'), 'mask']})
     iraf.images.immatch.imcombine('@tmplist_off', output=namesky, masktyp='!OBJMASK', maskval=0, combine='median',
                                   reject=regi, nlow=1, nhigh=2,
                                   scale='mode', rdnoise=_ron, gain=_gain, offsets='', logfile='imcombinelog')
@@ -544,21 +549,22 @@ def skysuboff(listaon, listaoff, _ron, _gain, _interactive, namesky, regi='crrej
 
     hdr = readhdr(namesky)
     matching = [s for s in hdr.keys() if "IMCMB" in s]
-    for imcmb in matching:   aaa = iraf.hedit(namesky, imcmb, delete='yes', update='yes', verify='no', Stdout=1)
+    for imcmb in matching:
+        aaa = iraf.hedit(namesky, imcmb, delete='yes', update='yes', verify='no', Stdout=1)
 
     iraf.imarith('@tmplist_on', '-', namesky, result='@tmplist_sky', verbose='no')
     for im in listaon:
-        hedvec = {'skysub': [namesky, 'sky image subtracted'], 'FILETYPE': [32215, 'pre-reduced image sky subtracted'], \
+        hedvec = {'skysub': [namesky, 'sky image subtracted'], 'FILETYPE': [32215, 'pre-reduced image sky subtracted'],
                   'TRACE1': [im, ''], 'MBKG': [mean(popen(namesky)[0].data), 'background level']}
         ntt.util.updateheader(re.sub('.fits', '_sky.fits', im), 0, hedvec)
-    delete('tmplist_on,tmplist_off,tmplist_sky,tmplist_s,tmplist_mask')
+    ntt.util.delete('tmplist_on,tmplist_off,tmplist_sky,tmplist_s,tmplist_mask')
     num = 0
     for im in listaoff:
         num = num + 1
-        ntt.util.updateheader(namesky, 0, {'PROV' + str(num): [readkey3(readhdr(im), 'ARCFILE'), 'Originating file']})
+        ntt.util.updateheader(namesky, 0, {'PROV' + str(num): [ntt.util.readkey3(ntt.util.readhdr(im), 'ARCFILE'), 'Originating file']})
         ntt.util.updateheader(namesky, 0, {'TRACE' + str(num): [im, '']})
-        delete('fastsub_' + im)
-        delete('mask_' + im)
+        ntt.util.delete('fastsub_' + im)
+        ntt.util.delete('mask_' + im)
     return listaout, skyfile
 
 
@@ -567,7 +573,7 @@ def skysuboff(listaon, listaoff, _ron, _gain, _interactive, namesky, regi='crrej
 def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _interactive, _regi='crreject', _verbose=False,
                   method='iraf'):
     from numpy import pi, cos, sin, arccos, array, argmin, min, isnan, sqrt
-    from ntt.util import delete, readhdr, readkey3, delete, rangedata, name_duplicate, updateheader, correctcard
+    from ntt.util import readhdr, readkey3, delete, name_duplicate, updateheader, correctcard
     import time
     import ntt
     import datetime
@@ -702,7 +708,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     if _doill and _set in ill:
                         if str(ill[_set])[0] == '/':
                             _illum = string.split(ill[_set], '/')[-1]
-                            delete(_illum)
+                            ntt.util.delete(_illum)
                             iraf.images.imutil.imcopy(ill[_set], output=_illum, verbose='no')
                         else:
                             _illum = ill[_set]
@@ -734,7 +740,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                         nameobjnew = name_duplicate(image, nameobj2, '')
                         #print '\n### ',image, nameobjnew,_masterflat,_illum
                         if _docross:
-                            delete('C' + nameobjnew)
+                            ntt.util.delete('C' + nameobjnew)
                             ntt.sofiphotredudef.crosstalk(image, 'C' + nameobjnew)
                             correctcard('C' + nameobjnew)
                             ntt.util.updateheader('C' + nameobjnew, 0, {'CROSSTAL': ['True', '']})
@@ -753,7 +759,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                             print '### image corrected for flat field   ...... done '
                         else:
                             _flatcor = 'no'
-                        delete(nameobjnew)
+                        ntt.util.delete(nameobjnew)
                         iraf.noao.imred.ccdred.ccdproc('C' + nameobjnew, output=nameobjnew, overscan="no", trim="yes",
                                                        zerocor="no", flatcor=_flatcor,
                                                        illumco=_illumco, trimsec='[1:1024,1:1007]', biassec='',
@@ -933,7 +939,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                 namesky = name_duplicate(listaoff[0], nameobj, '')
                 if len(listaon) > num and len(listaoff) > num and readkey3(readhdr(listaon[0]), 'nexp') % num == 0 \
                         and len(listaon) % num == 0 and len(listaoff) % num == 0 and len(listaoff)==len(listaon):
-                    #                                                                popen(lista[0])[0].header.get('nexp') % num == 0 \
+                    #                          popen(lista[0])[0].header.get('nexp') % num == 0 \
                     nn = 0
                     mm = num
                     listaout = []
@@ -1000,17 +1006,17 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                 _combine = 'median'
                 #                   _rejection=_regi
                 outputimage = 'merge.fits'
-                delete('merge.fits')
+                ntt.util.delete('merge.fits')
                 try:
                     ntt.sofiphotredudef.registersofi(listaout)
                     nameobjnew, nameobjnew1 = ntt.sofiphotredudef.pesstocombine2(listaout, _combine, nameobjnew)
                     _xref, _yref = getreferencepixels(listaout[0], nameobjnew)  #####      added for astrometry
-                    hedvec0 = {'NCOMBINE': [len(listaout) * ncombine, 'Number of raw science data'], \
+                    hedvec0 = {'NCOMBINE': [len(listaout) * ncombine, 'Number of raw science data'],
                                'NOFFSETS': [int(num), 'Number of offset positions'],
-                               'NUSTEP': [0, 'Number of microstep positions'], \
+                               'NUSTEP': [0, 'Number of microstep positions'],
                                'NJITTER': [int(float(readkey3(readhdr(nameobjnew), 'nexp')) / num),
-                                           'Number of microstep positions'], \
-                               'NTCRPIX1': [float(_xref), 'reference x pixel of combined image'], \
+                                           'Number of microstep positions'],
+                               'NTCRPIX1': [float(_xref), 'reference x pixel of combined image'],
                                'NTCRPIX2': [float(_yref), 'reference y pixel of combined image']}
                     ntt.util.updateheader(nameobjnew1, 0, hedvec0)
                     ntt.util.updateheader(nameobjnew, 0, hedvec0)
@@ -1018,17 +1024,20 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     ntt.util.updateheader(nameobjnew1, 0, {'FILETYPE': [31214, 'weight.mask']})
                     ntt.util.phase3header(nameobjnew)  #  phase 3 definitions
                     ntt.util.phase3header(nameobjnew1)  #  phase 3 definitions
-                    if nameobjnew not in outputobject:     outputobject.append(nameobjnew)
-                    if nameobjnew1 not in outputobject:     outputobject.append(nameobjnew1)
+                    if nameobjnew not in outputobject:
+                            outputobject.append(nameobjnew)
+                    if nameobjnew1 not in outputobject:
+                            outputobject.append(nameobjnew1)
                 except          Exception, e:
                     print e
+
                 try:
                     sexvec = ntt.efoscastrodef.sextractor(nameobjnew)
                     rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, mbkg3 = ntt.efoscastrodef.efoscastroloop(
                         [nameobjnew], '2mass', False, 40, 40, 20, 'rxyscale', 100, 30, sexvec, True, 10, method)
                     if rmsx3 > 2 or rmsy3 > 2:
                         rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, mbkg3 = ntt.efoscastrodef.efoscastroloop(
-                            [nameobjnew], '2mass', False, int(20), int(20), \
+                            [nameobjnew], '2mass', False, int(20), int(20),
                             int(10), 'rxyscale', 100, 30, sexvec, True, 5, method)
                     astrostring = str(rmsx3) + ' ' + str(rmsy3) + ' ' + str(num3)
                     ntt.util.updateheader(nameobjnew, 0, {'ASTROMET': [astrostring, 'rmsx rmsy nstars']})
@@ -1038,20 +1047,20 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, mbkg3 = '', '', '', '', '', '', '', '', ''
                     print '\n### problem with astrometry, do you have network ? '
                 if fwhmgess and fwhmgess < 99:
-                    hedvec = {'PSF_FWHM': [fwhmgess, 'Spatial resolution (arcsec)'], \
-                              'ELLIPTIC': [ellgess, 'Average ellipticity of point sources'], \
+                    hedvec = {'PSF_FWHM': [fwhmgess, 'Spatial resolution (arcsec)'],
+                              'ELLIPTIC': [ellgess, 'Average ellipticity of point sources'],
                               'CUNIT1': ['deg', 'unit of the coord. trans.'],
-                              'CUNIT2': ['deg', 'unit of the coord. trans.'], \
-                              'CRDER1': [(1 / sqrt(2.)) * float(rmsx3) * (1. / 3600.), 'Random error (degree)'], \
-                              'CRDER2': [(1 / sqrt(2.)) * float(rmsy3) * (1. / 3600.), 'Random error (degree)'], \
+                              'CUNIT2': ['deg', 'unit of the coord. trans.'],
+                              'CRDER1': [(1 / sqrt(2.)) * float(rmsx3) * (1. / 3600.), 'Random error (degree)'],
+                              'CRDER2': [(1 / sqrt(2.)) * float(rmsy3) * (1. / 3600.), 'Random error (degree)'],
                               'CSYER1': [rasys3, 'Systematic error in  (RA_m - Ra_ref)'],
                               'CSYER2': [decsys3, 'Systematic error in (DEC_m - DEC_ref)']}
                     ntt.util.updateheader(nameobjnew, 0, hedvec)
                     result = ntt.efoscastrodef.zeropoint(nameobjnew, '2mass', False, False)
                     if result:
                         if os.path.isfile(re.sub('.fits', '.ph', nameobjnew)):
-                            if re.sub('.fits', '.ph', nameobjnew) not in outputobject: outputobject.append(
-                                re.sub('.fits', '.ph', nameobjnew))
+                            if re.sub('.fits', '.ph', nameobjnew) not in outputobject:
+                                outputobject.append(re.sub('.fits', '.ph', nameobjnew))
                         print '\n### zeropoint ..... done'
                         for ll in result:
                             valore = '%3.3s %6.6s %6.6s' % (str(ll), str(result[ll][1]), str(result[ll][0]))
@@ -1067,14 +1076,14 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                         ntt.util.updateheader(nameobjnew, 0, {'PHOTZP': [9999., 'MAG=-2.5*log(data)+PHOTZP']})
                 else:
                     hedvec = {'PSF_FWHM': [9999., 'Spatial resolution (arcsec)'],
-                              'ELLIPTIC': [9999., 'Average ellipticity of point sources'], \
+                              'ELLIPTIC': [9999., 'Average ellipticity of point sources'],
                               'CUNIT1': ['deg', 'unit of the coord. trans.'],
-                              'CUNIT2': ['deg', 'unit of the coord. trans.'], \
-                              'CRDER1': [9999., 'Random error (degree)'], \
-                              'CRDER2': [9999., 'Random error (degree)'], \
+                              'CUNIT2': ['deg', 'unit of the coord. trans.'],
+                              'CRDER1': [9999., 'Random error (degree)'],
+                              'CRDER2': [9999., 'Random error (degree)'],
                               'CSYER1': [9999., 'Systematic error in  (RA_m - Ra_ref)'],
-                              'CSYER2': [9999., 'Systematic error in (DEC_m - DEC_ref)'], \
-                              'FLUXCAL': ['UNCALIBRATED', 'Certifies the validity of PHOTZP'], \
+                              'CSYER2': [9999., 'Systematic error in (DEC_m - DEC_ref)'],
+                              'FLUXCAL': ['UNCALIBRATED', 'Certifies the validity of PHOTZP'],
                               'PHOTSYS': ['NULL', 'Photometric system VEGA or AB'],
                               'PHOTZP': [9999., 'MAG=-2.5*log(data)+PHOTZP']}
                     ntt.util.updateheader(nameobjnew, 0, hedvec)
@@ -1103,10 +1112,11 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     ntt.util.updateheader(nameobjnew, 0,
                                           {'ABMAGLIM': [9999., '5-sigma limiting AB magnitude for point sources']})
 
-    reduceddata = rangedata(outputobject)
+    reduceddata = ntt.util.rangedata(outputobject)
     print '\n### adding keiwords for phase 3 ....... '
     f = open('logfile_phot_' + str(reduceddata) + '_' + str(datenow) + '.raw.list', 'w')
     for img in outputobject:
+        print img
         if str(img)[-5:] == '.fits':
             hdr = readhdr(img)
             ######  cancel pc matrix
@@ -1153,24 +1163,24 @@ def getreferencepixels(img, imgmerge):
 
     iraf.imcoords(_doprint=0)
     toforget = ['imcoords.wcsctran']
-    for t in toforget: iraf.unlearn(t)
+    for t in toforget:
+        iraf.unlearn(t)
     import ntt
-    from ntt.util import delete
-    from numpy import compress, array
+    import numpy as np
 
     ff = open('tmp.pix', 'w')
     ff.write('512  512')
     ff.close()
-    delete('tmp.coo,tmp2.pix')
+    ntt.util.delete('tmp.coo,tmp2.pix')
     iraf.wcsctran('tmp.pix', 'tmp.coo', img, inwcs='physical', outwcs='world', columns='1 2', formats='%10.6f %10.6f',
                   verbose='yes')
     iraf.wcsctran('tmp.coo', 'tmp2.pix', imgmerge, inwcs='world', units='degrees degrees', outwcs='logical',
                   columns='1 2', formats='%10.1f %10.1f', verbose='no')
     aa = iraf.proto.fields('tmp2.pix', fields='1', Stdout=1)
     bb = iraf.proto.fields('tmp2.pix', fields='2', Stdout=1)
-    aa = compress(array(aa) != '', array(aa))
-    bb = compress(array(bb) != '', array(bb))
-    delete('tmp.*,tmp2.*')
+    aa = np.compress(np.array(aa) != '', np.array(aa))
+    bb = np.compress(np.array(bb) != '', np.array(bb))
+    ntt.util.delete('tmp.*,tmp2.*')
     return aa[0], bb[0]
 
 #################################################################################################
