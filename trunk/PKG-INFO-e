@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: ntt
-Version: 2.2.6
+Version: 2.2.7
 Summary: NTT is a package to reduce efosc and sofi data
 Home-page: ftp.oapd.inaf.it
 Author: S. Valenti
@@ -8,7 +8,7 @@ Author-email: stefano.valenti@oapd.inaf.it
 License: LICENSE.txt
 Description: ###########################################################################
         # 
-        #                                NTT Pipeline version 2.2.7
+        #                                NTT Pipeline version 2.2.8
         #
         #                                INSTALLATION
         ###########################################################################
