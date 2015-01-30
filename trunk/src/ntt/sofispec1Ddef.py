@@ -580,9 +580,19 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
     f = open('logfile_spec1d_' + str(reduceddata) + '_' + str(datenow) + '.raw.list', 'w')
     for img in outputfile:
         if str(img)[-5:] == '.fits':
+            hdr=ntt.util.readhdr(img)
+            # added for DR2
+            if 'NCOMBINE' in hdr:
+                _ncomb = ntt.util.readkey3(hdr, 'NCOMBINE')
+            else:
+                _ncomb = 1.0
+
+            _effron = 12. * (1 / np.sqrt(ntt.util.readkey3(hdr, 'ndit') * _ncomb)) * np.sqrt(np.pi / 2)
+
             try:
                 ntt.util.phase3header(img)  #  phase 3 definitions
-                ntt.util.updateheader(img, 0, {'quality': ['Final', '']})
+                ntt.util.updateheader(img, 0, {'quality': ['Final', ''],
+                                               'EFFRON':[_effron,'Effective readout noise per output (e-)']})
                 f.write(ntt.util.readkey3(ntt.util.readhdr(img), 'arcfile') + '\n')
             except:
                 print 'Warning: ' + img + ' is not a fits file'
