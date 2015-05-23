@@ -273,8 +273,10 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
 
     kk = {'U': 0.46, 'u': 0.46, 'B': 0.27, 'g': 0.20, 'V': 0.12, 'r': 0.09, 'R': 0.09, 'i': 0.02, 'I': 0.02, 'z': 0.03,
           'J': 0.0, 'H': 0.0, 'K': 0.0}
-    zz = {'U640': 23.69, 'B639': 25.83, 'V641': 25.88, 'R642': 25.98, 'r784': 25.27, 'i705': 25.13, 'g782': 25.86,
-          'z623': 24.41, 'J': 25, 'H': 25, 'Ks': 25}
+    #zz = {'U640': 23.69, 'B639': 25.83, 'V641': 25.88, 'R642': 25.98, 'r784': 25.27, 'i705': 25.13, 'g782': 25.86,
+    #      'z623': 24.41, 'J': 25, 'H': 25, 'Ks': 25}
+    zz = {'U640': 23.655, 'B639': 25.755, 'V641': 25.830, 'R642': 25.967, 'r784': 25.673, 'i705': 25.112,
+          'g782': 25.897, 'z623': 24.777, 'J': 25, 'H': 25, 'Ks': 25}
 
     if _filter in ['J', 'Js', 'H', 'Ks', 'K']:
         _field = '2mass'
@@ -617,7 +619,8 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
                     ntt.util.updateheader(img, 0, {'FLUXCAL': ['UNCALIBRATED', 'Certifies the validity of PHOTZP']})
                 else:
                     ntt.util.updateheader(img, 0, {'PHOTZP': [zz[_filter], 'MAG=-2.5*log(data)+PHOTZP']})
-                    ntt.util.updateheader(img, 0, {'PHOTZPER': [2.0, 'error in PHOTZP']})
+                    #ntt.util.updateheader(img, 0, {'PHOTZPER': [2.0, 'error in PHOTZP']})
+                    ntt.util.updateheader(img, 0, {'PHOTZPER': [999, 'error in PHOTZP']})
                     ntt.util.updateheader(img, 0, {'FLUXCAL': ['ABSOLUTE', 'Certifies the validity of PHOTZP']})
             elif len(colore) > 1:
                 if not _interactive:
