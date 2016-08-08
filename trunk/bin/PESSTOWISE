@@ -11,10 +11,13 @@ import pyfits
 from optparse import OptionParser
 
 if __name__ == "__main__":
-    parser = OptionParser(usage=usage, description=description, version="%prog " + str(ntt.__version__))
+    parser = OptionParser(usage=usage, description=description,
+                          version="%prog " + str(ntt.__version__))
     parser.add_option("-c", "--correctobj", dest="correctobj", default='', type="str",
                       help='file containing name of objects \t [%default]')
-    # parser.add_option("-l", "--list",dest="input",default='listfile',type="str", help='name -l list \t [%default]')
+    # parser.add_option("-l",
+    # "--list",dest="input",default='listfile',type="str", help='name -l list
+    # \t [%default]')
     option, args = parser.parse_args()
     if len(args) < 1:  # or  option.input=='listfiles':
         sys.argv.append('--help')
@@ -30,14 +33,15 @@ if __name__ == "__main__":
         else:
             sign = -1
         part1 = 367 * float(year)
-        part2 = math.floor((7 * (float(year) + math.floor((float(month) + 9) / 12))) / 4)
+        part2 = math.floor(
+            (7 * (float(year) + math.floor((float(month) + 9) / 12))) / 4)
         part3 = float(day) + math.floor((275 * float(month)) / 9)
         part4 = 1721013.5 + (univTime / 24)
         part5 = 0.5 * sign
         jd = part1 - part2 + part3 + part4 - part5 + 0.5
         return jd
 
-    #######################################################################################
+    ##########################################################################
     title = 'Obj-name	Ascii-filename\tFITS-filename\tObs-date [YYYY-MM-DD]\tObs-UT [HH:MM:SS]\tInst-Id\t' + \
             'Observer/s\tExptime\tSlit\tReducer\tReduction-date\tQuality [Rapid/Final/Low/Med/High] \tSpec-Type ' \
             '[Object/Host/Sky/Arcs]\tSpec-Remarks\tPublish\t' + \
@@ -46,36 +50,71 @@ if __name__ == "__main__":
     line1 = '[NULL]\t[NULL]\t[Unknown]\t[0]\t[0]\t[Unknown]\t[Obs-date]\t[NULL]\t[NULL]\t[NULL]\t[NULL]\t' + \
             '[NULL]\t[NULL]\t[NULL]\t[NULL]\t[NULL]\t[NULL]\t[NULL]\t[NULL]\t[NULL]\t[NULL]\n'
     title = title + line1
-    type = '1	  	SN      \n' + '2	  	SNI	\n' + \
-           '3	  	SNIa	\n' + '4	  	SNIb   \n' + \
-           '5	  	SNIc	\n' + '6	  	SNIb/c	\n' + \
-           '7	  	SNIc-BL\n' + '8	  	SNIb-Ca-rich\n' + \
-           '9	  	SNIbn   \n' + \
-           '10	  	SNII	  \n' + '11	  	SNIIP	  \n' + \
-           '12	  	SNIIL	  \n' + '13	  	SNIIn	  \n' + \
-           '14	  	SNIIb	  \n' + '20	  	PISN	  	Pair Instability SN     \n' + \
-           '24	  	LBV	  	Luminous Blue Variable	\n' + \
-           '25	  	ILRT	  	Intermediate Luminosity Red Transient (=LRN) \n' + \
-           '26	  	CN	  	Classical Nova	\n' + \
-           '27	  	CV	  	Cataclysmic Variable\n' + \
-           '28	  	Varstar	  	Variable Star	  \n' + \
-           '29	  	AGN	  		 \n' + \
-           '30	  	Galaxy	  		 \n' + \
-           '50	  	Std-spec	  	Spectrophotometric standard star  \n' + \
-           '100	  	SN Ia-pec	  	Peculiar Ia	\n' + \
-           '101	  	SLSN-I	  	 	\n' + \
-           '102	  	SN Ia-SC	       	\n' + \
-           '103	   	SN Ia-91bg-like      \n' + '104	   	SN Ia-91T-like       \n' + \
-           '105	   	SN Ia-02cx-like      \n' + '108           SN Ic-pec            \n' + \
-           '110	   	SN II-pec            \n' + \
-           '111	   	SLSN-II              \n' + '112	   	SN IIn-pec           \n' + \
-           '998	  	Unknown	 \n' + '999	  	Other	 \n'
-    _type = {'SN': 1, 'SNI': 2, 'SNIa': 3, 'SNIb': 4, 'SNIc': 5, 'SNIb/c': 6, 'SNIc-BL': 7, 'SNIb-Ca-rich': 8,
-             'SNIbn': 9, 'SNII': 10, 'SNIIP': 11, 'SNIIL': 12, 'SNIIn': 13, 'SNIIb': 14, 'PISN': 20, 'LBV': 24,
-             'ILRT': 25, 'CN': 26, 'CV': 27, 'Varstar': 28, 'AGN': 29, 'Galaxy': 30, 'Std-spec': 50,
-             'SN Ia-pec': 100, 'SLSN-I': 101, 'SN Ia-SC': 102, 'SNIa-91bg': 103, 'SNIa-91T': 104,
-             'SNIa-02cx': 105, 'SN Ic-pec': 108, 'SNII pec': 110, 'SLSN-II': 111, 'SN IIn-pec': 112, 'Unknown': 998,
-             'Other': 999}
+
+    spectralTypesDict = {
+        "Other": 0,
+        "SN": 1,
+        "SN I": 2,
+        "SN Ia": 3,
+        "SN Ib": 4,
+        "SN Ic": 5,
+        "SN Ib/c": 6,
+        "SN Ic-BL": 7,
+        "SN Ib - Ca-rich": 8,
+        "SN Ibn": 9,
+        "SN II": 10,
+        "SN IIP": 11,
+        "SN IIL": 12,
+        "SN IIn": 13,
+        "SN IIb": 14,
+        "SN I-faint": 15,
+        "SN I-rapid": 16,
+        "SLSN-I": 18,
+        "SLSN-II": 19,
+        "SLSN-R": 20,
+        "Afterglow": 23,
+        "LBV": 24,
+        "ILRT": 25,
+        "Nova": 26,
+        "CV": 27,
+        "Varstar": 28,
+        "AGN": 29,
+        "Galaxy": 30,
+        "QSO": 31,
+        "Std-spec": 50,
+        "Gap": 60,
+        "Gap I": 61,
+        "Gap II": 62,
+        "SN Ia-pec": 100,
+        "SN Ia-SC": 102,
+        "SN Ia-91bg-like": 103,
+        "SN Ia-91T-like": 104,
+        "SN Ia-02cx-like": 105,
+        "SN Ia-02ic-like": 106,
+        "SN Ib-pec": 107,
+        "SN Ic-pec": 108,
+        "SN II-pec": 110,
+        "SN IIn-pec": 112,
+        "TDE": 120,
+        "WR": 200,
+        "WR-WN": 201,
+        "WR-WC": 202,
+        "WR-WO": 203
+    }
+
+    import collections
+    from operator import itemgetter
+    spectralTypesDict = collections.OrderedDict(
+        sorted(spectralTypesDict.items(), key=itemgetter(1)))
+
+    spectralTypesString = """
+  Object Type Codes
+  =================
+"""
+    for k, v in spectralTypesDict.iteritems():
+        v = str(v).ljust(6, ' ')
+        spectralTypesString += "  %(v)s %(k)s\n" % locals()
+
     ######################################################################
     parent_dir = os.getcwd() + '/'
     now = datetime.datetime.now()
@@ -91,24 +130,31 @@ if __name__ == "__main__":
     object1 = object2 = _spectype = _quality = 'NULL', 'NULL', 'NULL', 'NULL'
 
     _observer0 = pyfits.open(lista[0])[0].header.get('observer')
-    if not _observer0:   _observer0 = 'NULL'
+    if not _observer0:
+        _observer0 = 'NULL'
     print 'Please give (at least), the family name of the observer'
-    _observer = raw_input('who observed the spectrum ' + lista[0] + '  [' + _observer0 + '] ? ')
+    _observer = raw_input('who observed the spectrum ' +
+                          lista[0] + '  [' + _observer0 + '] ? ')
     if not _observer:
         _observer = _observer0
     else:
         _observer0 = _observer
     print 'Please give (at least), the family name of the reducer'
-    _reducer = raw_input('who reduce the spectrum ' + lista[0] + '  [' + _reducer0 + '] ? ')
+    _reducer = raw_input('who reduce the spectrum ' +
+                         lista[0] + '  [' + _reducer0 + '] ? ')
 
     _quality = ntt.util.readkey3(ntt.util.readhdr(lista[0]), 'quality')
     if _quality not in ['Rapid', 'Final', 'Low', 'Med', 'High']:
         while _quality not in ['Rapid', 'Final', 'Low', 'Med', 'High']:
-            _quality = raw_input('which type of spectra [[Rapid]/Final/Low/Med/High] ? ')
-            if not _quality: _quality = 'Rapid'
+            _quality = raw_input(
+                'which type of spectra [[Rapid]/Final/Low/Med/High] ? ')
+            if not _quality:
+                _quality = 'Rapid'
 
-    filetar.append('pessto_' + str(datenow) + '_' + str(_quality) + '_upload.txt')
-    f = open('pessto_' + str(datenow) + '_' + str(_quality) + '_upload.txt', 'w')
+    filetar.append('pessto_' + str(datenow) + '_' +
+                   str(_quality) + '_upload.txt')
+    f = open('pessto_' + str(datenow) + '_' +
+             str(_quality) + '_upload.txt', 'w')
     f.write(title)
     f.close()
 
@@ -126,13 +172,15 @@ if __name__ == "__main__":
         f.close()
         filetar.append(imageasci)
         if lam.any() and fl.any():
-            f = open('pessto_' + str(datenow) + '_' + str(_quality) + '_upload.txt', 'a')
+            f = open('pessto_' + str(datenow) + '_' +
+                     str(_quality) + '_upload.txt', 'a')
             _RA = ntt.util.readkey3(hdr, 'RA')
             _DEC = ntt.util.readkey3(hdr, 'DEC')
             useheader = True
             if filenameobjects:
                 ###################################
-                _ra1, _dec1, _name = ntt.util.correctobject(image, filenameobjects)
+                _ra1, _dec1, _name = ntt.util.correctobject(
+                    image, filenameobjects)
                 if _name:
                     print '### ', str(_ra1), str(_dec1), str(_name)
                     _RA = _ra1
@@ -146,13 +194,14 @@ if __name__ == "__main__":
                 _object0 = ntt.util.readkey3(hdr, 'object')
             if useheader:
                 print 'SN name should start with "sn" '
-                _object = raw_input('which is the name of the object ' + image + '  [' + _object0 + '] ? ')
+                _object = raw_input(
+                    'which is the name of the object ' + image + '  [' + _object0 + '] ? ')
                 if not _object:
                     _object = _object0
                 else:
                     _object0 = _object
             else:
-                _object=_object0
+                _object = _object0
             ###################################
             _exptime = ntt.util.readkey3(hdr, 'exptime')
             _JD = ntt.util.readkey3(hdr, 'JD')
@@ -184,50 +233,57 @@ if __name__ == "__main__":
                 else:
                     print 'warning slit not recognised'
                     _slit = raw_input('slit (1.0,1.5,2.0,.....) [1.0] ? ')
-                    if not _slit: _slit = '1.0'
-            print ('please insert bibcode string (eg 2011MNRAS.tmp.1220V) ')
+                    if not _slit:
+                        _slit = '1.0'
+            print('please insert bibcode string (eg 2011MNRAS.tmp.1220V) ')
             #_publish=raw_input('Is the spectrum published '+image+'  ['+_publish0+'] ? ')
-            #if not _publish:_publish=_publish0
-            #else: _publish0=_publish
+            # if not _publish:_publish=_publish0
+            # else: _publish0=_publish
             if _publish0 != 'NULL':
-                print ('please insert reference  (eg Valenti et al 2011) ')
-                _contrib = raw_input('first author and year of ' + image + '  [' + _contrib0 + '] ? ')
+                print('please insert reference  (eg Valenti et al 2011) ')
+                _contrib = raw_input(
+                    'first author and year of ' + image + '  [' + _contrib0 + '] ? ')
             if not _contrib:
                 _contrib = _contrib0
             else:
                 _contrib0 = _contrib
             goon = 'yes'
             while goon == 'yes':
-                print type
-                _objtype = raw_input('which kind of object ' + image + '  [' + _objtype0 + '] ? ')
+                print spectralTypesString
+                _objtype = raw_input(
+                    'What is type of object is found in this spectrum:' + image + '  [' + _objtype0 + '] ? ')
                 if not _objtype:
                     _objtype = _objtype0
                 else:
                     _objtype0 = _objtype
                 try:
                     int(_objtype)
-                    if int(_objtype) in _type.values():
+                    if int(_objtype) in spectralTypesDict.values():
                         goon = 'no'
                         _objtype = int(_objtype)
                 except:
-                    if str(_objtype) in _type.keys():
-                        _objtype = _type[str(_objtype)]
+                    if str(_objtype) in spectralTypesDict.keys():
+                        _objtype = spectralTypesDict[str(_objtype)]
                         goon = 'no'
-                if goon == 'yes': print '\n Warning: value not valid, try again \n'
+                if goon == 'yes':
+                    print '\n Warning: value not valid, try again \n'
 
             #_host=raw_input('which is the host '+image+'  ['+_host0+'] ? ')
-            #if not _host: _host=_host0
-            #else: _host0=_host
+            # if not _host: _host=_host0
+            # else: _host0=_host
             _host = _host0
-            _redshift = raw_input('which is the redshift of the host ' + image + '  [' + _redshift0 + '] ? ')
+            _redshift = raw_input(
+                'which is the redshift of the host ' + image + '  [' + _redshift0 + '] ? ')
             if not _redshift:
                 _redshift = _redshift0
             else:
                 _redshift0 = _redshift
 
             while _spectype not in ['Object', 'Host', 'Sky', 'Arcs']:
-                _spectype = raw_input('which type of spectra [[Object]/Host/Sky,Arcs] ? ')
-                if not _spectype: _spectype = 'Object'
+                _spectype = raw_input(
+                    'which type of spectra [[Object]/Host/Sky,Arcs] ? ')
+                if not _spectype:
+                    _spectype = 'Object'
 
             _iauname = _iauname0
             _UT = ntt.util.readkey3(hdr, 'ut')
@@ -242,7 +298,7 @@ if __name__ == "__main__":
             object2 = re.sub('_f.fits', '_2df.fits', image)
             if os.path.isfile(object1):
                 filetar.append(object1)
-            #               elif os.path.isfile(object11):        filetar.append(object11)
+            # elif os.path.isfile(object11):        filetar.append(object11)
             else:
                 object1 = 'NULL'
             if os.path.isfile(object2):
@@ -251,15 +307,19 @@ if __name__ == "__main__":
                 object2 = 'NULL'
 
             line = '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t' \
-                   '%s\t%s\t%s\t%s\t%s\n' % \
-                   (_object, imageasci, image, _date, _UT, _instrume, _observer, str(int(_exptime)), str(_slit),
-                    str(_reducer), _reducerdate, str(_quality), str(_spectype), _note, _publish, _contrib,
-                    str(_airmass), str(_dichroic), str(_grism), str(_filter), str(_RA), str(_DEC), str(_iauname),
-                    _objtype, _redshift, _host, object1, object2)
+                '%s\t%s\t%s\t%s\t%s\n' % \
+                (_object, imageasci, image, _date, _UT, _instrume, _observer, str(int(_exptime)), str(_slit),
+                 str(_reducer), _reducerdate, str(_quality), str(
+                    _spectype), _note, _publish, _contrib,
+                 str(_airmass), str(_dichroic), str(_grism), str(
+                    _filter), str(_RA), str(_DEC), str(_iauname),
+                 _objtype, _redshift, _host, object1, object2)
             print line
             f.write(line)
             f.close()
 
     stringa = ''
-    for img in filetar:   stringa = stringa + img + ' '
-    os.system('tar -zcvf pessto_' + str(datenow) + '_' + str(_quality) + '_upload.tgz ' + stringa)
+    for img in filetar:
+        stringa = stringa + img + ' '
+    os.system('tar -zcvf pessto_' + str(datenow) + '_' +
+              str(_quality) + '_upload.tgz ' + stringa)
