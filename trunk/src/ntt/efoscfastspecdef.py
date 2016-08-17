@@ -1,5 +1,7 @@
 
 def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _cosmic, _interactive):
+    # print "LOGX:: Entering `efoscfastredu` method/function in %(__file__)s"
+    # % globals()
     import string
     import os
     import re
@@ -50,7 +52,8 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
     for img in imglist:
         hdr = ntt.util.readhdr(img)
         _tech = ntt.util.readkey3(hdr, 'tech')
-        if _tech != 'SPECTRUM': sys.exit('error: ' + str(img) + ' is not a spectrum ')
+        if _tech != 'SPECTRUM':
+            sys.exit('error: ' + str(img) + ' is not a spectrum ')
         print '\n####  image name = ' + img + '\n'
         _grism0 = readkey3(hdr, 'grism')
         _filter0 = readkey3(hdr, 'filter')
@@ -79,7 +82,8 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
             nameout0 = nameout0 + '_' + _set
         nameout0 = ntt.util.name_duplicate(img, nameout0, '')
         timg = nameout0
-        if os.path.isfile(timg): os.system('rm -rf ' + timg)
+        if os.path.isfile(timg):
+            os.system('rm -rf ' + timg)
         iraf.imcopy(img, output=timg)
         iraf.ccdproc(timg, output='', overscan='no', trim='yes', zerocor="no", flatcor="no", readaxi='column',
                      trimsec=str(_trimsec0), biassec=_biassec0, Stdout=1)
@@ -106,13 +110,15 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
         else:
             arcref = ntt.util.searcharc(img, '')[0]
             if arcfile[0] == '/':
-                os.system('cp ' + arcfile + ' ' + string.split(arcfile, '/')[-1])
+                os.system('cp ' + arcfile + ' ' +
+                          string.split(arcfile, '/')[-1])
                 arcfile = string.split(arcfile, '/')[-1]
             arcref = string.split(arcref, '/')[-1]
             if arcref:
                 os.system('cp ' + arcref + ' .')
                 arcref = string.split(arcref, '/')[-1]
-                if not os.path.isdir('database/'):   os.mkdir('database/')
+                if not os.path.isdir('database/'):
+                    os.mkdir('database/')
                 if os.path.isfile(ntt.util.searcharc(img, '')[1] + '/database/id' + re.sub('.fits', '', arcref)):
                     os.system('cp ' + ntt.util.searcharc(img, '')[1] + '/database/id' + re.sub('.fits', '',
                                                                                                arcref) + ' database/')
@@ -133,13 +139,15 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
                                    databas='database',
                                    x1='INDEF', x2='INDEF', y1='INDEF', y2='INDEF', flux='yes', mode='h',
                                    logfile='logfile')
-            # ######################  check wavelength calibration ###################
-            _skyfile = ntt.__path__[0] + '/standard/ident/sky_' + setup[0] + '_' + setup[1] + '.fits'
+            # ######################  check wavelength calibration ############
+            _skyfile = ntt.__path__[
+                0] + '/standard/ident/sky_' + setup[0] + '_' + setup[1] + '.fits'
             shift = ntt.efoscspec2Ddef.skyfrom2d(img, _skyfile)
             print '\n###     check in wavelengh performed ...... spectrum shifted of  ' + str(shift) + ' Angstrom \n'
             zro = pyfits.open(img)[0].header.get('CRVAL2')
             ntt.util.updateheader(img, 0, {'CRVAL2': [zro + int(shift), '']})
-            std, rastd, decstd, magstd = ntt.util.readstandard('standard_efosc_mab.txt')
+            std, rastd, decstd, magstd = ntt.util.readstandard(
+                'standard_efosc_mab.txt')
             hdrt = readhdr(img)
             _ra = readkey3(hdrt, 'RA')
             _dec = readkey3(hdrt, 'DEC')
@@ -148,24 +156,29 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
                            np.cos(decstd * scal) * np.cos((_ra - rastd) * scal)) * ((180 / np.pi) * 3600)
             if min(dd) < 100:
                 _type = 'stdsens'
-                ntt.util.updateheader(img, 0, {'stdname': [std[np.argmin(dd)], '']})
-                ntt.util.updateheader(img, 0, {'magstd': [float(magstd[np.argmin(dd)]), '']})
+                ntt.util.updateheader(
+                    img, 0, {'stdname': [std[np.argmin(dd)], '']})
+                ntt.util.updateheader(
+                    img, 0, {'magstd': [float(magstd[np.argmin(dd)]), '']})
             else:
                 _type = 'obj'
             print '\n###      EXTRACTION USING IRAF TASK APALL \n'
             result = []
             if _type == 'obj':
-                imgex = ntt.util.extractspectrum(img, dv, _ext_trace, _dispersionline, _interactive, _type)
-                ntt.util.updateheader(imgex, 0, {'FILETYPE': [22107, 'extracted 1D spectrum ']})
+                imgex = ntt.util.extractspectrum(
+                    img, dv, _ext_trace, _dispersionline, _interactive, _type)
+                ntt.util.updateheader(
+                    imgex, 0, {'FILETYPE': [22107, 'extracted 1D spectrum ']})
                 ntt.util.updateheader(imgex, 0, {
-                'PRODCATG': ['SCIENCE.' + readkey3(readhdr(imgex), 'tech').upper(), 'Data product category']})
+                    'PRODCATG': ['SCIENCE.' + readkey3(readhdr(imgex), 'tech').upper(), 'Data product category']})
                 ntt.util.updateheader(imgex, 0, {'TRACE1': [img, '']})
                 result.append(imgex)
                 if _listsens:
                     sensfile = ntt.util.searchsens(img, _listsens)[0]
                 else:
                     sensfile = ''
-                if not sensfile:      sensfile = ntt.util.searchsens(img, '')[0]
+                if not sensfile:
+                    sensfile = ntt.util.searchsens(img, '')[0]
                 if sensfile:
                     imgf = re.sub('.fits', '_f.fits', img)
                     _extinctdir = 'direc$standard/extinction/'
@@ -185,20 +198,25 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
                     ntt.util.updateheader(imgf, 0, hedvec)
                     imgout = imgf
                     imgd = ntt.efoscspec1Ddef.fluxcalib2d(img, sensfile)
-                    ntt.util.updateheader(imgd, 0, {'FILETYPE': [22209, '2D wavelength and flux calibrated spectrum ']})
+                    ntt.util.updateheader(
+                        imgd, 0, {'FILETYPE': [22209, '2D wavelength and flux calibrated spectrum ']})
                     ntt.util.updateheader(imgd, 0, {'TRACE1': [img, '']})
                     imgasci = re.sub('.fits', '.asci', imgout)
                     ntt.util.delete(imgasci)
-                    iraf.onedspec.wspectext(imgout + '[*,1,1]', imgasci, header='no')
+                    iraf.onedspec.wspectext(
+                        imgout + '[*,1,1]', imgasci, header='no')
                     result = result + [imgout, imgd, imgasci]
             else:
-                imgex = ntt.util.extractspectrum(img, dv, _ext_trace, _dispersionline, _interactive, 'std')
-                imgout = ntt.efoscspec1Ddef.sensfunction(imgex, 'spline3', 6, _inter)
+                imgex = ntt.util.extractspectrum(
+                    img, dv, _ext_trace, _dispersionline, _interactive, 'std')
+                imgout = ntt.efoscspec1Ddef.sensfunction(
+                    imgex, 'spline3', 6, _inter)
                 result = result + [imgout]
 
     for img in result:
         if img[-5:] == '.fits':
             ntt.util.phase3header(img)  # phase 3 definitions
             ntt.util.airmass(img)  # phase 3 definitions
-            ntt.util.updateheader(img, 0, {'quality': ['Rapid', 'Final or Rapid reduction']})
+            ntt.util.updateheader(
+                img, 0, {'quality': ['Rapid', 'Final or Rapid reduction']})
     return result
