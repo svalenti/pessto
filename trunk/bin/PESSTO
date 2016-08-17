@@ -9,16 +9,22 @@ description = "%prog  list of scripts "
 pessto_dir = ntt.__path__[0]
 
 if __name__ == "__main__":
-    parser = OptionParser(usage=usage, description=description, version="%prog " + str(ntt.__version__))
+    parser = OptionParser(usage=usage, description=description,
+                          version="%prog " + str(ntt.__version__))
     parser.add_option("-v", "--verbose", dest="verbose", action="store_true", default=False,
                       help='Print tasks description')
     option, args = parser.parse_args()
 
 
 def aiuto(verbose):  # ##################                ####################
-    import re, string, os
+    # print "LOGX:: Entering `aiuto` method/function in %(__file__)s\n" %
+    # globals()
+    import re
+    import string
+    import os
 
-    direc = re.sub('PESSTOEFOSCPHOT\n', '', os.popen('which PESSTOEFOSCPHOT').readlines()[0])
+    direc = re.sub('PESSTOEFOSCPHOT\n', '', os.popen(
+        'which PESSTOEFOSCPHOT').readlines()[0])
     righe = glob.glob(direc + 'PESSTO*')
     print "#" * 30 + "       PESSTO      " + "#" * 30
     for r in righe:

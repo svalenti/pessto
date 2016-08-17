@@ -1,4 +1,5 @@
 def xpa(arg):
+    # print "LOGX:: Entering `xpa` method/function in %(__file__)s" % globals()
     import subprocess
 
     subproc = subprocess.Popen('xpaset -p ds9 ' + arg, shell=True)
@@ -6,7 +7,11 @@ def xpa(arg):
 
 
 def vizq(_ra, _dec, catalogue, radius):
-    import os, string, re
+    # print "LOGX:: Entering `vizq` method/function in %(__file__)s" %
+    # globals()
+    import os
+    import string
+    import re
 
     _site = 'vizier.u-strasbg.fr'
     # _site='vizier.cfa.harvard.edu'
@@ -20,7 +25,8 @@ def vizq(_ra, _dec, catalogue, radius):
     aa = a.split('\n')
     bb = []
     for i in aa:
-        if i and i[0] != '#':   bb.append(i)
+        if i and i[0] != '#':
+            bb.append(i)
     _ra, _dec, _name, _mag = [], [], [], []
     for ii in bb[3:]:
         aa = ii.split('\t')
@@ -35,6 +41,8 @@ def vizq(_ra, _dec, catalogue, radius):
 
 
 def wcsstart(img, CRPIX1='', CRPIX2=''):
+    # print "LOGX:: Entering `wcsstart` method/function in %(__file__)s" %
+    # globals()
     from numpy import pi, sin, cos
     from ntt.util import updateheader, readhdr, readkey3
     import ntt
@@ -115,6 +123,8 @@ def wcsstart(img, CRPIX1='', CRPIX2=''):
 
 def efoscastroloop(imglist, catalogue, _interactive, number1, number2, number3, _fitgeo, _tollerance1,
                    _tollerance2, sexvec='', _guess=False, _numin=4, method='iraf', _CRPIX1='', _CRPIX2=''):
+    # print "LOGX:: Entering `efoscastroloop` method/function in %(__file__)s"
+    # % globals()
     import ntt
     from ntt.util import delete, readkey3, readhdr
     from ntt.efoscastrodef import efoscastrometry2
@@ -127,8 +137,10 @@ def efoscastroloop(imglist, catalogue, _interactive, number1, number2, number3, 
     for img in imglist:
         hdr = readhdr(img)
         _instrume = readkey3(hdr, 'instrume')
-        if catalogue == 'inst' and _instrume == 'efosc': catalogue = 'usnob1'
-        if catalogue == 'inst' and _instrume == 'sofi': catalogue = '2mass'
+        if catalogue == 'inst' and _instrume == 'efosc':
+            catalogue = 'usnob1'
+        if catalogue == 'inst' and _instrume == 'sofi':
+            catalogue = '2mass'
         if not sexvec:
             sexvec = ntt.efoscastrodef.sextractor(img)
         ###################
@@ -147,7 +159,8 @@ def efoscastroloop(imglist, catalogue, _interactive, number1, number2, number3, 
                 [img], catalogue, _interactive, number2, sexvec, catvec, guess=False, fitgeo=_fitgeo,
                 tollerance1=_tollerance1, tollerance2=_tollerance2, _update='yes', imex=_imex, nummin=_numin)
             if rmsx2 > 1 or rmsy2 > 1:
-                catvec = ntt.efoscastrodef.querycatalogue(catalogue, img, method)
+                catvec = ntt.efoscastrodef.querycatalogue(
+                    catalogue, img, method)
                 rmsx3, rmsy3, num3, fwhm3, ell3, ccc, bkg3, rasys3, decsys3 = efoscastrometry2(
                     [img], catalogue, _interactive, number3, sexvec, catvec, guess=False, fitgeo=_fitgeo,
                     tollerance1=_tollerance1, tollerance2=_tollerance2, _update='yes', imex=_imex, nummin=_numin)
@@ -155,12 +168,14 @@ def efoscastroloop(imglist, catalogue, _interactive, number1, number2, number3, 
                 rmsx3, rmsy3, num3, fwhm3, ell3, ccc, bkg3, rasys3, decsys3 = rmsx2, rmsy2, num2, fwhm2, ell2, ccc, bkg2, rasys2, decsys2
         else:
             rmsx3, rmsy3, num3, fwhm3, ell3, ccc, bkg3, rasys3, decsys3 = rmsx1, rmsy1, num1, fwhm1, ell1, ccc, bkg1, rasys1, decsys1
-        ######################################## 
+        ########################################
         if rmsx3 < 10 and rmsy3 < 10:
             if _instrume == 'efosc':
-                fwhmgess3 = median(array(fwhm3)) * .68 * 2.35 * readkey3(hdr, 'binx') * .12
+                fwhmgess3 = median(array(fwhm3)) * .68 * \
+                    2.35 * readkey3(hdr, 'binx') * .12
                 if _imex:
-                    fwhmgessime = median(array(ccc)) * readkey3(hdr, 'binx') * .12
+                    fwhmgessime = median(array(ccc)) * \
+                        readkey3(hdr, 'binx') * .12
                 else:
                     fwhmgessime = 9999
             elif _instrume == 'sofi':
@@ -176,14 +191,15 @@ def efoscastroloop(imglist, catalogue, _interactive, number1, number2, number3, 
             ellgess3 = 9999
         if _instrume == 'efosc':
             mbkg3 = median(bkg3)
-            ntt.util.updateheader(img, 0, {'MBKG': [mbkg3, 'background level']})
+            ntt.util.updateheader(
+                img, 0, {'MBKG': [mbkg3, 'background level']})
         else:
             mbkg3 = readkey3(hdr, 'MBKG')
         if fwhmgess3:
             print fwhmgess3
-            #########################################################################################
+            ###################################################################
             # change saturation mag    2014-05-18
-            #########################################################################################
+            ###################################################################
             if _instrume == 'efosc':
                 magsat = -2.5 * math.log10(
                     (math.pi / (4 * math.log(2.))) * (60000. - float(mbkg3)) * ((float(fwhmgess3) / 0.24) ** 2))
@@ -200,13 +216,15 @@ def efoscastroloop(imglist, catalogue, _interactive, number1, number2, number3, 
     return rmsx3, rmsy3, num3, fwhmgess3, ellgess3, fwhmgessime, rasys3, decsys3, magsat
 
     #if _instrume=='efosc':    V=(math.pi/(4*math.log(2)))*(60000-float(mbkg3))*(float(fwhmgess3)**2)
-    #else:                     V=(math.pi/(4*math.log(2)))*(32000-float(mbkg3))*(float(fwhmgess3)**2)
-    #magsat=-2.5*math.log10(V)
+    # else:                     V=(math.pi/(4*math.log(2)))*(32000-float(mbkg3))*(float(fwhmgess3)**2)
+    # magsat=-2.5*math.log10(V)
 
 
 # ###########################################################################
 
 def readtxt(ascifile):
+    # print "LOGX:: Entering `readtxt` method/function in %(__file__)s" %
+    # globals()
     import string
 
     f = open(ascifile, 'r')
@@ -226,7 +244,8 @@ def readtxt(ascifile):
     #        for i in range(0,len(columnname)):
     #                 ascidic[columnname[i]]=data[i]
     #    except:
-    for j in columnname:     ascidic[j] = []
+    for j in columnname:
+        ascidic[j] = []
     for i in range(0, len(ss)):
         if ss[i][0] != '#':
             for j in range(0, len(columnname)):
@@ -237,7 +256,12 @@ def readtxt(ascifile):
 #########################################################################
 
 def zeropoint(img, _field, verbose=False, _interactive=False):
-    import string, os, re, sys
+    # print "LOGX:: Entering `zeropoint` method/function in %(__file__)s" %
+    # globals()
+    import string
+    import os
+    import re
+    import sys
     from numpy import compress, array, median, zeros, std, mean, abs
     import math
     import ntt
@@ -263,8 +287,8 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
     _object = readkey3(hdr, 'object')
 
     #
-    #  since the NDIT images are average for sofi 
-    #  the exptime to measure the object that should be used is DIT 
+    #  since the NDIT images are average for sofi
+    #  the exptime to measure the object that should be used is DIT
     #
     if _instrume == 'sofi':
         _exptime = readkey3(hdr, 'DIT')
@@ -273,7 +297,7 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
 
     kk = {'U': 0.46, 'u': 0.46, 'B': 0.27, 'g': 0.20, 'V': 0.12, 'r': 0.09, 'R': 0.09, 'i': 0.02, 'I': 0.02, 'z': 0.03,
           'J': 0.0, 'H': 0.0, 'K': 0.0}
-    #zz = {'U640': 23.69, 'B639': 25.83, 'V641': 25.88, 'R642': 25.98, 'r784': 25.27, 'i705': 25.13, 'g782': 25.86,
+    # zz = {'U640': 23.69, 'B639': 25.83, 'V641': 25.88, 'R642': 25.98, 'r784': 25.27, 'i705': 25.13, 'g782': 25.86,
     #      'z623': 24.41, 'J': 25, 'H': 25, 'Ks': 25}
     zz = {'U640': 23.655, 'B639': 25.755, 'V641': 25.830, 'R642': 25.967, 'r784': 25.673, 'i705': 25.112,
           'g782': 25.897, 'z623': 24.777, 'J': 25, 'H': 25, 'Ks': 25}
@@ -287,24 +311,29 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
         iraf.imcoords(_doprint=0)
         iraf.noao.astcat.aregpars.rcrauni = ''
         iraf.noao.astcat.aregpars.rcdecuni = ''
-        iraf.noao.astcat.catdb = ntt.__path__[0] + '/standard/cat/catalogue.dat'
+        iraf.noao.astcat.catdb = ntt.__path__[
+            0] + '/standard/cat/catalogue.dat'
         _ra = readkey3(hdr, 'RA')
         _dec = readkey3(hdr, 'DEC')
         stdcoo = querycatalogue('2mass', img)
         rastd, decstd = array(stdcoo['ra'], float), array(stdcoo['dec'], float)
         colasci = {'J': 'mag1', 'H': 'mag2', 'K': 'mag3'}
-        for ww in colasci: stdcoo[ww] = stdcoo[colasci[ww]]
+        for ww in colasci:
+            stdcoo[ww] = stdcoo[colasci[ww]]
         for ww in colasci:
             for jj in range(0, len(stdcoo[ww])):
                 try:
                     stdcoo[ww][jj] = float(re.sub('L', '', stdcoo[ww][jj]))
                 except:
                     stdcoo[ww][jj] = 999
-        standardpix = {'ra': stdcoo['x'], 'dec': stdcoo['y'], 'id': stdcoo['id']}
+        standardpix = {'ra': stdcoo['x'],
+                       'dec': stdcoo['y'], 'id': stdcoo['id']}
     else:
-        ######## check if it is landolt field
-        stdcooL = ntt.efoscastrodef.readtxt(ntt.__path__[0] + '/standard/cat/landolt.cat')
-        rastdL, decstdL = array(stdcooL['ra'], float), array(stdcooL['dec'], float)
+        # check if it is landolt field
+        stdcooL = ntt.efoscastrodef.readtxt(
+            ntt.__path__[0] + '/standard/cat/landolt.cat')
+        rastdL, decstdL = array(stdcooL['ra'], float), array(
+            stdcooL['dec'], float)
         delete('tmp.stdL.pix')
         iraf.wcsctran(ntt.__path__[0] + '/standard/cat/landolt.cat', 'tmp.stdL.pix', img, inwcs='world',
                       units='degrees degrees', outwcs='logical', columns='1 2', formats='%10.1f %10.1f', verbose='no')
@@ -314,16 +343,18 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
         idstdL = standardpixL['id']
         xstdL = compress(
             (array(xstdL, float) < readkey3(hdr, 'naxis1')) & (array(xstdL, float) > 0) & (array(ystdL, float) > 0) & (
-            array(ystdL, float) < readkey3(hdr, 'naxis2')), xstdL)
-        ######## check if it is sloan field
+                array(ystdL, float) < readkey3(hdr, 'naxis2')), xstdL)
+        # check if it is sloan field
         _ra = readkey3(hdr, 'RA')
         _dec = readkey3(hdr, 'DEC')
         magsel0, magsel1 = 12, 18
-        _ids = ntt.efoscastrodef.sloan2file(_ra, _dec, 4, float(magsel0), float(magsel1), '_tmpsloan.cat')
+        _ids = ntt.efoscastrodef.sloan2file(
+            _ra, _dec, 4, float(magsel0), float(magsel1), '_tmpsloan.cat')
         print _ra, _dec
         ascifile = '_tmpsloan.cat'
         stdcooS = ntt.efoscastrodef.readtxt(ascifile)
-        rastdS, decstdS = array(stdcooS['ra'], float), array(stdcooS['dec'], float)
+        rastdS, decstdS = array(stdcooS['ra'], float), array(
+            stdcooS['dec'], float)
         delete('tmp.stdS.pix')
         iraf.wcsctran(ascifile, 'tmp.stdS.pix', img, inwcs='world', units='degrees degrees', outwcs='logical',
                       columns='1 2', formats='%10.1f %10.1f', verbose='no')
@@ -338,12 +369,15 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
         ##############
         if _filter in ['U640', 'B639', 'V641', 'R642']:
             if _field == 'sloan':
-                standardpix, stdcoo = {'ra': [9999], 'dec': [9999], 'id': [1]}, {'ra': [9999], 'dec': [9999]}
-            #standardpix={'ra':[9999],'dec':[9999],'id':[1]}
+                standardpix, stdcoo = {'ra': [9999], 'dec': [
+                    9999], 'id': [1]}, {'ra': [9999], 'dec': [9999]}
+            # standardpix={'ra':[9999],'dec':[9999],'id':[1]}
             else:
                 _field = 'landolt'
-                filters = {'U640': 'U', 'B639': 'B', 'V641': 'V', 'R642': 'R', 'i705': 'I'}
-                colors = {'U': ['UB'], 'B': ['BV'], 'V': ['BV', 'VR'], 'R': ['VR', 'RI'], 'I': ['RI']}
+                filters = {'U640': 'U', 'B639': 'B',
+                           'V641': 'V', 'R642': 'R', 'i705': 'I'}
+                colors = {'U': ['UB'], 'B': ['BV'], 'V': [
+                    'BV', 'VR'], 'R': ['VR', 'RI'], 'I': ['RI']}
                 if len(xstdL) >= 1:
                     standardpix = standardpixL
                     stdcoo = stdcooL
@@ -353,10 +387,12 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
                     stdcoo = ntt.efoscastrodef.transformsloanlandolt(stdcoo)
                     print '\n### transform sloan in landolt'
                 else:
-                    standardpix, stdcoo = {'ra': [9999], 'dec': [9999], 'id': [1]}, {'ra': [9999], 'dec': [9999]}
+                    standardpix, stdcoo = {'ra': [9999], 'dec': [
+                        9999], 'id': [1]}, {'ra': [9999], 'dec': [9999]}
         elif _filter in ['g782', 'r784', 'z623']:
             if _field == 'landolt':
-                standardpix, stdcoo = {'ra': [9999], 'dec': [9999], 'id': [1]}, {'ra': [9999], 'dec': [9999]}
+                standardpix, stdcoo = {'ra': [9999], 'dec': [
+                    9999], 'id': [1]}, {'ra': [9999], 'dec': [9999]}
             else:
                 _field = 'sloan'
                 filters = {'i705': 'i', 'g782': 'g', 'r784': 'r', 'z623': 'z'}
@@ -370,18 +406,23 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
                     stdcoo = ntt.efoscastrodef.transformlandoltsloan(stdcoo)
                     print '\n### transform landolt to sloan'
                 else:
-                    standardpix, stdcoo = {'ra': [9999], 'dec': [9999], 'id': [1]}, {'ra': [9999], 'dec': [9999]}
+                    standardpix, stdcoo = {'ra': [9999], 'dec': [
+                        9999], 'id': [1]}, {'ra': [9999], 'dec': [9999]}
         elif _filter in ['i705']:
             if len(xstdL) >= 1 and _field != 'sloan':
                 _field = 'landolt'
-                filters = {'U640': 'U', 'B639': 'B', 'V641': 'V', 'R642': 'R', 'i705': 'I'}
-                colors = {'U': ['UB'], 'B': ['BV'], 'V': ['BV', 'VR'], 'R': ['VR', 'RI'], 'I': ['RI']}
+                filters = {'U640': 'U', 'B639': 'B',
+                           'V641': 'V', 'R642': 'R', 'i705': 'I'}
+                colors = {'U': ['UB'], 'B': ['BV'], 'V': [
+                    'BV', 'VR'], 'R': ['VR', 'RI'], 'I': ['RI']}
                 standardpix = standardpixL
                 stdcoo = stdcooL
             elif len(xstdS) >= 1 and len(xstdL) == 0 and _field != 'sloan':
                 _field = 'landolt'
-                filters = {'U640': 'U', 'B639': 'B', 'V641': 'V', 'R642': 'R', 'i705': 'I'}
-                colors = {'U': ['UB'], 'B': ['BV'], 'V': ['BV', 'VR'], 'R': ['VR', 'RI'], 'I': ['RI']}
+                filters = {'U640': 'U', 'B639': 'B',
+                           'V641': 'V', 'R642': 'R', 'i705': 'I'}
+                colors = {'U': ['UB'], 'B': ['BV'], 'V': [
+                    'BV', 'VR'], 'R': ['VR', 'RI'], 'I': ['RI']}
                 standardpix = standardpixS
                 stdcoo = stdcooS
                 print '\n### transform sloan in landolt'
@@ -401,7 +442,8 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
                 print '\n### transform landolt in sloan'
                 stdcoo = ntt.efoscastrodef.transformlandoltsloan(stdcoo)
             else:
-                standardpix, stdcoo = {'ra': [9999], 'dec': [9999], 'id': [1]}, {'ra': [9999], 'dec': [9999]}
+                standardpix, stdcoo = {'ra': [9999], 'dec': [
+                    9999], 'id': [1]}, {'ra': [9999], 'dec': [9999]}
 
     xstd = standardpix['ra']
     ystd = standardpix['dec']
@@ -409,12 +451,12 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
     rastd, decstd = array(stdcoo['ra'], float), array(stdcoo['dec'], float)
     xstd0 = compress(
         (array(xstd, float) < readkey3(hdr, 'naxis1')) & (array(xstd, float) > 0) & (array(ystd, float) > 0) & (
-        array(ystd, float) < readkey3(hdr, 'naxis2')), xstd)
-    if len(xstd0) > 1:  ########   go only if standard stars are in the field  ##########
+            array(ystd, float) < readkey3(hdr, 'naxis2')), xstd)
+    if len(xstd0) > 1:  # go only if standard stars are in the field  ##########
         magstd0 = {}
         airmass0 = {}
         print '\n###  standard field: ' + str(_field)
-        ###############  sextractor on standard field
+        # sextractor on standard field
         namesex = ntt.util.defsex('default.sex')
         os.system('sex ' + img + ' -c ' + namesex + ' > _logsex')
         delete(namesex)
@@ -438,16 +480,20 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
         result = {}
         fileph = {}
         ystd0 = compress(
-            (array(xstd, float) < readkey3(hdr, 'naxis1')) & (array(xstd, float) > 0) & (array(ystd, float) > 0) \
+            (array(xstd, float) < readkey3(hdr, 'naxis1')) & (
+                array(xstd, float) > 0) & (array(ystd, float) > 0)
             & (array(ystd, float) < readkey3(hdr, 'naxis2')), ystd)
         rastd0 = compress(
-            (array(xstd, float) < readkey3(hdr, 'naxis1')) & (array(xstd, float) > 0) & (array(ystd, float) > 0) \
+            (array(xstd, float) < readkey3(hdr, 'naxis1')) & (
+                array(xstd, float) > 0) & (array(ystd, float) > 0)
             & (array(ystd, float) < readkey3(hdr, 'naxis2')), rastd)
         decstd0 = compress(
-            (array(xstd, float) < readkey3(hdr, 'naxis1')) & (array(xstd, float) > 0) & (array(ystd, float) > 0) \
+            (array(xstd, float) < readkey3(hdr, 'naxis1')) & (
+                array(xstd, float) > 0) & (array(ystd, float) > 0)
             & (array(ystd, float) < readkey3(hdr, 'naxis2')), decstd)
         idstd0 = compress(
-            (array(xstd, float) < readkey3(hdr, 'naxis1')) & (array(xstd, float) > 0) & (array(ystd, float) > 0) \
+            (array(xstd, float) < readkey3(hdr, 'naxis1')) & (
+                array(xstd, float) > 0) & (array(ystd, float) > 0)
             & (array(ystd, float) < readkey3(hdr, 'naxis2')), idstd)
         ###################
         colorvec = colors[filters[_filter]]
@@ -467,10 +513,14 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
             fileph['mR'] = zeros(len(rastd0)) + 999
             fileph['mI'] = zeros(len(rastd0)) + 999
             fileph['V'] = magstd0['V']
-            fileph['BV'] = array(array(magstd0['B'], float) - array(magstd0['V'], float), str)
-            fileph['UB'] = array(array(magstd0['U'], float) - array(magstd0['B'], float), str)
-            fileph['VR'] = array(array(magstd0['V'], float) - array(magstd0['R'], float), str)
-            fileph['RI'] = array(array(magstd0['R'], float) - array(magstd0['I'], float), str)
+            fileph['BV'] = array(array(magstd0['B'], float) -
+                                 array(magstd0['V'], float), str)
+            fileph['UB'] = array(array(magstd0['U'], float) -
+                                 array(magstd0['B'], float), str)
+            fileph['VR'] = array(array(magstd0['V'], float) -
+                                 array(magstd0['R'], float), str)
+            fileph['RI'] = array(array(magstd0['R'], float) -
+                                 array(magstd0['I'], float), str)
         elif _field == 'sloan':
             for _filtsloan in 'ugriz':
                 if _filtsloan == filters[_filter]:
@@ -486,10 +536,14 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
             fileph['mi'] = zeros(len(rastd0)) + 999
             fileph['mz'] = zeros(len(rastd0)) + 999
             fileph['r'] = magstd0['r']
-            fileph['gr'] = array(array(magstd0['g'], float) - array(magstd0['r'], float), str)
-            fileph['ri'] = array(array(magstd0['r'], float) - array(magstd0['i'], float), str)
-            fileph['ug'] = array(array(magstd0['u'], float) - array(magstd0['g'], float), str)
-            fileph['iz'] = array(array(magstd0['i'], float) - array(magstd0['z'], float), str)
+            fileph['gr'] = array(array(magstd0['g'], float) -
+                                 array(magstd0['r'], float), str)
+            fileph['ri'] = array(array(magstd0['r'], float) -
+                                 array(magstd0['i'], float), str)
+            fileph['ug'] = array(array(magstd0['u'], float) -
+                                 array(magstd0['g'], float), str)
+            fileph['iz'] = array(array(magstd0['i'], float) -
+                                 array(magstd0['z'], float), str)
         elif _field == '2mass':
             print '\n###  2mass system'
             for _filtlandolt in 'JHK':
@@ -505,13 +559,15 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
             fileph['mH'] = zeros(len(magstd0['H'])) + 999
             fileph['mK'] = zeros(len(magstd0['K'])) + 999
             fileph['J'] = magstd0['J']
-            fileph['JH'] = array(array(magstd0['J'], float) - array(magstd0['H'], float), str)
-            fileph['HK'] = array(array(magstd0['H'], float) - array(magstd0['K'], float), str)
+            fileph['JH'] = array(array(magstd0['J'], float) -
+                                 array(magstd0['H'], float), str)
+            fileph['HK'] = array(array(magstd0['H'], float) -
+                                 array(magstd0['K'], float), str)
         distvec, pos0, pos1 = ntt.efoscastrodef.crossmatch(array(rastd0), array(decstd0), array(rasex), array(decsex),
                                                            10)
         #    http://www.astromatic.net/forum/showthread.php?tid=516
-        # if multiply FLUX_RADIUS by 1.9-2.0 you get a value of the fwhm 
-        #        fwhm0=(median(array(fw,float)[pos1]))*.68*2.35  #  
+        # if multiply FLUX_RADIUS by 1.9-2.0 you get a value of the fwhm
+        #        fwhm0=(median(array(fw,float)[pos1]))*.68*2.35  #
         fwhm0 = (median(array(fw, float)[pos1])) * 1.9
         iraf.noao.digiphot.mode = 'h'
         iraf.noao.digiphot.daophot.photpars.zmag = 0
@@ -542,57 +598,67 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
         fil.write(str(_instrume) + ' ' + str(_date) + '\n')
         fil.write('*** ' + _object + ' ' + str(len(rastd0)) + '\n')
         if _field == 'landolt':
-            fil.write('%6.6s\t%6.6s\t%6.6s\t%6.6s\t%6.6s\n' % (str(1), str(1), str(1), str(1), str(1)))  # exptime
+            fil.write('%6.6s\t%6.6s\t%6.6s\t%6.6s\t%6.6s\n' %
+                      (str(1), str(1), str(1), str(1), str(1)))  # exptime
             fil.write('%6.6s\t%6.6s\t%6.6s\t%6.6s\t%6.6s\n' % (
-            str(airmass0['U']), str(airmass0['B']), str(airmass0['V']), str(airmass0['R']), str(airmass0['I'])))
+                str(airmass0['U']), str(airmass0['B']), str(airmass0['V']), str(airmass0['R']), str(airmass0['I'])))
         elif _field == 'sloan':
-            fil.write('%6.6s\t%6.6s\t%6.6s\t%6.6s\t%6.6s\n' % (str(1), str(1), str(1), str(1), str(1)))  # exptime
+            fil.write('%6.6s\t%6.6s\t%6.6s\t%6.6s\t%6.6s\n' %
+                      (str(1), str(1), str(1), str(1), str(1)))  # exptime
             fil.write('%6.6s\t%6.6s\t%6.6s\t%6.6s\t%6.6s\n' % (
-            str(airmass0['u']), str(airmass0['g']), str(airmass0['r']), str(airmass0['i']), str(airmass0['z'])))
+                str(airmass0['u']), str(airmass0['g']), str(airmass0['r']), str(airmass0['i']), str(airmass0['z'])))
         elif _field == '2mass':
-            fil.write('%6.6s\t%6.6s\t%6.6s\n' % (str(1), str(1), str(1)))  # exptime
-            fil.write('%6.6s\t%6.6s\t%6.6s\n' % (str(airmass0['J']), str(airmass0['H']), str(airmass0['K'])))
+            fil.write('%6.6s\t%6.6s\t%6.6s\n' %
+                      (str(1), str(1), str(1)))  # exptime
+            fil.write('%6.6s\t%6.6s\t%6.6s\n' % (
+                str(airmass0['J']), str(airmass0['H']), str(airmass0['K'])))
         for i in range(0, len(pos1)):
             gg = open('tmp.one', 'w')
             gg.write(str(xsex[pos1[i]]) + ' ' + str(ysex[pos1[i]]) + '\n')
             gg.close()
             try:
                 #############  magnitude  ##########
-                #    daophot magnitude 
+                #    daophot magnitude
                 #    mag  =   mag(daophot) - K * airmass - log10(exptime)
                 #    exptime for sofi is DIT
-                #    exptime for efosc is EXPTIME 
-                # 
+                #    exptime for efosc is EXPTIME
+                #
                 phot = iraf.noao.digiphot.daophot.phot(image=img, output='', coords='tmp.one', verify='no',
                                                        interactive='no', Stdout=1)
                 mag0 = float(string.split(phot[0])[4])
                 #                mag=mag0-kk[filters[_filter]]*float(_airmass)
-                mag = mag0 - 2.5 * math.log10(float(_exptime)) - kk[filters[_filter]] * float(_airmass)
+                mag = mag0 - 2.5 * \
+                    math.log10(float(_exptime)) - \
+                    kk[filters[_filter]] * float(_airmass)
             except:
                 mag0 = 999
                 mag = 999
 
             jj = pos0[i]
-            #  in the ph file we stroe the insturmental magnitude not corrected by K * airmass
-            fileph['m' + filters[_filter]][jj] = mag  #  instrumental mangitude of std in pos0[i]
+            # in the ph file we stroe the insturmental magnitude not corrected
+            # by K * airmass
+            # instrumental mangitude of std in pos0[i]
+            fileph['m' + filters[_filter]][jj] = mag
             if _field == 'landolt':
                 stringastandard = '%12.12s\t%7.7s\t%7.7s\t%7.7s\t%7.7s\t%7.7s' % (
                     idstd0[jj], fileph['V'][jj], fileph['BV'][jj], fileph['UB'][jj], fileph['VR'][jj], fileph['RI'][jj])
-                fil.write('%7.7s\t%7.7s\t%7.7s\t%7.7s\t%7.7s\t%60.60s\n' \
+                fil.write('%7.7s\t%7.7s\t%7.7s\t%7.7s\t%7.7s\t%60.60s\n'
                           % (str(fileph['mU'][jj]), str(fileph['mB'][jj]), str(fileph['mV'][jj]), str(fileph['mR'][jj]),
                              str(fileph['mI'][jj]), str(stringastandard)))
             elif _field == 'sloan':
                 stringastandard = '%12.12s\t%7.7s\t%7.7s\t%7.7s\t%7.7s\t%7.7s' % (
-                idstd0[jj], fileph['r'][jj], fileph['gr'][jj], fileph['ug'][jj], fileph['ri'][jj], fileph['iz'][jj])
+                    idstd0[jj], fileph['r'][jj], fileph['gr'][jj], fileph['ug'][jj], fileph['ri'][jj], fileph['iz'][jj])
                 fil.write('%7.7s\t%7.7s\t%7.7s\t%7.7s\t%7.7s\t%60.60s\n' % (
-                    str(fileph['mu'][jj]), str(fileph['mg'][jj]), str(fileph['mr'][jj]), str(fileph['mi'][jj]),
-                             str(fileph['mz'][jj]), str(stringastandard)))
+                    str(fileph['mu'][jj]), str(fileph['mg'][jj]), str(
+                        fileph['mr'][jj]), str(fileph['mi'][jj]),
+                    str(fileph['mz'][jj]), str(stringastandard)))
             elif _field == '2mass':
                 stringastandard = '%12.12s\t%7.7s\t%7.7s\t%7.7s' % (
-                idstd0[jj], fileph['J'][jj], fileph['JH'][jj], fileph['HK'][jj])
+                    idstd0[jj], fileph['J'][jj], fileph['JH'][jj], fileph['HK'][jj])
                 fil.write('%7.7s\t%7.7s\t%7.7s\t%60.60s\n' % (str(fileph['mJ'][jj]), str(fileph['mH'][jj]),
                                                               str(fileph['mK'][jj]), str(stringastandard)))
-            zero.append(float(float(magstd0[filters[_filter]][jj])) - float(mag))
+            zero.append(
+                float(float(magstd0[filters[_filter]][jj])) - float(mag))
 
         fil.close()
 
@@ -606,7 +672,8 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
             colstd0 = array(col0, float) - array(col1, float)
             ################## sex  ######################
             colore = []
-            for i in range(0, len(pos1)):   colore.append(colstd0[pos0[i]])
+            for i in range(0, len(pos1)):
+                colore.append(colstd0[pos0[i]])
             colore = compress(abs(array(zero)) < 50, array(colore))
             zero = compress(abs(array(zero)) < 50, array(zero))
             if len(colore) == 0:
@@ -614,19 +681,28 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
                 result = ''
                 print 'no calibration, ' + _filter + ' ' + _field
                 if _filter not in zz:
-                    ntt.util.updateheader(img, 0, {'PHOTZP': [9999., 'MAG=-2.5*log(data)+PHOTZP']})
-                    ntt.util.updateheader(img, 0, {'PHOTZPER': [9999., 'error in PHOTZP']})
-                    ntt.util.updateheader(img, 0, {'FLUXCAL': ['UNCALIBRATED', 'Certifies the validity of PHOTZP']})
+                    ntt.util.updateheader(
+                        img, 0, {'PHOTZP': [9999., 'MAG=-2.5*log(data)+PHOTZP']})
+                    ntt.util.updateheader(
+                        img, 0, {'PHOTZPER': [9999., 'error in PHOTZP']})
+                    ntt.util.updateheader(
+                        img, 0, {'FLUXCAL': ['UNCALIBRATED', 'Certifies the validity of PHOTZP']})
                 else:
-                    ntt.util.updateheader(img, 0, {'PHOTZP': [zz[_filter], 'MAG=-2.5*log(data)+PHOTZP']})
+                    ntt.util.updateheader(
+                        img, 0, {'PHOTZP': [zz[_filter], 'MAG=-2.5*log(data)+PHOTZP']})
                     #ntt.util.updateheader(img, 0, {'PHOTZPER': [2.0, 'error in PHOTZP']})
-                    ntt.util.updateheader(img, 0, {'PHOTZPER': [999, 'error in PHOTZP']})
-                    ntt.util.updateheader(img, 0, {'FLUXCAL': ['ABSOLUTE', 'Certifies the validity of PHOTZP']})
+                    ntt.util.updateheader(
+                        img, 0, {'PHOTZPER': [999, 'error in PHOTZP']})
+                    ntt.util.updateheader(
+                        img, 0, {'FLUXCAL': ['ABSOLUTE', 'Certifies the validity of PHOTZP']})
             elif len(colore) > 1:
                 if not _interactive:
-                    ntt.util.updateheader(img, 0, {'PHOTZP': [mean(zero), 'MAG=-2.5*log(data)+PHOTZP']})
-                    ntt.util.updateheader(img, 0, {'PHOTZPER': [std(zero) / len(zero), 'error in PHOTZP']})
-                    ntt.util.updateheader(img, 0, {'FLUXCAL': ['ABSOLUTE', 'Certifies the validity of PHOTZP']})
+                    ntt.util.updateheader(
+                        img, 0, {'PHOTZP': [mean(zero), 'MAG=-2.5*log(data)+PHOTZP']})
+                    ntt.util.updateheader(
+                        img, 0, {'PHOTZPER': [std(zero) / len(zero), 'error in PHOTZP']})
+                    ntt.util.updateheader(
+                        img, 0, {'FLUXCAL': ['ABSOLUTE', 'Certifies the validity of PHOTZP']})
                     if _field == 'landolt':
                         a, b, RR = ntt.efoscastrodef.linreg(colore, zero)
                     elif _field == '2mass':
@@ -640,18 +716,25 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
                     print 'do zeropoint interactively'
                     import pylab as plt
 
-                    a, sa, b, sb = ntt.efoscastrodef.fitcol(colore, zero, _filter, col, 0.0)
-                    RR = 0  #1 - residual/meanerror
-                    ntt.util.updateheader(img, 0, {'PHOTZP': [a, 'MAG=-2.5*log(data)+PHOTZP']})
-                    ntt.util.updateheader(img, 0, {'PHOTZPER': [sa, 'error in PHOTZP']})
-                    ntt.util.updateheader(img, 0, {'FLUXCAL': ['ABSOLUTE', 'Certifies the validity of PHOTZP']})
+                    a, sa, b, sb = ntt.efoscastrodef.fitcol(
+                        colore, zero, _filter, col, 0.0)
+                    RR = 0  # 1 - residual/meanerror
+                    ntt.util.updateheader(
+                        img, 0, {'PHOTZP': [a, 'MAG=-2.5*log(data)+PHOTZP']})
+                    ntt.util.updateheader(
+                        img, 0, {'PHOTZPER': [sa, 'error in PHOTZP']})
+                    ntt.util.updateheader(
+                        img, 0, {'FLUXCAL': ['ABSOLUTE', 'Certifies the validity of PHOTZP']})
                     xx = [min(array(colore)), max(array(colore))]
                     yy = ntt.efoscastrodef.pval(array(xx), [b, a])
                     result[filters[_filter] + col] = [a, b, RR]
             else:
-                ntt.util.updateheader(img, 0, {'PHOTZP': [zero[0], 'MAG=-2.5*log(data)+PHOTZP ']})
-                ntt.util.updateheader(img, 0, {'PHOTZPER': [1.0, 'error in PHOTZP']})
-                ntt.util.updateheader(img, 0, {'FLUXCAL': ['ABSOLUTE', 'Certifies the validity of PHOTZP']})
+                ntt.util.updateheader(
+                    img, 0, {'PHOTZP': [zero[0], 'MAG=-2.5*log(data)+PHOTZP ']})
+                ntt.util.updateheader(
+                    img, 0, {'PHOTZPER': [1.0, 'error in PHOTZP']})
+                ntt.util.updateheader(
+                    img, 0, {'FLUXCAL': ['ABSOLUTE', 'Certifies the validity of PHOTZP']})
                 b, a, RR = zero[0], 0, 0
                 xx = colore
                 yy = zero
@@ -662,7 +745,8 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
 
                 clf()
                 ion()
-                _label = '%2s   %2s   %5.5s  %5.5s' % (filters[_filter], col, str(b), str(a))
+                _label = '%2s   %2s   %5.5s  %5.5s' % (
+                    filters[_filter], col, str(b), str(a))
                 plot(xx, yy, '-', label='fit')
                 plot(colore, zero, 'o', label=_label)
                 if len(colore) > 1:
@@ -672,14 +756,20 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
                 show()
     else:
         if _filter not in zz:
-            ntt.util.updateheader(img, 0, {'PHOTZP': [9999., 'MAG=-2.5*log(data)+PHOTZP']})
-            ntt.util.updateheader(img, 0, {'PHOTZPER': [9999., 'error in PHOTZP']})
-            ntt.util.updateheader(img, 0, {'FLUXCAL': ['UNCALIBRATED', 'Certifies the validity of PHOTZP']})
+            ntt.util.updateheader(
+                img, 0, {'PHOTZP': [9999., 'MAG=-2.5*log(data)+PHOTZP']})
+            ntt.util.updateheader(
+                img, 0, {'PHOTZPER': [9999., 'error in PHOTZP']})
+            ntt.util.updateheader(
+                img, 0, {'FLUXCAL': ['UNCALIBRATED', 'Certifies the validity of PHOTZP']})
             print 'no calibration, ' + _filter + ' ' + _field
         else:
-            ntt.util.updateheader(img, 0, {'PHOTZP': [zz[_filter], 'MAG=-2.5*log(data)+PHOTZP']})
-            ntt.util.updateheader(img, 0, {'PHOTZPER': [2.0, 'error in PHOTZP']})
-            ntt.util.updateheader(img, 0, {'FLUXCAL': ['ABSOLUTE', 'Certifies the validity of PHOTZP']})
+            ntt.util.updateheader(
+                img, 0, {'PHOTZP': [zz[_filter], 'MAG=-2.5*log(data)+PHOTZP']})
+            ntt.util.updateheader(
+                img, 0, {'PHOTZPER': [2.0, 'error in PHOTZP']})
+            ntt.util.updateheader(
+                img, 0, {'FLUXCAL': ['ABSOLUTE', 'Certifies the validity of PHOTZP']})
             print 'calibration from default zero point'
         result = ''
 
@@ -691,24 +781,32 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
         elif _filter in ['g782', 'r784', 'z623']:
             _field = 'sloan'
     if _field == 'landolt':
-        ntt.util.updateheader(img, 0, {'PHOTSYS': ['VEGA', 'Photometric system VEGA or AB']})
+        ntt.util.updateheader(
+            img, 0, {'PHOTSYS': ['VEGA', 'Photometric system VEGA or AB']})
     elif _field == '2mass':
-        ntt.util.updateheader(img, 0, {'PHOTSYS': ['VEGA', 'Photometric system VEGA or AB']})
+        ntt.util.updateheader(
+            img, 0, {'PHOTSYS': ['VEGA', 'Photometric system VEGA or AB']})
     elif _field == 'sloan':
-        ntt.util.updateheader(img, 0, {'PHOTSYS': ['AB', 'Photometric system VEGA or AB']})
+        ntt.util.updateheader(
+            img, 0, {'PHOTSYS': ['AB', 'Photometric system VEGA or AB']})
     else:
-        ntt.util.updateheader(img, 0, {'PHOTSYS': ['NULL', 'Photometric system VEGA or AB']})
+        ntt.util.updateheader(
+            img, 0, {'PHOTSYS': ['NULL', 'Photometric system VEGA or AB']})
     delete('tmp.*,detection*')
     return result
 
 
 #####################################################################
 def pval(_xx, p):
+    # print "LOGX:: Entering `pval` method/function in %(__file__)s" %
+    # globals()
     _y = +p[0] + p[1] * _xx
     return _y
 
 
-def crossmatch(_ra0, _dec0, _ra1, _dec1, tollerance):  #   degree,degree,degree,degree,arcsec
+def crossmatch(_ra0, _dec0, _ra1, _dec1, tollerance):  # degree,degree,degree,degree,arcsec
+    # print "LOGX:: Entering `crossmatch` method/function in %(__file__)s" %
+    # globals()
     from numpy import pi, cos, sin, array, argmin, min, arccos
 
     scal = pi / 180.
@@ -722,12 +820,14 @@ def crossmatch(_ra0, _dec0, _ra1, _dec1, tollerance):  #   degree,degree,degree,
             distvec.append(min(distance))
             pos0.append(jj)
             pos1.append(argmin(distance))
-    return distvec, pos0, pos1  #  
+    return distvec, pos0, pos1
 
 
 ###################################################################
 
 def onkeypress(event):
+    # print "LOGX:: Entering `onkeypress` method/function in %(__file__)s" %
+    # globals()
     global idd, _col, _dmag, testo, lines, pol, sss, f, fixcol, sigmaa, sigmab
     import numpy as np
     import pylab as plt
@@ -749,25 +849,29 @@ def onkeypress(event):
         _fixcol = fixcol
 
     if _fixcol == '':
-        pol = np.polyfit(_col, _dmag, 1, full=True)  ###
+        pol = np.polyfit(_col, _dmag, 1, full=True)
         xx = [min(_col) - .1, max(_col) + .1]
-        yy = np.polyval(pol[0], xx)  ###
+        yy = np.polyval(pol[0], xx)
     else:
         pol = [[0, 0], []]
         pol[0][1] = np.mean(np.array(_dmag) - np.array(_col) * float(_fixcol))
         pol[0][0] = _fixcol
         xx = [min(_col) - .1, max(_col) + .1]
-        yy = np.polyval(pol[0], xx)  ###
-        pol[1] = np.std(abs(pol[0][1] - (np.array(_dmag[idd]) - np.array(_col[idd]) * float(_fixcol))))
+        yy = np.polyval(pol[0], xx)
+        pol[1] = np.std(
+            abs(pol[0][1] - (np.array(_dmag[idd]) - np.array(_col[idd]) * float(_fixcol))))
     #        pol[1]=std(array(_dmag)-array(_col)*float(_fixcol))
 
     try:
         sigmae = np.sqrt(pol[1] / (len(idd) - 2))
     except:
         sigmae = 0
-    sigmaa = sigmae * np.sqrt(1. / len(idd) + (np.mean(_col[idd]) ** 2) / np.sum((_col[idd] - np.mean(_col[idd])) ** 2))
-    sigmab = sigmae * np.sqrt(1 / np.sum((_col[idd] - np.mean(_col[idd])) ** 2))
-    if _fixcol != '': sigmab = 0.0
+    sigmaa = sigmae * np.sqrt(1. / len(idd) + (
+        np.mean(_col[idd]) ** 2) / np.sum((_col[idd] - np.mean(_col[idd])) ** 2))
+    sigmab = sigmae * \
+        np.sqrt(1 / np.sum((_col[idd] - np.mean(_col[idd])) ** 2))
+    if _fixcol != '':
+        sigmab = 0.0
 
     lines.pop(0).remove()
     lines = plt.plot(xx, yy, 'r-')
@@ -776,16 +880,18 @@ def onkeypress(event):
     plt.title(f)
 
     try:
-        plt.setp(testo, text='%5.3f + %s* %5.3f [%4.3f  %4.3f]' % \
+        plt.setp(testo, text='%5.3f + %s* %5.3f [%4.3f  %4.3f]' %
                              (pol[0][1], sss, pol[0][0], sigmaa, sigmab))
     except:
-        plt.setp(testo, text='%5.3f + %s* %5.3f [%4.3f  %4.3f]' % \
+        plt.setp(testo, text='%5.3f + %s* %5.3f [%4.3f  %4.3f]' %
                              (pol[0][1], sss, pol[0][0], sigmaa, sigmab))
 
 
 ####################################################################
 
 def onclick(event):
+    # print "LOGX:: Entering `onclick` method/function in %(__file__)s" %
+    # globals()
     global idd, _col, _dmag, testo, lines, pol, sss, f, fixcol, sigmaa, sigmab
     import numpy as np
     import pylab as plt
@@ -796,13 +902,16 @@ def onclick(event):
         dist = np.sqrt((xdata - _col) ** 2 + (ydata - _dmag) ** 2)
         ii = np.argmin(dist)
         if event.button == 2:
-            if ii not in idd: idd.append(ii)
+            if ii not in idd:
+                idd.append(ii)
         if event.button == 1:
-            if ii in idd: idd.remove(ii)
+            if ii in idd:
+                idd.remove(ii)
 
     nonincl = []
     for i in range(len(_col)):
-        if i not in idd: nonincl.append(i)
+        if i not in idd:
+            nonincl.append(i)
 
     _fixcol = fixcol
     if len(_col[idd]) == 1:
@@ -811,25 +920,29 @@ def onclick(event):
         _fixcol = fixcol
 
     if _fixcol == '':
-        pol = np.polyfit(_col[idd], _dmag[idd], 1, full=True)  ###
+        pol = np.polyfit(_col[idd], _dmag[idd], 1, full=True)
         xx = [min(_col) - .1, max(_col) + .1]
-        yy = np.polyval(pol[0], xx)  ###
+        yy = np.polyval(pol[0], xx)
     else:
         pol = [[0, 0], [0]]
         pol[0][1] = np.mean(_dmag[idd] - _col[idd] * float(_fixcol))
         pol[0][0] = _fixcol
         xx = [min(_col) - .1, max(_col) + .1]
-        yy = np.polyval(pol[0], xx)  ###
-        pol[1] = np.std(np.abs(pol[0][1] - (np.array(_dmag[idd]) - np.array(_col[idd]) * float(_fixcol))))
+        yy = np.polyval(pol[0], xx)
+        pol[1] = np.std(np.abs(
+            pol[0][1] - (np.array(_dmag[idd]) - np.array(_col[idd]) * float(_fixcol))))
 
     try:
         sigmae = np.sqrt(pol[1] / (len(idd) - 2))
     except:
         sigmae = 0
 
-    sigmaa = sigmae * np.sqrt(1. / len(idd) + (np.mean(_col[idd]) ** 2) / np.sum((_col[idd] - np.mean(_col[idd])) ** 2))
-    sigmab = sigmae * np.sqrt(1 / np.sum((_col[idd] - np.mean(_col[idd])) ** 2))
-    if _fixcol != '': sigmab = 0.0
+    sigmaa = sigmae * np.sqrt(1. / len(idd) + (
+        np.mean(_col[idd]) ** 2) / np.sum((_col[idd] - np.mean(_col[idd])) ** 2))
+    sigmab = sigmae * \
+        np.sqrt(1 / np.sum((_col[idd] - np.mean(_col[idd])) ** 2))
+    if _fixcol != '':
+        sigmab = 0.0
 
     plt.plot(_col, _dmag, 'ok')
     plt.plot(_col[nonincl], _dmag[nonincl], 'ow')
@@ -839,16 +952,18 @@ def onclick(event):
     plt.xlabel(sss)
     plt.title(f)
     try:
-        plt.setp(testo, text='%5.3f + %s* %5.3f [%4.3f  %4.3f]' % \
+        plt.setp(testo, text='%5.3f + %s* %5.3f [%4.3f  %4.3f]' %
                              (pol[0][1], sss, pol[0][0], sigmaa, sigmab))
     except:
-        plt.setp(testo, text='%5.3f + %s* %5.3f [%4.3f  %4.3f]' % \
+        plt.setp(testo, text='%5.3f + %s* %5.3f [%4.3f  %4.3f]' %
                              (pol[0][1], sss, pol[0][0], sigmaa, sigmab))
 
 
 #################################################
 
 def fitcol(col, dmag, band, color, fissa=''):
+    # print "LOGX:: Entering `fitcol` method/function in %(__file__)s" %
+    # globals()
     global idd, _col, _dmag, testo, lines, pol, sss, f, fixcol, sigmaa, sigmab
     import pylab as plt
     import numpy as np
@@ -872,17 +987,20 @@ def fitcol(col, dmag, band, color, fissa=''):
         _fixcol = fixcol
 
     if _fixcol == '':
-        pol = np.polyfit(_col[idd], _dmag[idd], 1, full=True)  ###
+        pol = np.polyfit(_col[idd], _dmag[idd], 1, full=True)
         xx = [min(_col) - .1, max(_col) + .1]
-        yy = np.polyval(pol[0], xx)  ###
+        yy = np.polyval(pol[0], xx)
     else:
         pol = [[0, 0], []]
-        pol[0][1] = np.mean(np.array(_dmag)[idd] - np.array(_col)[idd] * fixcol)
+        pol[0][1] = np.mean(np.array(_dmag)[idd] -
+                            np.array(_col)[idd] * fixcol)
         pol[0][0] = fixcol
         xx = [min(_col) - .1, max(_col) + .1]
-        yy = np.polyval(pol[0], xx)  ###
-        pol[1] = np.std(np.abs(pol[0][1] - (np.array(_dmag) - np.array(_col) * float(_fixcol))))
-    if len(_col) <= 2: pol = [pol[0], [0]]
+        yy = np.polyval(pol[0], xx)
+        pol[1] = np.std(
+            np.abs(pol[0][1] - (np.array(_dmag) - np.array(_col) * float(_fixcol))))
+    if len(_col) <= 2:
+        pol = [pol[0], [0]]
 
     lines = plt.plot(xx, yy, 'r-')
     plt.ylim(min(_dmag) - .2, max(_dmag) + .2)
@@ -894,27 +1012,32 @@ def fitcol(col, dmag, band, color, fissa=''):
         sigmae = np.sqrt(pol[1] / (len(idd) - 2))
     except:
         sigmae = 0
-    sigmaa = sigmae * np.sqrt(1. / len(idd) + (np.mean(_col[idd]) ** 2) / np.sum((_col[idd] - np.mean(_col[idd])) ** 2))
+    sigmaa = sigmae * np.sqrt(1. / len(idd) + (
+        np.mean(_col[idd]) ** 2) / np.sum((_col[idd] - np.mean(_col[idd])) ** 2))
     sigmab = sigmae * np.sqrt(1 / sum((_col[idd] - np.mean(_col[idd])) ** 2))
 
     try:
-        testo = plt.figtext(.2, .85, '%5.3f + %s* %5.3f [%4.3f  %4.3f]' % \
+        testo = plt.figtext(.2, .85, '%5.3f + %s* %5.3f [%4.3f  %4.3f]' %
                             (pol[0][1], sss, pol[0][0], sigmaa, sigmab))
     except:
-        testo = plt.figtext(.2, .85, '%5.3f + %s* %5.3f [%4.3f  %4.3f]' % \
+        testo = plt.figtext(.2, .85, '%5.3f + %s* %5.3f [%4.3f  %4.3f]' %
                             (pol[0][1], sss, pol[0][0], sigmaa, sigmab))
 
     kid = fig.canvas.mpl_connect('key_press_event', onkeypress)
     cid = fig.canvas.mpl_connect('button_press_event', onclick)
     plt.draw()
-    raw_input('left-click mark bad, right-click unmark, <d> remove. Return to exit ...')
+    raw_input(
+        'left-click mark bad, right-click unmark, <d> remove. Return to exit ...')
     plt.close()
-    if _fixcol == '': sigmaa, sigmab = sigmaa[0], sigmab[0]
+    if _fixcol == '':
+        sigmaa, sigmab = sigmaa[0], sigmab[0]
     return pol[0][1], sigmaa, pol[0][0], sigmab
 
 
 ####################################################################
 def linreg(X, Y):
+    # print "LOGX:: Entering `linreg` method/function in %(__file__)s" %
+    # globals()
     from math import sqrt
 
     """
@@ -924,7 +1047,8 @@ def linreg(X, Y):
         real, real, real = linreg(list, list)
     Returns coefficients to the regression line "y=ax+b" from x[] and y[], and R^2 Value
     """
-    if len(X) != len(Y):  raise ValueError, 'unequal length'
+    if len(X) != len(Y):
+        raise ValueError, 'unequal length'
     N = len(X)
     Sx = Sy = Sxx = Syy = Sxy = 0.0
     for x, y in map(None, X, Y):
@@ -945,12 +1069,17 @@ def linreg(X, Y):
     return a, b, RR
 
 
-#########################################################################################################################################
+##########################################################################
 ##########################################
 def querysloan(ra1, dec1, radius, mr1, mr2):
+    # print "LOGX:: Entering `querysloan` method/function in %(__file__)s" %
+    # globals()
     import ntt
     from ntt import sqlcl
-    import os, sys, shutil, string
+    import os
+    import sys
+    import shutil
+    import string
 
     righe = sqlcl.query('select P.objID, P.ra, P.dec , P.u, P.g, P.r, P.i, P.z, P.type ' +
                         'from PhotoPrimary as P , dbo.fGetNearbyObjEq(' + str(ra1) + ', ' + str(dec1) + ', ' +
@@ -958,7 +1087,8 @@ def querysloan(ra1, dec1, radius, mr1, mr2):
     _id, _ra, _dec, _u, _g, _r, _i, _z, _type = [], [], [], [], [], [], [], [], []
     for i in righe[1:]:
         if len(string.split(i, ',')) == 9:
-            _id0, _ra0, _dec0, _u0, _g0, _r0, _i0, _z0, _type0 = string.split(i, ',')
+            _id0, _ra0, _dec0, _u0, _g0, _r0, _i0, _z0, _type0 = string.split(
+                i, ',')
             if mr1 and mr2:
                 if mr1 <= float(_r0) <= mr2:
                     _id.append(_id0)
@@ -1015,11 +1145,15 @@ def querysloan(ra1, dec1, radius, mr1, mr2):
 
 #################################################################
 def sloan2file(ra1, dec1, radius, magsel0, magsel1, _output):
-    import os, re, string
+    # print "LOGX:: Entering `sloan2file` method/function in %(__file__)s" %
+    # globals()
+    import os
+    import re
+    import string
     import ntt
     from numpy import array, compress
 
-    ra2 = float(ra1) * 15  #  degree
+    ra2 = float(ra1) * 15  # degree
     _ids, _ras, _decs, _us, _gs, _rs, _is, _zs, _type = ntt.efoscastrodef.querysloan(ra1, dec1, float(radius), magsel0,
                                                                                      magsel1)
     headersloan = '# BEGIN CATALOG HEADER \n\
@@ -1052,7 +1186,7 @@ def sloan2file(ra1, dec1, radius, magsel0, magsel1, _output):
         _uss = compress(_type == 6, _us)
         ff = open(_output, 'a')
         for i in range(0, len(_idss)):
-            ff.write('%12.12s\t%12.12s\t%s\t%8.8s\t%8.8s\t%8.8s\t%8.8s\t%8.8s\n' % \
+            ff.write('%12.12s\t%12.12s\t%s\t%8.8s\t%8.8s\t%8.8s\t%8.8s\t%8.8s\n' %
                      (str(_rass[i]), str(_decss[i]), str(_idss[i][-6:]), str(_uss[i]), str(_gss[i]), str(_rss[i]),
                       str(_iss[i]), str(_zss[i])))
         ff.close()
@@ -1064,66 +1198,79 @@ def sloan2file(ra1, dec1, radius, magsel0, magsel1, _output):
 #######################################################################
 
 def transformsloanlandolt(stdcoo):
+    # print "LOGX:: Entering `transformsloanlandolt` method/function in
+    # %(__file__)s" % globals()
     from numpy import array
-    ###  lupton 2005  ###### BVRI
-    ### Jester et al. (2005) ### U
+    # lupton 2005  ###### BVRI
+    # Jester et al. (2005) ### U
     if 'u' and 'g' and 'r' in stdcoo:
         stdcoo['B'] = array(stdcoo['g'], float) + 0.3130 * (
-        array(stdcoo['g'], float) - array(stdcoo['r'], float)) + 0.2271
-        stdcoo['U'] = array(stdcoo['B'], float) + 0.78 * (array(stdcoo['u'], float) - array(stdcoo['g'], float)) - 0.88
+            array(stdcoo['g'], float) - array(stdcoo['r'], float)) + 0.2271
+        stdcoo['U'] = array(stdcoo['B'], float) + 0.78 * \
+            (array(stdcoo['u'], float) - array(stdcoo['g'], float)) - 0.88
     if 'g' and 'r' in stdcoo:
-        if 'B' not in stdcoo:  stdcoo['B'] = array(stdcoo['g'], float) + 0.3130 * (
-        array(stdcoo['g'], float) - array(stdcoo['r'], float)) + 0.2271
+        if 'B' not in stdcoo:
+            stdcoo['B'] = array(stdcoo['g'], float) + 0.3130 * (
+                array(stdcoo['g'], float) - array(stdcoo['r'], float)) + 0.2271
         if 'V' not in stdcoo:
             stdcoo['V'] = array(stdcoo['g'], float) - 0.5784 * (
-            array(stdcoo['g'], float) - array(stdcoo['r'], float)) - 0.0038
+                array(stdcoo['g'], float) - array(stdcoo['r'], float)) - 0.0038
     if 'r' and 'i' in stdcoo:
-        if 'R' not in stdcoo:  stdcoo['R'] = array(stdcoo['r'], float) - 0.2936 * (
-        array(stdcoo['r'], float) - array(stdcoo['i'], float)) - 0.1439
-        if 'I' not in stdcoo:  stdcoo['I'] = array(stdcoo['r'], float) - 1.2444 * (
-        array(stdcoo['r'], float) - array(stdcoo['i'], float)) - 0.3820
+        if 'R' not in stdcoo:
+            stdcoo['R'] = array(stdcoo['r'], float) - 0.2936 * (
+                array(stdcoo['r'], float) - array(stdcoo['i'], float)) - 0.1439
+        if 'I' not in stdcoo:
+            stdcoo['I'] = array(stdcoo['r'], float) - 1.2444 * (
+                array(stdcoo['r'], float) - array(stdcoo['i'], float)) - 0.3820
     if 'g' and 'r' in stdcoo:
-        if 'R' not in stdcoo:  stdcoo['R'] = array(stdcoo['r'], float) - 0.1837 * (
-        array(stdcoo['g'], float) - array(stdcoo['r'], float)) - 0.0971
+        if 'R' not in stdcoo:
+            stdcoo['R'] = array(stdcoo['r'], float) - 0.1837 * (
+                array(stdcoo['g'], float) - array(stdcoo['r'], float)) - 0.0971
     if 'i' and 'z' in stdcoo:
-        if 'I' not in stdcoo:  stdcoo['I'] = array(stdcoo['i'], float) - 0.3780 * (
-        array(stdcoo['i'], float) - array(stdcoo['z'], float)) - 0.3974
+        if 'I' not in stdcoo:
+            stdcoo['I'] = array(stdcoo['i'], float) - 0.3780 * (
+                array(stdcoo['i'], float) - array(stdcoo['z'], float)) - 0.3974
     for fil in 'UBVRI':
-        if fil not in stdcoo: stdcoo[fil] = array(stdcoo['r'], float) - array(stdcoo['r'], float)
+        if fil not in stdcoo:
+            stdcoo[fil] = array(stdcoo['r'], float) - array(stdcoo['r'], float)
     return stdcoo
 
 
 #####################################################
 
 def transformlandoltsloan(stdcoo):
+    # print "LOGX:: Entering `transformlandoltsloan` method/function in %(__file__)s" % globals()
     #  jordi et al 2006
     from numpy import array
 
     if 'B' and 'V' in stdcoo:
         if 'g' not in stdcoo:
             stdcoo['g'] = array(stdcoo['V'], float) + 0.630 * (
-            array(stdcoo['B'], float) - array(stdcoo['V'], float)) - 0.124
+                array(stdcoo['B'], float) - array(stdcoo['V'], float)) - 0.124
     if 'V' and 'R' in stdcoo:
         if 'r' not in stdcoo:
             VR = (array(stdcoo['V'], float) - array(stdcoo['R'], float))
             a = array(stdcoo['R'], float) + 0.267 * VR + 0.088  # V-R < 0.93
-            b = array(stdcoo['R'], float) + 0.77 * VR - 0.37  #  V-R > 0.93
-            stdcoo['r'] = [(a[i], b[i])[VR[i] <= 0.93] for i in range(0, len(VR))]
+            b = array(stdcoo['R'], float) + 0.77 * VR - 0.37  # V-R > 0.93
+            stdcoo['r'] = [(a[i], b[i])[VR[i] <= 0.93]
+                           for i in range(0, len(VR))]
     if 'R' and 'I' in stdcoo:
         if 'i' not in stdcoo:
             stdcoo['i'] = array(stdcoo['I'], float) - 0.247 * (
-            array(stdcoo['R'], float) - array(stdcoo['I'], float)) + 0.329
+                array(stdcoo['R'], float) - array(stdcoo['I'], float)) + 0.329
     if 'V' and 'R' and 'I' in stdcoo:
         if 'r' not in stdcoo:
             VR = (array(stdcoo['V'], float) - array(stdcoo['R'], float))
             a = array(stdcoo['R'], float) + 0.267 * VR + 0.088  # V-R < 0.93
-            b = array(stdcoo['R'], float) + 0.77 * VR - 0.37  #  V-R > 0.93
-            stdcoo['r'] = [(a[i], b[i])[VR[i] <= 0.93] for i in range(0, len(VR))]
+            b = array(stdcoo['R'], float) + 0.77 * VR - 0.37  # V-R > 0.93
+            stdcoo['r'] = [(a[i], b[i])[VR[i] <= 0.93]
+                           for i in range(0, len(VR))]
         if 'z' not in stdcoo:
             stdcoo['z'] = array(stdcoo['r'], float) - 1.584 * (
-            array(stdcoo['R'], float) - array(stdcoo['I'], float)) + (0.386)
+                array(stdcoo['R'], float) - array(stdcoo['I'], float)) + (0.386)
     for fil in 'ugriz':
-        if fil not in stdcoo: stdcoo[fil] = array(stdcoo['V'], float) - array(stdcoo['V'], float)
+        if fil not in stdcoo:
+            stdcoo[fil] = array(stdcoo['V'], float) - array(stdcoo['V'], float)
     return stdcoo
 
 
@@ -1132,12 +1279,14 @@ def transformlandoltsloan(stdcoo):
 # apcor =0
 # percorr =0
 # MagLim = ZP - 2.5*log10(5 * sqrt(pi*FWHM^2) * skynoise / exptime)
-#M_limiting = M + 2.5 * log10 (SNR/3).
-#where M = Magnitude of star and SNR is the SNR of the star.
-#This gives you a 3-sigma limiting magnitude.
+# M_limiting = M + 2.5 * log10 (SNR/3).
+# where M = Magnitude of star and SNR is the SNR of the star.
+# This gives you a 3-sigma limiting magnitude.
 ##############    sextractor   ##################
 
 def sextractor(img):
+    # print "LOGX:: Entering `sextractor` method/function in %(__file__)s" %
+    # globals()
     from ntt import defsex, delete
     import os
     from pyraf import iraf
@@ -1152,7 +1301,8 @@ def sextractor(img):
     ypix = iraf.proto.fields('detections.cat', fields='3', Stdout=1)
     cm = iraf.proto.fields('detections.cat', fields='4', Stdout=1)
     cl = iraf.proto.fields('detections.cat', fields='7', Stdout=1)
-    fw = iraf.proto.fields('detections.cat', fields='8', Stdout=1)  # flux radius in sextractor PHOT_FLUXFRAC    0.5 
+    # flux radius in sextractor PHOT_FLUXFRAC    0.5
+    fw = iraf.proto.fields('detections.cat', fields='8', Stdout=1)
     ell = iraf.proto.fields('detections.cat', fields='9', Stdout=1)
     bkg = iraf.proto.fields('detections.cat', fields='10', Stdout=1)
 
@@ -1164,14 +1314,19 @@ def sextractor(img):
     ypix = compress((array(xpix) != ''), array(ypix, float))
     xpix = compress((array(xpix) != ''), array(xpix, float))
     try:
-        ww = asarray([i for i in range(len(xpix)) if ((xpix[i] < 960) or (ypix[i] < 980))])
-        cl, cm, fw, ell, xpix, ypix, bkg = cl[ww], cm[ww], fw[ww], ell[ww], xpix[ww], ypix[ww], bkg[ww]
+        ww = asarray([i for i in range(len(xpix)) if (
+            (xpix[i] < 960) or (ypix[i] < 980))])
+        cl, cm, fw, ell, xpix, ypix, bkg = cl[ww], cm[
+            ww], fw[ww], ell[ww], xpix[ww], ypix[ww], bkg[ww]
 
-        ww = asarray([i for i in range(len(xpix)) if ((xpix[i] > 20) or (ypix[i] < 980))])
-        cl, cm, fw, ell, xpix, ypix, bkg = cl[ww], cm[ww], fw[ww], ell[ww], xpix[ww], ypix[ww], bkg[ww]
+        ww = asarray([i for i in range(len(xpix)) if (
+            (xpix[i] > 20) or (ypix[i] < 980))])
+        cl, cm, fw, ell, xpix, ypix, bkg = cl[ww], cm[
+            ww], fw[ww], ell[ww], xpix[ww], ypix[ww], bkg[ww]
 
         ww = asarray([i for i in range(len(xpix)) if (xpix[i] > 3)])
-        cl, cm, fw, ell, xpix, ypix, bkg = cl[ww], cm[ww], fw[ww], ell[ww], xpix[ww], ypix[ww], bkg[ww]
+        cl, cm, fw, ell, xpix, ypix, bkg = cl[ww], cm[
+            ww], fw[ww], ell[ww], xpix[ww], ypix[ww], bkg[ww]
 
         cl = compress((array(fw) <= 15) & (array(fw) >= -2), array(cl))
         cm = compress((array(fw) <= 15) & (array(fw) >= -2), array(cm))
@@ -1187,12 +1342,20 @@ def sextractor(img):
     return xpix, ypix, fw, cl, cm, ell, bkg
 
 
-##########################################################################################
+##########################################################################
 #####
 def querycatalogue(catalogue, img, method='iraf'):
+
+    # print "LOGX:: Entering `querycatalogue` method/function in %(__file__)s" % globals()
+    # print "LOGX:: catalogue %(catalogue)s" % locals()
+    # print "LOGX:: img %(img)s" % locals()
+    # print "LOGX:: method %(method)s" % locals()
     from pyraf import iraf
     from numpy import array, compress
-    import string, re, sys, os
+    import string
+    import re
+    import sys
+    import os
     from ntt import delete
     from ntt.util import readhdr, readkey3, delete
     import ntt
@@ -1208,6 +1371,7 @@ def querycatalogue(catalogue, img, method='iraf'):
             iraf.unlearn(t)
         except:
             pass
+
     iraf.noao.astcat.aregpars.rcrauni = ''
     iraf.noao.astcat.aregpars.rcdecuni = ''
     iraf.noao.astcat.catdb = ntt.__path__[0] + '/standard/cat/catalogue.dat'
@@ -1220,51 +1384,85 @@ def querycatalogue(catalogue, img, method='iraf'):
 
     if method == 'iraf':
         if catalogue == 'usnoa2':
-            lll = iraf.noao.astcat.agetcat('pars', 'STDOUT', catalog='usno2@noao', verbose='no', Stdout=1)
+            lll = iraf.noao.astcat.agetcat(
+                'pars', 'STDOUT', catalog='usno2@noao', verbose='no', Stdout=1)
         elif catalogue == 'usnob1':
-            lll = iraf.noao.astcat.agetcat('pars', 'STDOUT', catalog='usnob1@noao', verbose='no', Stdout=1)
+            lll = iraf.noao.astcat.agetcat(
+                'pars', 'STDOUT', catalog='usnob1@noao', verbose='no', Stdout=1)
         elif catalogue == '2mass':
-            lll = iraf.noao.astcat.agetcat('pars', 'STDOUT', catalog='twomass@noao', verbose='no', Stdout=1)
-        #elif catalogue=='gsc1':    lll=iraf.noao.astcat.agetcat('pars','STDOUT',catalog='gsc1@cadc',verbose='no',Stdout=1)
+            lll = iraf.noao.astcat.agetcat(
+                'pars', 'STDOUT', catalog='twomass@irsa', verbose='yes', Stdout=1)
+        # elif catalogue=='gsc1':
+        # lll=iraf.noao.astcat.agetcat('pars','STDOUT',catalog='gsc1@cadc',verbose='no',Stdout=1)
         else:
             if os.path.isfile(ntt.__path__[0] + '/standard/cat/' + catalogue):
                 ff = open(ntt.__path__[0] + '/standard/cat/' + catalogue)
                 lll = ff.readlines()
                 ff.close()
-                for ii in range(0, len(lll)): lll[ii] = re.sub('\n', '', lll[ii])
+                for ii in range(0, len(lll)):
+                    lll[ii] = re.sub('\n', '', lll[ii])
                 print 'catalogue from user'
             else:
-                sys.exit('Error: catalogue ' + str(catalogue) + 'not in the list [usnob1,usnoa2,2mass]')
+                sys.exit('Error: catalogue ' + str(catalogue) +
+                         'not in the list [usnob1,usnoa2,2mass]')
             ########
+
+        # REMOVE COMMENT LINES
+        lllNew = []
+        for ll in lll:
+            if ll[:2] != "\ " and ll[:2] != "| ":
+                lllNew.append(ll)
+        lll = lllNew
+
+        # for i, v in enumerate(lll):
+        #     print i, v
+
+        # FIND LINE WITH nfield value
         indfield = [i for i in range(0, len(lll)) if 'nfields' in lll[i]]
+
         fields = int(lll[indfield[0]].split()[-1])
+
         stdcoo = {}
         column = {}
         for j in range(indfield[0] + 1, indfield[0] + fields + 1):
-            if lll[j].split()[1] not in column: column[lll[j].split()[1]] = int(lll[j].split()[2])
-            if lll[j].split()[1] not in stdcoo: stdcoo[lll[j].split()[1]] = []
-        for i in lll[lll.index('# END CATALOG HEADER') + 2:]:
+            if lll[j].split()[1] not in column:
+                column[lll[j].split()[1]] = int(lll[j].split()[2])
+            if lll[j].split()[1] not in stdcoo:
+                stdcoo[lll[j].split()[1]] = []
+
+        startIndex = lll.index('# END CATALOG HEADER') + 2
+        for i in lll[startIndex:]:
             for j in stdcoo.keys():
-                stdcoo[j].append(i.split()[column[j] - 1])
+                val = i.split()[column[j] - 1]
+                if j in ["ra", "dec"]:
+                    val = val.replace("d", ":").replace(
+                        "h", ":").replace("m", ":").replace("s", "")
+                stdcoo[j].append(val)
+
         colonne3 = str(int(column['ra'])) + ' ' + str(int(column['dec']))
         if catalogue in ['usnoa2', 'usnob1', '2mass', 'gsc1']:
-            colonne4 = {'usnoa2': 'mag1', 'usnob1': 'R2mag', '2mass': 'mag1', 'gsc1': 'mag'}
+            colonne4 = {'usnoa2': 'mag1', 'usnob1': 'R2mag',
+                        '2mass': 'mag1', 'gsc1': 'mag'}
         else:
             for jj in column.keys():
                 if jj in ['U', 'B', 'V', 'R', 'I', 'g', 'r', 'i', 'z']:
                     colonne4 = {catalogue: jj}
                     break
+
     elif method == 'vizir':
         stdcoo = ntt.efoscastrodef.vizq(_ra, _dec, catalogue, 10)
         lll = ['# END CATALOG HEADER', '#']
         for ff in range(0, len(stdcoo['ra'])):
-            lll.append(str(stdcoo['ra'][ff]) + '  ' + str(stdcoo['dec'][ff]) + '  ' + str(stdcoo['mag'][ff]))
-        colonne4 = {'usnoa2': 'mag', 'usnob1': 'mag', '2mass': 'mag', 'gsc1': 'mag'}
+            lll.append(str(stdcoo['ra'][ff]) + '  ' +
+                       str(stdcoo['dec'][ff]) + '  ' + str(stdcoo['mag'][ff]))
+        colonne4 = {'usnoa2': 'mag', 'usnob1': 'mag',
+                    '2mass': 'mag', 'gsc1': 'mag'}
         colonne3 = ' 1   2 '
         column = {'ra': 1, 'dec': 2, 'r': 3}
 
     ddd2 = iraf.wcsctran('STDIN', 'STDOUT', img, Stdin=lll, Stdout=1, inwcs='world', units='hour degrees',
                          outwcs='logical', columns=colonne3, formats='%10.1f %10.1f')
+
     xx, yy = [], []
     for i in ddd2[ddd2.index('# END CATALOG HEADER') + 2:]:
         xx.append(float(i.split()[column['ra'] - 1]))
@@ -1295,25 +1493,29 @@ def querycatalogue(catalogue, img, method='iraf'):
 
     for key in stdcoo.keys():
         stdcoo[key] = compress((array(xx) < int(int(hdr['NAXIS1']) + 100)) & (array(xx) > -100) & (
-        array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(stdcoo[key]))
+            array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(stdcoo[key]))
     stdcoo['coo'] = compress((array(xx) < int(int(hdr['NAXIS1']) + 100)) & (array(xx) > -100) & (
-    array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(acoo1))
+        array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(acoo1))
     stdcoo['pix'] = compress((array(xx) < int(int(hdr['NAXIS1']) + 100)) & (array(xx) > -100) & (
-    array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(apix1))
+        array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(apix1))
     stdcoo['mag'] = compress((array(xx) < int(int(hdr['NAXIS1']) + 100)) & (array(xx) > -100) & (
-    array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(am1, float))
+        array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(am1, float))
     stdcoo['x'] = compress((array(xx) < int(int(hdr['NAXIS1']) + 100)) & (array(xx) > -100) & (
-    array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(xx, float))
+        array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(xx, float))
     stdcoo['y'] = compress((array(xx) < int(int(hdr['NAXIS1']) + 100)) & (array(xx) > -100) & (
-    array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(yy, float))
+        array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(yy, float))
 
     return stdcoo
 
 
-############################################################################################################
+##########################################################################
 def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, guess=False, fitgeo='xyscale',
                      tollerance1=100, tollerance2=30, _update='yes', imex=False, nummin=4):
-    import os, string, re, sys
+    # print "LOGX:: entering efoscastrometry2\n"
+    import os
+    import string
+    import re
+    import sys
     import numpy
     import math
     from numpy import array, compress, argsort, sort, asarray
@@ -1328,7 +1530,7 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
 
     xpix, ypix, fw, cl, cm, ell, bkg = sexvec
     acoo1, apix1, am1 = catvec['coo'], catvec['pix'], catvec['mag']
-    ########################   catalogue
+    # catalogue
     iraf.noao(_doprint=0)
     iraf.imcoords(_doprint=0)
     iraf.tv(_doprint=0)
@@ -1341,7 +1543,8 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
         except:
             pass
     verbose = False
-    if _interactive: verbose = True
+    if _interactive:
+        verbose = True
     img = lista[0]
     hdr = readhdr(img)
     _instrume = readkey3(hdr, 'instrume')
@@ -1354,7 +1557,8 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
     #    if guess:     ntt.efoscastrodef.wcsstart(img)#,500,500)
     _CRPIX1 = readkey3(hdr, 'CRPIX1')
     _CRPIX2 = readkey3(hdr, 'CRPIX2')
-    if verbose:            display_image(img, 1, '', '', False)
+    if verbose:
+        display_image(img, 1, '', '', False)
     if verbose:
         iraf.tvmark(1, 'STDIN', Stdin=list(apix1), mark="circle", number='yes', label='no', radii=20, nxoffse=5,
                     nyoffse=5, color=205, txsize=4)
@@ -1366,7 +1570,8 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
     magsel11 = magsel1
     mlim = 0
     while answ == 'yes':
-        amcut1 = compress((array(am1) > magsel0) & (array(am1) < magsel11), am1)
+        amcut1 = compress((array(am1) > magsel0) &
+                          (array(am1) < magsel11), am1)
         if len(amcut1) <= number:
             answ = 'no'
             magsel11 = magsel1 + mlim + .5
@@ -1375,11 +1580,15 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
             magsel11 = magsel1 + mlim
 
     amcut = compress((array(am1) > magsel0) & (array(am1) < magsel11), am1)
-    apixcut = compress((array(am1) > magsel0) & (array(am1) < magsel11), apix1)  #   usno x y  cut_list
-    acoocut = compress((array(am1) > magsel0) & (array(am1) < magsel11), acoo1)  #   usno ra dec  cut_list
+    apixcut = compress((array(am1) > magsel0) & (
+        array(am1) < magsel11), apix1)  # usno x y  cut_list
+    acoocut = compress((array(am1) > magsel0) & (
+        array(am1) < magsel11), acoo1)  # usno ra dec  cut_list
 
-    rausno = compress((array(am1) > magsel0) & (array(am1) < magsel11), array(catvec['ra'], float))
-    decusno = compress((array(am1) > magsel0) & (array(am1) < magsel11), array(catvec['dec'], float))
+    rausno = compress((array(am1) > magsel0) & (
+        array(am1) < magsel11), array(catvec['ra'], float))
+    decusno = compress((array(am1) > magsel0) & (
+        array(am1) < magsel11), array(catvec['dec'], float))
     xusno, yusno = [], []
     for i in apixcut:
         xusno.append(float(string.split(i)[0]))
@@ -1423,8 +1632,10 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
         xoff, xstd = round(median(xdist), 2), round(std(xdist), 2)
         yoff, ystd = round(median(ydist), 2), round(std(ydist), 2)
         _xdist, _ydist = array(xdist), array(ydist)
-        __xdist = compress((abs(_xdist - xoff) < 3 * xstd) & (abs(_ydist - yoff) < 3 * ystd), _xdist)
-        __ydist = compress((abs(_xdist - xoff) < 3 * xstd) & (abs(_ydist - yoff) < 3 * ystd), _ydist)
+        __xdist = compress((abs(_xdist - xoff) < 3 * xstd) &
+                           (abs(_ydist - yoff) < 3 * ystd), _xdist)
+        __ydist = compress((abs(_xdist - xoff) < 3 * xstd) &
+                           (abs(_ydist - yoff) < 3 * ystd), _ydist)
         if len(__xdist) >= 2:
             xoff, xstd = round(median(__xdist), 2), round(std(__xdist), 2)
             yoff, ystd = round(median(__ydist), 2), round(std(__ydist), 2)
@@ -1432,8 +1643,10 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
             xoff, yoff = 0, 0
     else:
         xoff, yoff = 0, 0
-    if isnan(xoff): xoff = 0
-    if isnan(yoff): yoff = 0
+    if isnan(xoff):
+        xoff = 0
+    if isnan(yoff):
+        yoff = 0
     _CRPIX1 = readkey3(hdr, 'CRPIX1')
     _CRPIX2 = readkey3(hdr, 'CRPIX2')
     ntt.util.updateheader(img, 0, {'CRPIX1': [_CRPIX1 - xoff, '']})
@@ -1449,6 +1662,7 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
     iraf.tv(_doprint=0)
     iraf.tv.rimexam.backgrou = 'yes'
     vettoretran = []
+    # print "LOGX:: xusno2_new: %(xusno2_new)s" % locals()
     for i in range(len(xusno2_new)):
         dist = sqrt((xusno2_new[i] - xsex) ** 2 + (yusno2_new[i] - ysex) ** 2)
         idist = argmin(dist)
@@ -1470,6 +1684,8 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
                     fwhm2.append(_fwhm2)
                 except:
                     pass
+    # print "LOGX:: xref: %(xref)s" % locals()
+    # print "LOGX:: nummin: %(nummin)s" % locals()
     if len(xref) >= nummin:
         _ccmap1 = iraf.ccmap('STDIN', 'STDOUT', images=img, Stdin=vettoretran, fitgeome=fitgeo, xcolum=3, xxorder=2,
                              yyorder=2, ycolum=4, lngcolum=1, latcolumn=2, lngunit='degrees', update='No',
@@ -1502,11 +1718,15 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
 ##########################################################################
 
 def querydss(RA, DEC, ImSize='10', output='tmpdss.fits'):
-    import urllib, urllib2
+    # print "LOGX:: Entering `querydss` method/function in %(__file__)s" %
+    # globals()
+    import urllib
+    import urllib2
 
     dss = 'DSS1'
     query_url = "http://archive.eso.org/dss/dss/image?ra=" + str(RA) + "&dec=" + str(DEC) + \
-                "&x=" + str(ImSize) + "&y=" + str(ImSize) + "&Sky-Survey=" + dss + "&mime-type=download-fits"
+                "&x=" + str(ImSize) + "&y=" + str(ImSize) + \
+        "&Sky-Survey=" + dss + "&mime-type=download-fits"
     U = urllib2.urlopen(query_url)
     R0 = U.read()
     U.close()
@@ -1518,7 +1738,9 @@ def querydss(RA, DEC, ImSize='10', output='tmpdss.fits'):
 
 ###################################################################
 
-def crossmatchxy(_xx0, _yy0, _xx1, _yy1, tollerance):  #   pixel,pixel,pixel,pixel,pixel
+def crossmatchxy(_xx0, _yy0, _xx1, _yy1, tollerance):  # pixel,pixel,pixel,pixel,pixel
+    # print "LOGX:: Entering `crossmatchxy` method/function in %(__file__)s" %
+    # globals()
     import numpy as np
 
     distvec = []
@@ -1530,6 +1752,6 @@ def crossmatchxy(_xx0, _yy0, _xx1, _yy1, tollerance):  #   pixel,pixel,pixel,pix
             distvec.append(np.min(distance))
             pos0.append(jj)
             pos1.append(np.argmin(distance))
-    return distvec, pos0, pos1  #  
+    return distvec, pos0, pos1
 
 #######################################################

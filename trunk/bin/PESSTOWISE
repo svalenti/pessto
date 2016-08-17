@@ -25,6 +25,8 @@ if __name__ == "__main__":
     filenameobjects = option.correctobj
 
     def julday(year, month, day, hour, min):
+        # print "LOGX:: Entering `julday` method/function in %(__file__)s\n" %
+        # globals()
         import math
 
         univTime = float(hour) + (float(min) / 60.)
