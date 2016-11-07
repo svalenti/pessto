@@ -110,12 +110,12 @@ if __name__ == "__main__":
         sorted(spectralTypesDict.items(), key=itemgetter(1)))
 
     spectralTypesString = """
-  Object Type Codes
-  =================
+\tObject Type Codes
+\t=================
 """
     for k, v in spectralTypesDict.iteritems():
         v = str(v).ljust(6, ' ')
-        spectralTypesString += "  %(v)s %(k)s\n" % locals()
+        spectralTypesString += "\t%(v)s %(k)s\n" % locals()
 
     ######################################################################
     parent_dir = os.getcwd() + '/'
@@ -134,22 +134,21 @@ if __name__ == "__main__":
     _observer0 = pyfits.open(lista[0])[0].header.get('observer')
     if not _observer0:
         _observer0 = 'NULL'
-    print 'Please give (at least), the family name of the observer'
-    _observer = raw_input('who observed the spectrum ' +
-                          lista[0] + '  [' + _observer0 + '] ? ')
+
+    _observer = raw_input('Who was the observer that took the spectral frame `' +
+                          lista[0] + '`  [' + _observer0 + '] ? ')
     if not _observer:
         _observer = _observer0
     else:
         _observer0 = _observer
-    print 'Please give (at least), the family name of the reducer'
-    _reducer = raw_input('who reduce the spectrum ' +
-                         lista[0] + '  [' + _reducer0 + '] ? ')
+    _reducer = raw_input('\nWho reduced the spectral frame `' +
+                         lista[0] + '`  [' + _reducer0 + ']? ')
 
     _quality = ntt.util.readkey3(ntt.util.readhdr(lista[0]), 'quality')
     if _quality not in ['Rapid', 'Final', 'Low', 'Med', 'High']:
         while _quality not in ['Rapid', 'Final', 'Low', 'Med', 'High']:
             _quality = raw_input(
-                'which type of spectra [[Rapid]/Final/Low/Med/High] ? ')
+                '\nWhat is the quality of the spectrum [[Rapid]/Final/Low/Med/High] ? ')
             if not _quality:
                 _quality = 'Rapid'
 
@@ -195,9 +194,12 @@ if __name__ == "__main__":
             else:
                 _object0 = ntt.util.readkey3(hdr, 'object')
             if useheader:
-                print 'SN name should start with "sn" '
+                print '\n\tNote: If the object has been reported to the TNS and has been classified as a supernova please give the name of the object as a SN designation (e.g. SN2016abc).'
+                print '\tIf however the TNS object has been given a classification other than supernova, please report the AT name here (e.g. AT2016abc).'
+                print '\tFinally, if the source is not on the TNS give the name as reported by the discovery survey (see PESSTO Marshall).'
+
                 _object = raw_input(
-                    'which is the name of the object ' + image + '  [' + _object0 + '] ? ')
+                    '\nWhat is the name of the object  in spectral frame `' + image + '`  [' + _object0 + '] ? ')
                 if not _object:
                     _object = _object0
                 else:
@@ -220,7 +222,7 @@ if __name__ == "__main__":
                     _instrume = '34'
                     goon = 'no'
                 else:
-                    print 'instrument not recognise ? '
+                    print '\nThe instrument is not recognised. Which instrument was used? '
                     _instrume = raw_input('SOFI [34] or EFOSC [31] ?')
                 if _instrume in ['31', '34']:
                     goon = 'no'
@@ -233,16 +235,16 @@ if __name__ == "__main__":
                 if _slit == 'long_slit_1':
                     _slit = '1.0'
                 else:
-                    print 'warning slit not recognised'
+                    print '\nThe slit width is not found. Which slit width was used? '
                     _slit = raw_input('slit (1.0,1.5,2.0,.....) [1.0] ? ')
                     if not _slit:
                         _slit = '1.0'
-            print('please insert bibcode string (eg 2011MNRAS.tmp.1220V) ')
+            # print('Please insert bibcode string (eg 2011MNRAS.tmp.1220V) ')
             #_publish=raw_input('Is the spectrum published '+image+'  ['+_publish0+'] ? ')
             # if not _publish:_publish=_publish0
             # else: _publish0=_publish
             if _publish0 != 'NULL':
-                print('please insert reference  (eg Valenti et al 2011) ')
+                print('Please insert reference  (eg Valenti et al 2011) ')
                 _contrib = raw_input(
                     'first author and year of ' + image + '  [' + _contrib0 + '] ? ')
             if not _contrib:
@@ -253,7 +255,7 @@ if __name__ == "__main__":
             while goon == 'yes':
                 print spectralTypesString
                 _objtype = raw_input(
-                    'What is type of object is found in this spectrum:' + image + '  [' + _objtype0 + '] ? ')
+                    '\nWhat is the spectral type of the object in spectral frame `' + image + '`  [' + _objtype0 + '] ? ')
                 if not _objtype:
                     _objtype = _objtype0
                 else:
@@ -275,7 +277,7 @@ if __name__ == "__main__":
             # else: _host0=_host
             _host = _host0
             _redshift = raw_input(
-                'which is the redshift of the host ' + image + '  [' + _redshift0 + '] ? ')
+                '\nWhat is the redshift of the host galaxy in ' + image + '  [' + _redshift0 + '] ? ')
             if not _redshift:
                 _redshift = _redshift0
             else:
@@ -283,7 +285,7 @@ if __name__ == "__main__":
 
             while _spectype not in ['Object', 'Host', 'Sky', 'Arcs']:
                 _spectype = raw_input(
-                    'which type of spectra [[Object]/Host/Sky,Arcs] ? ')
+                    '\nWhat type of spectrum is this [Object, Host, Sky, Arcs] ? ')
                 if not _spectype:
                     _spectype = 'Object'
 
