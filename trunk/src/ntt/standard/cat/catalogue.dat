@@ -262,12 +262,13 @@ type btext
     hskip 19
 nheader 1
     csystem J2000.0
-nfields 5
-    ra 2 10 d degrees %10.5f
-    dec 13 10 d degrees %10.5f
-    mag1 58 6 r INDEF %6.3f
-    mag2 75 6 r INDEF %6.3f
-    mag3 92 6 r INDEF %6.3f
+nfields 6
+    id 8 0 c INDEF %12s
+    ra 3 10 d degrees %10.5f
+    dec 4 10 d degrees %10.5f
+    mag1 9 6 r INDEF %6.3f
+    mag2 13 6 r INDEF %6.3f
+    mag3 17 6 r INDEF %6.3f
 
 begin usnob1@noao
 address inet:80:archive.tuc.noao.edu:text
