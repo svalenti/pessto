@@ -5,7 +5,8 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
     import re
     import sys
     os.environ["PYRAF_BETA_STATUS"] = "1"
-    import pyfits
+    try:      from astropy.io import fits as pyfits
+    except:   import   pyfits
     from ntt.util import readhdr, readkey3
     import ntt
     import numpy as np

@@ -1,9 +1,10 @@
 def skysofifrom2d(fitsfile, skyfile):
     import ntt
     from ntt.util import readhdr, readkey3, delete
-    from pyfits import open as popen
     from numpy import mean, arange, compress
-    import pyfits
+    try:        import pyfits
+    except:     from astropy.io import fits as pyfits
+
     from numpy import interp as ninterp
 
     hdr = readhdr(fitsfile)
@@ -13,7 +14,7 @@ def skysofifrom2d(fitsfile, skyfile):
     else:
         _order1 = 6
 
-    yy1 = popen(fitsfile)[0].data[:, :].mean(1)
+    yy1 = pyfits.open(fitsfile)[0].data[:, :].mean(1)
     crval2 = readkey3(hdr, 'CRVAL2')
     cd2 = readkey3(hdr, 'CD2_2')
     xx1 = arange(len(yy1))
@@ -31,15 +32,15 @@ def skysofifrom2d(fitsfile, skyfile):
     hdulist.writeto('_new3.fits')
     hdulist.close()
     fitsfile = ntt.efoscspec2Ddef.continumsub('_new3.fits', _order1, 1)
-    yy1 = popen(fitsfile)[0].data
-    crval2 = popen(fitsfile)[0].header.get('CRVAL1')
-    cd2 = popen(fitsfile)[0].header.get('CD1_1')
+    yy1 = pyfits.open(fitsfile)[0].data
+    crval2 = pyfits.open(fitsfile)[0].header.get('CRVAL1')
+    cd2 = pyfits.open(fitsfile)[0].header.get('CD1_1')
     xx1 = arange(len(yy1))
     aa1 = crval2 + (xx1) * cd2
 
-    skyff = popen(skyfile)[0].data
-    crval1 = popen(skyfile)[0].header.get('CRVAL1')
-    cd1 = popen(skyfile)[0].header.get('CD1_1')
+    skyff = pyfits.open(skyfile)[0].data
+    crval1 = pyfits.open(skyfile)[0].header.get('CRVAL1')
+    cd1 = pyfits.open(skyfile)[0].header.get('CD1_1')
     skyxx = arange(len(skyff))
     skyaa = crval1 + (skyxx) * cd1
     shift = ntt.efoscspec2Ddef.checkwavelength_arc(aa1, yy1, skyaa, skyff, '', '')
@@ -78,8 +79,10 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
     import ntt
     from ntt.util import delete, readhdr, readkey3, correctcard, rangedata
     import string, re, sys, os, glob
-    import pyfits
-    from pyfits import open as popen
+
+    try:        import pyfits
+    except:     from astropy.io import fits as pyfits
+
     from pyraf import iraf
     from numpy import argmin, array, min, isnan, arange, mean, sum
     from numpy import sqrt, pi
@@ -244,7 +247,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
         for _date in flats:
             for _grism in flats[_date]:
                 for img in flats[_date][_grism]:
-                    if popen(img)[0].data.mean() >= 2000:
+                    if pyfits.open(img)[0].data.mean() >= 2000:
                         print img, _grism, _date, 'ON ? '
                     else:
                         print img, _grism, _date, 'OFF ? '
@@ -257,7 +260,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                         print '\n### header lamp3 found: flat ON ', str(img)
                         _type = 'ON'
                     else:
-                        if popen(img)[0].data.mean() >= 2000:
+                        if pyfits.open(img)[0].data.mean() >= 2000:
                             _type = 'ON'
                         else:
                             _type = 'OFF'
@@ -306,6 +309,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                     for imcmb in matching:   aaa = iraf.hedit(masterflat, imcmb, delete='yes', update='yes',
                                                               verify='no', Stdout=1)
                     delete('_flatlist')
+                    print masterflat
                     correctcard(masterflat)
                     if masterflat not in outputlist:
                         outputlist.append(masterflat)
@@ -456,9 +460,9 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                     else:
                         answ = 'y'
                     if answ in ['n', 'N', 'no', 'NO', 'No']:
-                        yy1 = popen(arcref)[0].data[:, 10:20].mean(1)
+                        yy1 = pyfits.open(arcref)[0].data[:, 10:20].mean(1)
                         xx1 = arange(len(yy1))
-                        yy2 = popen(arcfile)[0].data[:, 10:20].mean(1)
+                        yy2 = pyfits.open(arcfile)[0].data[:, 10:20].mean(1)
                         xx2 = arange(len(yy2))
 
                         ntt.util.delete('_new3.fits')
@@ -466,14 +470,14 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                         hdulist = pyfits.HDUList([hdu])
                         hdulist.writeto('_new3.fits')
                         fitsfile = ntt.efoscspec2Ddef.continumsub('_new3.fits', 4, 1)
-                        yy1 = popen(fitsfile)[0].data
+                        yy1 = pyfits.open(fitsfile)[0].data
 
                         ntt.util.delete('_new3.fits')
                         hdu = pyfits.PrimaryHDU(yy2)
                         hdulist = pyfits.HDUList([hdu])
                         hdulist.writeto('_new3.fits')
                         fitsfile = ntt.efoscspec2Ddef.continumsub('_new3.fits', 4, 1)
-                        yy2 = popen(fitsfile)[0].data
+                        yy2 = pyfits.open(fitsfile)[0].data
 
                         _shift = ntt.efoscspec2Ddef.checkwavelength_arc(xx1, yy1, xx2, yy2, '', '') * (-1)
 
@@ -658,7 +662,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                                                    x1='INDEF', x2='INDEF', y1='INDEF', y2='INDEF', flux='yes', mode='h',
                                                    logfile='logfile')
                             shift = ntt.sofispec2Ddef.skysofifrom2d('_tmp.fits', _skyfile)
-                            zro = popen('_tmp.fits')[0].header.get('CRVAL2')
+                            zro = pyfits.open('_tmp.fits')[0].header.get('CRVAL2')
                             delete('_tmp.fits')
                             if _interactive:
                                 answ = raw_input(

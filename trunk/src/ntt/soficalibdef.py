@@ -65,7 +65,8 @@ def makeflat(lista):
 
 def makeillumination(lista,flatfield):#,outputfile,illum_frame):
     import os,glob,string,re
-    import pyfits
+    from astropy.io import fits as pyfits
+
     import ntt
     from ntt.util import readhdr,readkey3,delete,display_image, defsex,  name_duplicate,correctcard
     from numpy import compress,array,argmax, argmin, min, argsort, float32

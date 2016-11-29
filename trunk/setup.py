@@ -12,7 +12,11 @@ try: find_module('numpy')
 except: sys.exit('### Error: python module numpy not found')
     
 try: find_module('pyfits')
-except: sys.exit('### Error: python module pyfits not found')
+except:
+    try:
+        find_module('astropy')
+    except: 
+        sys.exit('### Error: python module pyfits not found')
 
 try: find_module('pyraf')
 except: sys.exit('### Error: python module pyraf not found')
