@@ -135,13 +135,13 @@ if __name__ == "__main__":
     if not _observer0:
         _observer0 = 'NULL'
 
-    _observer = raw_input('Who was the observer that took the spectral frame `' +
+    _observer = raw_input('Who were the observers that took the spectral frame (comma-delimited list) `' +
                           lista[0] + '`  [' + _observer0 + '] ? ')
     if not _observer:
         _observer = _observer0
     else:
         _observer0 = _observer
-    _reducer = raw_input('\nWho reduced the spectral frame `' +
+    _reducer = raw_input('\nWho reduced the spectral frame (comma-delimited list) `' +
                          lista[0] + '`  [' + _reducer0 + ']? ')
 
     _quality = ntt.util.readkey3(ntt.util.readhdr(lista[0]), 'quality')
