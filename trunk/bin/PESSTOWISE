@@ -329,14 +329,8 @@ if __name__ == "__main__":
             f.close()
 
     stringa = ''
-<< << << < HEAD
+
     for img in filetar:
         stringa = stringa + img + ' '
     os.system('tar -zcvf pessto_' + str(datenow) + '_' +
               str(_quality) + '_upload.tgz ' + stringa)
-== == == =
-    for img in filetar:
-        stringa = stringa + img + ' '
-    os.system('tar -zcvf pessto_' + str(datenow) + '_' +
-              str(_quality) + '_upload.tgz ' + stringa)
->>>>>> > 5af4ad054a22a510666df6777f00df94ecc02690
