@@ -94,14 +94,9 @@ def makeflat(lista):
     return output
 
 
-def makeillumination(lista, flatfield):  # ,outputfile,illum_frame):
-    # print "LOGX:: Entering `makeillumination` method/function in
-    # %(__file__)s" % globals()
-    import os
-    import glob
-    import string
-    import re
-    import pyfits
+def makeillumination(lista,flatfield):#,outputfile,illum_frame):
+    import os,glob,string,re
+    from astropy.io import fits as pyfits
     import ntt
     from ntt.util import readhdr, readkey3, delete, display_image, defsex,  name_duplicate, correctcard
     from numpy import compress, array, argmax, argmin, min, argsort, float32

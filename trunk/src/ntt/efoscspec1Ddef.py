@@ -4,7 +4,9 @@ def telluric_atmo(imgstd):
     import numpy as np
     import ntt
     from pyraf import iraf
-    import pyfits
+
+    try:        import pyfits
+    except:     from astropy.io import fits as pyfits
 
     iraf.images(_doprint=0)
     iraf.noao(_doprint=0)
@@ -102,7 +104,10 @@ def telluric_atmo(imgstd):
 def fluxcalib2d(img2d, sensfun):  # flux calibrate 2d images
     # print "LOGX:: Entering `fluxcalib2d` method/function in %(__file__)s" %
     # globals()
-    import pyfits
+
+    try:        import pyfits
+    except:     from astropy.io import fits as pyfits
+
     import re
     import string
     import numpy as np
@@ -151,7 +156,9 @@ def checkwavestd(imgex, _interactive):
     # globals()
     import ntt
     import numpy as np
-    import pyfits
+
+    try:        import pyfits
+    except:     from astropy.io import fits as pyfits
 
     print '\n### Warning: check in wavelenght with sky lines not performed\n'
     if _interactive in ['yes', 'YES', 'Yes', 'Y', 'y']:
@@ -222,7 +229,10 @@ def sensfunction(standardfile, _function, _order, _interactive):
     import sys
     import ntt
     import datetime
-    import pyfits  # added later
+
+    try:       import pyfits  #  added later
+    except:    from astropy.io import fits as pyfits
+
     from pyraf import iraf
     import numpy as np
 
@@ -292,7 +302,10 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
     # print "LOGX:: Entering `efoscspec1Dredu` method/function in
     # %(__file__)s" % globals()
     import ntt
-    import pyfits
+
+    try:        import pyfits
+    except:     from astropy.io import fits as pyfits
+
     import re
     import string
     import sys
@@ -616,11 +629,14 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
                 ntt.util.updateheader(img, 0, {'quality': ['Final', '']})
             except:
                 print 'Warning: ' + img + ' is not a fits file'
-
-            if int(re.sub('\.', '', str(pyfits.__version__))[:2]) <= 30:
-                aa = 'HIERARCH '
-            else:
+            try:
+                if int(re.sub('\.', '', str(pyfits.__version__))[:2]) <= 30:
+                    aa = 'HIERARCH '
+                else:
+                    aa = ''
+            except:
                 aa = ''
+
             imm = pyfits.open(img, mode='update')
             hdr = imm[0].header
             if aa + 'ESO DPR CATG' in hdr:
@@ -652,7 +668,10 @@ def correctsens(img1, img2):
     # globals()
     import os
     import re
-    import pyfits
+
+    try:        import pyfits
+    except:     from astropy.io import fits as pyfits
+
     import numpy as np
 
     # read spectrum 1

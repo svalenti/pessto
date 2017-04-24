@@ -42,7 +42,9 @@ def findaperture(img, _interactive=False):
 def calibrationsofi(imgex, stdex, stdref, outputfile, _interactive):
     # print "LOGX:: Entering `calibrationsofi` method/function in
     # %(__file__)s" % globals()
-    import pyfits
+    try:        import pyfits
+    except:     from astropy.io import fits as pyfits
+
     import os
     import ntt
     import sys
@@ -154,7 +156,9 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
     import os
     os.environ["PYRAF_BETA_STATUS"] = "1"
     import ntt
-    import pyfits
+    try:     import pyfits
+    except:  from astropy.io import fits as pyfits
+
     import numpy as np
     import datetime
     import pylab as pl

@@ -1,3 +1,6 @@
+try:       from astropy.io import fits as pyfits
+except:    import pyfits
+
 def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, _dobadpixel, badpixelmask,
                    fringingmask, _archive, typefile, filenameobjects, _system, _cosmic, _verbose=False, method='iraf'):
     # print "LOGX:: Entering `efoscreduction` method/function in %(__file__)s"
@@ -22,8 +25,6 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                 'flatcombine', 'imreplace', 'proto.fixpix']
     for t in toforget:
         iraf.unlearn(t)
-    import pyfits
-    from pyfits import open as popen
 
     iraf.ccdproc.darkcor = 'no'
     iraf.ccdproc.fixpix = 'no'
@@ -598,9 +599,14 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
     for img in outputfile:
         if str(img)[-5:] == '.fits':
             ################################################
-            ntt.util.updateheader(
-                img, 0, {'DETRON ': [11.6, 'Readout noise per output (e-)']})
-            if int(re.sub('\.', '', str(pyfits.__version__))[:2]) <= 30:
+            ntt.util.updateheader(img, 0, {'DETRON ': [11.6, 'Readout noise per output (e-)']})
+
+            try:
+                pyv = int(re.sub('\.', '', str(pyfits.__version__))[:2])
+            except:
+                pyv = 40
+
+            if pyv <= 30:
                 print 'here'
                 ntt.util.updateheader(img, 0,
                                       {'HIERARCH ESO DET OUT1 GAIN': [1.18, 'Conversion from electrons to ADU']})
@@ -663,11 +669,16 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                         'SCIENCE.' + readkey3(hdr, 'tech').upper(), 'Data product category']
                 ntt.util.updateheader(img, 0, hedvec)
 
-                if int(re.sub('\.', '', str(pyfits.__version__))[:2]) <= 30:
+                try:
+                    pyv = int(re.sub('\.', '', str(pyfits.__version__))[:2])
+                except:
+                    pyv = 40
+
+                if pyv <= 30:
                     aa = 'HIERARCH '
                 else:
                     aa = ''
-                imm = popen(img, mode='update')
+                imm = pyfits.open(img, mode='update')
                 hdr = imm[0].header
                 if aa + 'ESO DPR CATG' in hdr:
                     hdr.pop(aa + 'ESO DPR CATG')
@@ -767,9 +778,12 @@ def searchfringe(img, listfringe):
 ###################################################################
 
 def rejectflat(lista, _interactive):
+<<<<<<< HEAD
+=======
     # print "LOGX:: Entering `rejectflat` method/function in %(__file__)s" %
     # globals()
     from pyfits import open as popen
+>>>>>>> 5af4ad054a22a510666df6777f00df94ecc02690
     from numpy import where, size
     from ntt.util import display_image
     from pyraf import iraf
@@ -780,7 +794,7 @@ def rejectflat(lista, _interactive):
 
     listone = []
     for img in lista:
-        dataimg = popen(img)[0].data
+        dataimg = pyfits.open(img)[0].data
         numberpixels = size(dataimg)
         indices = where(dataimg > 60000)
         numbersaturated = size(dataimg[indices])
@@ -883,10 +897,14 @@ def fringing2(img, fmask, _interactive, _verbose=False):
 
     MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
     import ntt
+<<<<<<< HEAD
+    import os, string, re
+=======
     import os
     import string
     import re
     from pyfits import open as popen
+>>>>>>> 5af4ad054a22a510666df6777f00df94ecc02690
     from numpy import median, where
     from pyraf import iraf
 
@@ -941,9 +959,9 @@ def fringing2(img, fmask, _interactive, _verbose=False):
             xxx = iraf.nproto.objmasks(images=imgcut, objmasks='mask_' + img, omtype='boolean',
                                        blksize=-16, convolv='block 3 3', hsigma=5, lsigma=3, minpix=10, ngrow=2,
                                        agrow=4., Stdout=1)
-            matimg = popen(img)[0].data
-            matmask = popen('mask_' + img)[1].data
-            matfrin = popen(maskname)[0].data
+            matimg = pyfits.open(img)[0].data
+            matmask = pyfits.open('mask_' + img)[1].data
+            matfrin = pyfits.open(maskname)[0].data
             indices = where(matmask < 1)
             scalevalue = median(
                 (matimg[indices] - median(matimg[indices])) / (matfrin[indices] - median(matfrin)))

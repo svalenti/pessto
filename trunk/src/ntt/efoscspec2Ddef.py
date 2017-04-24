@@ -1,7 +1,7 @@
 def aperture(img):
     # print "LOGX:: Entering `aperture` method/function in %(__file__)s" %
     # globals()
-    import pyfits
+    from astropy.io import fits as pyfits
     import re
     import os
 
@@ -95,7 +95,7 @@ def skyfrom2d(fitsfile, skyfile, interac=True):
     # print "LOGX:: Entering `skyfrom2d` method/function in %(__file__)s" %
     # globals()
     import ntt
-    import pyfits
+    from astropy.io import fits as pyfits
     import numpy as np
 
     yy1 = pyfits.open(fitsfile)[0].data[:, :].mean(1)
@@ -196,7 +196,8 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
     import os
     import glob
     import sys
-    import pyfits
+    from astropy.io import fits as pyfits
+    
     import numpy as np
     from pyraf import iraf
     iraf.noao(_doprint=0)
@@ -491,9 +492,13 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                                   'SINGLEXP': [False, 'TRUE if resulting from single exposure'],
                                   'FILETYPE': [21201, 'bias']}
                     ntt.util.updateheader(tmasterbias, 0, headervecb)
-                    if int(re.sub('\.', '', str(pyfits.__version__))[:2]) <= 30:
-                        ntt.util.updateheader(
-                            tmasterbias, 0, {'HIERARCH ESO INS FILT1 NAME': [setup[1], 'Filter name.']})
+                    try:
+                        pyv = int(re.sub('\.', '', str(pyfits.__version__))[:2]) 
+                    except:
+                        pyv = 40 # astropy.pyfits do not have a version, set high number to avoud next if 
+
+                    if pyv <= 30:
+                        ntt.util.updateheader(tmasterbias, 0, {'HIERARCH ESO INS FILT1 NAME': [setup[1], 'Filter name.']})
                         ntt.util.updateheader(tmasterbias, 0, {
                             'HIERARCH ESO INS GRIS1 NAME': ['Gr#' + re.sub('Gr', '', str(setup[0])), 'OPTIi name.']})
                     else:
@@ -917,9 +922,14 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
     for img in outputlist:
         if img[-4:] == 'fits':
             ################################################
-            ntt.util.updateheader(
-                img, 0, {'DETRON ': [11.6, 'Readout noise per output (e-)']})
-            if int(re.sub('\.', '', str(pyfits.__version__))[:2]) <= 30:
+            ntt.util.updateheader(img, 0, {'DETRON ': [11.6, 'Readout noise per output (e-)']})
+
+            try:
+                pyv = int(re.sub('\.', '', str(pyfits.__version__))[:2]) 
+            except:
+                pyv = 40 # astropy.pyfits do not have a version, set high number to avoud next if 
+
+            if pyv <= 30:
                 ntt.util.updateheader(img, 0,
                                       {'HIERARCH ESO DET OUT1 GAIN': [1.18, 'Conversion from electrons to ADU']})
                 ntt.util.updateheader(img, 0, {'HIERARCH ESO DET OUT1 RON': [

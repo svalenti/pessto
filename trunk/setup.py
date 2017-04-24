@@ -10,15 +10,16 @@ for scheme in INSTALL_SCHEMES.values():
 
 
 from imp import find_module
-try:
-    find_module('numpy')
-except:
-    sys.exit('### Error: python module numpy not found')
 
-try:
-    find_module('pyfits')
+try: find_module('numpy')
+except: sys.exit('### Error: python module numpy not found')
+    
+try: find_module('pyfits')
 except:
-    sys.exit('### Error: python module pyfits not found')
+    try:
+        find_module('astropy')
+    except: 
+        sys.exit('### Error: python module pyfits not found')
 
 try:
     find_module('pyraf')

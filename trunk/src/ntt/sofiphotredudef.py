@@ -275,11 +275,11 @@ def pesstocombine2(imglist, _combine, outputimage):
     from ntt.util import readhdr, readkey3
     from pyraf import iraf
     from numpy import min, max, argmin, float32
-    import pyfits
-    import string
-    import os
-    import sys
-    import re
+
+    try:        import pyfits
+    except:     from astropy.io import fits as pyfits
+
+    import string, os, sys, re
 
     hdr0 = ntt.util.readhdr(imglist[0])
     _ron = ntt.util.readkey3(hdr0, 'ron')
@@ -361,12 +361,15 @@ def pesstocombine2(imglist, _combine, outputimage):
 def sortbyJD(lista):
     # print "LOGX:: Entering `sortbyJD` method/function in %(__file__)s" %
     # globals()
-    from pyfits import open as popen
+
+    try:        import pyfits
+    except:     from astropy.io import fits as pyfits
+
     from numpy import array, argsort
 
     JDlist = []
-    for img in lista:
-        JDlist.append(popen(img)[0].header.get('MJD-OBS'))
+    for img in lista:  JDlist.append(pyfits.open(img)[0].header.get('MJD-OBS'))
+
     lista = array(lista)
     JDlist = array(JDlist)
     inds = JDlist.argsort()
@@ -447,7 +450,9 @@ def skysub(lista, _ron, _gain, _interactive, regi='crreject'):
     import ntt
     from ntt.util import readkey3, readhdr
     from pyraf import iraf
-    from pyfits import open as popen
+    try:        import pyfits
+    except:     from astropy.io import fits as pyfits
+
     from numpy import mean
 
     iraf.nproto(_doprint=0)
@@ -544,7 +549,7 @@ def skysub(lista, _ron, _gain, _interactive, regi='crreject'):
         num = num + 1
         hedvec = {'skysub': ['sky_' + lista[0], 'sky image subtracted'],
                   'FILETYPE': [32215, 'pre-reduced image sky subtracted'],
-                  'TRACE1': [im, ''], 'MBKG': [mean(popen('sky_' + lista[0])[0].data), 'background level']}
+                  'TRACE1': [im, ''], 'MBKG': [mean(pyfits.open('sky_' + lista[0])[0].data), 'background level']}
         ntt.util.updateheader(re.sub('.fits', '_sky.fits', im), 0, hedvec)
         ntt.util.updateheader('sky_' + lista[0], 0,
                               {'PROV' + str(num): [readkey3(readhdr(im), 'ARCFILE'), 'Originating file']})
@@ -569,7 +574,9 @@ def skysuboff(listaon, listaoff, _ron, _gain, _interactive, namesky, regi='crrej
     import ntt
     from ntt.util import readkey3, readhdr
     from pyraf import iraf
-    from pyfits import open as popen
+    try:       import pyfits
+    except:    from astropy.io import fits as pyfits
+
     from numpy import mean
 
     iraf.nproto(_doprint=0)
@@ -650,7 +657,7 @@ def skysuboff(listaon, listaoff, _ron, _gain, _interactive, namesky, regi='crrej
                  result='@tmplist_sky', verbose='no')
     for im in listaon:
         hedvec = {'skysub': [namesky, 'sky image subtracted'], 'FILETYPE': [32215, 'pre-reduced image sky subtracted'],
-                  'TRACE1': [im, ''], 'MBKG': [mean(popen(namesky)[0].data), 'background level']}
+                  'TRACE1': [im, ''], 'MBKG': [mean(pyfits.open(namesky)[0].data), 'background level']}
         ntt.util.updateheader(re.sub('.fits', '_sky.fits', im), 0, hedvec)
     ntt.util.delete(
         'tmplist_on,tmplist_off,tmplist_sky,tmplist_s,tmplist_mask')

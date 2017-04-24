@@ -1,3 +1,6 @@
+try:      from astropy.io import fits as pyfits
+except:   import pyfits
+
 def ReadAscii2(ascifile):
     # print "LOGX:: Entering `ReadAscii2` method/function in %(__file__)s" %
     # globals()
@@ -22,7 +25,6 @@ def readlist(listfile):
     import sys
     import re
     import glob
-    from pyfits import open as opn
 
     if '*' in listfile:
         imglist = glob.glob(listfile)
@@ -30,7 +32,7 @@ def readlist(listfile):
         imglist = string.split(listfile, sep=',')
     else:
         try:
-            hdulist = opn(listfile)
+            hdulist = pyfits.open(listfile)
         except:
             hdulist = []
         if hdulist:
@@ -46,12 +48,12 @@ def readlist(listfile):
                     if not ff == '\n' and ff[0] != '#':
                         ff = re.sub('\n', '', ff)
                         try:
-                            hdulist = opn(ff)
+                            hdulist = pyfits.open(ff)
                             imglist.append(ff)
                         except:
                             try:
                                 correctcard(ff)
-                                hdulist = opn(ff)
+                                hdulist = pyfits.open(ff)
                                 imglist.append(ff)
                             except:
                                 pass
@@ -98,9 +100,6 @@ def delete(listfile):
 
 ###############################################################
 def readhdr(img):
-
-    import pyfits
-
     try:
         hdr = pyfits.open(img)[0].header
     except:
@@ -117,16 +116,17 @@ def readhdr(img):
 
 
 def readkey3(hdr, keyword):
-
-    import pyfits
     import sys
     import re
     import string
-
-    if int(re.sub('\.', '', str(pyfits.__version__))[:2]) <= 30:
-        aa = 'HIERARCH '
-    else:
+    try:
+        if int( re.sub('\.', '', str(pyfits.__version__))[:2] ) <= 30:
+            aa = 'HIERARCH '
+        else:
+            aa = ''
+    except:
         aa = ''
+
     try:
         _instrume = hdr.get('INSTRUME').lower()
     except:
@@ -252,27 +252,35 @@ def writeinthelog(text, logfile):
 
 ################################################
 def correctcard(img):
+    import numpy as np
     # print "LOGX:: Entering `correctcard` method/function in %(__file__)s" %
     # globals()
-    import pyfits
-    from pyfits import open as popen
     from numpy import asarray
     import re
     import os
-
-    hdulist = popen(img)
+    hdulist = pyfits.open(img)
     a = hdulist[0]._verify('exception')
     _header = hdulist[0].header
     hdulist.close()
-    for i in range(len(a)):
-        if not a[i]:
-            a[i] = ['']
-    ww = asarray([i for i in range(len(a)) if (
-        re.sub(' ', '', a[i][0]) != '')])
-    if int(re.sub('\.', '', str(pyfits.__version__))[:2]) <= 30:
-        aa = 'HIERARCH '
-    else:
+
+    ######   change 20161003 
+    #print a
+    #for i in range(len(a)):
+    #    if not a[i]:
+    #        a[i] = ['']
+    #ww = asarray([i for i in range(len(a)) if (re.sub(' ', '', a[i][0]) != '')])
+
+    ww = np.where(a)[0]
+    try:
+        if int(re.sub('\.', '', str(pyfits.__version__))[:2]) <= 30:
+            aa = 'HIERARCH '
+        else:
+            aa = ''
+    except:
         aa = ''
+
+    print aa
+    print ww
     if len(ww) > 0:
         newheader = []
         headername = []
@@ -291,10 +299,10 @@ def correctcard(img):
                 pyfits.writeto(img, data, hdr)
             else:
                 try:
-                    imm = popen(img, mode='update')
+                    imm = pyfits.open(img, mode='update')
                     imm.close(output_verify='silentfix', verbose=False)
                 except:
-                    imm = popen(img, mode='update')
+                    imm = pyfits.open(img, mode='update')
                     _header = imm[0].header
                     for i in ww:
                         if headername[i]:
@@ -318,9 +326,6 @@ def correctcard(img):
 ##########################################################################
 
 def updateheader(image, dimension, headerdict):
-
-    from pyfits import open as opp
-
     # added to cut long header
     while len(max([str(headerdict[i][0]) for i in headerdict], key=len)) > 68:
         key = [i for i in headerdict]
@@ -333,7 +338,7 @@ def updateheader(image, dimension, headerdict):
         #   hdr[keytochange]=[str(hdr[keytochange])[0:68]]
 
     try:
-        imm = opp(image, mode='update')
+        imm = pyfits.open(image, mode='update')
         _header = imm[dimension].header
         for i in headerdict.keys():
             _header.update(i, headerdict[i][0], headerdict[i][1])
@@ -345,7 +350,7 @@ def updateheader(image, dimension, headerdict):
         correctcard(image)
         try:
             print headerdict
-            imm = opp(image, mode='update')
+            imm = pyfits.open(image, mode='update')
             _header = imm[dimension].header
             for i in headerdict.keys():
                 _header.update(i, headerdict[i][0], headerdict[i][1])
@@ -630,7 +635,6 @@ def readspectrum(img):
     # print "LOGX:: Entering `readspectrum` method/function in %(__file__)s" %
     # globals()
     from numpy import array
-    import pyfits
     import string
 
     fl = ''
@@ -844,7 +848,6 @@ def phase3header(img):
     # print "LOGX:: Entering `phase3header` method/function in %(__file__)s" %
     # globals()
     import ntt
-    import pyfits
     import numpy as np
 
     img_data = pyfits.open(img)[0].data
@@ -1036,8 +1039,6 @@ def StoN2(img, show=False):
     # print "LOGX:: Entering `StoN2` method/function in %(__file__)s" %
     # globals()
     import numpy as np
-    import pyfits
-
     data, hdr0 = pyfits.getdata(img, header=True)
     yy1 = data[0][0]
     #      yy3=data[2][0]
@@ -1098,7 +1099,6 @@ def spectraresolution(img):
 def spectraresolution2(img0, ww=25):
     # print "LOGX:: Entering `spectraresolution2` method/function in
     # %(__file__)s" % globals()
-    import pyfits
     import string
     import re
     import ntt
@@ -1249,7 +1249,6 @@ def extractspectrum(img, dv, _ext_trace, _dispersionline, _interactive, _type, a
     import re
     import ntt
     import datetime
-    import pyfits
     import numpy as np
 
     MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
