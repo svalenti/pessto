@@ -7,8 +7,10 @@ import sys
 import re
 import ntt
 import datetime
-try:       import pyfits
-except:    from astropy.io import fits as pyfits
+try:
+    import pyfits
+except:
+    from astropy.io import fits as pyfits
 
 from optparse import OptionParser
 
@@ -89,12 +91,13 @@ if __name__ == "__main__":
         "Gap": 60,
         "Gap I": 61,
         "Gap II": 62,
+        "SN impostor": 99,
         "SN Ia-pec": 100,
         "SN Ia-SC": 102,
         "SN Ia-91bg-like": 103,
         "SN Ia-91T-like": 104,
         "SN Ia-02cx-like": 105,
-        "SN Ia-02ic-like": 106,
+        "SN Ia-CSM": 106,
         "SN Ib-pec": 107,
         "SN Ic-pec": 108,
         "SN II-pec": 110,
@@ -103,7 +106,8 @@ if __name__ == "__main__":
         "WR": 200,
         "WR-WN": 201,
         "WR-WC": 202,
-        "WR-WO": 203
+        "WR-WO": 203,
+        "M dwarf": 210
     }
 
     import collections
@@ -325,12 +329,14 @@ if __name__ == "__main__":
             f.close()
 
     stringa = ''
-<<<<<<< HEAD
-    for img in filetar:   stringa = stringa + img + ' '
-    os.system('tar -zcvf pessto_' + str(datenow) + '_' + str(_quality) + '_upload.tgz ' + stringa)
-=======
+<< << << < HEAD
     for img in filetar:
         stringa = stringa + img + ' '
     os.system('tar -zcvf pessto_' + str(datenow) + '_' +
               str(_quality) + '_upload.tgz ' + stringa)
->>>>>>> 5af4ad054a22a510666df6777f00df94ecc02690
+== == == =
+    for img in filetar:
+        stringa = stringa + img + ' '
+    os.system('tar -zcvf pessto_' + str(datenow) + '_' +
+              str(_quality) + '_upload.tgz ' + stringa)
+>>>>>> > 5af4ad054a22a510666df6777f00df94ecc02690
