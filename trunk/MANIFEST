@@ -287,10 +287,6 @@ src/ntt/standard/sex/default.conv
 src/ntt/standard/sex/default.nnw
 src/ntt/standard/sex/default.param
 src/ntt/standard/sex/default.sex
-<<<<<<< HEAD
-src/ntt/standard/sex/default.sex~
-=======
->>>>>>> 388d18c5dd1ccff8b0536989ea1e22ab51d77648
 src/ntt/standard/sex/default.swarp
 src/ntt/standard/stdlist/standard_efosc_mab.txt
 src/ntt/standard/stdlist/standard_efosc_phot.txt

@@ -1,5 +1,8 @@
-try:       from astropy.io import fits as pyfits
-except:    import pyfits
+try:
+    from astropy.io import fits as pyfits
+except:
+    import pyfits
+
 
 def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, _dobadpixel, badpixelmask,
                    fringingmask, _archive, typefile, filenameobjects, _system, _cosmic, _verbose=False, method='iraf'):
@@ -599,7 +602,8 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
     for img in outputfile:
         if str(img)[-5:] == '.fits':
             ################################################
-            ntt.util.updateheader(img, 0, {'DETRON ': [11.6, 'Readout noise per output (e-)']})
+            ntt.util.updateheader(
+                img, 0, {'DETRON ': [11.6, 'Readout noise per output (e-)']})
 
             try:
                 pyv = int(re.sub('\.', '', str(pyfits.__version__))[:2])
@@ -778,12 +782,7 @@ def searchfringe(img, listfringe):
 ###################################################################
 
 def rejectflat(lista, _interactive):
-<<<<<<< HEAD
-=======
-    # print "LOGX:: Entering `rejectflat` method/function in %(__file__)s" %
-    # globals()
-    from pyfits import open as popen
->>>>>>> 5af4ad054a22a510666df6777f00df94ecc02690
+
     from numpy import where, size
     from ntt.util import display_image
     from pyraf import iraf
@@ -897,14 +896,9 @@ def fringing2(img, fmask, _interactive, _verbose=False):
 
     MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
     import ntt
-<<<<<<< HEAD
-    import os, string, re
-=======
     import os
     import string
     import re
-    from pyfits import open as popen
->>>>>>> 5af4ad054a22a510666df6777f00df94ecc02690
     from numpy import median, where
     from pyraf import iraf
 
