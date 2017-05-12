@@ -1,3 +1,5 @@
+import numpy as np
+
 def xpa(arg):
     # print "LOGX:: Entering `xpa` method/function in %(__file__)s" % globals()
     import subprocess
@@ -17,11 +19,15 @@ def vizq(_ra, _dec, catalogue, radius):
     # _site='vizier.cfa.harvard.edu'
     cat = {'usnoa2': ['I/252/out', 'USNO-A2.0', 'Rmag'], '2mass': ['II/246/out', '2MASS', 'Jmag'],
            'usnob1': ['I/284/out', 'USNO-B1.0', 'R2mag']}
-    a = os.popen('vizquery -mime=tsv  '
-                 '-site=' + _site + ' -source=' + cat[catalogue][0] +
-                 ' -c.ra=' + str(_ra) + ' -c.dec=' + str(_dec) + ' -c.eq=J2000 -c.rm=' + str(radius) +
-                 ' -c.geom=b -oc.form=h -sort=_RA*-c.eq -out.add=_RAJ2000,_DEJ2000 -out.max=10000 -out=' +
-                 cat[catalogue][1] + ' -out=' + cat[catalogue][2] + '').read()
+
+    vizcommand ='vizquery -mime=tsv  ' + '-site=' + _site + ' -source=' + cat[catalogue][0] +\
+                ' -c.ra=' + str(_ra) + ' -c.dec=' + str(_dec) + ' -c.eq=J2000 -c.rm=' + str(radius) +\
+                ' -c.geom=b -oc.form=h -sort=_RA*-c.eq -out.add=_RAJ2000,_DEJ2000 -out.max=10000 -out=' +\
+                cat[catalogue][1] + ' -out=' + cat[catalogue][2] + ''
+
+    print vizcommand
+    a = os.popen( vizcommand ).read()
+                
     aa = a.split('\n')
     bb = []
     for i in aa:
@@ -37,8 +43,118 @@ def vizq(_ra, _dec, catalogue, radius):
             _mag.append(float(aa[3]))
         except:
             _mag.append(float(9999))
-    return {'ra': _ra, 'dec': _dec, 'id': _name, 'mag': _mag}
+    dictionary = {'ra': _ra, 'dec': _dec, 'id': _name, 'mag': _mag}
+    return dictionary
 
+###########################################################################################
+
+def vizq2(_ra, _dec, catalogue, radius):
+    ''' Query vizquery '''
+    import os, string, re
+    #_site = 'vizier.cfa.harvard.edu'
+    _site='vizier.u-strasbg.fr'
+    cat = {'usnoa2': ['I/252/out', 'USNO-A2.0', 'Rmag'],
+           'usnob1': ['I/284/out', 'USNO-B1.0', 'R2mag'],
+           '2mass': ['II/246/out', '2MASS', 'Jmag,Hmag,Kmag'],
+           'landolt': ['II/183A/table2', '', 'Vmag,B-V,U-B,V-R,R-I,Star,e_Vmag'],
+           'apass': ['I/322A/out', '', 'Bmag,Vmag,gmag,rmag,imag,e_Vmag,e_Bmag,e_gmag,e_rmag,e_imag,UCAC4'],
+
+           'sdss9': ['V/139/sdss9', '', 'objID,umag,gmag,rmag,imag,zmag,e_umag,e_gmag,e_rmag,e_imag,e_zmag,gc'],
+           'sdss7': ['II/294/sdss7', '', 'objID,umag,gmag,rmag,imag,zmag,e_umag,e_gmag,e_rmag,e_imag,e_zmag,gc'],
+           'sdss8': ['II/306/sdss8', '', 'objID,umag,gmag,rmag,imag,zmag,e_umag,e_gmag,e_rmag,e_imag,e_zmag,gc']}
+
+    a = os.popen('vizquery -mime=tsv  -site=' + _site + ' -source=' + cat[catalogue][0] + \
+                 ' -c.ra=' + str(_ra) + ' -c.dec=' + str(_dec) + ' -c.eq=J2000 -c.rm=' + str(radius) + \
+                 ' -c.geom=b -oc.form=h -sort=_RA*-c.eq -out.add=_RAJ2000,_DEJ2000 -out.max=10000 -out=' + \
+                 cat[catalogue][1] + ' -out=' + cat[catalogue][2] + '').read()
+    print 'vizquery -mime=tsv  -site=' + _site + ' -source=' + cat[catalogue][0] + \
+          ' -c.ra=' + str(_ra) + ' -c.dec=' + str(_dec) + ' -c.eq=J2000 -c.rm=' + str(radius) + \
+          ' -c.geom=b -oc.form=h -sort=_RA*-c.eq -out.add=_RAJ2000,_DEJ2000 -out.max=10000 -out=' + \
+          cat[catalogue][1] + ' -out=' + cat[catalogue][2] + ''
+    aa = a.split('\n')
+    bb = []
+    for i in aa:
+        if i and i[0] != '#':   bb.append(i)
+    _ra, _dec, _name, _mag = [], [], [], []
+    for ii in bb[3:]:
+        aa = ii.split('\t')
+        rr, dd = deg2HMS(ra=re.sub(' ', ':', aa[0]), dec=re.sub(' ', ':', aa[1]), round=False)
+        _ra.append(rr)
+        _dec.append(dd)
+        _name.append(aa[2])
+    dictionary = {'ra': _ra, 'dec': _dec, 'id': _name}
+    sss = string.split(cat[catalogue][2], ',')
+    for ii in sss: dictionary[ii] = []
+    for ii in bb[3:]:
+        aa = ii.split('\t')
+        for gg in range(0, len(sss)):
+            if sss[gg] not in ['UCAC4', 'id']:
+                try:
+                    dictionary[sss[gg]].append(float(aa[2 + gg]))
+                except:
+                    dictionary[sss[gg]].append(float(9999))
+            else:
+                dictionary[sss[gg]].append(str(aa[2 + gg]))
+
+    if catalogue in ['sdss7', 'sdss9', 'sdss8']:
+        dictionary['u'] = dictionary['umag']
+        dictionary['g'] = dictionary['gmag']
+        dictionary['r'] = dictionary['rmag']
+        dictionary['i'] = dictionary['imag']
+        dictionary['z'] = dictionary['zmag']
+        dictionary['uerr'] = dictionary['e_umag']
+        dictionary['gerr'] = dictionary['e_gmag']
+        dictionary['rerr'] = dictionary['e_rmag']
+        dictionary['ierr'] = dictionary['e_imag']
+        dictionary['zerr'] = dictionary['e_zmag']
+        for key in dictionary.keys():
+            if key != 'r':
+                dictionary[key] = np.compress((np.array(dictionary['r']) < 19) & (np.array(dictionary['r'] > 10)),
+                                              dictionary[key])
+        dictionary['r'] = np.compress((np.array(dictionary['r']) < 19) & (np.array(dictionary['r'] > 10)),
+                                      dictionary['r'])
+
+    elif catalogue == 'landolt':
+        dictionary['B'] = np.array(dictionary['Vmag']) + np.array(dictionary['B-V'])
+        dictionary['U'] = np.array(dictionary['B']) + np.array(dictionary['U-B'])
+        dictionary['V'] = np.array(dictionary['Vmag'])
+        dictionary['Verr'] = np.array(dictionary['e_Vmag'])
+        dictionary['R'] = np.array(dictionary['Vmag']) - np.array(dictionary['V-R'])
+        dictionary['I'] = np.array(dictionary['R']) - np.array(dictionary['R-I'])
+        dictionary['id'] = np.array(dictionary['Star'])
+    elif catalogue == 'apass':
+        dictionary['B'] = np.array(dictionary['Bmag'])
+        dictionary['V'] = np.array(dictionary['Vmag'])
+        dictionary['g'] = np.array(dictionary['gmag'])
+        dictionary['r'] = np.array(dictionary['rmag'])
+        dictionary['i'] = np.array(dictionary['imag'])
+        dictionary['Berr'] = np.array(dictionary['e_Bmag'], float) / 100.
+        dictionary['Verr'] = np.array(dictionary['e_Vmag'], float) / 100.
+        dictionary['gerr'] = np.array(dictionary['e_gmag'], float) / 100.
+        dictionary['rerr'] = np.array(dictionary['e_rmag'], float) / 100.
+        dictionary['ierr'] = np.array(dictionary['e_imag'], float) / 100.
+        dictionary['id'] = np.array(dictionary['UCAC4'], str)
+        for key in dictionary.keys():
+            if key != 'r':
+                dictionary[key] = np.compress((np.array(dictionary['r']) < 22) & (np.array(dictionary['r'] > 10.5)),
+                                              dictionary[key])
+        dictionary['r'] = np.compress((np.array(dictionary['r']) < 22) & (np.array(dictionary['r'] > 10.5)),
+                                      dictionary['r'])
+    elif catalogue == '2mass':
+        dictionary['J'] = np.array(dictionary['Jmag'])
+        dictionary['H'] = np.array(dictionary['Hmag'])
+        dictionary['K'] = np.array(dictionary['Kmag'])
+        dictionary['mag'] = dictionary['Jmag']
+        dictionary['mag1'] = dictionary['Jmag']
+        dictionary['mag2'] = dictionary['Hmag']
+        dictionary['mag3'] = dictionary['Kmag']
+    elif catalogue == 'usnoa2':
+        dictionary['mag'] = dictionary['Rmag']
+    elif catalogue == 'usnob1':
+        dictionary['mag'] = dictionary['R2mag']
+    return dictionary
+
+########################################################################################
 
 def wcsstart(img, CRPIX1='', CRPIX2=''):
     # print "LOGX:: Entering `wcsstart` method/function in %(__file__)s" %
@@ -255,7 +371,7 @@ def readtxt(ascifile):
 
 #########################################################################
 
-def zeropoint(img, _field, verbose=False, _interactive=False):
+def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
     # print "LOGX:: Entering `zeropoint` method/function in %(__file__)s" %
     # globals()
     import string
@@ -315,7 +431,7 @@ def zeropoint(img, _field, verbose=False, _interactive=False):
             0] + '/standard/cat/catalogue.dat'
         _ra = readkey3(hdr, 'RA')
         _dec = readkey3(hdr, 'DEC')
-        stdcoo = querycatalogue('2mass', img)
+        stdcoo = querycatalogue('2mass', img, method)
         rastd, decstd = array(stdcoo['ra'], float), array(stdcoo['dec'], float)
         colasci = {'J': 'mag1', 'H': 'mag2', 'K': 'mag3'}
         for ww in colasci:
@@ -1450,6 +1566,11 @@ def querycatalogue(catalogue, img, method='iraf'):
                     break
 
     elif method == 'vizir':
+#        We should probably replace with vizq2
+#        
+#        stdcoo = ntt.efoscastrodef.vizq2(_ra, _dec, catalogue, 10)
+#        to be tested
+#
         stdcoo = ntt.efoscastrodef.vizq(_ra, _dec, catalogue, 10)
         lll = ['# END CATALOG HEADER', '#']
         for ff in range(0, len(stdcoo['ra'])):
@@ -1755,3 +1876,39 @@ def crossmatchxy(_xx0, _yy0, _xx1, _yy1, tollerance):  # pixel,pixel,pixel,pixel
     return distvec, pos0, pos1
 
 #######################################################
+
+################################################################################
+
+def deg2HMS(ra='', dec='', round=False):
+      import string
+      RA, DEC= '', ''
+      if dec:
+          if string.count(str(dec),':')==2:
+              dec00=string.split(dec,':')
+              dec0, dec1, dec2 = float(dec00[0]),float(dec00[1]),float(dec00[2])
+              if '-' in str(dec0):       
+                 DEC=(-1)*((dec2/60.+dec1)/60.+((-1)*dec0))
+              else:                      
+                 DEC=(dec2/60.+dec1)/60.+dec0
+          else:
+             dec0 = abs(int(dec))
+             dec1=int((abs(dec)-abs(dec0))*(60))
+             dec2=((((abs(dec))-abs(dec0))*60)-abs(dec1))*60
+             if str(dec)[0]=='-':      
+                DEC = '-'+'00'[len(str(dec0)):]+str(dec0)+':'+'00'[len(str(dec1)):]+str(dec1)+':'+'00'[len(str(int(dec2))):]+str(dec2)[:6]
+             else:
+                DEC = '+'+'00'[len(str(dec0)):]+str(dec0)+':'+'00'[len(str(dec1)):]+str(dec1)+':'+'00'[len(str(int(dec2))):]+str(dec2)[:6]
+      if ra:
+          if string.count(str(ra),':')==2:
+              ra00=string.split(ra,':')
+              ra0,ra1,ra2=float(ra00[0]),float(ra00[1]),float(ra00[2])
+              RA=((ra2/60.+ra1)/60.+ra0)*15.
+          else:
+              ra0=int(ra/15.)
+              ra1=int(((ra/15.)-ra0)*(60))
+              ra2=((((ra/15.)-ra0)*60)-ra1)*60
+              RA='00'[len(str(ra0)):]+str(ra0)+':'+'00'[len(str(ra1)):]+str(ra1)+':'+'00'[len(str(int(ra2))):]+str(ra2)[:6]
+      if ra and dec:          return RA, DEC
+      else:                   return RA or DEC
+
+##############################################################################

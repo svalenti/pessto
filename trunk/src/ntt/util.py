@@ -337,19 +337,8 @@ def updateheader(image, dimension, headerdict):
         #   keytochange=hdr.keys()[hdr.values().index(max([str(i) for i in hdr.values()],key=len))]
         #   hdr[keytochange]=[str(hdr[keytochange])[0:68]]
 
-    try:
-        imm = pyfits.open(image, mode='update')
-        _header = imm[dimension].header
-        for i in headerdict.keys():
-            _header.update(i, headerdict[i][0], headerdict[i][1])
-        imm.flush()
-        imm.close()
-    except:
-        from ntt.util import correctcard
-        print 'warning: problem to update header, try to correct header format ....'
-        correctcard(image)
+    if 'version' in dir(pyfits):
         try:
-            print headerdict
             imm = pyfits.open(image, mode='update')
             _header = imm[dimension].header
             for i in headerdict.keys():
@@ -357,8 +346,32 @@ def updateheader(image, dimension, headerdict):
             imm.flush()
             imm.close()
         except:
-            print 'error: not possible update header'
-
+            from ntt.util import correctcard
+            print 'warning: problem to update header, try to correct header format ....'
+            correctcard(image)
+            try:
+                print headerdict
+                imm = pyfits.open(image, mode='update')
+                _header = imm[dimension].header
+                for i in headerdict.keys():
+                    _header.update(i, headerdict[i][0], headerdict[i][1])
+                imm.flush()
+                imm.close()
+            except:
+                print 'error: not possible update header'
+    else:
+        #
+        #
+        # astropy.io.fits requre a tuple to update header
+        #
+        #
+        imm = pyfits.open(image, mode='update')
+        _header = imm[dimension].header
+        for i in headerdict.keys():
+            _header.update( { i : (headerdict[i][0], headerdict[i][1]) } )
+        imm.flush()
+        imm.close()
+        
 ##########################################################################
 
 

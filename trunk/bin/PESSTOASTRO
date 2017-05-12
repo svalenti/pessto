@@ -279,10 +279,10 @@ if __name__ == "__main__":
             try:
                 if _instrume == 'sofi':
                     result = ntt.efoscastrodef.zeropoint(
-                        img, '2mass', False, _interactive)
+                        img, '2mass', method, False, _interactive)
                 else:
                     result = ntt.efoscastrodef.zeropoint(
-                        img, _system, False, _interactive)
+                        img, _system, method, False, _interactive)
             except:
                 result = ''
         else:

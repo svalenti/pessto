@@ -1201,7 +1201,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                               'CSYER2': [decsys3, 'Systematic error in (DEC_m - DEC_ref)']}
                     ntt.util.updateheader(nameobjnew, 0, hedvec)
                     result = ntt.efoscastrodef.zeropoint(
-                        nameobjnew, '2mass', False, False)
+                        nameobjnew, '2mass', method, False, False)
                     if result:
                         if os.path.isfile(re.sub('.fits', '.ph', nameobjnew)):
                             if re.sub('.fits', '.ph', nameobjnew) not in outputobject:

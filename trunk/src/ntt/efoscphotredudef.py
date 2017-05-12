@@ -544,7 +544,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
 
             try:
                 result = ntt.efoscastrodef.zeropoint(
-                    nameout, _system, False, False)
+                    nameout, _system, method, False, False)
             except:
                 result = ''
             if result:
