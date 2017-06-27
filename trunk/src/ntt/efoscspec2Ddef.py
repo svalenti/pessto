@@ -105,8 +105,10 @@ def skyfrom2d(fitsfile, skyfile, interac=True):
     ntt.util.delete('new3.fits')
     hdu = pyfits.PrimaryHDU(yy1)
     hdulist = pyfits.HDUList([hdu])
-    hdulist[0].header.update('CRVAL1', crval2)
-    hdulist[0].header.update('CD1_1', cd2)
+#    hdulist[0].header.update('CRVAL1', crval2)
+#    hdulist[0].header.update('CD1_1', cd2)
+    hdulist[0].header['CRVAL1']= crval2
+    hdulist[0].header['CD1_1'] = cd2
     hdulist.writeto('new3.fits')
     hdulist.close()
 
