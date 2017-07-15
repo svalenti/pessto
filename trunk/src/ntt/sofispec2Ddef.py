@@ -4,8 +4,11 @@ def skysofifrom2d(fitsfile, skyfile):
     import ntt
     from ntt.util import readhdr, readkey3, delete
     from numpy import mean, arange, compress
-    try:        import pyfits
-    except:     from astropy.io import fits as pyfits
+
+    try:
+        from astropy.io import fits as pyfits
+    except:
+        import pyfits
 
     from numpy import interp as ninterp
 
@@ -29,10 +32,12 @@ def skysofifrom2d(fitsfile, skyfile):
     delete('_new3.fits')
     hdu = pyfits.PrimaryHDU(yy1interp)
     hdulist = pyfits.HDUList([hdu])
-    hdulist[0].header.update('CRVAL1', crval2)
-    hdulist[0].header.update('CD1_1', cd2)
     hdulist.writeto('_new3.fits')
     hdulist.close()
+    ntt.util.updateheader('_new3.fits',0,{'CRVAL1':[crval2,''],'CD1_1':[cd2,'']})
+#    hdulist[0].header.update('CRVAL1', crval2)
+#    hdulist[0].header.update('CD1_1', cd2)
+
     fitsfile = ntt.efoscspec2Ddef.continumsub('_new3.fits', _order1, 1)
     yy1 = pyfits.open(fitsfile)[0].data
     crval2 = pyfits.open(fitsfile)[0].header.get('CRVAL1')
@@ -90,8 +95,10 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
     from ntt.util import delete, readhdr, readkey3, correctcard, rangedata
     import string, re, sys, os, glob
 
-    try:        import pyfits
-    except:     from astropy.io import fits as pyfits
+    try:        
+        from astropy.io import fits as pyfits
+    except:     
+        import pyfits
 
     from pyraf import iraf
     from numpy import argmin, array, min, isnan, arange, mean, sum

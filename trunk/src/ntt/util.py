@@ -1130,9 +1130,14 @@ def spectraresolution2(img0, ww=25):
     ntt.delete('new3.fits')
     hdu = pyfits.PrimaryHDU(yy)
     hdulist = pyfits.HDUList([hdu])
-    hdulist[0].header.update('CRVAL1', crvals)
-    hdulist[0].header.update('CD1_1', cds)
     hdulist.writeto('new3.fits')
+########################################
+#   use updateheader definition to make astropy compatible
+#
+#    hdulist[0].header.update('CRVAL1', crvals)
+#    hdulist[0].header.update('CD1_1', cds)
+#
+    ntt.util.updateheader('new3.fits', 0, {'CRVAL1':[crvals,''],'CD1_1':[cds,'']})
     hdulist.close()
     #   read identified lines from id file
     f = open(id, 'r')

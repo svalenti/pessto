@@ -277,13 +277,24 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                 outputimage = ntt.util.name_duplicate(
                     listmerge[0], outputimage, '')
                 print '### setup= ', setup, ' name field= ', nameobj, ' merge image= ', outputimage, '\n'
-                if os.path.isfile(outputimage) and _interactive:
+#################
+#  added to avoid crashing with a single frame
+#  header will not be updated with all info
+#################
+
+                if len(listmerge)==1:
+                    ntt.util.delete(outputimage)
+                    iraf.imutil.imcopy(listmerge[0], output=outputimage, verbose='no')
+                    answ= 'n'
+                else:
+                  if os.path.isfile(outputimage) and _interactive:
                     answ = raw_input(
                         'combine frame of dithered spectra already created. Do you want to make it again [[y]/n] ? ')
                     if not answ:
                         answ = 'y'
-                else:
+                  else:
                     answ = 'y'
+#################
                 if answ in ['Yes', 'y', 'Y', 'yes']:
                     if _interactive:
                         automaticmerge = raw_input(
@@ -358,7 +369,9 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                             line = str(offset3) + '   0\n'
                             f.write(line)
                         f.close()
+                    print offsetvec
                     start = int(max(offsetvec) - min(offsetvec))
+                    print start
                     f = open('_goodlist', 'w')
                     print listmerge
                     for img in listmerge:
@@ -369,8 +382,16 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                     yy1 = pyfits.open(listmerge[0])[0].data[:, 10]
                     iraf.immatch.imcombine('@_goodlist', '_output', combine='sum', reject='none', offset='_offset',
                                            masktyp='', rdnoise=_rdnoise, gain=_gain, zero='mode', Stdout=1)
+
+                    _head = pyfits.open('_output.fits')[0].header
+                    if _head['NAXIS1'] < 1024:
+                        stop = str(_head['NAXIS1'])
+                    else:
+                        stop = '1024'
+
                     iraf.imutil.imcopy(
-                        '_output[' + str(start) + ':1024,*]', output=outputimage, verbose='no')
+                            '_output[' + str(start) + ':'+stop+',*]', output=outputimage, verbose='no')
+
                     print outputimage
                     print len(listmerge)
                     hdr1 = ntt.util.readhdr(outputimage)

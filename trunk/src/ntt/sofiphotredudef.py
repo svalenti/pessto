@@ -276,8 +276,10 @@ def pesstocombine2(imglist, _combine, outputimage):
     from pyraf import iraf
     from numpy import min, max, argmin, float32
 
-    try:        import pyfits
-    except:     from astropy.io import fits as pyfits
+    try:        
+        from astropy.io import fits as pyfits
+    except:     
+        import pyfits
 
     import string, os, sys, re
 
@@ -362,13 +364,16 @@ def sortbyJD(lista):
     # print "LOGX:: Entering `sortbyJD` method/function in %(__file__)s" %
     # globals()
 
-    try:        import pyfits
-    except:     from astropy.io import fits as pyfits
+    try:        
+        from astropy.io import fits as pyfits
+    except:     
+        import pyfits
 
     from numpy import array, argsort
 
     JDlist = []
-    for img in lista:  JDlist.append(pyfits.open(img)[0].header.get('MJD-OBS'))
+    for img in lista:  
+        JDlist.append(pyfits.open(img)[0].header.get('MJD-OBS'))
 
     lista = array(lista)
     JDlist = array(JDlist)
@@ -450,8 +455,10 @@ def skysub(lista, _ron, _gain, _interactive, regi='crreject'):
     import ntt
     from ntt.util import readkey3, readhdr
     from pyraf import iraf
-    try:        import pyfits
-    except:     from astropy.io import fits as pyfits
+    try:        
+        from astropy.io import fits as pyfits
+    except:     
+        import pyfits
 
     from numpy import mean
 
@@ -574,8 +581,10 @@ def skysuboff(listaon, listaoff, _ron, _gain, _interactive, namesky, regi='crrej
     import ntt
     from ntt.util import readkey3, readhdr
     from pyraf import iraf
-    try:       import pyfits
-    except:    from astropy.io import fits as pyfits
+    try:       
+        from astropy.io import fits as pyfits
+    except:    
+        import pyfits
 
     from numpy import mean
 
