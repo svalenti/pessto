@@ -71,30 +71,38 @@ def vizq2(_ra, _dec, catalogue, radius):
           ' -c.ra=' + str(_ra) + ' -c.dec=' + str(_dec) + ' -c.eq=J2000 -c.rm=' + str(radius) + \
           ' -c.geom=b -oc.form=h -sort=_RA*-c.eq -out.add=_RAJ2000,_DEJ2000 -out.max=10000 -out=' + \
           cat[catalogue][1] + ' -out=' + cat[catalogue][2] + ''
+    
     aa = a.split('\n')
+    
     bb = []
     for i in aa:
-        if i and i[0] != '#':   bb.append(i)
+        if i and i[0] != '#':   
+            bb.append(i)
     _ra, _dec, _name, _mag = [], [], [], []
     for ii in bb[3:]:
+      if ii:
         aa = ii.split('\t')
         rr, dd = deg2HMS(ra=re.sub(' ', ':', aa[0]), dec=re.sub(' ', ':', aa[1]), round=False)
         _ra.append(rr)
         _dec.append(dd)
         _name.append(aa[2])
+
     dictionary = {'ra': _ra, 'dec': _dec, 'id': _name}
     sss = string.split(cat[catalogue][2], ',')
-    for ii in sss: dictionary[ii] = []
+    for ii in sss: 
+        dictionary[ii] = []
     for ii in bb[3:]:
+      if ii:
         aa = ii.split('\t')
         for gg in range(0, len(sss)):
             if sss[gg] not in ['UCAC4', 'id']:
                 try:
-                    dictionary[sss[gg]].append(float(aa[2 + gg]))
-                except:
+                    dictionary[sss[gg]].append(float(aa[3 + gg]))
+                except Exception as e:
+                    print e
                     dictionary[sss[gg]].append(float(9999))
             else:
-                dictionary[sss[gg]].append(str(aa[2 + gg]))
+                dictionary[sss[gg]].append(str(aa[3 + gg]))
 
     if catalogue in ['sdss7', 'sdss9', 'sdss8']:
         dictionary['u'] = dictionary['umag']
@@ -423,6 +431,9 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
         filters = {'J': 'J', 'Js': 'J', 'H': 'H', 'K': 'K', 'Ks': 'K'}
         colors = {'J': ['JH'], 'H': ['JH'], 'K': ['HK']}
 
+        if verbose:
+            print 'Infrared image : J ,H, K or Ks'
+
         iraf.astcat(_doprint=0)
         iraf.imcoords(_doprint=0)
         iraf.noao.astcat.aregpars.rcrauni = ''
@@ -433,17 +444,17 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
         _dec = readkey3(hdr, 'DEC')
         stdcoo = querycatalogue('2mass', img, method)
         rastd, decstd = array(stdcoo['ra'], float), array(stdcoo['dec'], float)
-        colasci = {'J': 'mag1', 'H': 'mag2', 'K': 'mag3'}
-        for ww in colasci:
-            stdcoo[ww] = stdcoo[colasci[ww]]
-        for ww in colasci:
-            for jj in range(0, len(stdcoo[ww])):
-                try:
-                    stdcoo[ww][jj] = float(re.sub('L', '', stdcoo[ww][jj]))
-                except:
-                    stdcoo[ww][jj] = 999
         standardpix = {'ra': stdcoo['x'],
                        'dec': stdcoo['y'], 'id': stdcoo['id']}
+        if verbose:
+            print stdcoo.keys()
+            print stdcoo['J']
+            print stdcoo['H']
+            print stdcoo['K']
+            print stdcoo['mag1']
+            print stdcoo['mag2']
+            print stdcoo['mag3']
+
     else:
         # check if it is landolt field
         stdcooL = ntt.efoscastrodef.readtxt(
@@ -466,7 +477,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
         magsel0, magsel1 = 12, 18
         _ids = ntt.efoscastrodef.sloan2file(
             _ra, _dec, 4, float(magsel0), float(magsel1), '_tmpsloan.cat')
-        print _ra, _dec
+
         ascifile = '_tmpsloan.cat'
         stdcooS = ntt.efoscastrodef.readtxt(ascifile)
         rastdS, decstdS = array(stdcooS['ra'], float), array(
@@ -1566,12 +1577,11 @@ def querycatalogue(catalogue, img, method='iraf'):
                     break
 
     elif method == 'vizir':
-#        We should probably replace with vizq2
-#        
-#        stdcoo = ntt.efoscastrodef.vizq2(_ra, _dec, catalogue, 10)
-#        to be tested
+#       replace vizq with vizq2 to be consistent
 #
-        stdcoo = ntt.efoscastrodef.vizq(_ra, _dec, catalogue, 10)
+
+        stdcoo = ntt.efoscastrodef.vizq2(_ra, _dec, catalogue, 10)
+
         lll = ['# END CATALOG HEADER', '#']
         for ff in range(0, len(stdcoo['ra'])):
             lll.append(str(stdcoo['ra'][ff]) + '  ' +
@@ -1581,13 +1591,14 @@ def querycatalogue(catalogue, img, method='iraf'):
         colonne3 = ' 1   2 '
         column = {'ra': 1, 'dec': 2, 'r': 3}
 
-    ddd2 = iraf.wcsctran('STDIN', 'STDOUT', img, Stdin=lll, Stdout=1, inwcs='world', units='hour degrees',
+    ddd2 = iraf.wcsctran('STDIN', 'STDOUT', img, Stdin=lll, Stdout=1, inwcs='world', units='degree degrees',
                          outwcs='logical', columns=colonne3, formats='%10.1f %10.1f')
 
     xx, yy = [], []
     for i in ddd2[ddd2.index('# END CATALOG HEADER') + 2:]:
-        xx.append(float(i.split()[column['ra'] - 1]))
-        yy.append(float(i.split()[column['dec'] - 1]))
+        if i:
+            xx.append(float(i.split()[column['ra'] - 1]))
+            yy.append(float(i.split()[column['dec'] - 1]))
     #        colonne4={'usnoa2':'mag1','usnob1':'R2mag','2mass':'mag1','gsc1':'mag'}
     #######
     acoo1 = []
@@ -1596,14 +1607,6 @@ def querycatalogue(catalogue, img, method='iraf'):
         acoo1.append(str(stdcoo['ra'][i]) + ' ' + str(stdcoo['dec'][i]))
         apix1.append(str(xx[i]) + ' ' + str(yy[i]))
         am1.append(stdcoo[colonne4[catalogue]][i])
-        stdcoo['ra'][i] = (int(string.split(stdcoo['ra'][i], ':')[0]) + float(
-            string.split(stdcoo['ra'][i], ':')[1]) / 60 + float(string.split(stdcoo['ra'][i], ':')[2]) / 3600.) * 15
-        if string.count(str(stdcoo['dec'][i]), '-') == 0:
-            stdcoo['dec'][i] = int(string.split(stdcoo['dec'][i], ':')[0]) + float(
-                string.split(stdcoo['dec'][i], ':')[1]) / 60 + float(string.split(stdcoo['dec'][i], ':')[2]) / 3600.
-        else:
-            stdcoo['dec'][i] = (-1) * (abs(int(string.split(stdcoo['dec'][i], ':')[0])) + float(
-                string.split(stdcoo['dec'][i], ':')[1]) / 60 + float(string.split(stdcoo['dec'][i], ':')[2]) / 3600.)
 
     if catalogue == '2mass':
         for jj in range(0, len(am1)):
@@ -1625,7 +1628,6 @@ def querycatalogue(catalogue, img, method='iraf'):
         array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(xx, float))
     stdcoo['y'] = compress((array(xx) < int(int(hdr['NAXIS1']) + 100)) & (array(xx) > -100) & (
         array(yy) < int(int(hdr['NAXIS2']) + 100)) & (array(yy) > -100), array(yy, float))
-
     return stdcoo
 
 
@@ -1651,6 +1653,7 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
 
     xpix, ypix, fw, cl, cm, ell, bkg = sexvec
     acoo1, apix1, am1 = catvec['coo'], catvec['pix'], catvec['mag']
+
     # catalogue
     iraf.noao(_doprint=0)
     iraf.imcoords(_doprint=0)
@@ -1680,7 +1683,6 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
     _CRPIX2 = readkey3(hdr, 'CRPIX2')
     if verbose:
         display_image(img, 1, '', '', False)
-    if verbose:
         iraf.tvmark(1, 'STDIN', Stdin=list(apix1), mark="circle", number='yes', label='no', radii=20, nxoffse=5,
                     nyoffse=5, color=205, txsize=4)
         raw_input('mark catalogue ' + str(len(apix1)))

@@ -715,6 +715,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
     iraf.ccdproc.ccdtype = ''
     iraf.ccdred.instrument = "/dev/null"
 
+
     if _verbose:
         iraf.ccdred.verbose = 'yes'
     else:
@@ -1209,6 +1210,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                               'CSYER1': [rasys3, 'Systematic error in  (RA_m - Ra_ref)'],
                               'CSYER2': [decsys3, 'Systematic error in (DEC_m - DEC_ref)']}
                     ntt.util.updateheader(nameobjnew, 0, hedvec)
+                    print nameobjnew
                     result = ntt.efoscastrodef.zeropoint(
                         nameobjnew, '2mass', method, False, False)
                     if result:
