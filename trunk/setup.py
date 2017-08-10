@@ -11,14 +11,17 @@ for scheme in INSTALL_SCHEMES.values():
 
 from imp import find_module
 
-try: find_module('numpy')
-except: sys.exit('### Error: python module numpy not found')
-    
-try: find_module('pyfits')
+try:
+    find_module('numpy')
+except:
+    sys.exit('### Error: python module numpy not found')
+
+try:
+    find_module('pyfits')
 except:
     try:
         find_module('astropy')
-    except: 
+    except:
         sys.exit('### Error: python module pyfits not found')
 
 try:
@@ -50,14 +53,14 @@ else:
 
 setup(
     name='ntt',
-    version=verstr,  # '0.1.3',
+    version=verstr,
     author='S. Valenti',
     author_email='stefano.valenti@oapd.inaf.it',
-    scripts=['bin/PESSTOEFOSC1dSPEC', 'bin/PESSTOFASTSPEC',\
-                 'bin/PESSTOSOFI2dSPEC', 'bin/PESSTOEFOSC2dSPEC',\
-                 'bin/PESSTO', 'bin/PESSTOSOFIPHOT',\
-                 'bin/PESSTOEFOSCPHOT', 'bin/PESSTOSOFI1dSPEC',\
-                 'bin/PESSTOWISE', 'bin/PESSTOASTRO',\
+    scripts=['bin/PESSTOEFOSC1dSPEC', 'bin/PESSTOFASTSPEC',
+                 'bin/PESSTOSOFI2dSPEC', 'bin/PESSTOEFOSC2dSPEC',
+                 'bin/PESSTO', 'bin/PESSTOSOFIPHOT',
+                 'bin/PESSTOEFOSCPHOT', 'bin/PESSTOSOFI1dSPEC',
+                 'bin/PESSTOWISE', 'bin/PESSTOASTRO',
                  'bin/vizquery'],
     url='ftp.oapd.inaf.it',
     license='LICENSE.txt',
