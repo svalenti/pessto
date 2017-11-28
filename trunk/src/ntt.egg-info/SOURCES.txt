@@ -33,7 +33,9 @@ src/ntt.egg-info/top_level.txt
 src/ntt/archive/efosc/arc/Gr11/Free/slit1.0/arc_20120824_Gr11_Free_slit1.0_56442_1.fits
 src/ntt/archive/efosc/arc/Gr11/Free/slit1.0/database/idarc_20120824_Gr11_Free_slit1.0_56442_1
 src/ntt/archive/efosc/arc/Gr11/Free/slit1.5/arc_20120906_Gr11_Free_slit1.5_56442_1.fits
+src/ntt/archive/efosc/arc/Gr11/Free/slit1.5/arc_20170910_Gr11_Free_slit1.5_58084_1.fits
 src/ntt/archive/efosc/arc/Gr11/Free/slit1.5/database/idarc_20120906_Gr11_Free_slit1.5_56442_1
+src/ntt/archive/efosc/arc/Gr11/Free/slit1.5/database/idarc_20170910_Gr11_Free_slit1.5_58084_1
 src/ntt/archive/efosc/arc/Gr13/Free/slit1.0/arc_20120825_Gr13_Free_slit1.0_56442_1.fits
 src/ntt/archive/efosc/arc/Gr13/Free/slit1.0/database/idarc_20120825_Gr13_Free_slit1.0_56442_1
 src/ntt/archive/efosc/arc/Gr13/Free/slit1.5/arc_20120906_Gr13_Free_slit1.5_56442_1.fits
@@ -45,7 +47,9 @@ src/ntt/archive/efosc/arc/Gr13/GG495/slit1.5/database/idarc_20120906_Gr13_GG495_
 src/ntt/archive/efosc/arc/Gr16/OG530/slit1.0/arc_20120824_Gr16_OG530_slit1.0_56442_1.fits
 src/ntt/archive/efosc/arc/Gr16/OG530/slit1.0/database/idarc_20120824_Gr16_OG530_slit1.0_56442_1
 src/ntt/archive/efosc/arc/Gr16/OG530/slit1.5/arc_20120906_Gr16_OG530_slit1.5_56442_1.fits
+src/ntt/archive/efosc/arc/Gr16/OG530/slit1.5/arc_20170910_Gr16_OG530_slit1.5_58084_1.fits
 src/ntt/archive/efosc/arc/Gr16/OG530/slit1.5/database/idarc_20120906_Gr16_OG530_slit1.5_56442_1
+src/ntt/archive/efosc/arc/Gr16/OG530/slit1.5/database/idarc_20170910_Gr16_OG530_slit1.5_58084_1
 src/ntt/archive/efosc/badpixels/bad_pix_mask_may2011.fits
 src/ntt/archive/efosc/badpixels/badpixel.fits
 src/ntt/archive/efosc/badpixels/badpixel_20100210.pl

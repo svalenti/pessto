@@ -829,6 +829,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                                            fitnames=re.sub('.fits', '', arcfile), databas='database',
                                            x1='INDEF', x2='INDEF', y1='INDEF', y2='INDEF', flux='yes',
                                            logfile='logfile')  # , mode='h')
+                    print arcfile
                     specred = ntt.util.spectraresolution2(arcfile)
                     if specred:
                         ntt.util.updateheader('t' + nameout0, 0,
