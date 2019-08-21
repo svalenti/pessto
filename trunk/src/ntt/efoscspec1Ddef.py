@@ -35,7 +35,7 @@ def telluric_atmo(imgstd):
             np.array(xxstd) <= 7750), np.array(ffstd))
         ffh2o = np.compress((np.array(xxstd) >= 7100) & (
             np.array(xxstd) <= 7500), np.array(ffstd))
-    elif _grism in ['Gr11']:
+    elif _grism in ['Gr11', 'Gr18', 'Gr20']:
         llo2 = np.compress((np.array(xxstd) >= 6830) & (
             np.array(xxstd) <= 7100), np.array(xxstd))
         llh2o = np.compress((np.array(xxstd) >= 7100) & (
@@ -44,7 +44,7 @@ def telluric_atmo(imgstd):
             np.array(xxstd) <= 7100), np.array(ffstd))
         ffh2o = np.compress((np.array(xxstd) >= 7100) & (
             np.array(xxstd) <= 7500), np.array(ffstd))
-    if _grism in ['Gr13', 'Gr16', 'Gr11']:
+    if _grism in ['Gr13', 'Gr16', 'Gr11', 'Gr18', 'Gr20']:
         _skyfileh2o = 'direc$standard/ident/ATLAS_H2O.fits'
         _skyfileo2 = 'direc$standard/ident/ATLAS_O2.fits'
         atlas_smooto2 = '_atlas_smoot_o2.fits'
@@ -371,7 +371,6 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
     iraf.specred.dispaxi = 2
     iraf.set(direc=ntt.__path__[0] + '/')
     sens = {}
-    print objectlist
     outputfile = []
     if 'obj' in objectlist.keys():
         tpe = 'obj'

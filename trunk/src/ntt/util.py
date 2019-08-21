@@ -843,7 +843,7 @@ def dvex():
     # print "LOGX:: Entering `dvex` method/function in %(__file__)s" %
     # globals()
     dv = {}
-    dv['line'] = {'Gr16': 300, 'Gr11': 430, 'Gr13': 200, 'GR': 150, 'GB': 430}
+    dv['line'] = {'Gr16': 300, 'Gr11': 430, 'Gr13': 200, 'GR': 150, 'GB': 430, 'Gr18': 430, 'Gr20': 430}
     dv['std'] = {'_t_order': 6, '_t_niter': 50, '_t_sample': '*', '_t_nlost': 20, '_width': 10, '_radius': 10,
                  '_weights': 'variance',
                  '_nsum': 30, '_t_step': 10, '_t_nsum': 10, '_lower': -10, '_upper': 10, '_b_sample': '-40:-20,20:40',
@@ -1092,6 +1092,10 @@ def spectraresolution(img):
     risoluzioni['efosc']['Free', 'Gr13', 'slit1.0'] = 19.
     risoluzioni['efosc']['Free', 'Gr11', 'slit1.5'] = 22.
     risoluzioni['efosc']['Free', 'Gr11', 'slit1.0'] = 14.
+
+    risoluzioni['efosc']['Free', 'Gr18', 'slit1.0'] = 8.19  # taken from Table 5 of the Manual.
+    risoluzioni['efosc']['Free', 'Gr20', 'slit1.0'] = 2.0  # taken from Table 5 of the Manual, although this is actually for the 0.5" slit.
+
     risoluzioni['efosc']['OG530', 'Gr16', 'slit1.5'] = 22.
     risoluzioni['efosc']['OG530', 'Gr16', 'slit1.0'] = 16.
     risoluzioni['sofi']['GBF', 'GB', 'long_slit_1'] = 27.
@@ -1278,7 +1282,6 @@ def extractspectrum(img, dv, _ext_trace, _dispersionline, _interactive, _type, a
     toforget = ['specred.apall', 'specred.transform']
     for t in toforget:
         iraf.unlearn(t)
-
     dv = ntt.dvex()
     hdr = ntt.util.readhdr(img)
     _gain = ntt.util.readkey3(hdr, 'gain')

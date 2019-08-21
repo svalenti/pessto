@@ -1,0 +1,2805 @@
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[10,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[10,*]
+	units	Angstroms
+	features	7
+	        114.52 4921.95926   4921.929   7.0 1 1 He I     *
+	        165.17 5015.64609     5015.7   7.0 1 1 He I     *
+	        256.32 5187.72122     5187.7   7.0 1 1 
+	        470.46  5606.7231     5606.7   7.0 1 1 
+	        603.64 5875.59057    5875.62   7.0 1 1 He I     *
+	        865.04 6416.31424     6416.3   7.0 1 1 
+	        989.53 6678.19452     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		114.5237655639649
+		989.532470703125
+		5780.402343516863
+		881.0365930636981
+		19.44990687775413
+		-2.918961612447592
+		0.2246377716217784
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[20,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[20,*]
+	units	Angstroms
+	features	7
+	        114.71 4921.94516   4921.929   7.0 1 1 He I     *
+	        165.35 5015.67183     5015.7   7.0 1 1 He I     *
+	        256.45 5187.70989     5187.7   7.0 1 1 
+	        470.56 5606.71479     5606.7   7.0 1 1 
+	        603.75 5875.60215    5875.62   7.0 1 1 He I     *
+	        865.14  6416.3084     6416.3   7.0 1 1 
+	        989.59 6678.19678     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		114.707405090332
+		989.5938720703124
+		5780.417483258995
+		880.9729881845584
+		19.41031921322521
+		-2.847176201245495
+		0.2431681512214934
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[30,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[30,*]
+	units	Angstroms
+	features	7
+	        114.91 4921.97633   4921.929   7.0 1 1 He I     *
+	        165.51 5015.59607     5015.7   7.0 1 1 He I     *
+	        256.69 5187.77888     5187.7   7.0 1 1 
+	        470.66 5606.65852     5606.7   7.0 1 1 
+	        603.85 5875.64162    5875.62   7.0 1 1 He I     *
+	        865.17 6416.29697     6416.3   7.0 1 1 
+	        989.62 6678.20061     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		114.9105834960938
+		989.6159667968749
+		5780.422796610521
+		881.0153643163619
+		19.40144683034334
+		-2.903220544288403
+		0.2642254489211599
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[40,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[40,*]
+	units	Angstroms
+	features	7
+	        115.04 4921.95656   4921.929   7.0 1 1 He I     *
+	        165.65 5015.64619     5015.7   7.0 1 1 He I     *
+	        256.74 5187.73027     5187.7   7.0 1 1 
+	        470.78 5606.70246     5606.7   7.0 1 1 
+	        603.94  5875.6094    5875.62   7.0 1 1 He I     *
+	        865.24 6416.30691     6416.3   7.0 1 1 
+	        989.66 6678.19721     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.043815612793
+		989.6601562499999
+		5780.423325572767
+		880.9592409732847
+		19.42481177693493
+		-2.838917687770054
+		0.2287475477174381
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[50,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[50,*]
+	units	Angstroms
+	features	7
+	        115.21 4921.93762   4921.929   7.0 1 1 He I     *
+	        165.80 5015.67787     5015.7   7.0 1 1 He I     *
+	        256.83 5187.72179     5187.7   7.0 1 1 
+	        470.85 5606.67987     5606.7   7.0 1 1 
+	        604.02  5875.6349    5875.62   7.0 1 1 He I     *
+	        865.25 6416.29535     6416.3   7.0 1 1 
+	        989.68  6678.2016     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.2147521972656
+		989.6828002929687
+		5780.48317521395
+		880.9451878235069
+		19.40898783543453
+		-2.813197806735514
+		0.1774474762801567
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[60,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[60,*]
+	units	Angstroms
+	features	7
+	        115.34 4921.93401   4921.929   7.0 1 1 He I     *
+	        165.94 5015.69982     5015.7   7.0 1 1 He I     *
+	        256.95 5187.68318     5187.7   7.0 1 1 
+	        471.00 5606.73831     5606.7   7.0 1 1 
+	        604.10 5875.58507    5875.62   7.0 1 1 He I     *
+	        865.31  6416.3136     6416.3   7.0 1 1 
+	        989.71 6678.19501     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.3376541137695
+		989.7098999023437
+		5780.433457049564
+		880.961155288298
+		19.4598509820947
+		-2.830653343819964
+		0.1712016485159872
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[70,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[70,*]
+	units	Angstroms
+	features	7
+	        115.49  4921.9774   4921.929   7.0 1 1 He I     *
+	        166.08 5015.61046     5015.7   7.0 1 1 He I     *
+	        257.19 5187.74169     5187.7   7.0 1 1 
+	        471.13 5606.72376     5606.7   7.0 1 1 
+	        604.18 5875.58443    5875.62   7.0 1 1 He I     *
+	        865.35 6416.31848     6416.3   7.0 1 1 
+	        989.72 6678.19279     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.4916610717774
+		989.72216796875
+		5780.378189459408
+		881.04025975862
+		19.46958206408549
+		-2.932560215576611
+		0.2373230634594882
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[80,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[80,*]
+	units	Angstroms
+	features	7
+	        115.63 4921.96702   4921.929   7.0 1 1 He I     *
+	        166.21  5015.6203     5015.7   7.0 1 1 He I     *
+	        257.31 5187.75454     5187.7   7.0 1 1 
+	        471.20 5606.68169     5606.7   7.0 1 1 
+	        604.28 5875.62429    5875.62   7.0 1 1 He I     *
+	        865.39 6416.30246     6416.3   7.0 1 1 
+	        989.74 6678.19872     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.6316757202149
+		989.7374267578125
+		5780.373825907487
+		881.0193871087111
+		19.47453971379546
+		-2.903537266855793
+		0.2344996028942784
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[90,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[90,*]
+	units	Angstroms
+	features	7
+	        115.72 4921.96765   4921.929   7.0 1 1 He I     *
+	        166.31 5015.62874     5015.7   7.0 1 1 He I     *
+	        257.39 5187.73268     5187.7   7.0 1 1 
+	        471.28 5606.72005     5606.7   7.0 1 1 
+	        604.32 5875.59065    5875.62   7.0 1 1 He I     *
+	        865.43 6416.31511     6416.3   7.0 1 1 
+	        989.77 6678.19412     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.724250793457
+		989.7747192382812
+		5780.377323035131
+		881.0272287833864
+		19.46313050977202
+		-2.913997396958871
+		0.2404316328208265
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[100,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[100,*]
+	units	Angstroms
+	features	7
+	        115.88 4921.97287   4921.929   7.0 1 1 He I     *
+	        166.44 5015.61719     5015.7   7.0 1 1 He I     *
+	        257.49 5187.74161     5187.7   7.0 1 1 
+	        471.35 5606.71503     5606.7   7.0 1 1 
+	        604.38 5875.59344    5875.62   7.0 1 1 He I     *
+	        865.48 6416.31462     6416.3   7.0 1 1 
+	        989.80 6678.19424     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.8832473754883
+		989.7987060546874
+		5780.419707698339
+		880.9881799813563
+		19.42380621208678
+		-2.877493480302831
+		0.2400403891391216
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[110,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[110,*]
+	units	Angstroms
+	features	7
+	        115.99  4921.9821   4921.929   7.0 1 1 He I     *
+	        166.57 5015.59625     5015.7   7.0 1 1 He I     *
+	        257.66 5187.75856     5187.7   7.0 1 1 
+	        471.44 5606.70432     5606.7   7.0 1 1 
+	        604.43 5875.59992    5875.62   7.0 1 1 He I     *
+	        865.50 6416.31319     6416.3   7.0 1 1 
+	        989.81 6678.19466     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.9922485351563
+		989.8111572265625
+		5780.377909103117
+		881.0639872361623
+		19.41899538029074
+		-2.957702874496754
+		0.2914759035249518
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[120,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[120,*]
+	units	Angstroms
+	features	7
+	        116.13 4921.96164   4921.929   7.0 1 1 He I     *
+	        166.67   5015.635     5015.7   7.0 1 1 He I     *
+	        257.67 5187.73882     5187.7   7.0 1 1 
+	        471.47 5606.69785     5606.7   7.0 1 1 
+	        604.50 5875.61186    5875.62   7.0 1 1 He I     *
+	        865.54 6416.30653     6416.3   7.0 1 1 
+	        989.82 6678.19729     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.1278686523437
+		989.8199462890625
+		5780.434809039919
+		880.9450635676991
+		19.41028258236731
+		-2.827237988835291
+		0.2343758425853538
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[130,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[130,*]
+	units	Angstroms
+	features	7
+	        116.21 4921.98331   4921.929   7.0 1 1 He I     *
+	        166.77 5015.58306     5015.7   7.0 1 1 He I     *
+	        257.86 5187.78509     5187.7   7.0 1 1 
+	        471.56 5606.66164     5606.7   7.0 1 1 
+	        604.55 5875.63675    5875.62   7.0 1 1 He I     *
+	        865.54 6416.29954     6416.3   7.0 1 1 
+	        989.85  6678.1996     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.2114181518555
+		989.8507080078124
+		5780.407631136601
+		881.088618999215
+		19.40328476112287
+		-2.980473178281084
+		0.2805430724584365
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[140,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[140,*]
+	units	Angstroms
+	features	7
+	        116.35 4921.95078   4921.929   7.0 1 1 He I     *
+	        166.88 5015.66586     5015.7   7.0 1 1 He I     *
+	        257.83 5187.70444     5187.7   7.0 1 1 
+	        471.66 5606.73499     5606.7   7.0 1 1 
+	        604.61 5875.58281    5875.62   7.0 1 1 He I     *
+	        865.47 6416.31624     6416.3   7.0 1 1 
+	        989.70 6678.19388     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.354736328125
+		989.6995849609375
+		5780.357889418093
+		880.952377918121
+		19.56244085824411
+		-2.830828092834726
+		0.1519988070773361
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[150,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[150,*]
+	units	Angstroms
+	features	7
+	        116.27 4921.97277   4921.929   7.0 1 1 He I     *
+	        166.78  5015.6227     5015.7   7.0 1 1 He I     *
+	        257.78 5187.72915     5187.7   7.0 1 1 
+	        471.63 5606.73593     5606.7   7.0 1 1 
+	        604.61 5875.57526    5875.62   7.0 1 1 He I     *
+	        865.59 6416.32141     6416.3   7.0 1 1 
+	        989.88 6678.19178     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.2688293457031
+		989.8800659179688
+		5780.427405337579
+		880.957024956106
+		19.49070648909296
+		-2.847521663071112
+		0.1641639369556242
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[160,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[160,*]
+	units	Angstroms
+	features	7
+	        116.55 4921.96821   4921.929   7.0 1 1 He I     *
+	        167.07 5015.62916     5015.7   7.0 1 1 He I     *
+	        258.06 5187.72979     5187.7   7.0 1 1 
+	        471.80 5606.72601     5606.7   7.0 1 1 
+	        604.72  5875.5853    5875.62   7.0 1 1 He I     *
+	        865.63 6416.31716     6416.3   7.0 1 1 
+	        989.90 6678.19337     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.5477905273437
+		989.9005126953124
+		5780.435628639848
+		881.0225015766535
+		19.44021680701626
+		-2.909924284332316
+		0.2049443051890851
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[170,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[170,*]
+	units	Angstroms
+	features	7
+	        116.65 4921.95685   4921.929   7.0 1 1 He I     *
+	        167.18 5015.64176     5015.7   7.0 1 1 He I     *
+	        258.14 5187.73961     5187.7   7.0 1 1 
+	        471.82 5606.68716     5606.7   7.0 1 1 
+	        604.75 5875.62264    5875.62   7.0 1 1 He I     *
+	        865.59 6416.30199     6416.3   7.0 1 1 
+	        989.85 6678.19899     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.6508102416992
+		989.8476562499999
+		5780.43817873233
+		881.0284947541486
+		19.44343454399003
+		-2.907421493329253
+		0.196305728096987
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[180,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[180,*]
+	units	Angstroms
+	features	7
+	        116.69 4921.97726   4921.929   7.0 1 1 He I     *
+	        167.23 5015.61801     5015.7   7.0 1 1 He I     *
+	        258.23 5187.72456     5187.7   7.0 1 1 
+	        471.95  5606.7526     5606.7   7.0 1 1 
+	        604.82 5875.55933    5875.62   7.0 1 1 He I     *
+	        865.69 6416.32785     6416.3   7.0 1 1 
+	        989.92 6678.18939     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.6897964477539
+		989.9151611328125
+		5780.358409513455
+		881.052030021453
+		19.48520041947985
+		-2.945962368814485
+		0.2397154736722752
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[190,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[190,*]
+	units	Angstroms
+	features	7
+	        116.82 4921.99187   4921.929   7.0 1 1 He I     *
+	        167.34 5015.57172     5015.7   7.0 1 1 He I     *
+	        258.37 5187.78202     5187.7   7.0 1 1 
+	        471.94 5606.68352     5606.7   7.0 1 1 
+	        604.87 5875.61506    5875.62   7.0 1 1 He I     *
+	        865.77 6416.30857     6416.3   7.0 1 1 
+	        989.96 6678.19624     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.8214416503906
+		989.9622802734374
+		5780.404636985606
+		881.0135658272823
+		19.36166876732545
+		-2.911379719991684
+		0.3277489765913023
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[200,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[200,*]
+	units	Angstroms
+	features	7
+	        116.95 4921.99637   4921.929   7.0 1 1 He I     *
+	        167.42 5015.57688     5015.7   7.0 1 1 He I     *
+	        258.39 5187.75454     5187.7   7.0 1 1 
+	        472.00 5606.73884     5606.7   7.0 1 1 
+	        604.87 5875.56551    5875.62   7.0 1 1 He I     *
+	        865.77 6416.32756     6416.3   7.0 1 1 
+	        989.97  6678.1893     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.9492797851563
+		989.971923828125
+		5780.490842240486
+		880.9826907091968
+		19.33942566756425
+		-2.886224290045659
+		0.2625677167805744
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[210,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[210,*]
+	units	Angstroms
+	features	7
+	        116.97 4921.95615   4921.929   7.0 1 1 He I     *
+	        167.53 5015.64732     5015.7   7.0 1 1 He I     *
+	        258.48 5187.72902     5187.7   7.0 1 1 
+	        472.08 5606.70384     5606.7   7.0 1 1 
+	        604.96 5875.60831    5875.62   7.0 1 1 He I     *
+	        865.77 6416.30727     6416.3   7.0 1 1 
+	        989.98 6678.19708     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.9687042236328
+		989.9844970703124
+		5780.398884557409
+		881.0697165712966
+		19.40276572513046
+		-2.949254216455259
+		0.2749663832245655
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[220,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[220,*]
+	units	Angstroms
+	features	7
+	        117.07  4921.9592   4921.929   7.0 1 1 He I     *
+	        167.60 5015.63879     5015.7   7.0 1 1 He I     *
+	        258.52 5187.73841     5187.7   7.0 1 1 
+	        472.05 5606.69382     5606.7   7.0 1 1 
+	        604.93 5875.61612    5875.62   7.0 1 1 He I     *
+	        865.78 6416.30468     6416.3   7.0 1 1 
+	        989.99 6678.19799     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.0747604370117
+		989.9945068359375
+		5780.511322614367
+		881.0297141056159
+		19.28077856167869
+		-2.910316999157932
+		0.2864930613994848
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[230,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[230,*]
+	units	Angstroms
+	features	7
+	        117.15 4921.98784   4921.929   7.0 1 1 He I     *
+	        167.64 5015.58974     5015.7   7.0 1 1 He I     *
+	        258.61 5187.75396     5187.7   7.0 1 1 
+	        472.17 5606.72327     5606.7   7.0 1 1 
+	        605.02 5875.58167    5875.62   7.0 1 1 He I     *
+	        865.84 6416.32061     6416.3   7.0 1 1 
+	        990.01 6678.19191     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.1491317749024
+		990.0098876953125
+		5780.437920856273
+		881.0047346105047
+		19.37503931741937
+		-2.902699374093366
+		0.276914310105488
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[240,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[240,*]
+	units	Angstroms
+	features	7
+	        117.25 4921.95048   4921.929   7.0 1 1 He I     *
+	        167.73 5015.67022     5015.7   7.0 1 1 He I     *
+	        258.59 5187.69531     5187.7   7.0 1 1 
+	        472.23 5606.74989     5606.7   7.0 1 1 
+	        605.07 5875.56992    5875.62   7.0 1 1 He I     *
+	        865.82 6416.32102     6416.3   7.0 1 1 
+	        990.01 6678.19215     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.2460708618164
+		990.006103515625
+		5780.474844729837
+		880.972032997715
+		19.42896397783956
+		-2.851199706385275
+		0.1675082341453955
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[250,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[250,*]
+	units	Angstroms
+	features	7
+	        117.28 4921.96894   4921.929   7.0 1 1 He I     *
+	        167.77 5015.62192     5015.7   7.0 1 1 He I     *
+	        258.70 5187.74414     5187.7   7.0 1 1 
+	        472.23 5606.70306     5606.7   7.0 1 1 
+	        605.08 5875.60508    5875.62   7.0 1 1 He I     *
+	        865.83 6416.30984     6416.3   7.0 1 1 
+	        990.01 6678.19602     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.2838439941406
+		990.0050048828124
+		5780.461397370261
+		881.0143041700868
+		19.37659552840542
+		-2.90076454193685
+		0.2444827608082637
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[260,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[260,*]
+	units	Angstroms
+	features	7
+	        117.37 4921.98664   4921.929   7.0 1 1 He I     *
+	        167.85 5015.58472     5015.7   7.0 1 1 He I     *
+	        258.81 5187.76977     5187.7   7.0 1 1 
+	        472.29 5606.69412     5606.7   7.0 1 1 
+	        605.12 5875.60743    5875.62   7.0 1 1 He I     *
+	        865.87 6416.31086     6416.3   7.0 1 1 
+	        990.05 6678.19547     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.3650512695313
+		990.0499267578124
+		5780.462977225363
+		881.0516742607394
+		19.34466237313465
+		-2.947262910079473
+		0.2834146014952735
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[270,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[270,*]
+	units	Angstroms
+	features	7
+	        117.43 4921.95406   4921.929   7.0 1 1 He I     *
+	        167.94 5015.64144     5015.7   7.0 1 1 He I     *
+	        258.83 5187.74995     5187.7   7.0 1 1 
+	        472.28 5606.66423     5606.7   7.0 1 1 
+	        605.14 5875.64347    5875.62   7.0 1 1 He I     *
+	        865.86  6416.2939     6416.3   7.0 1 1 
+	        990.03 6678.20196     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.4323806762695
+		990.0278930664061
+		5780.488387312272
+		881.0255648740962
+		19.31736415292682
+		-2.901615496336779
+		0.2722554575225682
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[280,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[280,*]
+	units	Angstroms
+	features	7
+	        117.46  4921.9758   4921.929   7.0 1 1 He I     *
+	        167.96 5015.60074     5015.7   7.0 1 1 He I     *
+	        258.92 5187.76979     5187.7   7.0 1 1 
+	        472.36 5606.67297     5606.7   7.0 1 1 
+	        605.19 5875.62918    5875.62   7.0 1 1 He I     *
+	        865.87 6416.30157     6416.3   7.0 1 1 
+	        990.02 6678.19895     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.4632568359375
+		990.0238037109375
+		5780.420131101786
+		881.0685553373266
+		19.39031418104627
+		-2.956983538861551
+		0.2769300205589944
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[290,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[290,*]
+	units	Angstroms
+	features	7
+	        117.50 4921.96042   4921.929   7.0 1 1 He I     *
+	        167.99 5015.63647     5015.7   7.0 1 1 He I     *
+	        258.90  5187.7396     5187.7   7.0 1 1 
+	        472.38 5606.69417     5606.7   7.0 1 1 
+	        605.20 5875.61543    5875.62   7.0 1 1 He I     *
+	        865.86 6416.30506     6416.3   7.0 1 1 
+	        990.03 6678.19784     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.4952621459961
+		990.034912109375
+		5780.455721184727
+		881.0596724570492
+		19.39172849806704
+		-2.940961932890824
+		0.2316782214580683
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[300,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[300,*]
+	units	Angstroms
+	features	7
+	        117.57  4921.9683   4921.929   7.0 1 1 He I     *
+	        168.05 5015.62586     5015.7   7.0 1 1 He I     *
+	        258.94 5187.73714     5187.7   7.0 1 1 
+	        472.42 5606.71371     5606.7   7.0 1 1 
+	        605.22 5875.59599    5875.62   7.0 1 1 He I     *
+	        865.88 6416.31317     6416.3   7.0 1 1 
+	        990.05 6678.19481     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.571533203125
+		990.0460815429687
+		5780.480433630263
+		881.0502634992074
+		19.38275826484504
+		-2.937007897789558
+		0.2183673581963403
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[310,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[310,*]
+	units	Angstroms
+	features	7
+	        117.62 4921.97707   4921.929   7.0 1 1 He I     *
+	        168.11 5015.59816     5015.7   7.0 1 1 He I     *
+	        259.04 5187.77143     5187.7   7.0 1 1 
+	        472.44 5606.67266     5606.7   7.0 1 1 
+	        605.24 5875.62906    5875.62   7.0 1 1 He I     *
+	        865.88 6416.30175     6416.3   7.0 1 1 
+	        990.05 6678.19887     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.6237869262696
+		990.0460815429687
+		5780.46644436338
+		881.0832670621756
+		19.3510963819672
+		-2.972368872999933
+		0.2704308949655305
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[320,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[320,*]
+	units	Angstroms
+	features	7
+	        117.66 4921.97883   4921.929   7.0 1 1 He I     *
+	        168.13 5015.58844     5015.7   7.0 1 1 He I     *
+	        259.08 5187.78802     5187.7   7.0 1 1 
+	        472.45 5606.64792     5606.7   7.0 1 1 
+	        605.25 5875.65008    5875.62   7.0 1 1 He I     *
+	        865.86 6416.29408     6416.3   7.0 1 1 
+	        990.04 6678.20163     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.6568603515625
+		990.0429687499999
+		5780.482483128512
+		881.1222414839798
+		19.35294948290857
+		-3.010838882579605
+		0.2547984761947412
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[330,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[330,*]
+	units	Angstroms
+	features	7
+	        117.68 4921.94575   4921.929   7.0 1 1 He I     *
+	        168.18 5015.65511     5015.7   7.0 1 1 He I     *
+	        259.03 5187.74677     5187.7   7.0 1 1 
+	        472.43  5606.6534     5606.7   7.0 1 1 
+	        605.27 5875.65547    5875.62   7.0 1 1 He I     *
+	        865.88 6416.28853     6416.3   7.0 1 1 
+	        990.05 6678.20399     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.6835556030273
+		990.0507812499999
+		5780.512210093552
+		881.0488864672155
+		19.32066619917667
+		-2.919763816124578
+		0.2419915921086801
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[340,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[340,*]
+	units	Angstroms
+	features	7
+	        117.75 4921.96967   4921.929   7.0 1 1 He I     *
+	        168.21 5015.60998     5015.7   7.0 1 1 He I     *
+	        259.11  5187.7694     5187.7   7.0 1 1 
+	        472.49 5606.66164     5606.7   7.0 1 1 
+	        605.28 5875.64094    5875.62   7.0 1 1 He I     *
+	        865.86 6416.29651     6416.3   7.0 1 1 
+	        990.04 6678.20085     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.750617980957
+		990.0384521484374
+		5780.513460217639
+		881.0866549863245
+		19.34802031404957
+		-2.9710688383143
+		0.2237793945649633
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[350,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[350,*]
+	units	Angstroms
+	features	7
+	        117.73 4921.93994   4921.929   7.0 1 1 He I     *
+	        168.22 5015.67857     5015.7   7.0 1 1 He I     *
+	        259.05 5187.71218     5187.7   7.0 1 1 
+	        472.52 5606.70071     5606.7   7.0 1 1 
+	        605.30 5875.61603    5875.62   7.0 1 1 He I     *
+	        865.85 6416.30265     6416.3   7.0 1 1 
+	        990.04 6678.19892     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.729751586914
+		990.0422973632812
+		5780.495970044317
+		881.081351343643
+		19.41716616946294
+		-2.951857808543966
+		0.1562949317806026
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[360,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[360,*]
+	units	Angstroms
+	features	7
+	        117.75 4921.95326   4921.929   7.0 1 1 He I     *
+	        168.24 5015.65105     5015.7   7.0 1 1 He I     *
+	        259.10 5187.73031     5187.7   7.0 1 1 
+	        472.54 5606.69597     5606.7   7.0 1 1 
+	        605.31 5875.61606    5875.62   7.0 1 1 He I     *
+	        865.86 6416.30406     6416.3   7.0 1 1 
+	        990.04 6678.19828     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.7451705932617
+		990.0387573242188
+		5780.472657808653
+		881.1055856021535
+		19.41264521224988
+		-2.98307956549703
+		0.1904665083452645
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[370,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[370,*]
+	units	Angstroms
+	features	7
+	        117.80  4921.9684   4921.929   7.0 1 1 He I     *
+	        168.27 5015.62156     5015.7   7.0 1 1 He I     *
+	        259.16 5187.74682     5187.7   7.0 1 1 
+	        472.56 5606.69748     5606.7   7.0 1 1 
+	        605.31  5875.6101    5875.62   7.0 1 1 He I     *
+	        865.88 6416.30791     6416.3   7.0 1 1 
+	        990.04 6678.19672     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.798583984375
+		990.0406494140625
+		5780.483043423227
+		881.1037613911981
+		19.38802590998091
+		-2.989598555812961
+		0.2114923523762442
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[380,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[380,*]
+	units	Angstroms
+	features	7
+	        117.82 4921.98227   4921.929   7.0 1 1 He I     *
+	        168.28 5015.58542     5015.7   7.0 1 1 He I     *
+	        259.21  5187.7832     5187.7   7.0 1 1 
+	        472.55 5606.66278     5606.7   7.0 1 1 
+	        605.31 5875.63608    5875.62   7.0 1 1 He I     *
+	        865.85 6416.29968     6416.3   7.0 1 1 
+	        990.04 6678.19957     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.8211517333984
+		990.0379028320312
+		5780.501664676423
+		881.1456447469462
+		19.36386630565298
+		-3.036996375250273
+		0.2253871438082765
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[390,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[390,*]
+	units	Angstroms
+	features	7
+	        117.80  4921.9409   4921.929   7.0 1 1 He I     *
+	        168.28 5015.66459     5015.7   7.0 1 1 He I     *
+	        259.12 5187.74137     5187.7   7.0 1 1 
+	        472.52 5606.65308     5606.7   7.0 1 1 
+	        605.32 5875.65723    5875.62   7.0 1 1 He I     *
+	        865.84 6416.28735     6416.3   7.0 1 1 
+	        990.04 6678.20446     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.8044357299805
+		990.0423583984373
+		5780.530784468103
+		881.0970810125448
+		19.3699256543267
+		-2.965300006634854
+		0.1719738096939039
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[400,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[400,*]
+	units	Angstroms
+	features	7
+	        117.80 4921.94568   4921.929   7.0 1 1 He I     *
+	        168.29 5015.66273     5015.7   7.0 1 1 He I     *
+	        259.14 5187.72925     5187.7   7.0 1 1 
+	        472.54 5606.68298     5606.7   7.0 1 1 
+	        605.30 5875.62971    5875.62   7.0 1 1 He I     *
+	        865.84 6416.29815     6416.3   7.0 1 1 
+	        990.01  6678.2005     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.8020172119141
+		990.006103515625
+		5780.491151317361
+		881.1008368800818
+		19.38145121069826
+		-2.973430621705989
+		0.2004887003970766
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[410,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[410,*]
+	units	Angstroms
+	features	7
+	        117.80   4921.954   4921.929   7.0 1 1 He I     *
+	        168.28 5015.63777     5015.7   7.0 1 1 He I     *
+	        259.15 5187.75869     5187.7   7.0 1 1 
+	        472.50 5606.64927     5606.7   7.0 1 1 
+	        605.30 5875.65653    5875.62   7.0 1 1 He I     *
+	        865.85 6416.28901     6416.3   7.0 1 1 
+	        990.02 6678.20373     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.7972259521484
+		990.0160522460938
+		5780.502062868705
+		881.0875532688768
+		19.35056511342772
+		-2.962688964863516
+		0.2262358563078818
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[420,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[420,*]
+	units	Angstroms
+	features	7
+	        117.85 4921.95601   4921.929   7.0 1 1 He I     *
+	        168.28 5015.64568     5015.7   7.0 1 1 He I     *
+	        259.10 5187.73337     5187.7   7.0 1 1 
+	        472.51 5606.69611     5606.7   7.0 1 1 
+	        605.28 5875.61511    5875.62   7.0 1 1 He I     *
+	        865.83 6416.30471     6416.3   7.0 1 1 
+	        990.00 6678.19801     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.8467712402344
+		989.996337890625
+		5780.562653549548
+		881.0312385726472
+		19.35367511228501
+		-2.910236880954058
+		0.1606841714373339
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[430,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[430,*]
+	units	Angstroms
+	features	7
+	        117.82 4921.98349   4921.929   7.0 1 1 He I     *
+	        168.27 5015.58411     5015.7   7.0 1 1 He I     *
+	        259.19 5187.78206     5187.7   7.0 1 1 
+	        472.53 5606.66709     5606.7   7.0 1 1 
+	        605.31 5875.63196    5875.62   7.0 1 1 He I     *
+	        865.88 6416.30134     6416.3   7.0 1 1 
+	        990.02 6678.19895     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.8238220214844
+		990.0187988281249
+		5780.485705181414
+		881.0682477211798
+		19.35750861768054
+		-2.960517190866811
+		0.2480057961034729
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[440,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[440,*]
+	units	Angstroms
+	features	7
+	        117.83 4921.97368   4921.929   7.0 1 1 He I     *
+	        168.28 5015.60433     5015.7   7.0 1 1 He I     *
+	        259.17 5187.76878     5187.7   7.0 1 1 
+	        472.51 5606.67049     5606.7   7.0 1 1 
+	        605.27   5875.632    5875.62   7.0 1 1 He I     *
+	        865.80 6416.30028     6416.3   7.0 1 1 
+	        989.98 6678.19944     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.8316192626953
+		989.9778442382812
+		5780.532417032584
+		881.1165933706273
+		19.34563812359602
+		-3.003713142124861
+		0.2085017297351289
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[450,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[450,*]
+	units	Angstroms
+	features	7
+	        117.78 4921.96298   4921.929   7.0 1 1 He I     *
+	        168.24 5015.61388     5015.7   7.0 1 1 He I     *
+	        259.13 5187.78337     5187.7   7.0 1 1 
+	        472.44 5606.62494     5606.7   7.0 1 1 
+	        605.25 5875.67496    5875.62   7.0 1 1 He I     *
+	        865.80 6416.28308     6416.3   7.0 1 1 
+	        989.97 6678.20579     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.7770233154297
+		989.9661865234374
+		5780.523505960301
+		881.0890087211019
+		19.30993234948017
+		-2.967605809096047
+		0.2509471561915113
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[460,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[460,*]
+	units	Angstroms
+	features	7
+	        117.76 4921.95973   4921.929   7.0 1 1 He I     *
+	        168.23 5015.63263     5015.7   7.0 1 1 He I     *
+	        259.10 5187.75092     5187.7   7.0 1 1 
+	        472.49 5606.67362     5606.7   7.0 1 1 
+	        605.26 5875.63356    5875.62   7.0 1 1 He I     *
+	        865.78 6416.29821     6416.3   7.0 1 1 
+	        989.96 6678.20033     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.7575912475586
+		989.957275390625
+		5780.50050300983
+		881.1114508781182
+		19.38976820510808
+		-2.991149213260245
+		0.1897587681711733
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[470,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[470,*]
+	units	Angstroms
+	features	7
+	        117.74 4921.96892   4921.929   7.0 1 1 He I     *
+	        168.21  5015.6133     5015.7   7.0 1 1 He I     *
+	        259.10 5187.76427     5187.7   7.0 1 1 
+	        472.45 5606.66889     5606.7   7.0 1 1 
+	        605.22 5875.63485    5875.62   7.0 1 1 He I     *
+	        865.77 6416.29871     6416.3   7.0 1 1 
+	        989.93 6678.20006     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.7364730834961
+		989.9262695312499
+		5780.487568530223
+		881.1015219069563
+		19.35698431842625
+		-2.985951913098173
+		0.2399328284612059
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[480,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[480,*]
+	units	Angstroms
+	features	7
+	        117.72 4921.94634   4921.929   7.0 1 1 He I     *
+	        168.18 5015.65186     5015.7   7.0 1 1 He I     *
+	        259.02 5187.75229     5187.7   7.0 1 1 
+	        472.40 5606.64516     5606.7   7.0 1 1 
+	        605.21 5875.66247    5875.62   7.0 1 1 He I     *
+	        865.75 6416.28597     6416.3   7.0 1 1 
+	        989.94 6678.20491     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.7186279296875
+		989.9373779296874
+		5780.550252581791
+		881.0666687841152
+		19.34525284815656
+		-2.937382264236604
+		0.1801176157230994
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[490,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[490,*]
+	units	Angstroms
+	features	7
+	        117.68 4921.96568   4921.929   7.0 1 1 He I     *
+	        168.15 5015.61728     5015.7   7.0 1 1 He I     *
+	        259.03 5187.76615     5187.7   7.0 1 1 
+	        472.39 5606.65938     5606.7   7.0 1 1 
+	        605.18 5875.64414    5875.62   7.0 1 1 He I     *
+	        865.74 6416.29489     6416.3   7.0 1 1 
+	        989.93 6678.20147     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.6831588745117
+		989.927490234375
+		5780.527191258599
+		881.0993231809087
+		19.34077056827987
+		-2.981427418919457
+		0.2156165041223865
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[500,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[500,*]
+	units	Angstroms
+	features	7
+	        117.65 4921.97139   4921.929   7.0 1 1 He I     *
+	        168.11 5015.61054     5015.7   7.0 1 1 He I     *
+	        259.00  5187.7622     5187.7   7.0 1 1 
+	        472.40  5606.6772     5606.7   7.0 1 1 
+	        605.18 5875.62686    5875.62   7.0 1 1 He I     *
+	        865.76 6416.30196     6416.3   7.0 1 1 
+	        989.92 6678.19885     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.6487045288086
+		989.9195556640624
+		5780.492058633518
+		881.0708214513221
+		19.37607732851931
+		-2.957089466452866
+		0.2169840091067543
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[510,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[510,*]
+	units	Angstroms
+	features	7
+	        117.61 4921.98705   4921.929   7.0 1 1 He I     *
+	        168.06 5015.57014     5015.7   7.0 1 1 He I     *
+	        259.00 5187.80234     5187.7   7.0 1 1 
+	        472.32  5606.6396     5606.7   7.0 1 1 
+	        605.13 5875.65481    5875.62   7.0 1 1 He I     *
+	        865.72 6416.29318     6416.3   7.0 1 1 
+	        989.89 6678.20188     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.608772277832
+		989.8939819335938
+		5780.519110957458
+		881.1013499014404
+		19.32220417900083
+		-2.993938118419352
+		0.2531480986433635
+
+# Sat 20:29:19 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[520,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[520,*]
+	units	Angstroms
+	features	7
+	        117.58  4921.9907   4921.929   7.0 1 1 He I     *
+	        168.03 5015.57305     5015.7   7.0 1 1 He I     *
+	        258.96 5187.78299     5187.7   7.0 1 1 
+	        472.33 5606.67955     5606.7   7.0 1 1 
+	        605.11 5875.61889    5875.62   7.0 1 1 He I     *
+	        865.72   6416.307     6416.3   7.0 1 1 
+	        989.88 6678.19682     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.5793914794922
+		989.8775634765623
+		5780.496745759409
+		881.0845565189744
+		19.34559107703476
+		-2.981494003332675
+		0.2514240103975938
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[530,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[530,*]
+	units	Angstroms
+	features	7
+	        117.51 4921.97025   4921.929   7.0 1 1 He I     *
+	        167.97 5015.60166     5015.7   7.0 1 1 He I     *
+	        258.89 5187.78681     5187.7   7.0 1 1 
+	        472.24 5606.63323     5606.7   7.0 1 1 
+	        605.07 5875.66552    5875.62   7.0 1 1 He I     *
+	        865.66 6416.28738     6416.3   7.0 1 1 
+	        989.86 6678.20415     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.5075454711914
+		989.858154296875
+		5780.532362960359
+		881.0992088755353
+		19.31997016965483
+		-2.982256641125507
+		0.2348653946054731
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[540,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[540,*]
+	units	Angstroms
+	features	7
+	        117.47 4921.96884   4921.929   7.0 1 1 He I     *
+	        167.93 5015.61814     5015.7   7.0 1 1 He I     *
+	        258.82 5187.75329     5187.7   7.0 1 1 
+	        472.23 5606.68735     5606.7   7.0 1 1 
+	        605.04 5875.61881    5875.62   7.0 1 1 He I     *
+	        865.67  6416.3047     6416.3   7.0 1 1 
+	        989.83 6678.19788     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.468635559082
+		989.830810546875
+		5780.510371190961
+		881.0407911399384
+		19.33771727688764
+		-2.926266444625753
+		0.2352714886093884
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[550,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[550,*]
+	units	Angstroms
+	features	7
+	        117.41 4921.98735   4921.929   7.0 1 1 He I     *
+	        167.87  5015.5749     5015.7   7.0 1 1 He I     *
+	        258.83  5187.7902     5187.7   7.0 1 1 
+	        472.20  5606.6608     5606.7   7.0 1 1 
+	        604.99 5875.63625    5875.62   7.0 1 1 He I     *
+	        865.61 6416.30016     6416.3   7.0 1 1 
+	        989.82 6678.19934     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.4070129394531
+		989.822021484375
+		5780.52053473892
+		881.1384790600866
+		19.33680977694034
+		-3.032485496606339
+		0.23600312928031
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[560,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[560,*]
+	units	Angstroms
+	features	7
+	        117.35 4921.97828   4921.929   7.0 1 1 He I     *
+	        167.81 5015.61088     5015.7   7.0 1 1 He I     *
+	        258.71 5187.73767     5187.7   7.0 1 1 
+	        472.20 5606.73227     5606.7   7.0 1 1 
+	        604.95 5875.57676    5875.62   7.0 1 1 He I     *
+	        865.59 6416.32142     6416.3   7.0 1 1 
+	        989.78 6678.19172     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.3487014770508
+		989.7844848632811
+		5780.503368079219
+		881.0928955954375
+		19.38981320465038
+		-2.986172367864101
+		0.1918177459575063
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[570,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[570,*]
+	units	Angstroms
+	features	7
+	        117.25 4921.97063   4921.929   7.0 1 1 He I     *
+	        167.74 5015.60559     5015.7   7.0 1 1 He I     *
+	        258.68 5187.77631     5187.7   7.0 1 1 
+	        472.09 5606.65181     5606.7   7.0 1 1 
+	        604.92  5875.6492    5875.62   7.0 1 1 He I     *
+	        865.59 6416.29353     6416.3   7.0 1 1 
+	        989.81 6678.20192     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.2549209594726
+		989.8065185546874
+		5780.513645528073
+		881.1112990444391
+		19.3158373529192
+		-2.995655464358592
+		0.2567914188141228
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[580,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[580,*]
+	units	Angstroms
+	features	7
+	        117.18 4921.96415   4921.929   7.0 1 1 He I     *
+	        167.67 5015.63549     5015.7   7.0 1 1 He I     *
+	        258.57 5187.72901     5187.7   7.0 1 1 
+	        472.08 5606.71943     5606.7   7.0 1 1 
+	        604.88 5875.59228    5875.62   7.0 1 1 He I     *
+	        865.57 6416.31412     6416.3   7.0 1 1 
+	        989.77 6678.19452     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.1790084838867
+		989.7677612304686
+		5780.484055966125
+		881.0732648918884
+		19.37434198734472
+		-2.958084066222926
+		0.2209362468656023
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[590,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[590,*]
+	units	Angstroms
+	features	7
+	        117.16 4921.98438   4921.929   7.0 1 1 He I     *
+	        167.62 5015.59477     5015.7   7.0 1 1 He I     *
+	        258.55 5187.75417     5187.7   7.0 1 1 
+	        472.03 5606.71616     5606.7   7.0 1 1 
+	        604.82 5875.58894    5875.62   7.0 1 1 He I     *
+	        865.53 6416.31752     6416.3   7.0 1 1 
+	        989.73 6678.19307     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.1599731445312
+		989.7285766601562
+		5780.515482437662
+		881.0633671153013
+		19.34199198458515
+		-2.959021974161875
+		0.2312527709110284
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[600,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[600,*]
+	units	Angstroms
+	features	7
+	        117.06 4921.96986   4921.929   7.0 1 1 He I     *
+	        167.54 5015.62799     5015.7   7.0 1 1 He I     *
+	        258.43 5187.72685     5187.7   7.0 1 1 
+	        471.97  5606.7342     5606.7   7.0 1 1 
+	        604.77 5875.57766    5875.62   7.0 1 1 He I     *
+	        865.50 6416.32019     6416.3   7.0 1 1 
+	        989.70 6678.19225     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		117.0615692138672
+		989.6950073242187
+		5780.511600980705
+		881.0334382728402
+		19.35998961477186
+		-2.922240600266536
+		0.2094663430589103
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[610,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[610,*]
+	units	Angstroms
+	features	7
+	        116.98 4921.97324   4921.929   7.0 1 1 He I     *
+	        167.48 5015.61493     5015.7   7.0 1 1 He I     *
+	        258.42 5187.74558     5187.7   7.0 1 1 
+	        471.92 5606.70904     5606.7   7.0 1 1 
+	        604.74 5875.59854    5875.62   7.0 1 1 He I     *
+	        865.49 6416.31275     6416.3   7.0 1 1 
+	        989.68 6678.19492     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.9839477539063
+		989.6824951171875
+		5780.468811552397
+		881.0604256368396
+		19.35212853980429
+		-2.949586086645195
+		0.2631379862567558
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[620,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[620,*]
+	units	Angstroms
+	features	7
+	        116.87  4921.9696   4921.929   7.0 1 1 He I     *
+	        167.38 5015.61418     5015.7   7.0 1 1 He I     *
+	        258.33 5187.75986     5187.7   7.0 1 1 
+	        471.82 5606.67771     5606.7   7.0 1 1 
+	        604.68 5875.62696    5875.62   7.0 1 1 He I     *
+	        865.42 6416.30173     6416.3   7.0 1 1 
+	        989.65 6678.19895     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.8705749511719
+		989.6502685546874
+		5780.491196257155
+		881.0907434744727
+		19.34370016232312
+		-2.976066478379454
+		0.2493786794245364
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[630,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[630,*]
+	units	Angstroms
+	features	7
+	        116.76 4921.96466   4921.929   7.0 1 1 He I     *
+	        167.29 5015.62504     5015.7   7.0 1 1 He I     *
+	        258.25 5187.75157     5187.7   7.0 1 1 
+	        471.76 5606.68217     5606.7   7.0 1 1 
+	        604.61 5875.62458    5875.62   7.0 1 1 He I     *
+	        865.38  6416.3021     6416.3   7.0 1 1 
+	        989.63 6678.19887     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.7586364746094
+		989.6304931640624
+		5780.478176807969
+		881.1282320981431
+		19.34555757433275
+		-3.011127747494776
+		0.2580317147030215
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[640,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[640,*]
+	units	Angstroms
+	features	7
+	        116.69 4921.95858   4921.929   7.0 1 1 He I     *
+	        167.20 5015.64322     5015.7   7.0 1 1 He I     *
+	        258.13 5187.73022     5187.7   7.0 1 1 
+	        471.71  5606.7065     5606.7   7.0 1 1 
+	        604.57 5875.60526    5875.62   7.0 1 1 He I     *
+	        865.34 6416.30867     6416.3   7.0 1 1 
+	        989.60 6678.19655     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.6889343261719
+		989.6010131835938
+		5780.50570628334
+		881.085349926618
+		19.36971093049861
+		-2.96636669730371
+		0.202149687470521
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[650,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[650,*]
+	units	Angstroms
+	features	7
+	        116.59 4921.96838   4921.929   7.0 1 1 He I     *
+	        167.10 5015.61095     5015.7   7.0 1 1 He I     *
+	        258.07 5187.77158     5187.7   7.0 1 1 
+	        471.58 5606.65547     5606.7   7.0 1 1 
+	        604.49 5875.64671    5875.62   7.0 1 1 He I     *
+	        865.31 6416.29422     6416.3   7.0 1 1 
+	        989.57 6678.20169     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.5892944335938
+		989.5722656249999
+		5780.515972867304
+		881.0827498916141
+		19.30062818015082
+		-2.966096305034293
+		0.2684362712898956
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[660,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[660,*]
+	units	Angstroms
+	features	7
+	        116.47 4921.97094   4921.929   7.0 1 1 He I     *
+	        166.99 5015.61451     5015.7   7.0 1 1 He I     *
+	        257.97 5187.75448     5187.7   7.0 1 1 
+	        471.54 5606.68948     5606.7   7.0 1 1 
+	        604.42 5875.61629    5875.62   7.0 1 1 He I     *
+	        865.26 6416.30587     6416.3   7.0 1 1 
+	        989.54 6678.19744     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.4679336547852
+		989.5375366210938
+		5780.49909428744
+		881.1052310446116
+		19.32506920600228
+		-2.991982052448868
+		0.2600261311403735
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[670,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[670,*]
+	units	Angstroms
+	features	7
+	        116.38 4921.96361   4921.929   7.0 1 1 He I     *
+	        166.90 5015.62911     5015.7   7.0 1 1 He I     *
+	        257.85 5187.74575     5187.7   7.0 1 1 
+	        471.47 5606.68996     5606.7   7.0 1 1 
+	        604.38 5875.61813    5875.62   7.0 1 1 He I     *
+	        865.24 6416.30439     6416.3   7.0 1 1 
+	        989.51 6678.19805     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.3816680908203
+		989.5054321289062
+		5780.497257029988
+		881.0440555750599
+		19.35177392111024
+		-2.926837219136006
+		0.2317994561905953
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[680,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[680,*]
+	units	Angstroms
+	features	7
+	        116.27 4921.98396   4921.929   7.0 1 1 He I     *
+	        166.79 5015.58171     5015.7   7.0 1 1 He I     *
+	        257.82 5187.78604     5187.7   7.0 1 1 
+	        471.41 5606.66126     5606.7   7.0 1 1 
+	        604.33 5875.63689    5875.62   7.0 1 1 He I     *
+	        865.17 6416.29956     6416.3   7.0 1 1 
+	        989.47 6678.19959     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.2737274169922
+		989.4699096679687
+		5780.478473538378
+		881.1153376026176
+		19.37577262450684
+		-3.007519881983889
+		0.2375304214033563
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[690,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[690,*]
+	units	Angstroms
+	features	7
+	        116.11 4921.96627   4921.929   7.0 1 1 He I     *
+	        166.65 5015.63065     5015.7   7.0 1 1 He I     *
+	        257.64   5187.733     5187.7   7.0 1 1 
+	        471.34 5606.71678     5606.7   7.0 1 1 
+	        604.25 5875.59393    5875.62   7.0 1 1 He I     *
+	        865.16 6416.31372     6416.3   7.0 1 1 
+	        989.47 6678.19464     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.1142501831055
+		989.4709472656249
+		5780.478738643024
+		881.0873947861876
+		19.39915932238342
+		-2.973210346490388
+		0.2025542353126212
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[700,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[700,*]
+	units	Angstroms
+	features	7
+	        116.05 4921.96998   4921.929   7.0 1 1 He I     *
+	        166.57 5015.61706     5015.7   7.0 1 1 He I     *
+	        257.56 5187.75186     5187.7   7.0 1 1 
+	        471.23   5606.692     5606.7   7.0 1 1 
+	        604.16  5875.6144    5875.62   7.0 1 1 He I     *
+	        865.08 6416.30647     6416.3   7.0 1 1 
+	        989.41 6678.19723     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		116.0542907714844
+		989.4085693359375
+		5780.534874330085
+		881.0758615041986
+		19.34139715790637
+		-2.962236138133632
+		0.2073351236610865
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[710,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[710,*]
+	units	Angstroms
+	features	7
+	        115.89 4921.94681   4921.929   7.0 1 1 He I     *
+	        166.45 5015.67025     5015.7   7.0 1 1 He I     *
+	        257.41  5187.7079     5187.7   7.0 1 1 
+	        471.18 5606.72139     5606.7   7.0 1 1 
+	        604.12 5875.59589    5875.62   7.0 1 1 He I     *
+	        865.05 6416.31091     6416.3   7.0 1 1 
+	        989.39 6678.19586     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.8908843994141
+		989.3905639648437
+		5780.484050670532
+		881.0707557049862
+		19.41135860898812
+		-2.946230204767392
+		0.175922037408769
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[720,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[720,*]
+	units	Angstroms
+	features	7
+	        115.77 4921.96089   4921.929   7.0 1 1 He I     *
+	        166.32 5015.63833     5015.7   7.0 1 1 He I     *
+	        257.31 5187.73366     5187.7   7.0 1 1 
+	        471.06 5606.70516     5606.7   7.0 1 1 
+	        604.02 5875.60572    5875.62   7.0 1 1 He I     *
+	        865.00 6416.30874     6416.3   7.0 1 1 
+	        989.35  6678.1965     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.7687454223633
+		989.3472290039062
+		5780.504989448081
+		881.0745789785203
+		19.36503629561492
+		-2.956773420485743
+		0.20866833713086
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[730,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[730,*]
+	units	Angstroms
+	features	7
+	        115.64 4921.96739   4921.929   7.0 1 1 He I     *
+	        166.19 5015.62312     5015.7   7.0 1 1 He I     *
+	        257.23 5187.74666     5187.7   7.0 1 1 
+	        470.98  5606.6958     5606.7   7.0 1 1 
+	        603.95 5875.61187    5875.62   7.0 1 1 He I     *
+	        864.92 6416.30714     6416.3   7.0 1 1 
+	        989.30 6678.19701     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.6394348144531
+		989.3010864257812
+		5780.488398979011
+		881.1132973927056
+		19.39517467821916
+		-2.998486423773937
+		0.198629948002167
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[740,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[740,*]
+	units	Angstroms
+	features	7
+	        115.49  4921.9785   4921.929   7.0 1 1 He I     *
+	        166.04 5015.61349     5015.7   7.0 1 1 He I     *
+	        257.09 5187.73084     5187.7   7.0 1 1 
+	        470.92 5606.74431     5606.7   7.0 1 1 
+	        603.86 5875.56619    5875.62   7.0 1 1 He I     *
+	        864.90  6416.3254     6416.3   7.0 1 1 
+	        989.28 6678.19028     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.493293762207
+		989.27880859375
+		5780.476051004617
+		881.1004153453925
+		19.40832317870519
+		-2.994525622805106
+		0.2000120333814516
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[750,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[750,*]
+	units	Angstroms
+	features	7
+	        115.35 4921.98754   4921.929   7.0 1 1 He I     *
+	        165.90 5015.58361     5015.7   7.0 1 1 He I     *
+	        257.01 5187.76927     5187.7   7.0 1 1 
+	        470.81 5606.69671     5606.7   7.0 1 1 
+	        603.79  5875.6049    5875.62   7.0 1 1 He I     *
+	        864.84  6416.3119     6416.3   7.0 1 1 
+	        989.23 6678.19508     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.3479309082031
+		989.2284545898437
+		5780.448264222906
+		881.1245706370186
+		19.41614346536333
+		-3.020800837827529
+		0.2269011602708218
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[760,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[760,*]
+	units	Angstroms
+	features	7
+	        115.21 4921.99341   4921.929   7.0 1 1 He I     *
+	        165.77 5015.56353     5015.7   7.0 1 1 He I     *
+	        256.92 5187.79579     5187.7   7.0 1 1 
+	        470.67 5606.66314     5606.7   7.0 1 1 
+	        603.69 5875.63233    5875.62   7.0 1 1 He I     *
+	        864.77 6416.30227     6416.3   7.0 1 1 
+	        989.19 6678.19851     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.2068481445312
+		989.1909790039061
+		5780.471082845316
+		881.1520651132529
+		19.36714595306598
+		-3.049516935450222
+		0.2577339546270412
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[770,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[770,*]
+	units	Angstroms
+	features	7
+	        115.08 4922.00272   4921.929   7.0 1 1 He I     *
+	        165.62 5015.55085     5015.7   7.0 1 1 He I     *
+	        256.77 5187.79329     5187.7   7.0 1 1 
+	        470.59 5606.68544     5606.7   7.0 1 1 
+	        603.62 5875.61007    5875.62   7.0 1 1 He I     *
+	        864.74 6416.31158     6416.3   7.0 1 1 
+	        989.17 6678.19504     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		115.0800323486328
+		989.1653442382812
+		5780.482968951567
+		881.0989500708009
+		19.38437215452177
+		-3.002792811856513
+		0.2315400358235693
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[780,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[780,*]
+	units	Angstroms
+	features	7
+	        114.91 4921.98292   4921.929   7.0 1 1 He I     *
+	        165.49 5015.58784     5015.7   7.0 1 1 He I     *
+	        256.63 5187.77533     5187.7   7.0 1 1 
+	        470.48 5606.67743     5606.7   7.0 1 1 
+	        603.53 5875.62311    5875.62   7.0 1 1 He I     *
+	        864.67  6416.3046     6416.3   7.0 1 1 
+	        989.11 6678.19778     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		114.913330078125
+		989.1094360351562
+		5780.460769605804
+		881.1283987049893
+		19.39512843207398
+		-3.020971717868742
+		0.2344502699279101
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[790,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[790,*]
+	units	Angstroms
+	features	7
+	        114.69 4921.95521   4921.929   7.0 1 1 He I     *
+	        165.32 5015.64691     5015.7   7.0 1 1 He I     *
+	        256.42 5187.73325     5187.7   7.0 1 1 
+	        470.36  5606.6948     5606.7   7.0 1 1 
+	        603.44 5875.61648    5875.62   7.0 1 1 He I     *
+	        864.63 6416.30412     6416.3   7.0 1 1 
+	        989.08 6678.19824     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		114.6945953369141
+		989.0823974609375
+		5780.432959181799
+		881.1163370286065
+		19.42558444458441
+		-2.994823211509489
+		0.2181779641945543
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[800,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[800,*]
+	units	Angstroms
+	features	7
+	        114.58  4921.9692   4921.929   7.0 1 1 He I     *
+	        165.20 5015.61222     5015.7   7.0 1 1 He I     *
+	        256.34 5187.76579     5187.7   7.0 1 1 
+	        470.24 5606.66688     5606.7   7.0 1 1 
+	        603.36 5875.63651    5875.62   7.0 1 1 He I     *
+	        864.58 6416.29813     6416.3   7.0 1 1 
+	        989.05 6678.20026     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		114.5808792114258
+		989.0494384765625
+		5780.456081277829
+		881.1149458968188
+		19.37815737070472
+		-2.99941549065061
+		0.2504959272164512
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[810,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[810,*]
+	units	Angstroms
+	features	7
+	        114.42  4921.9584   4921.929   7.0 1 1 He I     *
+	        165.02 5015.64721     5015.7   7.0 1 1 He I     *
+	        256.11 5187.72158     5187.7   7.0 1 1 
+	        470.16 5606.72079     5606.7   7.0 1 1 
+	        603.27 5875.59286    5875.62   7.0 1 1 He I     *
+	        864.51 6416.31329     6416.3   7.0 1 1 
+	        989.00 6678.19488     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		114.4204483032227
+		988.9995727539062
+		5780.475492585611
+		881.0576022747023
+		19.44271226465124
+		-2.939362913991523
+		0.1584330984628193
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[820,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[820,*]
+	units	Angstroms
+	features	7
+	        114.23 4921.96154   4921.929   7.0 1 1 He I     *
+	        164.84 5015.62659     5015.7   7.0 1 1 He I     *
+	        255.97 5187.75874     5187.7   7.0 1 1 
+	        469.98 5606.66387     5606.7   7.0 1 1 
+	        603.16  5875.6415    5875.62   7.0 1 1 He I     *
+	        864.44 6416.29543     6416.3   7.0 1 1 
+	        988.94 6678.20132     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		114.2294311523437
+		988.9364624023437
+		5780.468450178236
+		881.0572485563213
+		19.40978521442161
+		-2.937359427330076
+		0.2031960336064635
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[830,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[830,*]
+	units	Angstroms
+	features	7
+	        114.06 4921.96842   4921.929   7.0 1 1 He I     *
+	        164.64 5015.61458     5015.7   7.0 1 1 He I     *
+	        255.80 5187.76303     5187.7   7.0 1 1 
+	        469.88 5606.66996     5606.7   7.0 1 1 
+	        603.06 5875.63409    5875.62   7.0 1 1 He I     *
+	        864.29 6416.29894     6416.3   7.0 1 1 
+	        988.76 6678.19998     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		114.0591506958008
+		988.7581176757812
+		5780.389663515121
+		881.017447124335
+		19.54575785000648
+		-2.901668954454589
+		0.1487797955643206
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[840,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[840,*]
+	units	Angstroms
+	features	7
+	        113.88 4921.97712   4921.929   7.0 1 1 He I     *
+	        164.49 5015.61218     5015.7   7.0 1 1 He I     *
+	        255.65 5187.73862     5187.7   7.0 1 1 
+	        469.77 5606.72839     5606.7   7.0 1 1 
+	        602.95  5875.5805    5875.62   7.0 1 1 He I     *
+	        864.38 6416.31991     6416.3   7.0 1 1 
+	        988.87 6678.19228     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		113.8813171386719
+		988.8740844726562
+		5780.455856410531
+		880.9982137600789
+		19.40330998194682
+		-2.890636248137496
+		0.2255346719778948
+
+# Sat 20:29:20 03-Aug-2019
+begin	identify arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[850,*]
+	id	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+	task	identify
+	image	arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1[850,*]
+	units	Angstroms
+	features	7
+	        113.69  4921.9765   4921.929   7.0 1 1 He I     *
+	        164.33 5015.60803     5015.7   7.0 1 1 He I     *
+	        255.55 5187.75042     5187.7   7.0 1 1 
+	        469.67 5606.70719     5606.7   7.0 1 1 
+	        602.85 5875.59914    5875.62   7.0 1 1 He I     *
+	        864.25 6416.31287     6416.3   7.0 1 1 
+	        988.82 6678.19484     6678.2   7.0 1 1 He I     *
+	function legendre
+	order 5
+	sample *
+	naverage 1
+	niterate 0
+	low_reject 3.
+	high_reject 3.
+	grow 0.
+	coefficients	9
+		2.
+		5.
+		113.6914596557617
+		988.8157958984375
+		5780.433842527865
+		881.1189840608411
+		19.44262203378782
+		-3.009814210308358
+		0.2092051030906719
+
