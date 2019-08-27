@@ -50,6 +50,10 @@ src/ntt/archive/efosc/arc/Gr16/OG530/slit1.5/arc_20120906_Gr16_OG530_slit1.5_564
 src/ntt/archive/efosc/arc/Gr16/OG530/slit1.5/arc_20170910_Gr16_OG530_slit1.5_58084_1.fits
 src/ntt/archive/efosc/arc/Gr16/OG530/slit1.5/database/idarc_20120906_Gr16_OG530_slit1.5_56442_1
 src/ntt/archive/efosc/arc/Gr16/OG530/slit1.5/database/idarc_20170910_Gr16_OG530_slit1.5_58084_1
+src/ntt/archive/efosc/arc/Gr18/Free/slit1.0/arc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1.fits
+src/ntt/archive/efosc/arc/Gr18/Free/slit1.0/database/idarc_ASASSN-18fv_20180325_Gr18_Free_slit1.0_58698_1
+src/ntt/archive/efosc/arc/Gr20/Free/slit1.0/arc_ASASSN-18fv_20180326_Gr20_Free_slit1.0_58704_1.fits
+src/ntt/archive/efosc/arc/Gr20/Free/slit1.0/database/idarc_ASASSN-18fv_20180326_Gr20_Free_slit1.0_58704_1
 src/ntt/archive/efosc/badpixels/bad_pix_mask_may2011.fits
 src/ntt/archive/efosc/badpixels/badpixel.fits
 src/ntt/archive/efosc/badpixels/badpixel_20100210.pl
@@ -277,6 +281,8 @@ src/ntt/standard/ident/sens0_Gr11_Free.fits
 src/ntt/standard/ident/sens0_Gr13_Free.fits
 src/ntt/standard/ident/sens0_Gr16_GG495.fits
 src/ntt/standard/ident/sens0_Gr16_OG530.fits
+src/ntt/standard/ident/sens0_Gr18_Free.fits
+src/ntt/standard/ident/sens0_Gr20_Free.fits
 src/ntt/standard/ident/sky_GB.fits
 src/ntt/standard/ident/sky_GR.fits
 src/ntt/standard/ident/sky_Gr11_Free.fits
@@ -285,6 +291,8 @@ src/ntt/standard/ident/sky_Gr13_GG495.fits
 src/ntt/standard/ident/sky_Gr16_Free.fits
 src/ntt/standard/ident/sky_Gr16_GG495.fits
 src/ntt/standard/ident/sky_Gr16_OG530.fits
+src/ntt/standard/ident/sky_Gr18_Free.fits
+src/ntt/standard/ident/sky_Gr20_Free.fits
 src/ntt/standard/ident/sky_atmo2.fits
 src/ntt/standard/ident/sky_ekar2.fits
 src/ntt/standard/ident/sky_new_0.fits
