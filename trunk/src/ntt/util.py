@@ -393,8 +393,8 @@ def display_image(img, frame, _z1, _z2, scale, _xcen=0.5, _ycen=0.5, _xsize=1, _
     if glob.glob(img):
         from pyraf import iraf
 
-        iraf.images(_doprint=0)
-        iraf.tv(_doprint=0)
+        iraf.images(_doprint=0, Stdout=0)
+        iraf.tv(_doprint=0, Stdout=0)
         import string
         import os
 
@@ -808,7 +808,7 @@ def airmass(img, overwrite=True, _observatory='lasilla'):
     import ntt
     from pyraf import iraf
 
-    iraf.astutil(_doprint=0)
+    iraf.astutil(_doprint=0, Stdout=0)
     hdr = ntt.util.readhdr(img)
     if readkey3(hdr, 'UTC'):
         _UT = (ntt.util.readkey3(hdr, 'UTC') +
@@ -1276,9 +1276,9 @@ def extractspectrum(img, dv, _ext_trace, _dispersionline, _interactive, _type, a
     MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
     from pyraf import iraf
 
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.specred(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.specred(_doprint=0, Stdout=0)
     toforget = ['specred.apall', 'specred.transform']
     for t in toforget:
         iraf.unlearn(t)

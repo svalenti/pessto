@@ -310,7 +310,7 @@ def pesstocombine2(imglist, _combine, outputimage):
                                                           'gain'), 'Total integration time of all exposures (s)']
     #     hedvec['NCOMBINE']:[len(imglist),'Number of raw science data']
     ntt.util.updateheader(outputimage, 0, hedvec)
-    iraf.images(_doprint=0)
+    iraf.images(_doprint=0, Stdout=0)
     num = 0
     #######
     mjdend = []
@@ -388,10 +388,10 @@ def crosstalk(inname, outname):
     import ntt
     from pyraf import iraf
 
-    iraf.images(_doprint=0)
-    iraf.imutil(_doprint=0)
-    iraf.imgeom(_doprint=0)
-    iraf.ctio(_doprint=0)
+    iraf.images(_doprint=0, Stdout=0)
+    iraf.imutil(_doprint=0, Stdout=0)
+    iraf.imgeom(_doprint=0, Stdout=0)
+    iraf.ctio(_doprint=0, Stdout=0)
     toforget = ['imgeom.blkavg', 'imutil.imcopy',
                 'imutil.imarith', 'ctio.imcreate']
     for t in toforget:
@@ -462,10 +462,10 @@ def skysub(lista, _ron, _gain, _interactive, regi='crreject'):
 
     from numpy import mean
 
-    iraf.nproto(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.ccdred(_doprint=0)
-    iraf.images(_doprint=0)
+    iraf.nproto(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.ccdred(_doprint=0, Stdout=0)
+    iraf.images(_doprint=0, Stdout=0)
     toforget = ['imutil.imarith', 'ccdred.ccdproc', 'nproto.objmasks', 'ccdred.flatcombine', 'imutil.hedit',
                 'immatch.imcombine']
     for t in toforget:
@@ -588,11 +588,11 @@ def skysuboff(listaon, listaoff, _ron, _gain, _interactive, namesky, regi='crrej
 
     from numpy import mean
 
-    iraf.nproto(_doprint=0)
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.images(_doprint=0)
-    iraf.ccdred(_doprint=0)
+    iraf.nproto(_doprint=0, Stdout=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.images(_doprint=0, Stdout=0)
+    iraf.ccdred(_doprint=0, Stdout=0)
     toforget = ['imutil.imarith', 'ccdred.ccdproc', 'nproto.objmasks', 'ccdred.flatcombine', 'imutil.hedit',
                 'immatch.imcombine']
     for t in toforget:
@@ -700,9 +700,9 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
     scal = pi / 180.
     from pyraf import iraf
 
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.ccdred(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.ccdred(_doprint=0, Stdout=0)
 
     toforget = ['ccdred.ccdproc', 'imutil.imarith']
     for t in toforget:
@@ -1333,7 +1333,7 @@ def getreferencepixels(img, imgmerge):
     # %(__file__)s" % globals()
     from pyraf import iraf
 
-    iraf.imcoords(_doprint=0)
+    iraf.imcoords(_doprint=0, Stdout=0)
     toforget = ['imcoords.wcsctran']
     for t in toforget:
         iraf.unlearn(t)

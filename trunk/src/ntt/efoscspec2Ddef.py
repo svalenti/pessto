@@ -73,9 +73,9 @@ def continumsub(imagefile, _order1, _order2):
     # globals()
     import ntt
     from pyraf import iraf
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.specred(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.specred(_doprint=0, Stdout=0)
     toforget = ['specred.continuum']
     for t in toforget:
         iraf.unlearn(t)
@@ -175,7 +175,7 @@ def imreplace_region(img):
     from pyraf import iraf
 
     _grism = ntt.util.readkey3(ntt.util.readhdr(img), 'grism')
-    iraf.imutil(_doprint=0)
+    iraf.imutil(_doprint=0, Stdout=0)
     iraf.unlearn('imutil.imreplace')
     if _grism == 'Gr13':
         iraf.imutil.imreplace(
@@ -206,12 +206,12 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
     
     import numpy as np
     from pyraf import iraf
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.ccdred(_doprint=0)
-    iraf.twodspec(_doprint=0)
-    iraf.longslit(_doprint=0)
-    iraf.specred(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.ccdred(_doprint=0, Stdout=0)
+    iraf.twodspec(_doprint=0, Stdout=0)
+    iraf.longslit(_doprint=0, Stdout=0)
+    iraf.specred(_doprint=0, Stdout=0)
     toforget = ['ccdred.flatcombine', 'ccdred.zerocombine', 'ccdproc', 'specred.apall', 'longslit.identify',
                 'longslit.reidentify',
                 'specred.standard', 'longslit.fitcoords', 'specred.transform', 'specred.response']

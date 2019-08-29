@@ -7,9 +7,9 @@ def findaperture(img, _interactive=False):
     import os
     from pyraf import iraf
     import ntt
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.specred(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.specred(_doprint=0, Stdout=0)
     toforget = ['specred.apfind']
     for t in toforget:
         iraf.unlearn(t)
@@ -246,11 +246,11 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
     else:
         print '### telluric A standard (vega type) in the list of object'
 
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.specred(_doprint=0)
-    iraf.immatch(_doprint=0)
-    iraf.imutil(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.specred(_doprint=0, Stdout=0)
+    iraf.immatch(_doprint=0, Stdout=0)
+    iraf.imutil(_doprint=0, Stdout=0)
     toforget = ['specred.apall', 'specred.transform']
     for t in toforget:
         iraf.unlearn(t)
