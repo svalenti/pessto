@@ -1,6 +1,5 @@
 def aperture(img):
-    # print "LOGX:: Entering `aperture` method/function in %(__file__)s" %
-    # globals()
+
     from astropy.io import fits as pyfits
     import re
     import os
@@ -129,8 +128,7 @@ def skyfrom2d(fitsfile, skyfile, interac=True):
 
 
 def checkwavelength_arc(xx1, yy1, xx2, yy2, xmin, xmax, inter=True):
-    # print "LOGX:: Entering `checkwavelength_arc` method/function in
-    # %(__file__)s" % globals()
+
     import numpy as np
 
     minimo = max(min(xx1), min(xx2)) + 50
@@ -160,7 +158,7 @@ def checkwavelength_arc(xx1, yy1, xx2, yy2, xmin, xmax, inter=True):
         yy3 = np.array(yy2) * float(ratio)
         xx4 = xx1 + result
         pl.plot(xx1, yy1, label='spectrum')
-        pl.plot(xx2, yy3, label='reference sky')
+        pl.plot(xx2, yy3, label='reference sky', lw=2.5)
         pl.plot(xx4, yy1, label='shifted spectrum')
         pl.legend(numpoints=1, markerscale=1.5)
         if xmin != '' and xmax != '':
@@ -169,8 +167,7 @@ def checkwavelength_arc(xx1, yy1, xx2, yy2, xmin, xmax, inter=True):
 
 
 def imreplace_region(img):
-    # print "LOGX:: Entering `imreplace_region` method/function in
-    # %(__file__)s" % globals()
+
     import ntt
     from pyraf import iraf
 
@@ -194,8 +191,7 @@ def imreplace_region(img):
 
 
 def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbias, _listarc, _cosmic, _verbose=False):
-    # print "LOGX:: Entering `efoscspecreduction` method/function in
-    # %(__file__)s" % globals()
+
     import ntt
     import string
     import re

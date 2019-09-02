@@ -1,6 +1,5 @@
 def telluric_atmo(imgstd):
-    # print "LOGX:: Entering `telluric_atmo` method/function in %(__file__)s"
-    # % globals()
+
     import numpy as np
     import ntt
     from pyraf import iraf
@@ -102,8 +101,6 @@ def telluric_atmo(imgstd):
 
 
 def fluxcalib2d(img2d, sensfun):  # flux calibrate 2d images
-    # print "LOGX:: Entering `fluxcalib2d` method/function in %(__file__)s" %
-    # globals()
 
     try:        import pyfits
     except:     from astropy.io import fits as pyfits
@@ -152,8 +149,7 @@ def fluxcalib2d(img2d, sensfun):  # flux calibrate 2d images
 
 
 def checkwavestd(imgex, _interactive):
-    # print "LOGX:: Entering `checkwavestd` method/function in %(__file__)s" %
-    # globals()
+
     import ntt
     import numpy as np
 
@@ -209,8 +205,7 @@ def checkwavestd(imgex, _interactive):
 # ###################################
 
 def atmofile(imgstd, imgout=''):
-    # print "LOGX:: Entering `atmofile` method/function in %(__file__)s" %
-    # globals()
+
     from pyraf import iraf
     import os
     import ntt
@@ -228,8 +223,7 @@ def atmofile(imgstd, imgout=''):
 
 
 def sensfunction(standardfile, _function, _order, _interactive):
-    # print "LOGX:: Entering `sensfunction` method/function in %(__file__)s" %
-    # globals()
+
     import re
     import os
     import sys
@@ -305,8 +299,7 @@ def sensfunction(standardfile, _function, _order, _interactive):
 
 def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststandard, listatmo0, _automaticex,
                     _verbose=False):
-    # print "LOGX:: Entering `efoscspec1Dredu` method/function in
-    # %(__file__)s" % globals()
+
     import ntt
 
     try:        import pyfits
@@ -669,8 +662,7 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
 ##########################################################################
 
 def correctsens(img1, img2):
-    # print "LOGX:: Entering `correctsens` method/function in %(__file__)s" %
-    # globals()
+
     import os
     import re
 
