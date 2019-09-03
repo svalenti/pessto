@@ -171,25 +171,24 @@ def checkwavestd(imgex, _interactive):
     if answ in ['y', 'yes']:
         print '\n### check wavelength calibration with tellurich lines \n'
         _skyfile = ntt.__path__[0] + '/standard/ident/sky_new_0.fits'
+	# sky
         skyff = 1 - (pyfits.open(_skyfile)[0].data)
         crval1 = pyfits.open(_skyfile)[0].header.get('CRVAL1')
         cd1 = pyfits.open(_skyfile)[0].header.get('CD1_1')
         skyxx = np.arange(len(skyff))
         skyaa = crval1 + (skyxx) * cd1
-	# Gr18 atmofile will be "sky_new_0.fits" as the wavelength range of it containes weak sky lines
-	# [as requested by Cosimo]
+	# object
+        atmofile = ntt.efoscspec1Ddef.atmofile(imgex, 'atmo2_' + imgex)
+        atmoff = 1 - (pyfits.open(atmofile)[0].data[0][0])
+        crval1 = pyfits.open(atmofile)[0].header.get('CRVAL1')
+        cd1 = pyfits.open(atmofile)[0].header.get('CD1_1')
+        atmoxx = np.arange(len(atmoff))
+        atmoaa = crval1 + (atmoxx) * cd1
 	if 'Gr18' in imgex.split('_'):
-	    atmofile = ntt.efoscspec1Ddef.atmofile(_skyfile, 'atmo2_' + imgex)
-	    shift = ntt.efoscspec2Ddef.checkwavelength_arc(
-            skyaa, skyff, skyaa, skyff, 5500, 6800)
-	else:
-            atmofile = ntt.efoscspec1Ddef.atmofile(imgex, 'atmo2_' + imgex)
-            atmoff = 1 - (pyfits.open(atmofile)[0].data[0][0])
-            crval1 = pyfits.open(atmofile)[0].header.get('CRVAL1')
-            cd1 = pyfits.open(atmofile)[0].header.get('CD1_1')
-            atmoxx = np.arange(len(atmoff))
-            atmoaa = crval1 + (atmoxx) * cd1
             shift = ntt.efoscspec2Ddef.checkwavelength_arc(
+                atmoaa, atmoff, skyaa, skyff, 5500, 6800)
+	else:
+	    shift = ntt.efoscspec2Ddef.checkwavelength_arc(
                 atmoaa, atmoff, skyaa, skyff, 6800, 7800)
     else:
         shift = 0
