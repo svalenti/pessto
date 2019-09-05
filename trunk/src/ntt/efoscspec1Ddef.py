@@ -173,7 +173,8 @@ def checkwavestd(imgex, _interactive):
         cd1 = pyfits.open(_skyfile)[0].header.get('CD1_1')
         skyxx = np.arange(len(skyff))
         skyaa = crval1 + (skyxx) * cd1
-	# spectrum
+        
+	# object
         atmofile = ntt.efoscspec1Ddef.atmofile(imgex, 'atmo2_' + imgex)
         atmoff = 1 - (pyfits.open(atmofile)[0].data[0][0])
         crval1 = pyfits.open(atmofile)[0].header.get('CRVAL1')
@@ -181,10 +182,16 @@ def checkwavestd(imgex, _interactive):
         atmoxx = np.arange(len(atmoff))
         atmoaa = crval1 + (atmoxx) * cd1
 	if 'Gr18' in imgex.split('_'):
+<<<<<<< HEAD
 	    shift = ntt.efoscspec2Ddef.checkwavelength_arc(
                 atmoaa, atmoff, skyaa, skyff, 5500, 6800)
 	else:
+=======
+>>>>>>> new_branch
             shift = ntt.efoscspec2Ddef.checkwavelength_arc(
+                atmoaa, atmoff, skyaa, skyff, 5500, 6800)
+	else:
+	    shift = ntt.efoscspec2Ddef.checkwavelength_arc(
                 atmoaa, atmoff, skyaa, skyff, 6800, 7800)
     else:
         shift = 0
