@@ -1,8 +1,8 @@
 # Mon 20:13:29 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[10,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[10,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[10,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[10,*]
 	units	Angstroms
 	features	10
 	        175.89 6678.24148     6678.2   7.0 1 1 He I     *
@@ -35,10 +35,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[10,*]
 		0.1718543484634608
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[20,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[20,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[20,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[20,*]
 	units	Angstroms
 	features	10
 	        176.06 6678.35072     6678.2   7.0 1 1 He I     *
@@ -71,10 +71,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[20,*]
 		0.5385769009391338
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[30,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[30,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[30,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[30,*]
 	units	Angstroms
 	features	10
 	        176.26 6678.26965     6678.2   7.0 1 1 He I     *
@@ -107,10 +107,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[30,*]
 		0.3657077566055527
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[40,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[40,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[40,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[40,*]
 	units	Angstroms
 	features	10
 	        176.39 6678.13808     6678.2   7.0 1 1 He I     *
@@ -143,10 +143,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[40,*]
 		-0.1117442634886344
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[50,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[50,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[50,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[50,*]
 	units	Angstroms
 	features	10
 	        176.55 6678.16475     6678.2   7.0 1 1 He I     *
@@ -179,10 +179,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[50,*]
 		-0.0789578502432482
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[60,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[60,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[60,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[60,*]
 	units	Angstroms
 	features	10
 	        176.68 6678.16904     6678.2   7.0 1 1 He I     *
@@ -215,10 +215,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[60,*]
 		-0.01215650130729921
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[70,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[70,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[70,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[70,*]
 	units	Angstroms
 	features	10
 	        176.81 6678.18969     6678.2   7.0 1 1 He I     *
@@ -251,10 +251,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[70,*]
 		0.2002908105577776
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[80,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[80,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[80,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[80,*]
 	units	Angstroms
 	features	10
 	        176.97 6678.24257     6678.2   7.0 1 1 He I     *
@@ -287,10 +287,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[80,*]
 		0.1744083659329644
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[90,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[90,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[90,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[90,*]
 	units	Angstroms
 	features	10
 	        177.06 6678.25862     6678.2   7.0 1 1 He I     *
@@ -323,10 +323,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[90,*]
 		0.3701615497430224
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[100,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[100,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[100,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[100,*]
 	units	Angstroms
 	features	10
 	        177.20 6678.25739     6678.2   7.0 1 1 He I     *
@@ -359,10 +359,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[100,*]
 		0.2205398409993391
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[110,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[110,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[110,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[110,*]
 	units	Angstroms
 	features	10
 	        177.34 6678.27455     6678.2   7.0 1 1 He I     *
@@ -395,10 +395,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[110,*]
 		0.1929032928034437
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[120,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[120,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[120,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[120,*]
 	units	Angstroms
 	features	10
 	        177.47   6678.225     6678.2   7.0 1 1 He I     *
@@ -431,10 +431,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[120,*]
 		0.264368535667215
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[130,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[130,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[130,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[130,*]
 	units	Angstroms
 	features	10
 	        177.41 6678.21057     6678.2   7.0 1 1 He I     *
@@ -467,10 +467,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[130,*]
 		0.09194197698083245
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[140,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[140,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[140,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[140,*]
 	units	Angstroms
 	features	10
 	        177.68 6678.20469     6678.2   7.0 1 1 He I     *
@@ -503,10 +503,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[140,*]
 		0.01859902812136192
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[150,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[150,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[150,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[150,*]
 	units	Angstroms
 	features	10
 	        177.82 6678.20664     6678.2   7.0 1 1 He I     *
@@ -539,10 +539,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[150,*]
 		-0.01149884565489524
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[160,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[160,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[160,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[160,*]
 	units	Angstroms
 	features	10
 	        177.92 6678.13986     6678.2   7.0 1 1 He I     *
@@ -575,10 +575,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[160,*]
 		-0.04612104907171985
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[170,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[170,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[170,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[170,*]
 	units	Angstroms
 	features	10
 	        178.01 6678.13735     6678.2   7.0 1 1 He I     *
@@ -611,10 +611,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[170,*]
 		-0.1331996764070525
 
 # Mon 20:13:30 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[180,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[180,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[180,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[180,*]
 	units	Angstroms
 	features	10
 	        178.14   6678.138     6678.2   7.0 1 1 He I     *
@@ -647,10 +647,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[180,*]
 		-0.1337924494943552
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[190,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[190,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[190,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[190,*]
 	units	Angstroms
 	features	10
 	        178.21 6678.09669     6678.2   7.0 1 1 He I     *
@@ -683,10 +683,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[190,*]
 		-0.07354262209165192
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[200,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[200,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[200,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[200,*]
 	units	Angstroms
 	features	10
 	        178.33 6678.20563     6678.2   7.0 1 1 He I     *
@@ -719,10 +719,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[200,*]
 		0.1256173775738923
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[210,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[210,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[210,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[210,*]
 	units	Angstroms
 	features	10
 	        178.42 6678.18572     6678.2   7.0 1 1 He I     *
@@ -755,10 +755,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[210,*]
 		0.1868110413026097
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[220,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[220,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[220,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[220,*]
 	units	Angstroms
 	features	10
 	        178.51 6678.29198     6678.2   7.0 1 1 He I     *
@@ -791,10 +791,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[220,*]
 		0.1486020012460295
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[230,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[230,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[230,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[230,*]
 	units	Angstroms
 	features	10
 	        178.62 6678.29451     6678.2   7.0 1 1 He I     *
@@ -827,10 +827,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[230,*]
 		0.3001544612831545
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[240,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[240,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[240,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[240,*]
 	units	Angstroms
 	features	10
 	        178.70 6678.31688     6678.2   7.0 1 1 He I     *
@@ -863,10 +863,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[240,*]
 		0.2730635347896049
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[250,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[250,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[250,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[250,*]
 	units	Angstroms
 	features	10
 	        178.78 6678.35482     6678.2   7.0 1 1 He I     *
@@ -899,10 +899,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[250,*]
 		0.4554127664640908
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[260,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[260,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[260,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[260,*]
 	units	Angstroms
 	features	10
 	        178.86 6678.31376     6678.2   7.0 1 1 He I     *
@@ -935,10 +935,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[260,*]
 		0.4354710471228588
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[270,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[270,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[270,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[270,*]
 	units	Angstroms
 	features	10
 	        178.93  6678.3849     6678.2   7.0 1 1 He I     *
@@ -971,10 +971,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[270,*]
 		0.606314985539162
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[280,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[280,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[280,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[280,*]
 	units	Angstroms
 	features	10
 	        179.01 6678.39961     6678.2   7.0 1 1 He I     *
@@ -1007,10 +1007,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[280,*]
 		0.5703565674576899
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[290,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[290,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[290,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[290,*]
 	units	Angstroms
 	features	10
 	        179.03  6678.3404     6678.2   7.0 1 1 He I     *
@@ -1043,10 +1043,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[290,*]
 		0.518807701097172
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[300,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[300,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[300,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[300,*]
 	units	Angstroms
 	features	10
 	        179.11 6678.32217     6678.2   7.0 1 1 He I     *
@@ -1079,10 +1079,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[300,*]
 		0.5213127569432019
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[310,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[310,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[310,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[310,*]
 	units	Angstroms
 	features	10
 	        179.18 6678.24319     6678.2   7.0 1 1 He I     *
@@ -1115,10 +1115,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[310,*]
 		0.5031271018392321
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[320,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[320,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[320,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[320,*]
 	units	Angstroms
 	features	10
 	        179.23 6678.22946     6678.2   7.0 1 1 He I     *
@@ -1151,10 +1151,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[320,*]
 		0.3263656015089753
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[330,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[330,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[330,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[330,*]
 	units	Angstroms
 	features	10
 	        179.27  6678.0922     6678.2   7.0 1 1 He I     *
@@ -1187,10 +1187,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[330,*]
 		0.1831972660088734
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[340,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[340,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[340,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[340,*]
 	units	Angstroms
 	features	10
 	        179.32  6678.0333     6678.2   7.0 1 1 He I     *
@@ -1223,10 +1223,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[340,*]
 		0.1083347373211843
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[350,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[350,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[350,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[350,*]
 	units	Angstroms
 	features	10
 	        179.37 6678.16431     6678.2   7.0 1 1 He I     *
@@ -1259,10 +1259,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[350,*]
 		0.2648775034280339
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[360,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[360,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[360,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[360,*]
 	units	Angstroms
 	features	10
 	        179.45 6678.15937     6678.2   7.0 1 1 He I     *
@@ -1295,10 +1295,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[360,*]
 		0.2638267290516745
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[370,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[370,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[370,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[370,*]
 	units	Angstroms
 	features	10
 	        179.48 6678.14971     6678.2   7.0 1 1 He I     *
@@ -1331,10 +1331,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[370,*]
 		0.3338909685099778
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[380,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[380,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[380,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[380,*]
 	units	Angstroms
 	features	10
 	        179.57 6678.20007     6678.2   7.0 1 1 He I     *
@@ -1367,10 +1367,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[380,*]
 		0.1430567363012249
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[390,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[390,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[390,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[390,*]
 	units	Angstroms
 	features	10
 	        179.72 6678.18127     6678.2   7.0 1 1 He I     *
@@ -1403,10 +1403,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[390,*]
 		0.02535612000299653
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[400,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[400,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[400,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[400,*]
 	units	Angstroms
 	features	10
 	        179.62 6678.10427     6678.2   7.0 1 1 He I     *
@@ -1439,10 +1439,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[400,*]
 		-0.2355862310869532
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[410,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[410,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[410,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[410,*]
 	units	Angstroms
 	features	10
 	        179.66 6678.15347     6678.2   7.0 1 1 He I     *
@@ -1475,10 +1475,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[410,*]
 		-0.1301011896837255
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[420,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[420,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[420,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[420,*]
 	units	Angstroms
 	features	10
 	        179.67 6678.19838     6678.2   7.0 1 1 He I     *
@@ -1511,10 +1511,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[420,*]
 		0.211458492974361
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[430,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[430,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[430,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[430,*]
 	units	Angstroms
 	features	10
 	        179.69 6678.20633     6678.2   7.0 1 1 He I     *
@@ -1547,10 +1547,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[430,*]
 		0.2882390205529397
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[440,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[440,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[440,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[440,*]
 	units	Angstroms
 	features	10
 	        179.72 6678.27607     6678.2   7.0 1 1 He I     *
@@ -1583,10 +1583,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[440,*]
 		0.7578379378951424
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[450,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[450,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[450,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[450,*]
 	units	Angstroms
 	features	10
 	        179.75 6678.32148     6678.2   7.0 1 1 He I     *
@@ -1619,10 +1619,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[450,*]
 		0.739659011017924
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[460,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[460,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[460,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[460,*]
 	units	Angstroms
 	features	10
 	        179.74 6678.35641     6678.2   7.0 1 1 He I     *
@@ -1655,10 +1655,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[460,*]
 		0.4820235592731697
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[470,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[470,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[470,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[470,*]
 	units	Angstroms
 	features	10
 	        179.75 6678.36046     6678.2   7.0 1 1 He I     *
@@ -1691,10 +1691,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[470,*]
 		0.4079483960868532
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[480,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[480,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[480,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[480,*]
 	units	Angstroms
 	features	10
 	        179.75 6678.29201     6678.2   7.0 1 1 He I     *
@@ -1727,10 +1727,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[480,*]
 		0.1478305966293481
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[490,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[490,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[490,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[490,*]
 	units	Angstroms
 	features	10
 	        179.77 6678.31148     6678.2   7.0 1 1 He I     *
@@ -1763,10 +1763,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[490,*]
 		0.1489608647549957
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[500,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[500,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[500,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[500,*]
 	units	Angstroms
 	features	10
 	        179.73 6678.18706     6678.2   7.0 1 1 He I     *
@@ -1799,10 +1799,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[500,*]
 		0.009302038286204991
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[510,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[510,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[510,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[510,*]
 	units	Angstroms
 	features	10
 	        179.73 6678.16738     6678.2   7.0 1 1 He I     *
@@ -1835,10 +1835,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[510,*]
 		-0.3333323439584546
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[520,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[520,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[520,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[520,*]
 	units	Angstroms
 	features	10
 	        179.72 6678.11248     6678.2   7.0 1 1 He I     *
@@ -1871,10 +1871,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[520,*]
 		-0.3344179714181587
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[530,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[530,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[530,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[530,*]
 	units	Angstroms
 	features	10
 	        179.71 6678.09809     6678.2   7.0 1 1 He I     *
@@ -1907,10 +1907,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[530,*]
 		-0.2821557429336823
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[540,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[540,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[540,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[540,*]
 	units	Angstroms
 	features	10
 	        179.72 6678.04492     6678.2   7.0 1 1 He I     *
@@ -1943,10 +1943,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[540,*]
 		-0.2560088314236516
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[550,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[550,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[550,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[550,*]
 	units	Angstroms
 	features	10
 	        179.68 6678.01508     6678.2   7.0 1 1 He I     *
@@ -1979,10 +1979,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[550,*]
 		-0.3715142435891146
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[560,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[560,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[560,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[560,*]
 	units	Angstroms
 	features	10
 	        179.67 6678.05065     6678.2   7.0 1 1 He I     *
@@ -2015,10 +2015,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[560,*]
 		-0.24287827845922
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[570,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[570,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[570,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[570,*]
 	units	Angstroms
 	features	10
 	        179.64 6677.98099     6678.2   7.0 1 1 He I     *
@@ -2051,10 +2051,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[570,*]
 		-0.3764200551378908
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[580,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[580,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[580,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[580,*]
 	units	Angstroms
 	features	10
 	        179.58  6677.9499     6678.2   7.0 1 1 He I     *
@@ -2087,10 +2087,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[580,*]
 		-0.1725839093303223
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[590,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[590,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[590,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[590,*]
 	units	Angstroms
 	features	10
 	        179.55 6678.05938     6678.2   7.0 1 1 He I     *
@@ -2123,10 +2123,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[590,*]
 		-0.01099918401926726
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[600,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[600,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[600,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[600,*]
 	units	Angstroms
 	features	10
 	        179.53  6678.1269     6678.2   7.0 1 1 He I     *
@@ -2159,10 +2159,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[600,*]
 		0.3497510570531265
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[610,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[610,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[610,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[610,*]
 	units	Angstroms
 	features	10
 	        179.46 6678.16584     6678.2   7.0 1 1 He I     *
@@ -2195,10 +2195,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[610,*]
 		0.5120034134503566
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[620,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[620,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[620,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[620,*]
 	units	Angstroms
 	features	10
 	        179.42 6678.30018     6678.2   7.0 1 1 He I     *
@@ -2231,10 +2231,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[620,*]
 		0.5721927732009669
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[630,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[630,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[630,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[630,*]
 	units	Angstroms
 	features	10
 	        179.36 6678.30621     6678.2   7.0 1 1 He I     *
@@ -2267,10 +2267,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[630,*]
 		0.4845885898675824
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[640,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[640,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[640,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[640,*]
 	units	Angstroms
 	features	10
 	        179.33 6678.26749     6678.2   7.0 1 1 He I     *
@@ -2303,10 +2303,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[640,*]
 		0.2982439647978409
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[650,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[650,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[650,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[650,*]
 	units	Angstroms
 	features	10
 	        179.26 6678.17874     6678.2   7.0 1 1 He I     *
@@ -2339,10 +2339,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[650,*]
 		-0.1390609534004652
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[660,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[660,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[660,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[660,*]
 	units	Angstroms
 	features	10
 	        179.21 6678.02618     6678.2   7.0 1 1 He I     *
@@ -2375,10 +2375,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[660,*]
 		-0.5187312745344462
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[670,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[670,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[670,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[670,*]
 	units	Angstroms
 	features	10
 	        179.14 6678.01965     6678.2   7.0 1 1 He I     *
@@ -2411,10 +2411,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[670,*]
 		-0.6970396799188996
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[680,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[680,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[680,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[680,*]
 	units	Angstroms
 	features	10
 	        179.07 6678.14295     6678.2   7.0 1 1 He I     *
@@ -2447,10 +2447,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[680,*]
 		-0.3697474867146098
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[690,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[690,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[690,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[690,*]
 	units	Angstroms
 	features	10
 	        179.01 6678.15027     6678.2   7.0 1 1 He I     *
@@ -2483,10 +2483,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[690,*]
 		-0.01576292333539094
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[700,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[700,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[700,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[700,*]
 	units	Angstroms
 	features	10
 	        178.96 6678.22693     6678.2   7.0 1 1 He I     *
@@ -2519,10 +2519,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[700,*]
 		-0.00547634439898275
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[710,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[710,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[710,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[710,*]
 	units	Angstroms
 	features	10
 	        178.88 6678.26267     6678.2   7.0 1 1 He I     *
@@ -2555,10 +2555,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[710,*]
 		0.4105647250799585
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[720,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[720,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[720,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[720,*]
 	units	Angstroms
 	features	10
 	        178.79 6678.22149     6678.2   7.0 1 1 He I     *
@@ -2591,10 +2591,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[720,*]
 		0.6874650641768992
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[730,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[730,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[730,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[730,*]
 	units	Angstroms
 	features	10
 	        178.70 6678.03689     6678.2   7.0 1 1 He I     *
@@ -2627,10 +2627,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[730,*]
 		0.1877515573485628
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[740,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[740,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[740,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[740,*]
 	units	Angstroms
 	features	10
 	        178.62 6678.05496     6678.2   7.0 1 1 He I     *
@@ -2663,10 +2663,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[740,*]
 		0.2413515963072935
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[750,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[750,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[750,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[750,*]
 	units	Angstroms
 	features	10
 	        178.54 6678.15705     6678.2   7.0 1 1 He I     *
@@ -2699,10 +2699,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[750,*]
 		-0.1272634316569131
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[760,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[760,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[760,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[760,*]
 	units	Angstroms
 	features	10
 	        178.46 6678.20168     6678.2   7.0 1 1 He I     *
@@ -2735,10 +2735,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[760,*]
 		-0.3459345042138864
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[770,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[770,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[770,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[770,*]
 	units	Angstroms
 	features	10
 	        178.36  6678.2238     6678.2   7.0 1 1 He I     *
@@ -2771,10 +2771,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[770,*]
 		-0.07813850295057166
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[780,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[780,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[780,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[780,*]
 	units	Angstroms
 	features	10
 	        178.24 6678.21223     6678.2   7.0 1 1 He I     *
@@ -2807,10 +2807,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[780,*]
 		0.3777885579069069
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[790,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[790,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[790,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[790,*]
 	units	Angstroms
 	features	10
 	        178.15 6678.10093     6678.2   7.0 1 1 He I     *
@@ -2843,10 +2843,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[790,*]
 		0.5158374309220473
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[800,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[800,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[800,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[800,*]
 	units	Angstroms
 	features	10
 	        178.04   6678.181     6678.2   7.0 1 1 He I     *
@@ -2879,10 +2879,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[800,*]
 		0.1680410910175127
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[810,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[810,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[810,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[810,*]
 	units	Angstroms
 	features	10
 	        177.92 6678.24783     6678.2   7.0 1 1 He I     *
@@ -2915,10 +2915,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[810,*]
 		-0.03003984682169498
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[820,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[820,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[820,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[820,*]
 	units	Angstroms
 	features	10
 	        177.81 6678.15103     6678.2   7.0 1 1 He I     *
@@ -2951,10 +2951,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[820,*]
 		0.1243192465688226
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[830,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[830,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[830,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[830,*]
 	units	Angstroms
 	features	10
 	        177.70 6678.11128     6678.2   7.0 1 1 He I     *
@@ -2987,10 +2987,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[830,*]
 		0.2578445455378584
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[840,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[840,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[840,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[840,*]
 	units	Angstroms
 	features	10
 	        177.56 6678.22618     6678.2   7.0 1 1 He I     *
@@ -3023,10 +3023,10 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[840,*]
 		0.1564755309880703
 
 # Mon 20:13:31 02-Sep-2019
-begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[850,*]
-	id	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1
+begin	identify arc_20170818_Gr16_OG530_slit1.5_58728_1[850,*]
+	id	arc_20170818_Gr16_OG530_slit1.5_58728_1
 	task	identify
-	image	arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[850,*]
+	image	arc_20170818_Gr16_OG530_slit1.5_58728_1[850,*]
 	units	Angstroms
 	features	10
 	        177.46 6678.14165     6678.2   7.0 1 1 He I     *
@@ -3057,4 +3057,3 @@ begin	identify arc_AT2017gah_20170818_Gr16_OG530_slit1.5_58728_1[850,*]
 		16.91872969048187
 		-3.399841964562921
 		-0.004993683431189881
-
