@@ -182,13 +182,7 @@ def checkwavestd(imgex, _interactive):
         atmoxx = np.arange(len(atmoff))
         atmoaa = crval1 + (atmoxx) * cd1
 	if 'Gr18' in imgex.split('_'):
-<<<<<<< HEAD
 	    shift = ntt.efoscspec2Ddef.checkwavelength_arc(
-                atmoaa, atmoff, skyaa, skyff, 5500, 6800)
-	else:
-=======
->>>>>>> new_branch
-            shift = ntt.efoscspec2Ddef.checkwavelength_arc(
                 atmoaa, atmoff, skyaa, skyff, 5500, 6800)
 	else:
 	    shift = ntt.efoscspec2Ddef.checkwavelength_arc(
