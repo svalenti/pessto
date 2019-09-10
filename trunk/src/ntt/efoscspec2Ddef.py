@@ -1,6 +1,5 @@
 def aperture(img):
-    # print "LOGX:: Entering `aperture` method/function in %(__file__)s" %
-    # globals()
+
     from astropy.io import fits as pyfits
     import re
     import os
@@ -73,9 +72,9 @@ def continumsub(imagefile, _order1, _order2):
     # globals()
     import ntt
     from pyraf import iraf
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.specred(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.specred(_doprint=0, Stdout=0)
     toforget = ['specred.continuum']
     for t in toforget:
         iraf.unlearn(t)
@@ -129,8 +128,7 @@ def skyfrom2d(fitsfile, skyfile, interac=True):
 
 
 def checkwavelength_arc(xx1, yy1, xx2, yy2, xmin, xmax, inter=True):
-    # print "LOGX:: Entering `checkwavelength_arc` method/function in
-    # %(__file__)s" % globals()
+
     import numpy as np
 
     minimo = max(min(xx1), min(xx2)) + 50
@@ -160,7 +158,7 @@ def checkwavelength_arc(xx1, yy1, xx2, yy2, xmin, xmax, inter=True):
         yy3 = np.array(yy2) * float(ratio)
         xx4 = xx1 + result
         pl.plot(xx1, yy1, label='spectrum')
-        pl.plot(xx2, yy3, label='reference sky')
+        pl.plot(xx2, yy3, label='reference sky', lw=2.5)
         pl.plot(xx4, yy1, label='shifted spectrum')
         pl.legend(numpoints=1, markerscale=1.5)
         if xmin != '' and xmax != '':
@@ -169,29 +167,31 @@ def checkwavelength_arc(xx1, yy1, xx2, yy2, xmin, xmax, inter=True):
 
 
 def imreplace_region(img):
-    # print "LOGX:: Entering `imreplace_region` method/function in
-    # %(__file__)s" % globals()
+
     import ntt
     from pyraf import iraf
 
     _grism = ntt.util.readkey3(ntt.util.readhdr(img), 'grism')
-    iraf.imutil(_doprint=0)
+    iraf.imutil(_doprint=0, Stdout=0)
     iraf.unlearn('imutil.imreplace')
     if _grism == 'Gr13':
         iraf.imutil.imreplace(
             img + '[*,1:200]', value=1, lower='INDEF', upper='INDEF')
         print '### replace pixel 1:200 with 1 (y axes)'
-    elif _grism == 'Gr11':
+    elif _grism in ['Gr11']:
         iraf.imutil.imreplace(
             img + '[*,1:300]', value=1, lower='INDEF', upper='INDEF')
+        print '### replace pixel 1:300 with 1 (y axes)'
+    elif _grism in ['Gr18', 'Gr20']:
+        iraf.imutil.imreplace(
+            img + '[*,1:50]', value=1, lower='INDEF', upper='INDEF')
         print '### replace pixel 1:300 with 1 (y axes)'
     else:
         print '### no replace '
 
 
 def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbias, _listarc, _cosmic, _verbose=False):
-    # print "LOGX:: Entering `efoscspecreduction` method/function in
-    # %(__file__)s" % globals()
+
     import ntt
     import string
     import re
@@ -202,12 +202,12 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
     
     import numpy as np
     from pyraf import iraf
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.ccdred(_doprint=0)
-    iraf.twodspec(_doprint=0)
-    iraf.longslit(_doprint=0)
-    iraf.specred(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.ccdred(_doprint=0, Stdout=0)
+    iraf.twodspec(_doprint=0, Stdout=0)
+    iraf.longslit(_doprint=0, Stdout=0)
+    iraf.specred(_doprint=0, Stdout=0)
     toforget = ['ccdred.flatcombine', 'ccdred.zerocombine', 'ccdproc', 'specred.apall', 'longslit.identify',
                 'longslit.reidentify',
                 'specred.standard', 'longslit.fitcoords', 'specred.transform', 'specred.response']
@@ -417,7 +417,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                 _trimsec0 = '[100:950,250:1015]'
             elif setup[1] == 'OG530':
                 _trimsec0 = '[100:950,300:1015]'
-        elif _grism0 == 'Gr11':
+        elif _grism0 in ['Gr11', 'Gr18', 'Gr20']:
             _trimsec0 = '[100:950,5:1015]'
         else:
             _trimsec0 = '[100:950,5:1015]'
@@ -430,7 +430,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
         elif setup[0] == 'Gr16' and setup[1] == 'OG530':
             _order = 70
             _sample = '*'
-        elif setup[0] == 'Gr11' and setup[1] == 'Free':
+        elif setup[0] in ['Gr11', 'Gr18', 'Gr20'] and setup[1] == 'Free':
             _order = 35
             _sample = '*'
         elif setup[0] == 'Gr13' and setup[1] == 'Free':
@@ -768,7 +768,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                             os.mkdir('database/')
                         if os.path.isfile(ntt.util.searcharc(nameout0, '')[1] +
                                           '/database/id' + re.sub('.fits', '', arcref)):
-                            os.system('cp ' + ntt.util.searcharc(nameout0, '')[1] +
+                            os.system('cp ' + ntt.util.searcharc(nameout0, '')[1] + 
                                       '/database/id' + re.sub('.fits', '', arcref) + ' database/')
                         identific = iraf.longslit.reidentify(referenc=arcref, images=arcfile, interac=_inter,
                                                              section='column 10',
@@ -808,11 +808,11 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                                                            coordli='direc$standard/ident/Lines_HgCdHeNeAr600.dat',
                                                            nsum=10, fwidth=7, order=5,
                                                            functio='legendre', cradius=10, mode='h', Stdout=1)
+
                     iraf.longslit.reidentify(referenc=arcfile, images=arcfile, interac='NO', section='column 10',
                                              newaps='yes', nsum=5, nlost=2,
                                              coordli='direc$standard/ident/Lines_HgCdHeNeAr600.dat', overrid='yes',
                                              step=10, cradius=10, mode='h', verbose='no', Stdout=1)
-
                     iraf.longslit.dispaxi = 2
                     qqq = iraf.longslit.fitcoords(images=re.sub('.fits', '', arcfile),
                                                   fitname=re.sub('.fits', '', arcfile), interac='no', combine='yes',
@@ -829,7 +829,6 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                                            fitnames=re.sub('.fits', '', arcfile), databas='database',
                                            x1='INDEF', x2='INDEF', y1='INDEF', y2='INDEF', flux='yes',
                                            logfile='logfile')  # , mode='h')
-                    print arcfile
                     specred = ntt.util.spectraresolution2(arcfile)
                     if specred:
                         ntt.util.updateheader('t' + nameout0, 0,

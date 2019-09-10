@@ -8,13 +8,13 @@ def makeflat(lista):
     import ntt
     from ntt.util import readhdr, readkey3, delete, name_duplicate, updateheader, correctcard
     from pyraf import iraf
-    iraf.images(_doprint=0)
-    iraf.imutil(_doprint=0)
-    iraf.imgeom(_doprint=0)
-    # iraf.blkavg(_doprint=0)
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.generic(_doprint=0)
+    iraf.images(_doprint=0, Stdout=0)
+    iraf.imutil(_doprint=0, Stdout=0)
+    iraf.imgeom(_doprint=0, Stdout=0)
+    # iraf.blkavg(_doprint=0, Stdout=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.generic(_doprint=0, Stdout=0)
     toforget = ['imgeom.blkavg', 'imutil.imarith',
                 'immatch.imcombine', 'noao.imred']
     for t in toforget:
@@ -107,15 +107,15 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
     illum_frame = name_duplicate(
         lista[0], 'illum_' + _date + '_' + _filter + '_' + str(MJDtoday), '')
     from pyraf import iraf
-    iraf.images(_doprint=0)
-    iraf.imutil(_doprint=0)
-    iraf.utilities(_doprint=0)
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.ccdred(_doprint=0)
-    iraf.digiphot(_doprint=0)
-    iraf.daophot(_doprint=0)
-    iraf.generic(_doprint=0)
+    iraf.images(_doprint=0, Stdout=0)
+    iraf.imutil(_doprint=0, Stdout=0)
+    iraf.utilities(_doprint=0, Stdout=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.ccdred(_doprint=0, Stdout=0)
+    iraf.digiphot(_doprint=0, Stdout=0)
+    iraf.daophot(_doprint=0, Stdout=0)
+    iraf.generic(_doprint=0, Stdout=0)
     toforget = ['digiphot.daophot', 'imutil.imarith',
                 'image', 'utilities.surfit']
     for t in toforget:
@@ -152,8 +152,8 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
     y0 = float(y0)
     xcum0 = readkey3(readhdr(lista2[0]), 'xcum')
     ycum0 = readkey3(readhdr(lista2[0]), 'ycum')
-    iraf.digiphot(_doprint=0)
-    iraf.daophot(_doprint=0)
+    iraf.digiphot(_doprint=0, Stdout=0)
+    iraf.daophot(_doprint=0, Stdout=0)
     iraf.noao.digiphot.daophot.datapars.datamin = -1000
     iraf.noao.digiphot.daophot.datapars.datamax = 60000
     iraf.noao.digiphot.daophot.daopars.function = 'gauss'

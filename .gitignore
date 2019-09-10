@@ -14,11 +14,19 @@ efoscastrodef.pyc
 efosccalibdef.pyc
 efoscfastspecdef.pyc
 efoscphotredudef.pyc
-efoscspec1Ddef.pyc
-efoscspec2Ddef.pyc
+#efoscspec1Ddef.pyc
+#efoscspec2Ddef.pyc
 soficalibdef.pyc
 sofiphotredudef.pyc
 sofispec1Ddef.pyc
 sofispec2Ddef.pyc
 sqlcl.pyc
-util.pyc
+#util.pyc
+
+# Added by Tomás M.
+test
+Test_data_GR18
+Test_data_GR18_new
+Test_data_GR20
+trunk/src/ntt.egg-info
+trunk/src/ntt/*.pyc

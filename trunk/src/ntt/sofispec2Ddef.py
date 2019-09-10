@@ -104,12 +104,12 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
     from numpy import argmin, array, min, isnan, arange, mean, sum
     from numpy import sqrt, pi
 
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.ccdred(_doprint=0)
-    iraf.twodspec(_doprint=0)
-    iraf.longslit(_doprint=0)
-    iraf.specred(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.ccdred(_doprint=0, Stdout=0)
+    iraf.twodspec(_doprint=0, Stdout=0)
+    iraf.longslit(_doprint=0, Stdout=0)
+    iraf.specred(_doprint=0, Stdout=0)
     toforget = ['ccdred.flatcombine', 'ccdproc', 'specred.apall', 'longslit.identify', 'longslit.reidentify',
                 'longslit.fitcoords', 'specred.transform', 'specred.response', 'imutil.hedit']
     for t in toforget:

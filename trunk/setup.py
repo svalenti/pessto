@@ -8,7 +8,6 @@ from glob import glob
 for scheme in INSTALL_SCHEMES.values():
     scheme['data'] = scheme['purelib']
 
-
 from imp import find_module
 
 try:

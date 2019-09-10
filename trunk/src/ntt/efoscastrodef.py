@@ -393,12 +393,12 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
     from ntt import sqlcl
     from pyraf import iraf
 
-    iraf.noao(_doprint=0)
-    iraf.digiphot(_doprint=0)
-    iraf.daophot(_doprint=0)
-    iraf.images(_doprint=0)
-    iraf.imcoords(_doprint=0)
-    iraf.proto(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.digiphot(_doprint=0, Stdout=0)
+    iraf.daophot(_doprint=0, Stdout=0)
+    iraf.images(_doprint=0, Stdout=0)
+    iraf.imcoords(_doprint=0, Stdout=0)
+    iraf.proto(_doprint=0, Stdout=0)
     hdr = readhdr(img)
     _airmass = readkey3(hdr, 'AIRMASS')
     if not _airmass:
@@ -434,8 +434,8 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
         if verbose:
             print 'Infrared image : J ,H, K or Ks'
 
-        iraf.astcat(_doprint=0)
-        iraf.imcoords(_doprint=0)
+        iraf.astcat(_doprint=0, Stdout=0)
+        iraf.imcoords(_doprint=0, Stdout=0)
         iraf.noao.astcat.aregpars.rcrauni = ''
         iraf.noao.astcat.aregpars.rcdecuni = ''
         iraf.noao.astcat.catdb = ntt.__path__[
@@ -1490,8 +1490,8 @@ def querycatalogue(catalogue, img, method='iraf'):
     hdr = readhdr(img)
     _ra = readkey3(hdr, 'RA')
     _dec = readkey3(hdr, 'DEC')
-    iraf.imcoords(_doprint=0)
-    iraf.astcat(_doprint=0)
+    iraf.imcoords(_doprint=0, Stdout=0)
+    iraf.astcat(_doprint=0, Stdout=0)
     toforget = ['imcoords', 'astcat', 'tv']
     for t in toforget:
         try:
@@ -1655,11 +1655,11 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
     acoo1, apix1, am1 = catvec['coo'], catvec['pix'], catvec['mag']
 
     # catalogue
-    iraf.noao(_doprint=0)
-    iraf.imcoords(_doprint=0)
-    iraf.tv(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imcoords(_doprint=0, Stdout=0)
+    iraf.tv(_doprint=0, Stdout=0)
     iraf.tv.rimexam.backgrou = 'yes'
-    iraf.astcat(_doprint=0)
+    iraf.astcat(_doprint=0, Stdout=0)
     toforget = ['imcoords', 'astcat', 'tv']
     for t in toforget:
         try:
@@ -1782,7 +1782,7 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
     fwhm2 = []
     ell = []
     xref = []
-    iraf.tv(_doprint=0)
+    iraf.tv(_doprint=0, Stdout=0)
     iraf.tv.rimexam.backgrou = 'yes'
     vettoretran = []
     # print "LOGX:: xusno2_new: %(xusno2_new)s" % locals()

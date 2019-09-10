@@ -1,6 +1,5 @@
 def telluric_atmo(imgstd):
-    # print "LOGX:: Entering `telluric_atmo` method/function in %(__file__)s"
-    # % globals()
+
     import numpy as np
     import ntt
     from pyraf import iraf
@@ -8,11 +7,11 @@ def telluric_atmo(imgstd):
     try:        import pyfits
     except:     from astropy.io import fits as pyfits
 
-    iraf.images(_doprint=0)
-    iraf.noao(_doprint=0)
-    iraf.twodspec(_doprint=0)
-    iraf.longslit(_doprint=0)
-    iraf.onedspec(_doprint=0)
+    iraf.images(_doprint=0, Stdout=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.twodspec(_doprint=0, Stdout=0)
+    iraf.longslit(_doprint=0, Stdout=0)
+    iraf.onedspec(_doprint=0, Stdout=0)
     toforget = ['imfilter.gauss', 'specred.apall', 'longslit.identify', 'longslit.reidentify', 'specred.standard',
                 'onedspec.wspectext']
     for t in toforget:
@@ -35,7 +34,7 @@ def telluric_atmo(imgstd):
             np.array(xxstd) <= 7750), np.array(ffstd))
         ffh2o = np.compress((np.array(xxstd) >= 7100) & (
             np.array(xxstd) <= 7500), np.array(ffstd))
-    elif _grism in ['Gr11']:
+    elif _grism in ['Gr11', 'Gr18', 'Gr20']:
         llo2 = np.compress((np.array(xxstd) >= 6830) & (
             np.array(xxstd) <= 7100), np.array(xxstd))
         llh2o = np.compress((np.array(xxstd) >= 7100) & (
@@ -44,7 +43,7 @@ def telluric_atmo(imgstd):
             np.array(xxstd) <= 7100), np.array(ffstd))
         ffh2o = np.compress((np.array(xxstd) >= 7100) & (
             np.array(xxstd) <= 7500), np.array(ffstd))
-    if _grism in ['Gr13', 'Gr16', 'Gr11']:
+    if _grism in ['Gr13', 'Gr16', 'Gr11', 'Gr18', 'Gr20']:
         _skyfileh2o = 'direc$standard/ident/ATLAS_H2O.fits'
         _skyfileo2 = 'direc$standard/ident/ATLAS_O2.fits'
         atlas_smooto2 = '_atlas_smoot_o2.fits'
@@ -102,8 +101,6 @@ def telluric_atmo(imgstd):
 
 
 def fluxcalib2d(img2d, sensfun):  # flux calibrate 2d images
-    # print "LOGX:: Entering `fluxcalib2d` method/function in %(__file__)s" %
-    # globals()
 
     try:        import pyfits
     except:     from astropy.io import fits as pyfits
@@ -152,8 +149,7 @@ def fluxcalib2d(img2d, sensfun):  # flux calibrate 2d images
 
 
 def checkwavestd(imgex, _interactive):
-    # print "LOGX:: Entering `checkwavestd` method/function in %(__file__)s" %
-    # globals()
+
     import ntt
     import numpy as np
 
@@ -170,20 +166,27 @@ def checkwavestd(imgex, _interactive):
         answ = 'y'
     if answ in ['y', 'yes']:
         print '\n### check wavelength calibration with tellurich lines \n'
+	# sky
         _skyfile = ntt.__path__[0] + '/standard/ident/sky_new_0.fits'
         skyff = 1 - (pyfits.open(_skyfile)[0].data)
         crval1 = pyfits.open(_skyfile)[0].header.get('CRVAL1')
         cd1 = pyfits.open(_skyfile)[0].header.get('CD1_1')
         skyxx = np.arange(len(skyff))
         skyaa = crval1 + (skyxx) * cd1
+        
+	# object
         atmofile = ntt.efoscspec1Ddef.atmofile(imgex, 'atmo2_' + imgex)
         atmoff = 1 - (pyfits.open(atmofile)[0].data[0][0])
         crval1 = pyfits.open(atmofile)[0].header.get('CRVAL1')
         cd1 = pyfits.open(atmofile)[0].header.get('CD1_1')
         atmoxx = np.arange(len(atmoff))
         atmoaa = crval1 + (atmoxx) * cd1
-        shift = ntt.efoscspec2Ddef.checkwavelength_arc(
-            atmoaa, atmoff, skyaa, skyff, 6800, 7800)
+	if 'Gr18' in imgex.split('_'):
+	    shift = ntt.efoscspec2Ddef.checkwavelength_arc(
+                atmoaa, atmoff, skyaa, skyff, 5500, 6800)
+	else:
+	    shift = ntt.efoscspec2Ddef.checkwavelength_arc(
+                atmoaa, atmoff, skyaa, skyff, 6800, 7800)
     else:
         shift = 0
     zro = pyfits.open(imgex)[0].header.get('CRVAL1')
@@ -203,14 +206,13 @@ def checkwavestd(imgex, _interactive):
 # ###################################
 
 def atmofile(imgstd, imgout=''):
-    # print "LOGX:: Entering `atmofile` method/function in %(__file__)s" %
-    # globals()
+
     from pyraf import iraf
     import os
     import ntt
 
-    iraf.noao(_doprint=0)
-    iraf.onedspec(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.onedspec(_doprint=0, Stdout=0)
     iraf.set(direc=ntt.__path__[0] + '/')
     _cursor = 'direc$standard/ident/cursor_sky_0'
     if not imgout:
@@ -222,8 +224,7 @@ def atmofile(imgstd, imgout=''):
 
 
 def sensfunction(standardfile, _function, _order, _interactive):
-    # print "LOGX:: Entering `sensfunction` method/function in %(__file__)s" %
-    # globals()
+
     import re
     import os
     import sys
@@ -237,9 +238,9 @@ def sensfunction(standardfile, _function, _order, _interactive):
     import numpy as np
 
     MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.specred(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.specred(_doprint=0, Stdout=0)
     toforget = ['specred.scopy', 'specred.sensfunc', 'specred.standard']
     for t in toforget:
         iraf.unlearn(t)
@@ -299,8 +300,7 @@ def sensfunction(standardfile, _function, _order, _interactive):
 
 def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststandard, listatmo0, _automaticex,
                     _verbose=False):
-    # print "LOGX:: Entering `efoscspec1Dredu` method/function in
-    # %(__file__)s" % globals()
+
     import ntt
 
     try:        import pyfits
@@ -360,10 +360,10 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
             objectlist[_type][_grism, _filter, _slit].append(img)
 
     from pyraf import iraf
-    iraf.noao(_doprint=0)
-    iraf.imred(_doprint=0)
-    iraf.specred(_doprint=0)
-    iraf.imutil(_doprint=0)
+    iraf.noao(_doprint=0, Stdout=0)
+    iraf.imred(_doprint=0, Stdout=0)
+    iraf.specred(_doprint=0, Stdout=0)
+    iraf.imutil(_doprint=0, Stdout=0)
     toforget = ['imutil.imcopy', 'specred.sarith', 'specred.standard']
     for t in toforget:
         iraf.unlearn(t)
@@ -371,7 +371,6 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
     iraf.specred.dispaxi = 2
     iraf.set(direc=ntt.__path__[0] + '/')
     sens = {}
-    print objectlist
     outputfile = []
     if 'obj' in objectlist.keys():
         tpe = 'obj'
@@ -615,7 +614,7 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
                 imgasci = re.sub('.fits', '.asci', imgin)
 
                 ntt.util.delete(imgasci)
-                iraf.onedspec(_doprint=0)
+                iraf.onedspec(_doprint=0, Stdout=0)
                 iraf.onedspec.wspectext(
                     imgin + '[*,1,1]', imgasci, header='no')
                 if imgasci not in outputfile:
@@ -664,8 +663,7 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
 ##########################################################################
 
 def correctsens(img1, img2):
-    # print "LOGX:: Entering `correctsens` method/function in %(__file__)s" %
-    # globals()
+
     import os
     import re
 

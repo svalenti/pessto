@@ -118,4 +118,9 @@ long keyword cut correctly
 
 
 
+v2.4.0, 20190909 -- changes:
+
+- Grisms 18 and 20 added (Free/1.0" only)
+- Grism 11, Free/1.5": idarc and arc files updated
+- Grism 16, OG530/1.5": idarc and arc files updated
 
