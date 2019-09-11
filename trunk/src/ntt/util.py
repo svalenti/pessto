@@ -1155,7 +1155,8 @@ def spectraresolution2(img0, ww=25):
     ff.write(cursor)
     ff.close()
     from pyraf import iraf
-
+    from iraf import onedspec
+    
     aaa = iraf.noao.onedspec.bplot(
         'new3.fits', cursor='_cursor', spec2='', new_ima='', overwri='yes', Stdout=1)
     fw = []
