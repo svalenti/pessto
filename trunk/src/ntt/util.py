@@ -1083,6 +1083,7 @@ def spectraresolution(img):
 
     risoluzioni['efosc']['Free', 'Gr18', 'slit1.0'] = 8.19  # taken from Table 5 of the Manual.
     risoluzioni['efosc']['Free', 'Gr20', 'slit1.0'] = 2.0  # taken from Table 5 of the Manual, although this is actually for the 0.5" slit.
+    risoluzioni['efosc']['GG495', 'Gr20', 'slit1.0'] = 2.0  # taken to be the same as Gr20 without filter (Free), for no particular reason.
 
     risoluzioni['efosc']['OG530', 'Gr16', 'slit1.5'] = 22.
     risoluzioni['efosc']['OG530', 'Gr16', 'slit1.0'] = 16.

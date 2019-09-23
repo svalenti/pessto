@@ -430,7 +430,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
         elif setup[0] == 'Gr16' and setup[1] == 'OG530':
             _order = 70
             _sample = '*'
-        elif setup[0] in ['Gr11', 'Gr18', 'Gr20'] and setup[1] == 'Free':
+        elif setup[0] in ['Gr11', 'Gr18', 'Gr20']:
             _order = 35
             _sample = '*'
         elif setup[0] == 'Gr13' and setup[1] == 'Free':
