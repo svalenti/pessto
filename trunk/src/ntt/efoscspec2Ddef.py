@@ -185,7 +185,7 @@ def imreplace_region(img):
     elif _grism in ['Gr18', 'Gr20']:
         iraf.imutil.imreplace(
             img + '[*,1:50]', value=1, lower='INDEF', upper='INDEF')
-        print '### replace pixel 1:300 with 1 (y axes)'
+        print '### replace pixel 1:50 with 1 (y axes)'
     else:
         print '### no replace '
 
@@ -418,9 +418,13 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
             elif setup[1] == 'OG530':
                 _trimsec0 = '[100:950,300:1015]'
         elif _grism0 in ['Gr11', 'Gr18', 'Gr20']:
-            _trimsec0 = '[100:950,5:1015]'
+            if setup[1] == 'GG495':
+                _trimsec0 = '[100:710,40:1015]'
+            else:
+                _trimsec0 = '[100:950,5:1015]'
         else:
             _trimsec0 = '[100:950,5:1015]'
+
         if setup[0] == 'Gr16' and setup[1] == 'Free':
             _order = 20
             _sample = '*'
@@ -430,7 +434,10 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
         elif setup[0] == 'Gr16' and setup[1] == 'OG530':
             _order = 70
             _sample = '*'
-        elif setup[0] in ['Gr11', 'Gr18', 'Gr20']:
+        elif setup[0] in ['Gr11', 'Gr18', 'Gr20'] and setup[1] == 'Free':
+            _order = 35
+            _sample = '*'
+        elif setup[0] == 'Gr20' and setup[1] == 'GG495':
             _order = 35
             _sample = '*'
         elif setup[0] == 'Gr13' and setup[1] == 'Free':
