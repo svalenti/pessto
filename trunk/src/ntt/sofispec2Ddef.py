@@ -143,7 +143,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
 
     now = datetime.datetime.now()
     datenow = now.strftime('20%y%m%d%H%M')
-    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
+    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 1, 1)).days
     # if they are not sorted the fieldlist dict could crash
     files = ntt.sofiphotredudef.sortbyJD(files)
     outputlist = []

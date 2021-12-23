@@ -28,7 +28,8 @@ def aiuto(verbose):  # ##################                ####################
     righe = glob.glob(direc + 'PESSTO*')
     print("#" * 30 + "       PESSTO      " + "#" * 30)
     for r in righe:
-        prog = string.split(r, '/')[-1]
+        #prog = string.split(r, '/')[-1]
+        prog = r.split('/')[-1]
         print(prog, '-h  (show the help message)')
     print("#" * 60 + "   @stefano")
 

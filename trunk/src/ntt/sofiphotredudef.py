@@ -722,7 +722,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
         iraf.ccdred.verbose = 'no'
     now = datetime.datetime.now()
     datenow = now.strftime('20%y%m%d%H%M')
-    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
+    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 1, 1)).days
     imglist = ntt.sofiphotredudef.sortbyJD(imglist)
 
     objects = {}
@@ -813,8 +813,8 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     print('\n### next object')
                     for image in fieldlist[field][_set]:
                         try:
-                            print('### ', image, str(readkey3(readhdr(image), 'xcum')), str()
-                                readkey3(readhdr(image), 'ycum'))
+                            print('### ', image, str(readkey3(readhdr(image), 'xcum')), str(
+                                readkey3(readhdr(image), 'ycum')))
                         except:
                             print('### ', image, ' dither  not define')
                     answ = raw_input('\n### do you want to reduce this object ' + str(field) + ' and filter ' + str(
@@ -1177,7 +1177,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                         outputobject.append(nameobjnew)
                     if nameobjnew1 not in outputobject:
                         outputobject.append(nameobjnew1)
-                except Exception, e:
+                except Exception as e:
                     print(e)
 
                 try:
@@ -1194,7 +1194,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     ntt.util.updateheader(
                         nameobjnew, 0, {'ASTROMET': [astrostring, 'rmsx rmsy nstars']})
                     print('\n### check astrometry: fine \n### rmsx rmsy nstars: ' + astrostring)
-                except Exception, e:
+                except Exception as e:
                     print(e)
                     rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, mbkg3 = '', '', '', '', '', '', '', '', ''
                     print('\n### problem with astrometry, do you have network ? ')

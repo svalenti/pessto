@@ -167,7 +167,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
     dv = ntt.dvex()
     now = datetime.datetime.now()
     datenow = now.strftime('20%y%m%d%H%M')
-    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
+    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 1, 1)).days
     scal = np.pi / 180.
     hdr0 = ntt.util.readhdr(re.sub('\n', '', files[0]))
     _gain = ntt.util.readkey3(hdr0, 'gain')

@@ -47,7 +47,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
     #      starttime=time.time()
     now = datetime.datetime.now()
     datenow = now.strftime('20%y%m%d%H%M')
-    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
+    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 1, 1)).days
     outputfile = []
     reduceddata = rangedata(imglist)
     img = re.sub('\n', '', imglist[0])
@@ -488,7 +488,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                     ntt.util.updateheader(nameout, 0, {
                         'LACOSMIC': [True, 'TRUE if Laplacian cosmic ray rejection has been applied to the image']})
                     print('\n### cosmic  .....  removed ')
-                except Exception, e:
+                except Exception as e:
                     print(e)
             else:
                 ntt.util.updateheader(nameout, 0, {
@@ -517,7 +517,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                 ntt.util.updateheader(
                     nameout, 0, {'ASTROMET': [astrostring, 'rmsx rmsy nstars']})
                 print('\n### check astrometry: fine \n### rmsx rmsy nstars: ' + astrostring)
-            except Exception, e:
+            except Exception as e:
                 print(e)
                 rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, magsat3 = '', '', '', '', '', '', '', '', ''
                 print('\n### problem with astrometry, do you have network ? ')
@@ -894,7 +894,7 @@ def fringing2(img, fmask, _interactive, _verbose=False):
     from ntt.efoscphotredudef import searchfringe
     import datetime
 
-    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
+    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 1, 1)).days
     import ntt
     import os
     import string

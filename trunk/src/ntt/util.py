@@ -1260,7 +1260,7 @@ def extractspectrum(img, dv, _ext_trace, _dispersionline, _interactive, _type, a
     import datetime
     import numpy as np
 
-    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
+    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 1, 1)).days
     from pyraf import iraf
 
     iraf.noao(_doprint=0, Stdout=0)

@@ -245,7 +245,7 @@ if __name__ == "__main__":
                         str(rmsy3) + ' ' + str(num3)
                     ntt.util.updateheader(
                         img, 0, {'ASTROMET': [astrostring, 'rmsx rmsy nstars']})
-                except Exception, e:
+                except Exception as e:
                     print(e)
                     rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, mbkg3 = \
                         '', '', '', '', '', '', '', '', ''

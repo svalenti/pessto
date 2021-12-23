@@ -244,7 +244,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
 
     now = datetime.datetime.now()
     datenow = now.strftime('20%y%m%d%H%M')
-    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
+    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 1, 1)).days
     outputlist = []
     _gain = ntt.util.readkey3(ntt.util.readhdr(
         re.sub('\n', '', files[0])), 'gain')

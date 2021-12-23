@@ -181,11 +181,12 @@ def checkwavestd(imgex, _interactive):
         cd1 = pyfits.open(atmofile)[0].header.get('CD1_1')
         atmoxx = np.arange(len(atmoff))
         atmoaa = crval1 + (atmoxx) * cd1
-	if 'Gr18' in imgex.split('_'):
-	    shift = ntt.efoscspec2Ddef.checkwavelength_arc(
+
+        if 'Gr18' in imgex.split('_'):
+	        shift = ntt.efoscspec2Ddef.checkwavelength_arc(
                 atmoaa, atmoff, skyaa, skyff, 5500, 6800)  # for plotting purposes only.
-	else:
-	    shift = ntt.efoscspec2Ddef.checkwavelength_arc(
+        else:
+	        shift = ntt.efoscspec2Ddef.checkwavelength_arc(
                 atmoaa, atmoff, skyaa, skyff, 6800, 7800)
     else:
         shift = 0
@@ -237,7 +238,7 @@ def sensfunction(standardfile, _function, _order, _interactive):
     from pyraf import iraf
     import numpy as np
 
-    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
+    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 1, 1)).days
     iraf.noao(_doprint=0, Stdout=0)
     iraf.imred(_doprint=0, Stdout=0)
     iraf.specred(_doprint=0, Stdout=0)
@@ -320,7 +321,7 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
 
     now = datetime.datetime.now()
     datenow = now.strftime('20%y%m%d%H%M')
-    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
+    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 1, 1)).days
     dv = ntt.dvex()
     scal = np.pi / 180.
     _gain = ntt.util.readkey3(ntt.util.readhdr(

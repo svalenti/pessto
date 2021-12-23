@@ -20,7 +20,7 @@ def makeflat(lista):
     for t in toforget:
         iraf.unlearn(t)
     import datetime
-    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
+    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 1, 1)).days
     _date = readkey3(readhdr(lista[0]), 'date-night')
     _filter = readkey3(readhdr(lista[0]), 'filter')
     output = name_duplicate(
@@ -101,7 +101,7 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
     from ntt.util import readhdr, readkey3, delete, display_image, defsex,  name_duplicate, correctcard
     from numpy import compress, array, argmax, argmin, min, argsort, float32
     import datetime
-    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 01, 01)).days
+    MJDtoday = 55927 + (datetime.date.today() - datetime.date(2012, 1, 1)).days
     _date = readkey3(readhdr(lista[0]), 'date-night')
     _filter = readkey3(readhdr(lista[0]), 'filter')
     illum_frame = name_duplicate(

@@ -111,11 +111,12 @@ works fine.  To execute the tests, run:
 
 ## Anaconda environment and dependencies
 
-We will create an anaconda environment with python 3 and the necessary dependencies taken from the stsci/astroconda channel:
+We will create an anaconda environment with python 3, the necessary dependencies taken from the stsci/astroconda channel and the SWarp package:
 
 ```code
 conda config --add channels http://ssb.stsci.edu/astroconda
 conda create -n pessto python=3.7 stsci  # be patient, this takes some time to finish as well
+conda install -c conda-forge astromatic-swarp
 ```
 
 ### PyRAF
