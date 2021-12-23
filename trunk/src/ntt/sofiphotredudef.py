@@ -93,9 +93,9 @@ def pesstocombine(imglist, _combine, _rejection, outputimage):
             x3 = x + (float(cumoffsetx) - float(ref_cumoffsetx0)) + float(xoff)
             y3 = y + (float(cumoffsety) - float(ref_cumoffsety0)) + float(yoff)
             if len(xdist) <= 5:
-                print '\n### Warning: less than 5 stars, check  ? !!! \n '
-            print '### measure offsets between frames ', str(xoff), str(yoff), str(
-                round(cumoffsetx + float(xoff), 3)), str(round(cumoffsety + float(yoff), 3))
+                print('\n### Warning: less than 5 stars, check  ? !!! \n ')
+            print('### measure offsets between frames ', str(xoff), str(yoff), str(
+                round(cumoffsetx + float(xoff), 3)), str(round(cumoffsety + float(yoff), 3)))
             if ntt.util.readkey3(hdr, 'instrume') == 'sofi':
                 ntt.util.updateheader(img, 0, {'HIERARCH ESO SEQ CUMOFFSETX': [
                                       round(cumoffsetx + float(xoff), 3), '']})
@@ -250,8 +250,8 @@ def registersofi(imglist):
             x3 = x + (float(cumoffsetx) - float(ref_cumoffsetx0)) + float(xoff)
             y3 = y + (float(cumoffsety) - float(ref_cumoffsety0)) + float(yoff)
             if len(xdist) >= 5:
-                print '### measure offsets between frames ', str(xoff), str(yoff), str(
-                    round(cumoffsetx + float(xoff), 3)), str(round(cumoffsety + float(yoff), 3))
+                print('### measure offsets between frames ', str(xoff), str(yoff), str(
+                    round(cumoffsetx + float(xoff), 3)), str(round(cumoffsety + float(yoff), 3)))
                 ntt.util.updateheader(img, 0,
                                       {'CRPIX1': [readkey3(hdr, 'CRPIX1') + round(cumoffsetx + float(xoff), 3), '']})
                 ntt.util.updateheader(img, 0,
@@ -276,9 +276,9 @@ def pesstocombine2(imglist, _combine, outputimage):
     from pyraf import iraf
     from numpy import min, max, argmin, float32
 
-    try:        
+    try:
         from astropy.io import fits as pyfits
-    except:     
+    except:
         import pyfits
 
     import string, os, sys, re
@@ -364,15 +364,15 @@ def sortbyJD(lista):
     # print "LOGX:: Entering `sortbyJD` method/function in %(__file__)s" %
     # globals()
 
-    try:        
+    try:
         from astropy.io import fits as pyfits
-    except:     
+    except:
         import pyfits
 
     from numpy import array, argsort
 
     JDlist = []
-    for img in lista:  
+    for img in lista:
         JDlist.append(pyfits.open(img)[0].header.get('MJD-OBS'))
 
     lista = array(lista)
@@ -455,9 +455,9 @@ def skysub(lista, _ron, _gain, _interactive, regi='crreject'):
     import ntt
     from ntt.util import readkey3, readhdr
     from pyraf import iraf
-    try:        
+    try:
         from astropy.io import fits as pyfits
-    except:     
+    except:
         import pyfits
 
     from numpy import mean
@@ -581,9 +581,9 @@ def skysuboff(listaon, listaoff, _ron, _gain, _interactive, namesky, regi='crrej
     import ntt
     from ntt.util import readkey3, readhdr
     from pyraf import iraf
-    try:       
+    try:
         from astropy.io import fits as pyfits
-    except:    
+    except:
         import pyfits
 
     from numpy import mean
@@ -789,16 +789,16 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                 flat[_set] = ntt.util.searchflat(objects[_set][0], '')[0]
 
     if _verbose:
-        print flat
-        print listill
+        print(flat)
+        print(listill)
 
     ill = {}
     if _doill and _doflat:
         for _set in flat:
             if listill:
                 for imgill in listill:
-                    print flat[_set], _set
-                    print imgill
+                    print(flat[_set], _set)
+                    print(imgill)
                     if string.split(flat[_set], '/')[-1] in readkey3(readhdr(imgill),
                                                                      'MKILLUM'):  # popen(imgill)[0].header.get('MKILLUM'):
                         ill[_set] = imgill
@@ -810,13 +810,13 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
         for field in fieldlist:
             if _set in fieldlist[field]:
                 if _interactive:
-                    print '\n### next object'
+                    print('\n### next object')
                     for image in fieldlist[field][_set]:
                         try:
-                            print '### ', image, str(readkey3(readhdr(image), 'xcum')), str(
+                            print('### ', image, str(readkey3(readhdr(image), 'xcum')), str()
                                 readkey3(readhdr(image), 'ycum'))
                         except:
-                            print '### ', image, ' dither  not define'
+                            print('### ', image, ' dither  not define')
                     answ = raw_input('\n### do you want to reduce this object ' + str(field) + ' and filter ' + str(
                         _set) + ' [[y],n] ? ')
                     if not answ:
@@ -871,7 +871,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                             correctcard('C' + nameobjnew)
                             ntt.util.updateheader(
                                 'C' + nameobjnew, 0, {'CROSSTAL': ['True', '']})
-                            print '\n### image corrected for cross talk   ...... done '
+                            print('\n### image corrected for cross talk   ...... done ')
                         else:
                             iraf.images.imutil.imcopy(
                                 image, 'C' + nameobjnew, verbose='no')
@@ -880,12 +880,12 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                                 'C' + nameobjnew, 0, {'CROSSTAL': ['False', '']})
                         if _doill and _illum:
                             _illumco = 'yes'
-                            print '### image corrected for illumination correction   ...... done '
+                            print('### image corrected for illumination correction   ...... done ')
                         else:
                             _illumco = 'no'
                         if _doflat and _masterflat:
                             _flatcor = 'yes'
-                            print '### image corrected for flat field   ...... done '
+                            print('### image corrected for flat field   ...... done ')
                         else:
                             _flatcor = 'no'
                         ntt.util.delete(nameobjnew)
@@ -894,8 +894,8 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                                                        illumco=_illumco, trimsec='[1:1024,1:1007]', biassec='',
                                                        flat=_masterflat, illum=_illum, Stdout=1)
                         correctcard(nameobjnew)
-                        print '### input= ' + str(image)
-                        print '### output= ' + str(nameobjnew)
+                        print('### input= ' + str(image))
+                        print('### output= ' + str(nameobjnew))
                         if nameobjnew not in outputobject:
                             outputobject.append(nameobjnew)
                         hdrn = readhdr(nameobjnew)
@@ -928,11 +928,11 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                         fieldlist2[field][_set].append(nameobjnew)
     for i in fieldlist2:
         for fil in fieldlist2[i]:
-            print '\n### next set of images ' + str(i), str(fil)
+            print('\n### next set of images ' + str(i), str(fil))
             lista = fieldlist2[i][fil]
             lista = ntt.sofiphotredudef.sortbyJD(lista)
             if len(lista) <= 3:
-                print '\n### warning: less than 4 images'
+                print('\n### warning: less than 4 images')
                 answ = raw_input('Are you sure you want to go on ? [[y]/n]')
                 if not answ:
                     answ = 'y'
@@ -956,9 +956,9 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                 listaout = ''
             if max(max(array(_xcum)), max(array(_ycum))) <= 400 and max(max(array(_xcum)), max(array(_ycum))) >= 1:
                 ncombine = 1  # number to count all source raw images that are used
-                print '\n### Dithering on source'
+                print('\n### Dithering on source')
                 if _interactive:
-                    print '### ', str(_xcum), str(_ycum)
+                    print('### ', str(_xcum), str(_ycum))
                     try:
                         from pylab import plot, ion, show, clf
 
@@ -979,7 +979,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                                 num = int(num)
                             else:
                                 asxx = 'yes'
-                                print '\n### Warning: value not valid, try again.....\n'
+                                print('\n### Warning: value not valid, try again.....\n')
                 else:
                     num = len(lista)
                     if num in [8, 12, 16, 20, 24, 28, 32, 36, 40]:
@@ -987,7 +987,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                 if len(lista) > num and readkey3(readhdr(lista[0]), 'nexp') % num == 0 and len(lista) % num == 0:
                     # popen(lista[0])[0].header.get('nexp') % num == 0 and
                     # len(lista) % num == 0:
-                    print '\n### split lista in sample of ' + str(num) + ' images'
+                    print('\n### split lista in sample of ' + str(num) + ' images')
                     ii = 0
                     listatmp, listaout = [], []
                     skyfile = []
@@ -1006,11 +1006,11 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                         lista, _ron, _gain, _interactive, _regi)
             elif max(max(array(_xcum)), max(array(_ycum))) <= 1:
                 listaout = ''
-                print '\n### images without dithering, probably these are aquisition images.'
+                print('\n### images without dithering, probably these are aquisition images.')
             else:
                 # changed for DR2
                 ncombine = 1  # number to count all images that are used ON source
-                print '\n## Warning: ON OFF'
+                print('\n## Warning: ON OFF')
                 listaon = []
                 listaoff = []
                 _xcum = []
@@ -1018,7 +1018,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                 for img in lista:
                     _xcum.append(readkey3(readhdr(img), 'xcum'))
                     _ycum.append(readkey3(readhdr(img), 'ycum'))
-                    print '### ', str(img), str(_xcum[-1]), str(_ycum[-1])
+                    print('### ', str(img), str(_xcum[-1]), str(_ycum[-1]))
                     if _interactive:
                         _z1, _z2, goon = ntt.util.display_image(
                             img, 1, '', '', False)
@@ -1040,7 +1040,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                             listaoff.append(img)
                         else:
                             listaon.append(img)
-                print '### image ON \n', listaon, '\n image OFF \n', listaoff
+                print('### image ON \n', listaon, '\n image OFF \n', listaoff)
                 if _interactive:
                     try:
                         from pylab import plot, ion, show, clf
@@ -1063,7 +1063,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                                 num = int(num)
                             else:
                                 asxx = 'yes'
-                                print '\n### Warning: value not valid, try again.....\n'
+                                print('\n### Warning: value not valid, try again.....\n')
                 else:
                     num = len(listaon)
                 hdron = readhdr(listaon[0])
@@ -1101,38 +1101,38 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     listaout, skyfile = ntt.sofiphotredudef.skysuboff(listaon, listaoff, _ron, _gain, _interactive,
                                                                       namesky, _regi)
                 else:
-                    print '\n### not enough images to do ON/OFF reduction'
-                    print '\n### select manually the images on and off to use '
+                    print('\n### not enough images to do ON/OFF reduction')
+                    print('\n### select manually the images on and off to use ')
                     listaout = []
                     skyfile = []
                     goon = raw_input('stop this step ? [n/y]')
                     while goon not in ['yes', 'YES', 'Y', 'y']:
-                        print 'liston'
+                        print('liston')
                         kk = 0
                         for gg in listaon:
-                            print gg, kk
+                            print(gg, kk)
                             kk = kk + 1
                         kk = 0
-                        print 'listoff'
+                        print('listoff')
                         for gg in listaoff:
-                            print gg, kk
+                            print(gg, kk)
                             kk = kk + 1
 
                         ddd = raw_input('select list ON [ 0,1,2,3 ] ')
                         listaon1 = []
                         for ii in string.split(ddd, ','):
                             listaon1.append(listaon[int(ii)])
-                        print listaon1
+                        print(listaon1)
 
                         ddd1 = raw_input('select list OFF [ 0,1,2 ] ')
                         listaoff1 = []
                         for ii in string.split(ddd1, ','):
                             listaoff1.append(listaoff[int(ii)])
-                        print listaoff1
+                        print(listaoff1)
 
                         listaout0, skyfile0 = ntt.sofiphotredudef.skysuboff(listaon1, listaoff1, _ron, _gain,
                                                                             _interactive, namesky, _regi)
-                        print listaout0, listaout
+                        print(listaout0, listaout)
                         listaout = listaout + listaout0
                         skyfile = skyfile + skyfile0
 
@@ -1178,7 +1178,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     if nameobjnew1 not in outputobject:
                         outputobject.append(nameobjnew1)
                 except Exception, e:
-                    print e
+                    print(e)
 
                 try:
                     # print "LOGX:: running sextractor\n"
@@ -1193,11 +1193,11 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                         str(rmsy3) + ' ' + str(num3)
                     ntt.util.updateheader(
                         nameobjnew, 0, {'ASTROMET': [astrostring, 'rmsx rmsy nstars']})
-                    print '\n### check astrometry: fine \n### rmsx rmsy nstars: ' + astrostring
+                    print('\n### check astrometry: fine \n### rmsx rmsy nstars: ' + astrostring)
                 except Exception, e:
-                    print e
+                    print(e)
                     rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, mbkg3 = '', '', '', '', '', '', '', '', ''
-                    print '\n### problem with astrometry, do you have network ? '
+                    print('\n### problem with astrometry, do you have network ? ')
                 # print "LOGX:: PSF_FWHM = %(fwhmgess)s\n" % locals()
                 if fwhmgess and fwhmgess < 99:
                     # print "LOGX:: PSF_FWHM < 99\n"
@@ -1210,7 +1210,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                               'CSYER1': [rasys3, 'Systematic error in  (RA_m - Ra_ref)'],
                               'CSYER2': [decsys3, 'Systematic error in (DEC_m - DEC_ref)']}
                     ntt.util.updateheader(nameobjnew, 0, hedvec)
-                    print nameobjnew
+                    print(nameobjnew)
                     result = ntt.efoscastrodef.zeropoint(
                         nameobjnew, '2mass', method, False, False)
                     if result:
@@ -1218,11 +1218,11 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                             if re.sub('.fits', '.ph', nameobjnew) not in outputobject:
                                 outputobject.append(
                                     re.sub('.fits', '.ph', nameobjnew))
-                        print '\n### zeropoint ..... done'
+                        print('\n### zeropoint ..... done')
                         for ll in result:
                             valore = '%3.3s %6.6s %6.6s' % (
                                 str(ll), str(result[ll][1]), str(result[ll][0]))
-                            print '### ', valore
+                            print('### ', valore)
                             ntt.util.updateheader(
                                 nameobjnew, 0, {'zp' + ll: [str(valore), '']})
                         valore = ''
@@ -1264,7 +1264,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                 else:
                     ntt.util.updateheader(nameobjnew, 0,
                                           {'ABMAGSAT': [9999., 'Saturation limit for point sources (AB mags)']})
-                print nameobjnew
+                print(nameobjnew)
                 maglim = ntt.util.limmag(nameobjnew)
                 if maglim:
                     ntt.util.updateheader(nameobjnew, 0,
@@ -1274,11 +1274,11 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                                           {'ABMAGLIM': [9999., '5-sigma limiting AB magnitude for point sources']})
 
     reduceddata = ntt.util.rangedata(outputobject)
-    print '\n### adding keiwords for phase 3 ....... '
+    print('\n### adding keiwords for phase 3 ....... ')
     f = open('logfile_phot_' + str(reduceddata) +
              '_' + str(datenow) + '.raw.list', 'w')
     for img in outputobject:
-        print img
+        print(img)
         if str(img)[-5:] == '.fits':
             hdr = readhdr(img)
             # cancel pc matrix
@@ -1312,7 +1312,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
             try:
                 ntt.util.phase3header(img)  # phase 3 definitions
             except:
-                print '\n### problems with phase 3 definitions'
+                print('\n### problems with phase 3 definitions')
             f.write(readkey3(hdr, 'arcfile') + '\n')
             ntt.util.updateheader(img, 0, {'quality': ['Final', 'final or rapid'],
                                            'BUNIT': ['ADU', 'Physical unit of array values']})

@@ -55,7 +55,7 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
         _tech = ntt.util.readkey3(hdr, 'tech')
         if _tech != 'SPECTRUM':
             sys.exit('error: ' + str(img) + ' is not a spectrum ')
-        print '\n####  image name = ' + img + '\n'
+        print('\n####  image name = ' + img + '\n')
         _grism0 = readkey3(hdr, 'grism')
         _filter0 = readkey3(hdr, 'filter')
         _slit0 = readkey3(hdr, 'slit')
@@ -104,10 +104,10 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
             # print cosmic rays rejection
             ntt.cosmics.lacos(img, output='', gain=_gain, readn=_ron, xorder=9, yorder=9, sigclip=4.5, sigfrac=0.5,
                               objlim=1, verbose=True, interactive=False)
-            print '\n### cosmic rays rejections ........ done '
+            print('\n### cosmic rays rejections ........ done ')
 
         if not arcfile:
-            print '\n### warning no arcfile \n exit '
+            print('\n### warning no arcfile \n exit ')
         else:
             arcref = ntt.util.searcharc(img, '')[0]
             if arcfile[0] == '/':
@@ -144,7 +144,7 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
             _skyfile = ntt.__path__[
                 0] + '/standard/ident/sky_' + setup[0] + '_' + setup[1] + '.fits'
             shift = ntt.efoscspec2Ddef.skyfrom2d(img, _skyfile)
-            print '\n###     check in wavelengh performed ...... spectrum shifted of  ' + str(shift) + ' Angstrom \n'
+            print('\n###     check in wavelengh performed ...... spectrum shifted of  ' + str(shift) + ' Angstrom \n')
             zro = pyfits.open(img)[0].header.get('CRVAL2')
             ntt.util.updateheader(img, 0, {'CRVAL2': [zro + int(shift), '']})
             std, rastd, decstd, magstd = ntt.util.readstandard(
@@ -163,7 +163,7 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
                     img, 0, {'magstd': [float(magstd[np.argmin(dd)]), '']})
             else:
                 _type = 'obj'
-            print '\n###      EXTRACTION USING IRAF TASK APALL \n'
+            print('\n###      EXTRACTION USING IRAF TASK APALL \n')
             result = []
             if _type == 'obj':
                 imgex = ntt.util.extractspectrum(

@@ -25,9 +25,9 @@ def vizq(_ra, _dec, catalogue, radius):
                 ' -c.geom=b -oc.form=h -sort=_RA*-c.eq -out.add=_RAJ2000,_DEJ2000 -out.max=10000 -out=' +\
                 cat[catalogue][1] + ' -out=' + cat[catalogue][2] + ''
 
-    print vizcommand
+    print(vizcommand)
     a = os.popen( vizcommand ).read()
-                
+
     aa = a.split('\n')
     bb = []
     for i in aa:
@@ -67,16 +67,16 @@ def vizq2(_ra, _dec, catalogue, radius):
                  ' -c.ra=' + str(_ra) + ' -c.dec=' + str(_dec) + ' -c.eq=J2000 -c.rm=' + str(radius) + \
                  ' -c.geom=b -oc.form=h -sort=_RA*-c.eq -out.add=_RAJ2000,_DEJ2000 -out.max=10000 -out=' + \
                  cat[catalogue][1] + ' -out=' + cat[catalogue][2] + '').read()
-    print 'vizquery -mime=tsv  -site=' + _site + ' -source=' + cat[catalogue][0] + \
+    print('vizquery -mime=tsv  -site=' + _site + ' -source=' + cat[catalogue][0] + \
           ' -c.ra=' + str(_ra) + ' -c.dec=' + str(_dec) + ' -c.eq=J2000 -c.rm=' + str(radius) + \
           ' -c.geom=b -oc.form=h -sort=_RA*-c.eq -out.add=_RAJ2000,_DEJ2000 -out.max=10000 -out=' + \
-          cat[catalogue][1] + ' -out=' + cat[catalogue][2] + ''
-    
+          cat[catalogue][1] + ' -out=' + cat[catalogue][2] + '')
+
     aa = a.split('\n')
-    
+
     bb = []
     for i in aa:
-        if i and i[0] != '#':   
+        if i and i[0] != '#':
             bb.append(i)
     _ra, _dec, _name, _mag = [], [], [], []
     for ii in bb[3:]:
@@ -89,7 +89,7 @@ def vizq2(_ra, _dec, catalogue, radius):
 
     dictionary = {'ra': _ra, 'dec': _dec, 'id': _name}
     sss = string.split(cat[catalogue][2], ',')
-    for ii in sss: 
+    for ii in sss:
         dictionary[ii] = []
     for ii in bb[3:]:
       if ii:
@@ -99,7 +99,7 @@ def vizq2(_ra, _dec, catalogue, radius):
                 try:
                     dictionary[sss[gg]].append(float(aa[3 + gg]))
                 except Exception as e:
-                    print e
+                    print(e)
                     dictionary[sss[gg]].append(float(9999))
             else:
                 dictionary[sss[gg]].append(str(aa[3 + gg]))
@@ -269,7 +269,7 @@ def efoscastroloop(imglist, catalogue, _interactive, number1, number2, number3, 
             sexvec = ntt.efoscastrodef.sextractor(img)
         ###################
         if _guess:
-            print 'guess astrometry before starting '
+            print('guess astrometry before starting ')
             ntt.efoscastrodef.wcsstart(img, _CRPIX1, _CRPIX2)
         ss = datetime.datetime.now()
         time.sleep(1)
@@ -320,7 +320,7 @@ def efoscastroloop(imglist, catalogue, _interactive, number1, number2, number3, 
         else:
             mbkg3 = readkey3(hdr, 'MBKG')
         if fwhmgess3:
-            print fwhmgess3
+            print(fwhmgess3)
             ###################################################################
             # change saturation mag    2014-05-18
             ###################################################################
@@ -332,7 +332,7 @@ def efoscastroloop(imglist, catalogue, _interactive, number1, number2, number3, 
                     (math.pi / (4 * math.log(2.))) * (32000. - float(mbkg3)) * ((float(fwhmgess3) / 0.288) ** 2))
         else:
             magsat = 9999
-    print rmsx3, rmsy3, num3, fwhmgess3, ellgess3, fwhmgessime, rasys3, decsys3, magsat
+    print(rmsx3, rmsy3, num3, fwhmgess3, ellgess3, fwhmgessime, rasys3, decsys3, magsat)
     if catalogue == '2mass':
         rasys3, decsys3 = 0.0000278, 0.0000278
     elif catalogue in ['usnoa2', 'usnob1']:
@@ -402,7 +402,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
     hdr = readhdr(img)
     _airmass = readkey3(hdr, 'AIRMASS')
     if not _airmass:
-        print '\n### warning: airmass at starting exposure'
+        print('\n### warning: airmass at starting exposure')
         _airmass = readkey3(hdr, 'airmass')
     _exptime = readkey3(hdr, 'exptime')
     _filter = readkey3(hdr, 'filter')
@@ -432,7 +432,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
         colors = {'J': ['JH'], 'H': ['JH'], 'K': ['HK']}
 
         if verbose:
-            print 'Infrared image : J ,H, K or Ks'
+            print('Infrared image : J ,H, K or Ks')
 
         iraf.astcat(_doprint=0, Stdout=0)
         iraf.imcoords(_doprint=0, Stdout=0)
@@ -447,13 +447,13 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
         standardpix = {'ra': stdcoo['x'],
                        'dec': stdcoo['y'], 'id': stdcoo['id']}
         if verbose:
-            print stdcoo.keys()
-            print stdcoo['J']
-            print stdcoo['H']
-            print stdcoo['K']
-            print stdcoo['mag1']
-            print stdcoo['mag2']
-            print stdcoo['mag3']
+            print(stdcoo.keys())
+            print(stdcoo['J'])
+            print(stdcoo['H'])
+            print(stdcoo['K'])
+            print(stdcoo['mag1'])
+            print(stdcoo['mag2'])
+            print(stdcoo['mag3'])
 
     else:
         # check if it is landolt field
@@ -512,7 +512,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
                     standardpix = standardpixS
                     stdcoo = stdcooS
                     stdcoo = ntt.efoscastrodef.transformsloanlandolt(stdcoo)
-                    print '\n### transform sloan in landolt'
+                    print('\n### transform sloan in landolt')
                 else:
                     standardpix, stdcoo = {'ra': [9999], 'dec': [
                         9999], 'id': [1]}, {'ra': [9999], 'dec': [9999]}
@@ -531,7 +531,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
                     standardpix = standardpixL
                     stdcoo = stdcooL
                     stdcoo = ntt.efoscastrodef.transformlandoltsloan(stdcoo)
-                    print '\n### transform landolt to sloan'
+                    print('\n### transform landolt to sloan')
                 else:
                     standardpix, stdcoo = {'ra': [9999], 'dec': [
                         9999], 'id': [1]}, {'ra': [9999], 'dec': [9999]}
@@ -552,7 +552,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
                     'BV', 'VR'], 'R': ['VR', 'RI'], 'I': ['RI']}
                 standardpix = standardpixS
                 stdcoo = stdcooS
-                print '\n### transform sloan in landolt'
+                print('\n### transform sloan in landolt')
                 stdcoo = ntt.efoscastrodef.transformsloanlandolt(stdcoo)
             elif len(xstdS) >= 1 and len(xstdL) == 0 and _field == 'sloan':
                 _field = 'sloan'
@@ -566,7 +566,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
                 colors = {'i': ['ri'], 'r': ['ri'], 'g': ['gr'], 'z': ['iz']}
                 standardpix = standardpixL
                 stdcoo = stdcooL
-                print '\n### transform landolt in sloan'
+                print('\n### transform landolt in sloan')
                 stdcoo = ntt.efoscastrodef.transformlandoltsloan(stdcoo)
             else:
                 standardpix, stdcoo = {'ra': [9999], 'dec': [
@@ -582,7 +582,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
     if len(xstd0) > 1:  # go only if standard stars are in the field  ##########
         magstd0 = {}
         airmass0 = {}
-        print '\n###  standard field: ' + str(_field)
+        print('\n###  standard field: ' + str(_field))
         # sextractor on standard field
         namesex = ntt.util.defsex('default.sex')
         os.system('sex ' + img + ' -c ' + namesex + ' > _logsex')
@@ -625,7 +625,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
         ###################
         colorvec = colors[filters[_filter]]
         if _field == 'landolt':
-            print '\n###  landolt system'
+            print('\n###  landolt system')
             for _filtlandolt in 'UBVRI':
                 if _filtlandolt == filters[_filter]:
                     airmass0[_filtlandolt] = _airmass
@@ -672,7 +672,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
             fileph['iz'] = array(array(magstd0['i'], float) -
                                  array(magstd0['z'], float), str)
         elif _field == '2mass':
-            print '\n###  2mass system'
+            print('\n###  2mass system')
             for _filtlandolt in 'JHK':
                 if _filtlandolt == filters[_filter]:
                     airmass0[_filtlandolt] = _airmass
@@ -806,7 +806,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
             if len(colore) == 0:
                 b, a, RR = 9999, 9999, 9999
                 result = ''
-                print 'no calibration, ' + _filter + ' ' + _field
+                print('no calibration, ' + _filter + ' ' + _field)
                 if _filter not in zz:
                     ntt.util.updateheader(
                         img, 0, {'PHOTZP': [9999., 'MAG=-2.5*log(data)+PHOTZP']})
@@ -840,7 +840,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
                     yy = ntt.efoscastrodef.pval(array(xx), [b, a])
                     result[filters[_filter] + col] = [a, b, RR]
                 else:
-                    print 'do zeropoint interactively'
+                    print('do zeropoint interactively')
                     import pylab as plt
 
                     a, sa, b, sb = ntt.efoscastrodef.fitcol(
@@ -889,7 +889,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
                 img, 0, {'PHOTZPER': [9999., 'error in PHOTZP']})
             ntt.util.updateheader(
                 img, 0, {'FLUXCAL': ['UNCALIBRATED', 'Certifies the validity of PHOTZP']})
-            print 'no calibration, ' + _filter + ' ' + _field
+            print('no calibration, ' + _filter + ' ' + _field)
         else:
             ntt.util.updateheader(
                 img, 0, {'PHOTZP': [zz[_filter], 'MAG=-2.5*log(data)+PHOTZP']})
@@ -897,7 +897,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
                 img, 0, {'PHOTZPER': [2.0, 'error in PHOTZP']})
             ntt.util.updateheader(
                 img, 0, {'FLUXCAL': ['ABSOLUTE', 'Certifies the validity of PHOTZP']})
-            print 'calibration from default zero point'
+            print('calibration from default zero point')
         result = ''
 
     if _field == 'filter':
@@ -1464,7 +1464,7 @@ def sextractor(img):
         fw = compress((array(fw) <= 15) & (array(fw) >= -2), array(fw))
     except:
         xpix, ypix, fw, cl, cm, ell = [], [], [], [], [], []
-        print '\n### ERROR Filtering the sextractor detections, please check that sextractor is working ......'
+        print('\n### ERROR Filtering the sextractor detections, please check that sextractor is working ......')
     delete('detections.cat')
     return xpix, ypix, fw, cl, cm, ell, bkg
 
@@ -1528,7 +1528,7 @@ def querycatalogue(catalogue, img, method='iraf'):
                 ff.close()
                 for ii in range(0, len(lll)):
                     lll[ii] = re.sub('\n', '', lll[ii])
-                print 'catalogue from user'
+                print('catalogue from user')
             else:
                 sys.exit('Error: catalogue ' + str(catalogue) +
                          'not in the list [usnob1,usnoa2,2mass]')
@@ -1824,7 +1824,7 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
                     xy = iraf.wcsctran('STDIN', output="STDOUT", Stdin=vettoretran, Stdout=1, image=img,
                                        inwcs='physical', outwcs='world', column="3 4", formats='%10.6f %10.6f',
                                        verbose='yes')[3:]
-                    print '\n### update astrometry with non linear order'
+                    print('\n### update astrometry with non linear order')
             except:
                 rmsx, rmsy = array(
                     string.split(string.split(_ccmap1[_ccmap1.index('Wcs mapping status') + 1], ':')[-1])[0:2])
@@ -1888,15 +1888,15 @@ def deg2HMS(ra='', dec='', round=False):
           if string.count(str(dec),':')==2:
               dec00=string.split(dec,':')
               dec0, dec1, dec2 = float(dec00[0]),float(dec00[1]),float(dec00[2])
-              if '-' in str(dec0):       
+              if '-' in str(dec0):
                  DEC=(-1)*((dec2/60.+dec1)/60.+((-1)*dec0))
-              else:                      
+              else:
                  DEC=(dec2/60.+dec1)/60.+dec0
           else:
              dec0 = abs(int(dec))
              dec1=int((abs(dec)-abs(dec0))*(60))
              dec2=((((abs(dec))-abs(dec0))*60)-abs(dec1))*60
-             if str(dec)[0]=='-':      
+             if str(dec)[0]=='-':
                 DEC = '-'+'00'[len(str(dec0)):]+str(dec0)+':'+'00'[len(str(dec1)):]+str(dec1)+':'+'00'[len(str(int(dec2))):]+str(dec2)[:6]
              else:
                 DEC = '+'+'00'[len(str(dec0)):]+str(dec0)+':'+'00'[len(str(dec1)):]+str(dec1)+':'+'00'[len(str(int(dec2))):]+str(dec2)[:6]

@@ -93,7 +93,7 @@ def calibrationsofi(imgex, stdex, stdref, outputfile, _interactive):
         try:
             answ = str(float(answ))
         except:
-            print '\n### warning: value not valid'
+            print('\n### warning: value not valid')
             answ = 'yes'
     if answ.lower() == 'n':
         aastd = crvalstd + (xxstd) * cdstd
@@ -127,7 +127,7 @@ def calibrationsofi(imgex, stdex, stdref, outputfile, _interactive):
     senstelluric = 'senstel_' + ntt.util.readkey3(hdrstd, 'date-night') + '_' + \
                    ntt.util.readkey3(hdrstd, 'grism') + '_' + \
         ntt.util.readkey3(hdrstd, 'filter')
-    print senstelluric, stdex
+    print(senstelluric, stdex)
     senstelluric = ntt.name_duplicate(stdex, senstelluric, '')
     if os.path.isfile(senstelluric):
         ntt.util.delete(senstelluric)
@@ -204,25 +204,25 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
             _type = 'obj'
         if min(cc_phot) < 100:
             if _verbose:
-                print img, 'phot', str(min(cc_phot)), str(std_phot[np.argmin(cc_phot)])
+                print(img, 'phot', str(min(cc_phot)), str(std_phot[np.argmin(cc_phot)]))
             ntt.util.updateheader(img, 0, {'stdname': [std_phot[np.argmin(cc_phot)], ''],
                                            'magstd': [float(magstd_phot[np.argmin(cc_phot)]), '']})
         # ntt.util.updateheader(img,0,{'magstd':[float(magstd_phot[argmin(cc_phot)]),'']})
         elif min(cc_sun) < 100:
             if _verbose:
-                print img, 'sun', str(min(cc_sun)), str(std_sun[np.argmin(cc_sun)])
+                print(img, 'sun', str(min(cc_sun)), str(std_sun[np.argmin(cc_sun)]))
             ntt.util.updateheader(img, 0, {'stdname': [std_sun[np.argmin(cc_sun)], ''],
                                            'magstd': [float(magstd_sun[np.argmin(cc_sun)]), '']})
         # ntt.util.updateheader(img,0,{'magstd':[float(magstd_sun[argmin(cc_sun)]),'']})
         elif min(cc_vega) < 100:
             if _verbose:
-                print img, 'vega', str(min(cc_vega)), str(std_vega[np.argmin(cc_vega)])
+                print(img, 'vega', str(min(cc_vega)), str(std_vega[np.argmin(cc_vega)]))
             ntt.util.updateheader(img, 0, {'stdname': [std_vega[np.argmin(cc_vega)], ''],
                                            'magstd': [float(magstd_vega[np.argmin(cc_vega)]), '']})
         # ntt.util.updateheader(img,0,{'magstd':[float(magstd_vega[argmin(cc_vega)]),'']})
         else:
             if _verbose:
-                print img, 'object'
+                print(img, 'object')
 
         _OBID = (ntt.util.readkey3(hdr, 'esoid'))
         if _type not in objectlist:
@@ -234,17 +234,17 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
         objectlist[_type][_grism][_OBID].append(img)
 
     if 'stdp' not in objectlist:
-        print '###  warning: not photometric standard'
+        print('###  warning: not photometric standard')
     else:
-        print '### photometric standard in the list of object'
+        print('### photometric standard in the list of object')
     if 'sun' not in objectlist:
-        print '### warning: not telluric G standard (sun type)'
+        print('### warning: not telluric G standard (sun type)')
     else:
-        print '### telluric G standard (sun type) in the list of object'
+        print('### telluric G standard (sun type) in the list of object')
     if 'vega' not in objectlist:
-        print '### warning: not telluric A standard (vega type)'
+        print('### warning: not telluric A standard (vega type)')
     else:
-        print '### telluric A standard (vega type) in the list of object'
+        print('### telluric A standard (vega type) in the list of object')
 
     iraf.noao(_doprint=0, Stdout=0)
     iraf.imred(_doprint=0, Stdout=0)
@@ -276,7 +276,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                     '_' + setup + '_merge_' + str(MJDtoday)
                 outputimage = ntt.util.name_duplicate(
                     listmerge[0], outputimage, '')
-                print '### setup= ', setup, ' name field= ', nameobj, ' merge image= ', outputimage, '\n'
+                print('### setup= ', setup, ' name field= ', nameobj, ' merge image= ', outputimage, '\n')
 #################
 #  added to avoid crashing with a single frame
 #  header will not be updated with all info
@@ -314,7 +314,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                             listmerge[0], False)
                         _offset0 = ntt.util.readkey3(
                             ntt.util.readhdr(listmerge[0]), 'xcum')
-                        print '\n### Try to merge spectra considering their offset along x axes .......'
+                        print('\n### Try to merge spectra considering their offset along x axes .......')
                         f = open('_offset', 'w')
                         for img in listmerge:
                             _center = ntt.sofispec1Ddef.findaperture(
@@ -334,23 +334,23 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                             f.write(line)
                         f.close()
                     if automaticmerge == 'yes':
-                        print '### automatic merge .......... done'
+                        print('### automatic merge .......... done')
                     else:
-                        print '\n### warning: try identification of spectra position in interactive way '
+                        print('\n### warning: try identification of spectra position in interactive way ')
                         offset = 0
                         offsetvec = []
                         _z1, _z2, goon = ntt.util.display_image(
                             listmerge[0], 1, '', '', False)
-                        print '\n### find aperture on first frame and use it as reference position of ' \
-                              'the spectra (mark with ' + '"' + 'm' + '"' + ')'
+                        print('\n### find aperture on first frame and use it as reference position of ' \
+                              'the spectra (mark with ' + '"' + 'm' + '"' + ')')
                         _center0 = ntt.sofispec1Ddef.findaperture(
                             listmerge[0], True)
                         _offset0 = ntt.util.readkey3(
                             ntt.util.readhdr(listmerge[0]), 'xcum')
-                        print '\n### find the aperture on all the spectra frames (mark with ' + '"' + 'm' + '"' + ')'
+                        print('\n### find the aperture on all the spectra frames (mark with ' + '"' + 'm' + '"' + ')')
                         f = open('_offset', 'w')
                         for img in listmerge:
-                            print '\n### ', img
+                            print('\n### ', img)
                             _z1, _z2, goon = ntt.util.display_image(
                                 img, 1, '', '', False)
                             _center = ntt.sofispec1Ddef.findaperture(img, True)
@@ -359,8 +359,8 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                             _offset = (-1) * \
                                 ntt.util.readkey3(
                                     ntt.util.readhdr(img), 'xcum')
-                            print '\n### position from  dither header: ' + str(_offset)
-                            print '### position identified interactively: ' + str(_center2)
+                            print('\n### position from  dither header: ' + str(_offset))
+                            print('### position identified interactively: ' + str(_center2))
                             offset3 = raw_input(
                                 '\n### which is the right position [' + str(_center2) + '] ?')
                             if not offset3:
@@ -369,11 +369,11 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                             line = str(offset3) + '   0\n'
                             f.write(line)
                         f.close()
-                    print offsetvec
+                    print(offsetvec)
                     start = int(max(offsetvec) - min(offsetvec))
-                    print start
+                    print(start)
                     f = open('_goodlist', 'w')
-                    print listmerge
+                    print(listmerge)
                     for img in listmerge:
                         f.write(img + '\n')
                     f.close()
@@ -392,8 +392,8 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                     iraf.imutil.imcopy(
                             '_output[' + str(start) + ':'+stop+',*]', output=outputimage, verbose='no')
 
-                    print outputimage
-                    print len(listmerge)
+                    print(outputimage)
+                    print(len(listmerge))
                     hdr1 = ntt.util.readhdr(outputimage)
                     ntt.util.updateheader(outputimage, 0,
                                           {'SINGLEXP': [False, 'TRUE if resulting from single exposure'],
@@ -451,9 +451,9 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                                            'DATE-OBS': [_dateobs, 'Date of observation']})
                     # missing: merge airmass
                 else:
-                    print '\n### skip making again combined spectrum'
+                    print('\n### skip making again combined spectrum')
                 objectlist[_type][setup][_ID] = [outputimage]
-                print '\n### setup= ', setup, ' name field= ', nameobj, ' merge image= ', outputimage, '\n'
+                print('\n### setup= ', setup, ' name field= ', nameobj, ' merge image= ', outputimage, '\n')
                 if outputimage not in outputfile:
                     outputfile.append(outputimage)
                 ntt.util.updateheader(outputimage, 0, {'FILETYPE': [
@@ -461,26 +461,26 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
 
     if _verbose:
         if 'obj' in objectlist:
-            print objectlist['obj']
+            print(objectlist['obj'])
         if 'stdp' in objectlist:
-            print objectlist['stdp']
+            print(objectlist['stdp'])
         if 'sun' in objectlist:
-            print objectlist['sun']
+            print(objectlist['sun'])
         if 'vega' in objectlist:
-            print objectlist['vega']
+            print(objectlist['vega'])
 
     if 'obj' not in objectlist.keys():
         sys.exit('\n### error: no objects in the list')
 
     sens = {}
-    print '\n############################################\n### extract the spectra  '
+    print('\n############################################\n### extract the spectra  ')
     # print objectlist
     for setup in objectlist['obj']:
         reduced = []
         for _ID in objectlist['obj'][setup]:
             for img in objectlist['obj'][setup][_ID]:
                 hdr = ntt.util.readhdr(img)
-                print '\n### next object\n ', img, ntt.util.readkey3(hdr, 'object')
+                print('\n### next object\n ', img, ntt.util.readkey3(hdr, 'object'))
                 _grism = ntt.util.readkey3(hdr, 'grism')
                 _exptimeimg = ntt.util.readkey3(hdr, 'exptime')
                 _JDimg = ntt.util.readkey3(hdr, 'JD')
@@ -530,8 +530,8 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                         ntt.util.readhdr(stdtelluric), 'exptime')
                     _magstd = ntt.util.readkey3(
                         ntt.util.readhdr(stdtelluric), 'magstd')
-                    print '\n\n ##### closer standard for telluric corrections  #### \n\n'
-                    print stdtelluric, airmassvec[np.argmin(JDvec)]
+                    print('\n\n ##### closer standard for telluric corrections  #### \n\n')
+                    print(stdtelluric, airmassvec[np.argmin(JDvec)])
                     stdtelluric_ex = ntt.util.extractspectrum(stdtelluric, dv, False, False, _interactive, 'std',
                                                               automaticex=_automaticex)
                     if stdtelluric_ex not in outputfile:
@@ -584,7 +584,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                         outputfile.append(imgd)
                 ###############################################################
                 if 'stdp' in objectlist and setup in objectlist['stdp']:
-                    print '\n #####  photometric calibration   ######\n '
+                    print('\n #####  photometric calibration   ######\n ')
                     standardfile = []
                     for _ID in objectlist['stdp'][setup]:
                         for stdp in objectlist['stdp'][setup][_ID]:
@@ -598,7 +598,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                                 'TRACE1': [stdp_ex, 'Originating file'],
                                 'PRODCATG': ['SCIENCE.' + ntt.util.readkey3(ntt.util.readhdr(stdp_ex), 'tech').upper(),
                                              'Data product category']})
-                    print '\n### ', standardfile, ' \n'
+                    print('\n### ', standardfile, ' \n')
                     if len(standardfile) >= 2:
                         standardfile0 = raw_input(
                             'which one do you want to use [' + str(standardfile[0]) + '] ? ')
@@ -606,7 +606,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                             standardfile0 = standardfile[0]
                     else:
                         standardfile0 = standardfile[0]
-                    print standardfile0
+                    print(standardfile0)
                     stdpf = re.sub('_ex.fits', '_f.fits', standardfile0)
                     stdpf, senstelluric2 = ntt.sofispec1Ddef.calibrationsofi(standardfile0, stdtelluric_ex, stdref,
                                                                              stdpf, _interactive)
@@ -673,13 +673,13 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                                                      'TRACE1': [imgf, 'Originating file']})
                     #                ntt.util.updateheader(imgsc,0,{'FILETYPE':[42208,'1D wave,flux calib, tell cor']})
                     #                ntt.util.updateheader(imgsc,0,{'TRACE1':[imgf,'']})
-                    print '\n### flux calibrated spectrum= ', imgf, ' with the standard= ', stdpf
+                    print('\n### flux calibrated spectrum= ', imgf, ' with the standard= ', stdpf)
                     if imgsc not in outputfile:
                         outputfile.append(imgsc)
                 else:
-                    print '\n### photometric calibrated not performed \n'
+                    print('\n### photometric calibrated not performed \n')
 
-    print '\n### adding keywords for phase 3 ....... '
+    print('\n### adding keywords for phase 3 ....... ')
     reduceddata = ntt.util.rangedata(outputfile)
     f = open('logfile_spec1d_' + str(reduceddata) +
              '_' + str(datenow) + '.raw.list', 'w')
@@ -703,7 +703,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                 f.write(ntt.util.readkey3(
                     ntt.util.readhdr(img), 'arcfile') + '\n')
             except:
-                print 'Warning: ' + img + ' is not a fits file'
+                print('Warning: ' + img + ' is not a fits file')
     f.close()
     return outputfile, 'logfile_spec1d_' + str(reduceddata) + '_' + str(datenow) + '.raw.list'
 # #############################################################################################

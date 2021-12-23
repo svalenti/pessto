@@ -95,9 +95,9 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
     from ntt.util import delete, readhdr, readkey3, correctcard, rangedata
     import string, re, sys, os, glob
 
-    try:        
+    try:
         from astropy.io import fits as pyfits
-    except:     
+    except:
         import pyfits
 
     from pyraf import iraf
@@ -223,16 +223,16 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
             fieldlist[_grism][nameobj0].append(img)
 
         if _verbose:
-            print img
-            print _type, _object, _filter
-            print 'lamps', lamps1
+            print(img)
+            print(_type, _object, _filter)
+            print('lamps', lamps1)
 
     lamps = {}
     for _lampid in lamps1:
         lamp = ''
         output = 'arc_' + str(_lampid[0]) + '_' + str(_lampid[1]) + '.fits'
         if lamps1[_lampid][0] and lamps1[_lampid][1]:
-            print lamps1[_lampid][0], lamps1[_lampid][1]
+            print(lamps1[_lampid][0], lamps1[_lampid][1])
             # try:
             ntt.util.delete(output)
             iraf.imarith(lamps1[_lampid][0], '-', lamps1[_lampid]
@@ -252,10 +252,10 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                 lamps[_lampid[1]].append(lamp)
 
     if _verbose:
-        print '\n### FIELDS\n', fieldlist
-        print '\n### OBID\n', OBID
-        print '\n### FLATS\n', flats
-        print '\n### LAMPS\n', lamps
+        print('\n### FIELDS\n', fieldlist)
+        print('\n### OBID\n', OBID)
+        print('\n### FLATS\n', flats)
+        print('\n### LAMPS\n', lamps)
 
 #    if not flats:
 #        sys.exit('\n### error: spectroscopic flat not available, add flats in the directory and try again')
@@ -264,21 +264,21 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
 # the directory and try again')
 
     if not listflat:
-        print '\n### list of available spectroscopic flats (ON,OFF):'
+        print('\n### list of available spectroscopic flats (ON,OFF):')
         for _date in flats:
             for _grism in flats[_date]:
                 for img in flats[_date][_grism]:
                     if pyfits.open(img)[0].data.mean() >= 2000:
-                        print img, _grism, _date, 'ON ? '
+                        print(img, _grism, _date, 'ON ? ')
                     else:
-                        print img, _grism, _date, 'OFF ? '
+                        print(img, _grism, _date, 'OFF ? ')
         for _date in flats:
             for _grism in flats[_date]:
                 flat = {'ON': [], 'OFF': []}
                 for img in flats[_date][_grism]:
                     _type = ''
                     if readkey3(hdr, 'lamp3'):
-                        print '\n### header lamp3 found: flat ON ', str(img)
+                        print('\n### header lamp3 found: flat ON ', str(img))
                         _type = 'ON'
                     else:
                         if pyfits.open(img)[0].data.mean() >= 2000:
@@ -286,10 +286,10 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                         else:
                             _type = 'OFF'
                     aa, bb, cc = ntt.util.display_image(img, 1, '', '', False)
-                    print '\n### number of flat already selected (ON,OFF): \n ### please select same number ' \
+                    print('\n### number of flat already selected (ON,OFF): \n ### please select same number ' \
                           'of ON and OFF flats \n' + \
-                        str(len(flat['ON'])) + '  ' + str(len(flat['OFF']))
-                    print '\n### image ' + str(img)
+                        str(len(flat['ON'])) + '  ' + str(len(flat['OFF'])))
+                    print('\n### image ' + str(img))
                     answ = raw_input(
                         'ON/OFF/REJECT/STOP [' + str(_type) + ']  ok (ON[n]/OFF[f]/r/s) [' + _type + '] ? ')
                     if not answ:
@@ -310,8 +310,8 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                         elif len(flat['ON']) == len(flat['OFF']) and len(flat['OFF']) == 0:
                             break
                         else:
-                            print '\n### Warning: you can stop only if the numbers of ON and OFF are the same'
-                print len(flat['ON']), len(flat['OFF'])
+                            print('\n### Warning: you can stop only if the numbers of ON and OFF are the same')
+                print(len(flat['ON']), len(flat['OFF']))
                 if len(flat['ON']) == len(flat['OFF']) and len(flat['OFF']) >= 2:
                     ff = open('_flatlist', 'w')
                     for ii in range(0, len(flat['OFF'])):
@@ -336,7 +336,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                         aaa = iraf.hedit(masterflat, imcmb, delete='yes', update='yes',
                                          verify='no', Stdout=1)
                     delete('_flatlist')
-                    print masterflat
+                    print(masterflat)
                     correctcard(masterflat)
                     if masterflat not in outputlist:
                         outputlist.append(masterflat)
@@ -344,7 +344,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                                                           'SINGLEXP': [False, 'TRUE if resulting from single exposure'],
                                                           'M_EPOCH': [False, 'TRUE if resulting from multiple epochs']})
 
-                    print '\n###  master flat ........... done '
+                    print('\n###  master flat ........... done ')
                     delete('n' + masterflat)
                     iraf.specred.response(masterflat, normaliz=masterflat + '[100:900,*]',
                                           response='n' + masterflat, interac=_interact, thresho='INDEF', sample='*',
@@ -369,9 +369,9 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                             'PROV' + str(num): [readkey3(readhdr(img), 'ARCFILE'), 'Originating file']})
 
                     if listflat:
-                        print '\n### flat available:\n### ' + str(listflat), '\n'
+                        print('\n### flat available:\n### ' + str(listflat), '\n')
                 elif len(flat['ON']) == len(flat['OFF']) and len(flat['OFF']) == 0:
-                    print '\n### no good flats in this set ......'
+                    print('\n### no good flats in this set ......')
                 else:
                     sys.exit('\n### Error: number of ON and OFF not the same')
 
@@ -379,7 +379,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
         obj0 = fieldlist[_grism][fieldlist[_grism].keys()[0]][0]
         # #############              arc              #########################
         if _grism not in lamps:
-            print '\n### take arc from archive '
+            print('\n### take arc from archive ')
             arcfile = ntt.util.searcharc(obj0, '')[0]
             if arcfile[0] == '/':
                 os.system('cp ' + arcfile + ' ' +
@@ -394,9 +394,9 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
             else:
                 arcfile = ntt.util.searcharc(obj0, '')[0]
 
-            print arcfile
+            print(arcfile)
             if arcfile:
-                print arcfile
+                print(arcfile)
                 datea = readkey3(readhdr(arcfile), 'date-night')
                 if arcfile[0] == '/':
                     os.system('cp ' + arcfile + ' ' +
@@ -420,7 +420,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                 ntt.util.delete('arc_' + datea + '_' + _grism +
                                 '_' + str(MJDtoday) + '.fits')
 
-                print arcfile, flat0, _flatcor, _doflat
+                print(arcfile, flat0, _flatcor, _doflat)
 
                 if _doflat:
                     iraf.noao.imred.ccdred.ccdproc(arcfile,
@@ -440,7 +440,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                     _grism + '_' + str(MJDtoday) + '.fits'
 
                 ntt.util.correctcard(arcfile)
-                print arcfile
+                print(arcfile)
 
                 if arcfile not in outputlist:
                     outputlist.append(arcfile)
@@ -458,7 +458,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                                                        coordli='direc$standard/ident/Lines_XeAr_SOFI.dat', nsum=10,
                                                        fwidth=7, order=3, mode='h', Stdout=1, verbose='yes')
                 else:
-                    print arcref
+                    print(arcref)
                     os.system('cp ' + arcref + ' .')
                     arcref = string.split(arcref, '/')[-1]
                     if not os.path.isdir('database/'):
@@ -467,7 +467,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                         os.system('cp ' + ntt.util.searcharc(obj0, '')[1] + '/database/id' + re.sub('.fits', '',
                                                                                                     arcref) + ' database/')
 
-                    print arcref, arcfile
+                    print(arcref, arcfile)
                     #                        time.sleep(5)
                     #                        os.system('rm -rf database/idarc_20130417_GR_56975')
                     #                        raw_input('ddd')
@@ -519,7 +519,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                         _shift = ntt.efoscspec2Ddef.checkwavelength_arc(
                             xx1, yy1, xx2, yy2, '', '') * (-1)
 
-                        print arcref, arcfile, _shift
+                        print(arcref, arcfile, _shift)
                         identific = iraf.longslit.reidentify(referenc=arcref, images=arcfile, interac='YES',
                                                              section='column 10', shift=_shift,
                                                              coordli='direc$standard/ident/Lines_XeAr_SOFI.dat',
@@ -550,7 +550,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
             else:
                 sys.exit('Warning: arcfile not found')
         else:
-            print 'here'
+            print('here')
         # ########################################################################################################
         for field in fieldlist[_grism]:
             listaobj = fieldlist[_grism][field]
@@ -574,11 +574,11 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                 #                    num2=listatemp.index(listasub[j])
                 imgout = field + '_' + str(_date) + '_' + str(_grism) + '_' + str(MJDtoday) + '_' + str(
                     listatemp.index(img)) + '.fits'
-                print '\n### input image: ' + str(img)
+                print('\n### input image: ' + str(img))
                 delete(imgout)
                 listatemp2.append(imgout)
                 if _docross:
-                    print '### correct for cross talk   .....   done'
+                    print('### correct for cross talk   .....   done')
                     ntt.sofiphotredudef.crosstalk(img, imgout)
                     correctcard(imgout)
                     ntt.util.updateheader(
@@ -587,7 +587,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                     os.system('cp ' + img + ' ' + imgout)
                     correctcard(imgout)
                 if _flatcor == 'yes':
-                    print '### correct for flat field   .....   done'
+                    print('### correct for flat field   .....   done')
                     try:
                         iraf.noao.imred.ccdred.ccdproc(imgout, output='', overscan='no', trim='no', zerocor='no',
                                                        flatcor=_flatcor, flat=flat0)
@@ -608,20 +608,20 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                                                   'M_EPOCH': [False, 'TRUE if resulting from multiple epochs'],
                                                   'PROV1': [readkey3(readhdr(imgout), 'ARCFILE'), 'Originating file'],
                                                   'TRACE1': [readkey3(readhdr(imgout), 'ARCFILE'), 'Originating file']})
-                print '### output image: ' + str(imgout)
+                print('### output image: ' + str(imgout))
 
             listatemp = listatemp2[:]
             #########    differences object images  #####################
             listasub = ntt.sofispec2Ddef.findsubimage(listatemp)
             reduced = []
-            print '\n### Select Frames to be subtracted (eg A-B, B-A, C-D, D-C, ....) '
-            print '###    frame1 \t  frame2  \t   offset1  \t   offset2  \t  JD1  \t    JD2\n'
+            print('\n### Select Frames to be subtracted (eg A-B, B-A, C-D, D-C, ....) ')
+            print('###    frame1 \t  frame2  \t   offset1  \t   offset2  \t  JD1  \t    JD2\n')
             if len(listatemp) >= 2 and len(listasub) >= 2:
                 for j in range(0, len(listatemp)):
-                    print '### ', listatemp[j], listasub[j], str(readkey3(readhdr(listatemp[j]), 'xcum')), str(
+                    print('### ', listatemp[j], listasub[j], str(readkey3(readhdr(listatemp[j]), 'xcum')), str(
                         readkey3(readhdr(listasub[j]), 'xcum')), \
                         str(readkey3(readhdr(listatemp[j]), 'JD')), str(
-                            readkey3(readhdr(listatemp[j]), 'JD'))
+                            readkey3(readhdr(listatemp[j]), 'JD')))
                     if _interactive:
                         answ = raw_input('\n### ok [[y]/n] ? ')
                         if not answ:
@@ -689,7 +689,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
 
                     if 't' + img not in outputlist:
                         outputlist.append('t' + img)
-                    print '\n### 2D frame t' + str(img) + ' wavelengh calibrated  ............ done'
+                    print('\n### 2D frame t' + str(img) + ' wavelengh calibrated  ............ done')
 
                     _skyfile = ntt.__path__[
                         0] + '/standard/ident/sky_' + _grism + '.fits'  # check in wavelengh   #########
@@ -705,7 +705,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                             imgstart = ''
                         if imgstart:
                             delete('_tmp.fits')
-                            print imgstart, arcfile
+                            print(imgstart, arcfile)
                             iraf.specred.transform(input=imgstart, output='_tmp.fits', minput='',
                                                    fitnames=re.sub('.fits', '', arcfile), databas='database',
                                                    x1='INDEF', x2='INDEF', y1='INDEF', y2='INDEF', flux='yes', mode='h',
@@ -727,7 +727,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                                 ntt.util.updateheader('t' + img, 0,
                                                       {'CRVAL2': [zro + int(shift), ''], 'shift': [float(shift), '']})
                             #                                    ntt.util.updateheader('t'+img,0,{'shift':[float(shift),'']})
-                            print '\n### check wavelengh calibration with sky lines ..... done'
+                            print('\n### check wavelengh calibration with sky lines ..... done')
                     try:
                         hdrt = ntt.util.readhdr('t' + img)
                         wavelmin = float(readkey3(hdrt, 'CRVAL2')) + (0.5 - float(readkey3(hdrt, 'CRPIX2'))) * float(
@@ -758,10 +758,10 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                     except:
                         pass
                 else:
-                    print '\n### Warning: arc not found for the image ' + str(img) + ' with setup ' + str(_grism)
+                    print('\n### Warning: arc not found for the image ' + str(img) + ' with setup ' + str(_grism))
 
     reduceddata = rangedata(outputlist)
-    print '\n### adding keywords for phase 3 ....... '
+    print('\n### adding keywords for phase 3 ....... ')
     f = open('logfile_spec2d_' + str(reduceddata) +
              '_' + str(datenow) + '.raw.list', 'w')
     for img in outputlist:
@@ -783,7 +783,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                                  update='yes', verify='no', Stdout=1)
             #################
             # added for DR2
-            print img
+            print(img)
 
             if 'NCOMBINE' in hdr:
                 _ncomb = readkey3(hdr, 'NCOMBINE')
@@ -836,8 +836,8 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
             try:
                 ntt.util.airmass(img)  # phase 3 definitions
             except:
-                print '\n### airmass not computed for image: ', img
+                print('\n### airmass not computed for image: ', img)
         else:
-            print img + ' is not a fits image'
+            print(img + ' is not a fits image')
     f.close()
     return outputlist, 'logfile_spec2d_' + str(reduceddata) + '_' + str(datenow) + '.raw.list'

@@ -26,9 +26,9 @@ def usage(status, msg=''):
     # print "LOGX:: Entering `usage` method/function in %(__file__)s" %
     # globals()
     "Error message and usage"
-    print __doc__
+    print(__doc__)
     if msg:
-        print '-- ERROR: %s' % msg
+        print('-- ERROR: %s' % msg)
     sys.exit(status)
 
 

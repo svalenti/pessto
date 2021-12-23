@@ -58,9 +58,9 @@ def choseflat(obj, listflat, setup, _JD0, _interactive):
     else:
         if obidflat.count(_OBID) >= 3:
             flatgood = list(np.compress(np.array(obidflat) == _OBID, listflat))
-            print '### Flat field in the same OB !!'
+            print('### Flat field in the same OB !!')
         else:
-            print '### ', str(_OBID)
+            print('### ', str(_OBID))
             inds = np.array(differences).argsort()
             for i in range(0, 3):
                 flatgood.append(listflat[inds[i]])
@@ -177,17 +177,17 @@ def imreplace_region(img):
     if _grism == 'Gr13':
         iraf.imutil.imreplace(
             img + '[*,1:200]', value=1, lower='INDEF', upper='INDEF')
-        print '### replace pixel 1:200 with 1 (y axes)'
+        print('### replace pixel 1:200 with 1 (y axes)')
     elif _grism in ['Gr11']:
         iraf.imutil.imreplace(
             img + '[*,1:300]', value=1, lower='INDEF', upper='INDEF')
-        print '### replace pixel 1:300 with 1 (y axes)'
+        print('### replace pixel 1:300 with 1 (y axes)')
     elif _grism in ['Gr18', 'Gr20']:
         iraf.imutil.imreplace(
             img + '[*,1:50]', value=1, lower='INDEF', upper='INDEF')
-        print '### replace pixel 1:50 with 1 (y axes)'
+        print('### replace pixel 1:50 with 1 (y axes)')
     else:
-        print '### no replace '
+        print('### no replace ')
 
 
 def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbias, _listarc, _cosmic, _verbose=False):
@@ -199,7 +199,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
     import glob
     import sys
     from astropy.io import fits as pyfits
-    
+
     import numpy as np
     from pyraf import iraf
     iraf.noao(_doprint=0, Stdout=0)
@@ -262,7 +262,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
         _naxis1 = hdr.get('NAXIS1')
         _naxis2 = hdr.get('NAXIS2')
         if _naxis1 != 1030 or _naxis2 != 1030:
-            print '### warning dimension of ' + str(img) + ' not good !!!!'
+            print('### warning dimension of ' + str(img) + ' not good !!!!')
             ntt.util.writeinthelog(
                 'image ' + str(img) + ' different dimension =\n', './logNTT.txt')
         else:
@@ -309,15 +309,15 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                     objectlist[_grism, _filter, _slit].append(img)
                 _type = 'objects'
             if not _type:
-                print '### ', _object, _filter, _grism, _slit, _imagetype
+                print('### ', _object, _filter, _grism, _slit, _imagetype)
 
     if _verbose:
         if _listarc:
-            print '### arclist= \n', _listarc
+            print('### arclist= \n', _listarc)
         else:
-            print '### arclist= \n', arclist
-        print '### flatlist= \n', flatlist
-        print '### objectlist= \n', objectlist
+            print('### arclist= \n', arclist)
+        print('### flatlist= \n', flatlist)
+        print('### objectlist= \n', objectlist)
     # #############################################
     check1, check2 = [], []
     for ii in objectlist.keys():
@@ -328,7 +328,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
 
     if len(check2) > 0:
         for ii in check2:
-            print '\n###Warning: flat with setup ' + str(ii) + ' are missing'
+            print('\n###Warning: flat with setup ' + str(ii) + ' are missing')
             answ = raw_input(
                 '\n### skip this setup from reduction [s] or exit [e] or go on [g] ? [s] ')
             if not answ:
@@ -346,7 +346,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
 
     if len(check1) > 0:
         for ii in check1:
-            print '\n###Warning: arc with setup ' + str(ii) + ' are missing'
+            print('\n###Warning: arc with setup ' + str(ii) + ' are missing')
             answ = raw_input(
                 '\n### skip this setup from reduction [s] or exit [e] or go on [g] ?  [s] ')
             if not answ:
@@ -457,8 +457,8 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
         else:
             listarc = ''
         if _interactive:
-            print '### ' + str(listobject)
-            print '### ' + str(setup)
+            print('### ' + str(listobject))
+            print('### ' + str(setup))
             answ = raw_input('### do you want to reduce this setup [[y],n] ? ')
             if not answ:
                 answ = 'y'
@@ -502,9 +502,9 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                                   'FILETYPE': [21201, 'bias']}
                     ntt.util.updateheader(tmasterbias, 0, headervecb)
                     try:
-                        pyv = int(re.sub('\.', '', str(pyfits.__version__))[:2]) 
+                        pyv = int(re.sub('\.', '', str(pyfits.__version__))[:2])
                     except:
-                        pyv = 40 # astropy.pyfits do not have a version, set high number to avoud next if 
+                        pyv = 40 # astropy.pyfits do not have a version, set high number to avoud next if
 
                     if pyv <= 30:
                         ntt.util.updateheader(tmasterbias, 0, {'HIERARCH ESO INS FILT1 NAME': [setup[1], 'Filter name.']})
@@ -531,11 +531,11 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                     if tmasterbias not in outputlist:
                         outputlist.append(tmasterbias)
                     if _verbose:
-                        print tmasterbias
+                        print(tmasterbias)
             else:
                 _zerocor = 'no'
 
-            print tmasterbiaslist
+            print(tmasterbiaslist)
 
             ################   make all flats of this setup   #################
             if _doflat:
@@ -655,7 +655,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                 else:
                     tmasterbias = ''
 
-                print '### ' + str(obj) + '  -> ', str(nameout0), '\n'
+                print('### ' + str(obj) + '  -> ', str(nameout0), '\n')
                 ntt.util.display_image(obj, 1, '', '', False)
                 if len(flatgood) == 1:
                     _flatcor = 'yes'
@@ -683,19 +683,19 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                             _dec1 = ntt.util.readkey3(hdrf, 'DEC')
                             # some flat,bias do not have ra and dec keywords
                             if not _ra1:
-                                print 'Warning: missing keyword RA'
+                                print('Warning: missing keyword RA')
                                 _ra1 = 0
                             if not _dec1:
-                                print 'Warning: missing keyword DEC'
+                                print('Warning: missing keyword DEC')
                                 _dec1 = 0
                             distance.append(arccos(
                                 sin(_dec1 * scal) * sin(_dec0 * scal) + cos(_dec1 * scal) * cos(_dec0 * scal) * cos(
                                     _ra1 - _ra0) * scal))
                             JDvec.append(np.abs(_JD0 - _JD1))
                     if _verbose:
-                        print JDvec
-                        print distance
-                        print flatgood
+                        print(JDvec)
+                        print(distance)
+                        print(flatgood)
                     if not nmasterflat:
                         #       select closer RA and DEC
                         #nmasterflat = flatgood[argmin(distance)]
@@ -760,7 +760,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                     # print cosmic rays rejection
                     ntt.cosmics.lacos(nameout0, output='', gain=_gain, readn=_rdnoise, xorder=9, yorder=9, sigclip=4.5,
                                       sigfrac=0.5, objlim=1, verbose=True, interactive=False)
-                    print '\n### cosmic rays rejections ........ done '
+                    print('\n### cosmic rays rejections ........ done ')
                     ntt.util.updateheader(nameout0, 0, {
                         'LACOSMIC': [True, 'TRUE if Laplacian cosmic ray rejection has been applied to the image']})
                 else:
@@ -775,7 +775,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                             os.mkdir('database/')
                         if os.path.isfile(ntt.util.searcharc(nameout0, '')[1] +
                                           '/database/id' + re.sub('.fits', '', arcref)):
-                            os.system('cp ' + ntt.util.searcharc(nameout0, '')[1] + 
+                            os.system('cp ' + ntt.util.searcharc(nameout0, '')[1] +
                                       '/database/id' + re.sub('.fits', '', arcref) + ' database/')
                         identific = iraf.longslit.reidentify(referenc=arcref, images=arcfile, interac=_inter,
                                                              section='column 10',
@@ -861,7 +861,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                             't' + nameout0, _skyfile, _interactive)
                         zro = pyfits.open(
                             't' + nameout0)[0].header.get('CRVAL2')
-                        print '\n### check wavelengh calibration, found a shift of ' + str(shift) + ' Angstrom \n'
+                        print('\n### check wavelengh calibration, found a shift of ' + str(shift) + ' Angstrom \n')
                         if _interactive:
                             answ = raw_input(
                                 '### do you want to correct the wavelengh calibration with this shift: ' + str(
@@ -876,7 +876,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                             ntt.util.updateheader(
                                 't' + nameout0, 0, {'shift': [float(shift), '']})
                     else:
-                        print '\n### exposure too short, the sky lines could be not visible \n'
+                        print('\n### exposure too short, the sky lines could be not visible \n')
 
                     if identific:
                         _rms = float(identific[-1].split()[-1])
@@ -924,7 +924,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                             pass
                         ntt.util.updateheader('t' + nameout0, 0, hedvec)
 
-    print '\n### adding keywords for phase 3 ....... '
+    print('\n### adding keywords for phase 3 ....... ')
     reduceddata = ntt.util.rangedata(outputlist)
     f = open('logfile_spec2D_' + str(reduceddata) +
              '_' + str(datenow) + '.raw.list', 'w')
@@ -934,9 +934,9 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
             ntt.util.updateheader(img, 0, {'DETRON ': [11.6, 'Readout noise per output (e-)']})
 
             try:
-                pyv = int(re.sub('\.', '', str(pyfits.__version__))[:2]) 
+                pyv = int(re.sub('\.', '', str(pyfits.__version__))[:2])
             except:
-                pyv = 40 # astropy.pyfits do not have a version, set high number to avoud next if 
+                pyv = 40 # astropy.pyfits do not have a version, set high number to avoud next if
 
             if pyv <= 30:
                 ntt.util.updateheader(img, 0,

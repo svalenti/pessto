@@ -88,9 +88,9 @@ def makeflat(lista):
         correctcard(output)
         delete("temp_on*.fits")  # delete the temporary images
         delete("temp_off*.fits")
-        print 'flat -> ' + str(output)
+        print('flat -> ' + str(output))
     else:
-        print 'skip redoing the flat'
+        print('skip redoing the flat')
     return output
 
 
@@ -135,11 +135,11 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
         correctcard('C' + lista[i])
         lista1.append('C' + lista[i])
     ff.close()
-    print '\n### prereducing STD frames to compute illumination correction ........'
+    print('\n### prereducing STD frames to compute illumination correction ........')
     lista2, skyfile = ntt.sofiphotredudef.skysub(lista1, readkey3(
         readhdr(lista1[0]), 'ron'), readkey3(readhdr(lista1[0]), 'gain'), True)
     lista2 = ntt.sofiphotredudef.sortbyJD(lista2)
-    print '\n### use x on the star and q  to continue....'
+    print('\n### use x on the star and q  to continue....')
     display_image(lista2[0], 2, '', '', False)
     delete('tmpone.coo')
     iraf.image.tv.imexamine(lista2[0], 2, logfile='tmpone.coo',
@@ -194,7 +194,7 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
             if not answ:
                 answ = 'y'
             if answ in ['y', 'YES', 'yes', 'Y']:
-                print lista2[i]
+                print(lista2[i])
                 delete('pippo.' + str(j) + '.mag')
                 gggg = iraf.digiphot.daophot.phot(
                     lista2[i], "tmpone.coo", output="pippo." + str(j) + ".mag", verify='no', interac='no', Stdout=1)
@@ -202,10 +202,10 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
                     float(string.split(gggg[0])[3])
                     answ = 'y'
                 except:
-                    print '\n### warning'
+                    print('\n### warning')
                     answ = 'n'
             else:
-                print '\n### select the std star'
+                print('\n### select the std star')
                 display_image(lista2[i], 1, '', '', False)
                 iraf.image.tv.imexamine(lista2[
                                         i], 1, logfile='tmpone.coo', keeplog='yes', xformat='', yformat='', wcs='logical')
@@ -215,14 +215,14 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
                 f.write(str(x2) + ' ' + str(y2) + '\n')
                 f.close()
                 delete('pippo.' + str(j) + '.mag')
-                print '###### new selection ' + str(x2), str(y2)
+                print('###### new selection ' + str(x2), str(y2))
                 gggg = iraf.digiphot.daophot.phot(
                     lista2[i], "tmpone.coo", output='pippo.' + str(j) + '.mag', verify='no', interac='no', Stdout=1)
                 try:
                     float(string.split(gggg[0])[3])
                     answ = 'y'
                 except:
-                    print '\n### warning'
+                    print('\n### warning')
                     answ = 'n'
 
     os.system('ls pippo.*.mag > tempmag.lst')
@@ -236,7 +236,7 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
     delete("temp*.fits")
     delete('temp*.lst')
     delete(illum_frame)
-    print '\n### fitting the illumination surface...'
+    print('\n### fitting the illumination surface...')
     aaa = iraf.utilities.surfit('magnitudini', image=illum_frame, function="polynomial",
                                 xorder=2, yorder=2, xterms="full", ncols=1024, nlines=1024, Stdout=1)
     iraf.noao.imred.generic.normalize(illum_frame)
@@ -284,9 +284,9 @@ def doflatsofi(flats, _doflat, illum, _output):
                     display_image(mflat, 1, '', '', False)
                     raw_input('go on ')
                 elif len(images) != 8:  # % 8 == 0:
-                    print '\n###  to compute a flat field you need a sequence of 8 calibration files in the following orders:'
-                    print 'OFF  OFFMASK  ONMASK  ON  ON   ONMASK   OFFMASK     OFF\n'
-                    print len(images), _filter, ID
+                    print('\n###  to compute a flat field you need a sequence of 8 calibration files in the following orders:')
+                    print('OFF  OFFMASK  ONMASK  ON  ON   ONMASK   OFFMASK     OFF\n')
+                    print(len(images), _filter, ID)
                     tipo = ['OFF', 'OFFMASK', 'ONMASK', 'ON',
                             'ON', 'ONMASK', 'OFFMASK', 'OFF']
                     listtmp = []
@@ -306,7 +306,7 @@ def doflatsofi(flats, _doflat, illum, _output):
                         else:
                             mask = 'MASK'
 #                        display_image(img,1,'','',False)
-                        print onoff, mask, onoffvalue, maskvalue, img, tipo[nn]
+                        print(onoff, mask, onoffvalue, maskvalue, img, tipo[nn])
                     for img in images:
                         onoffvalue = float(string.split(iraf.imstat(
                             img + '[500:600,900:1000]', Stdout=1)[1])[2])
@@ -321,7 +321,7 @@ def doflatsofi(flats, _doflat, illum, _output):
                         else:
                             mask = 'MASK'
                         display_image(img, 1, '', '', False)
-                        print onoff, mask, onoffvalue, maskvalue, img, tipo[nn]
+                        print(onoff, mask, onoffvalue, maskvalue, img, tipo[nn])
                         answ = raw_input('ok  [[y]/n/r/s] ? ')
                         if not answ:
                             answ = 'y'
@@ -330,7 +330,7 @@ def doflatsofi(flats, _doflat, illum, _output):
                             ii = ii + 1
                             nn = nn + 1
                             if len(listtmp) == 8:
-                                print '### number images selected: ', str(len(listtmp))
+                                print('### number images selected: ', str(len(listtmp)))
                                 mflat = ntt.soficalibdef.makeflat(listtmp)
                                 listaflat.append(mflat)
                                 display_image(mflat, 1, '', '', False)
@@ -343,8 +343,8 @@ def doflatsofi(flats, _doflat, illum, _output):
                         elif answ == 's':
                             break
                         else:
-                            print len(images), _filter, ID
-                        print '### number images selected: ', str(len(listtmp))
+                            print(len(images), _filter, ID)
+                        print('### number images selected: ', str(len(listtmp)))
     else:
         listaflat = flats
     listaillum = []
@@ -358,7 +358,7 @@ def doflatsofi(flats, _doflat, illum, _output):
                         images, flatfield)
                     listaillum.append(illum_frame)
                 else:
-                    print 'flat field not found'
+                    print('flat field not found')
 
         for img in listaflat:
             try:
@@ -368,7 +368,7 @@ def doflatsofi(flats, _doflat, illum, _output):
                 ntt.util.updateheader(
                     img, 0, {'FILETYPE': [31202, 'flat field']})
             except:
-                print '\n### problems with phase 3 definitions'
+                print('\n### problems with phase 3 definitions')
 
         for img in listaillum:
             try:
@@ -378,7 +378,7 @@ def doflatsofi(flats, _doflat, illum, _output):
                 ntt.util.updateheader(
                     img, 0, {'FILETYPE': [31213, 'illum corr  frames']})
             except:
-                print '\n### problems with phase 3 definitions'
+                print('\n### problems with phase 3 definitions')
     return listaflat, listaillum
 
 ###########################################################################

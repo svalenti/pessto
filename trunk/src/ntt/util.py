@@ -262,7 +262,7 @@ def correctcard(img):
     _header = hdulist[0].header
     hdulist.close()
 
-    ######   change 20161003 
+    ######   change 20161003
     #print a
     #for i in range(len(a)):
     #    if not a[i]:
@@ -278,8 +278,8 @@ def correctcard(img):
     except:
         aa = ''
 
-    print aa
-    print ww
+    print(aa)
+    print(ww)
     if len(ww) > 0:
         newheader = []
         headername = []
@@ -332,7 +332,7 @@ def updateheader(image, dimension, headerdict):
         num = valori.index(max([str(headerdict[i][0])
                                 for i in headerdict], key=len))
         headerdict[key[num]] = [valori[num][0:68], commenti[num]]
-        print 'warning: header to long, ', str(key[num]), str(valori[num][0:68]), str(commenti[num])
+        print('warning: header to long, ', str(key[num]), str(valori[num][0:68]), str(commenti[num]))
         #   keytochange=hdr.keys()[hdr.values().index(max([str(i) for i in hdr.values()],key=len))]
         #   hdr[keytochange]=[str(hdr[keytochange])[0:68]]
 
@@ -346,10 +346,10 @@ def updateheader(image, dimension, headerdict):
             imm.close()
         except:
             from ntt.util import correctcard
-            print 'warning: problem to update header, try to correct header format ....'
+            print('warning: problem to update header, try to correct header format ....')
             correctcard(image)
             try:
-                print headerdict
+                print(headerdict)
                 imm = pyfits.open(image, mode='update')
                 _header = imm[dimension].header
                 for i in headerdict.keys():
@@ -357,7 +357,7 @@ def updateheader(image, dimension, headerdict):
                 imm.flush()
                 imm.close()
             except:
-                print 'error: not possible update header'
+                print('error: not possible update header')
     else:
         #
         #
@@ -370,7 +370,7 @@ def updateheader(image, dimension, headerdict):
             _header.update( { i : (headerdict[i][0], headerdict[i][1]) } )
         imm.flush()
         imm.close()
-        
+
 ##########################################################################
 
 
@@ -402,18 +402,18 @@ def display_image(img, frame, _z1, _z2, scale, _xcen=0.5, _ycen=0.5, _xsize=1, _
                 sss = iraf.display(img, frame, xcen=_xcen, ycen=_ycen, xsize=_xsize, ysize=_ysize, erase=_erase,
                                    fill='yes', zscale='no', zrange='no', z1=_z1, z2=_z2, Stdout=1)
             except:
-                print ''
-                print '### ERROR: PROBLEM OPENING DS9'
-                print ''
+                print('')
+                print('### ERROR: PROBLEM OPENING DS9')
+                print('')
                 goon = 'False'
         else:
             try:
                 sss = iraf.display(img, frame, xcen=_xcen, ycen=_ycen, xsize=_xsize, ysize=_ysize, erase=_erase,
                                    fill='yes', Stdout=1)
             except:
-                print ''
-                print '### ERROR: PROBLEM OPENING DS9'
-                print ''
+                print('')
+                print('### ERROR: PROBLEM OPENING DS9')
+                print('')
                 goon = False
 
         if scale and goon:
@@ -436,7 +436,7 @@ def display_image(img, frame, _z1, _z2, scale, _xcen=0.5, _ycen=0.5, _xsize=1, _
                     z22 = _z22
                 else:
                     z22 = float(z22)
-                print z11, z22
+                print(z11, z22)
                 sss = iraf.display(img, frame, fill='yes', xcen=_xcen, ycen=_ycen, xsize=_xsize, ysize=_ysize,
                                    erase=_erase, zrange='no', zscale='no', z1=z11, z2=z22, Stdout=1)
                 answ0 = raw_input('>>> Cuts OK ? [y/n] ? [y] ')
@@ -448,7 +448,7 @@ def display_image(img, frame, _z1, _z2, scale, _xcen=0.5, _ycen=0.5, _xsize=1, _
             _z1, _z2 = string.split(string.split(sss[0])[0], '=')[
                 1], string.split(string.split(sss[0])[1], '=')[1]
     else:
-        print 'Warning: image ' + str(img) + ' not found in the directory '
+        print('Warning: image ' + str(img) + ' not found in the directory ')
     return _z1, _z2, goon
 
 
@@ -783,7 +783,7 @@ def archivefile(img, overwrite=True):
     import ntt
 
     outputfile = ntt.util.readkey3(ntt.util.readhdr(img), 'ARCFILE')
-    print outputfile
+    print(outputfile)
     if not overwrite and os.path.isfile(outputfile):
         answ = raw_input('overwrite file ' + outputfile + ' [[y]/n]? ')
         if not answ:
@@ -979,7 +979,7 @@ def archivingtar(outputlist, rawfile):
     import re
     import ntt
 
-    print '\n### making a tar with pre-reduced frames ........ please wait'
+    print('\n### making a tar with pre-reduced frames ........ please wait')
     stringa = ''
     for img in outputlist:
         stringa = stringa + img + ' '
@@ -987,7 +987,7 @@ def archivingtar(outputlist, rawfile):
     ntt.util.delete(re.sub('raw.list', 'tar.gz', rawfile))
     os.system('tar -zcf ' + re.sub('raw.list',
                                    'tar.gz', rawfile) + ' ' + stringa)
-    print '\n### tar file: ' + re.sub('raw.list', 'tar.gz', rawfile)
+    print('\n### tar file: ' + re.sub('raw.list', 'tar.gz', rawfile))
 
 
 #################################################################
@@ -1157,7 +1157,7 @@ def spectraresolution2(img0, ww=25):
     ff.close()
     from pyraf import iraf
     from iraf import onedspec
-    
+
     aaa = iraf.noao.onedspec.bplot(
         'new3.fits', cursor='_cursor', spec2='', new_ima='', overwri='yes', Stdout=1)
     fw = []
@@ -1328,14 +1328,14 @@ def extractspectrum(img, dv, _ext_trace, _dispersionline, _interactive, _type, a
                     dist = int(dist)
                     question = 'no'
                 except:
-                    print '\n### input not valid, try again:'
+                    print('\n### input not valid, try again:')
         else:
             dist = dv['line'][_grism]
         if _ext_trace in ['yes', 'Yes', 'YES', True]:
             lista = glob.glob('*ex.fits')
             if lista:
                 for ii in lista:
-                    print ii
+                    print(ii)
                 _reference = raw_input(
                     '\### which object do you want to use for the trace [' + str(lista[0]) + '] ? ')
                 if not _reference:
@@ -1422,11 +1422,11 @@ def extractspectrum(img, dv, _ext_trace, _dispersionline, _interactive, _type, a
                     ntt.util.delete(imgex)
                     pyfits.writeto(imgex, np.float32(data), hdr)
                 else:
-                    print '\n### warning raw image for sky information not found'
+                    print('\n### warning raw image for sky information not found')
                 ##########################################
             #        ntt.util.updateheader(imgex,0,{'XMIN':[aaex[0],'min wavelength [Angstrom]'],'XMAX':[aaex[-1],'max wavelength [Angstrom]']})
     else:
-        print '\n### skipping new extraction'
+        print('\n### skipping new extraction')
     return imgex
 
 ##########################################################################

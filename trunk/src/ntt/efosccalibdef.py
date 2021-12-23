@@ -71,10 +71,10 @@ def makefringingmask(listimg, _output, _interactive, _combine='average', _reject
     if not _output:
         _output = 'fringing_' + str(_date) + '_' + str(_filter) + '.fits'
     delete(_output)
-    print ' making mask for each frame .......'
+    print(' making mask for each frame .......')
     ccc = iraf.nproto.objmasks(images='@_listobgz', objmasks='@_listmask', omtype='boolean',
                                blksize=-16, convolv='block 3 3', hsigma=5, lsigma=3, minpix=10, ngrow=2, agrow=4., Stdout=1)
-    print 'combining all frames, masking the objects .....'
+    print('combining all frames, masking the objects .....')
     iraf.imcombine('@_listobgz', output=_output, masktyp='!OBJMASK', maskval=0, combine=_combine, reject=_rejection,
                    scale='none', statsec='[100:800,100:800]', rdnoise='', gain='', nlow=1, nhigh=1, logfile='imcombinelog')
 

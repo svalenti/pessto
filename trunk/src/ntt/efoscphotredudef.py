@@ -126,9 +126,9 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                 elif 'focus' in _object.lower():
                     _type = 'not good'
             if not _type:
-                print '\n### warning: object not recognized '
+                print('\n### warning: object not recognized ')
                 _object = readkey3(hdr, 'object')
-                print img, _object, _imagetype
+                print(img, _object, _imagetype)
                 answ = raw_input(
                     'what is it: bias [1], flat [3], object[4], test [5] ?  [5] ')
                 if not answ:
@@ -162,10 +162,10 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
 
     filterlist = list(set(filterlist1 + filterlist2))
     if _verbose:
-        print filterlist1
-        print filterlist2
-        print flatlist1
-        print flatlist2
+        print(filterlist1)
+        print(filterlist2)
+        print(flatlist1)
+        print(flatlist2)
     flatlist = {}
     for _filt in filterlist:
         if _filt not in flatlist1.keys():
@@ -182,9 +182,9 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
 
     listaout = []
     if _verbose:
-        print '\n### flat ', str(flatlist), '\n'
-        print '\n### bias ', str(biaslist), '\n'
-        print '\n### object ', str(objectlist), '\n'
+        print('\n### flat ', str(flatlist), '\n')
+        print('\n### bias ', str(biaslist), '\n')
+        print('\n### object ', str(objectlist), '\n')
         ###### masterbias  #################
     if _dobias:
         if not _archive:
@@ -194,7 +194,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                 masterbiaslist = []
                 if biaslist:
                     for _date in biaslist:
-                        print '\n do bias ' + str(_date) + '\n'
+                        print('\n do bias ' + str(_date) + '\n')
                         biaslist[_date] = rejectbias(
                             biaslist[_date], False, 10)
                         if len(biaslist[_date]) >= 3:
@@ -210,7 +210,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                             f.close()
                             h.close()
                             try:
-                                print 'processing bias .....'
+                                print('processing bias .....')
                                 iraf.ccdproc('@biaslist', output='@obiaslist', overscan="no", trim="yes", zerocor='no',
                                              fixpix='no', ccdtype='', flatcor='no', darkcor='no', biassec='',
                                              trimsec=str(_trimsec), readaxi='column', Stdout=1)
@@ -265,7 +265,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                 masterflatlist = []
                 if flatlist:
                     for _filter in flatlist:
-                        print '\n do flat ' + str(_filter) + '\n'
+                        print('\n do flat ' + str(_filter) + '\n')
                         flatlist[_filter] = rejectflat(
                             flatlist[_filter], False)
                         if len(flatlist[_filter]) >= 3:
@@ -302,7 +302,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                                 f.close()
                                 h.close()
                                 try:
-                                    print 'processing flat .....'
+                                    print('processing flat .....')
                                     iraf.ccdproc('@' + listaflat, output='@o' + listaflat, overscan='no', trim='yes',
                                                  darkcor='no', fixpix='no',
                                                  zerocor=_zerocor, flatcor='no', trimsec=str(_trimsec), biassec='',
@@ -370,12 +370,12 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
         masterflatlist = ''
     ######################################
     if _verbose:
-        print ''
-        print '#############################'
-        print masterflatlist
-        print masterbiaslist
-        print '#############################'
-        print ''
+        print('')
+        print('#############################')
+        print(masterflatlist)
+        print(masterbiaslist)
+        print('#############################')
+        print('')
     if masterflatlist:
         listaout = listaout + masterflatlist
     if masterbiaslist:
@@ -385,7 +385,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
     for _filter in objectlist:
         for img in objectlist[_filter]:
             hdr = readhdr(img)
-            print '\n#####################################################################\n'
+            print('\n#####################################################################\n')
             _object = readkey3(hdr, 'object')
             _object = re.sub(' ', '', _object)
             _object = re.sub('/', '_', _object)
@@ -424,10 +424,10 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
             else:
                 _flatcor = 'no'
             sss = str(_object) + '_' + str(_date) + '_' + str(_filter)
-            print '### input', img, sss
-            print '### bias ', _zerocor, _bias
-            print '### flat ', _flatcor, _flat
-            print '### name ', nameout
+            print('### input', img, sss)
+            print('### bias ', _zerocor, _bias)
+            print('### flat ', _flatcor, _flat)
+            print('### name ', nameout)
             delete(nameout)
             try:
                 iraf.ccdproc(img, output=nameout, overscan="no", trim="yes", zerocor=_zerocor, flatcor='no',
@@ -475,21 +475,21 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                     nameout, 0, {'FIXPIX': [badpixelmask, '']})
                 ntt.util.writeinthelog('image ' + str(nameout) + ' bad pixel corrected with ' + badpixelmask + '\n',
                                        './logNTT.txt')
-                print '\n### bad pixel mask correction ..... done'
+                print('\n### bad pixel mask correction ..... done')
             else:
                 ntt.util.writeinthelog(
                     'image ' + str(nameout) + ' bad pixel NOT corrected\n', './logNTT.txt')
             if _cosmic:
                 try:
-                    print '\n### cosmic  ..... '
+                    print('\n### cosmic  ..... ')
                     ntt.cosmics.lacos_im(nameout, _output='', gain=_gain, readn=_rdnoise, xorder=9, yorder=9,
                                          sigclip=4.5, sigfrac=0.5, objlim=1, skyval=0, niter=0, verbose=True,
                                          interactive=False)
                     ntt.util.updateheader(nameout, 0, {
                         'LACOSMIC': [True, 'TRUE if Laplacian cosmic ray rejection has been applied to the image']})
-                    print '\n### cosmic  .....  removed '
+                    print('\n### cosmic  .....  removed ')
                 except Exception, e:
-                    print e
+                    print(e)
             else:
                 ntt.util.updateheader(nameout, 0, {
                     'LACOSMIC': [False, 'TRUE if Laplacian cosmic ray rejection has been applied to the image']})
@@ -516,11 +516,11 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                 astrostring = str(rmsx3) + ' ' + str(rmsy3) + ' ' + str(num3)
                 ntt.util.updateheader(
                     nameout, 0, {'ASTROMET': [astrostring, 'rmsx rmsy nstars']})
-                print '\n### check astrometry: fine \n### rmsx rmsy nstars: ' + astrostring
+                print('\n### check astrometry: fine \n### rmsx rmsy nstars: ' + astrostring)
             except Exception, e:
-                print e
+                print(e)
                 rmsx3, rmsy3, num3, fwhmgess, ellgess, ccc, rasys3, decsys3, magsat3 = '', '', '', '', '', '', '', '', ''
-                print '\n### problem with astrometry, do you have network ? '
+                print('\n### problem with astrometry, do you have network ? ')
             if fwhmgess and fwhmgess < 99:
                 ntt.util.updateheader(nameout, 0, {'PSF_FWHM': [fwhmgess, 'Spatial resolution (arcsec)'],
                                                    'ELLIPTIC': [ellgess, 'Average ellipticity of point sources'],
@@ -552,11 +552,11 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                     if re.sub('.fits', '.ph', nameout) not in outputfile:
                         outputfile.append(
                             re.sub('.fits', '.ph', nameout))
-                print '\n### zeropoint ..... done'
+                print('\n### zeropoint ..... done')
                 for ll in result:
                     valore = '%3.3s %6.6s %6.6s' % (
                         str(ll), str(result[ll][1]), str(result[ll][0]))
-                    print '### ', valore
+                    print('### ', valore)
                     ntt.util.updateheader(
                         nameout, 0, {'zp' + ll: [str(valore), '']})
             if magsat3:
@@ -595,10 +595,10 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                 except:
                     ntt.util.writeinthelog(
                         'image ' + str(nameout) + ' probably corrupted\n', './logNTT.txt')
-                    print '\n### problem with fringing correction'
+                    print('\n### problem with fringing correction')
 
-    print outputfile
-    print '\n### adding keywords for phase 3 ........'
+    print(outputfile)
+    print('\n### adding keywords for phase 3 ........')
     for img in outputfile:
         if str(img)[-5:] == '.fits':
             ################################################
@@ -611,7 +611,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                 pyv = 40
 
             if pyv <= 30:
-                print 'here'
+                print('here')
                 ntt.util.updateheader(img, 0,
                                       {'HIERARCH ESO DET OUT1 GAIN': [1.18, 'Conversion from electrons to ADU']})
                 ntt.util.updateheader(img, 0, {'HIERARCH ESO DET OUT1 RON': [
@@ -694,7 +694,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                 imm.close()
 
             except:
-                print 'Warning: ' + img + ' is not a fits file'
+                print('Warning: ' + img + ' is not a fits file')
 
     f = open('logfile_phot_' + str(reduceddata) +
              '_' + str(datenow) + '.raw.list', 'w')
@@ -807,15 +807,15 @@ def rejectflat(lista, _interactive):
         for img in listone:
             aa, bb, cc = display_image(img, 1, '', '', False)
             titolo, result = iraf.imstat(img, Stdout=1)
-            print titolo[1:]
-            print result
+            print(titolo[1:])
+            print(result)
             answ = 'nn'
             while answ not in ['g', 'G', 'b', 's']:
                 answ = raw_input('good/bad  [[g]/b/G(all good)/s(stop)]? ')
                 if not answ:
                     answ = 'g'
                 if answ not in ['g', 'G', 'b', 's']:
-                    print 'warning: value not valid, try again'
+                    print('warning: value not valid, try again')
             if answ == 'g':
                 listgood.append(img)
             elif answ == 'G':
@@ -858,22 +858,22 @@ def rejectbias(lista, _interactive, nn=10):
     ntt.util.delete('_listgoodbias')
     for i in range(0, len(lista)):
         if lista[i] not in lista1:
-            print lista[i] + ' ' + str(biasstd[i]) + ' rejected'
+            print(lista[i] + ' ' + str(biasstd[i]) + ' rejected')
         else:
-            print lista[i], biasstd[i]
+            print(lista[i], biasstd[i])
     for img in lista1:
         if _interactive:
             aa, bb, cc = ntt.util.display_image(img, 1, '', '', False)
             titolo, result = iraf.imstat(img, Stdout=1)
-            print titolo[1:]
-            print result
+            print(titolo[1:])
+            print(result)
             answ = 'nn'
             while answ not in ['g', 'G', 'b', 's']:
                 answ = raw_input('good/bad  [[g]/b/G(all good)/s(stop) ] ? ')
                 if not answ:
                     answ = 'g'
                 if answ not in ['g', 'G', 'b', 's']:
-                    print 'warning: value not valid, try again'
+                    print('warning: value not valid, try again')
             if answ == 'g':
                 listgood.append(img)
             elif answ == 'G':
@@ -918,11 +918,11 @@ def fringing2(img, fmask, _interactive, _verbose=False):
         if fmask:
             fmask = searchfringe(img, fmask)[0]
         if fmask:
-            print '###### use fringing mask from user ' + fmask
+            print('###### use fringing mask from user ' + fmask)
         else:
             fmask = searchfringe(img, '')[0]
             if fmask:
-                print '###### use fringing mask from archive ' + fmask
+                print('###### use fringing mask from archive ' + fmask)
         if fmask:
             imgout = re.sub('.fits', '_fr.fits', img)
             _trim = readkey3(hdr, 'TRIM')
@@ -962,7 +962,7 @@ def fringing2(img, fmask, _interactive, _verbose=False):
             delete(imgout)
             iraf.imutil.imexpr(expr='a - (' + str(scalevalue) + '* (b - ' + str(median(matfrin)) + ') )', a=img,
                                b=maskname, output=imgout, verbose='no')
-            print '\n### fringing correction  ..... done'
+            print('\n### fringing correction  ..... done')
             iraf.hedit(images=imgout, fields='OBJMASK', value='',
                        delete='yes', update='yes', verify='no')
             ntt.util.updateheader(imgout, 0, {
@@ -976,9 +976,9 @@ def fringing2(img, fmask, _interactive, _verbose=False):
             stringa = '%7.7s  * (fmask_%8s.fits - %5.5s )' % (
                 str(scalevalue), _date, str(median(matfrin)))
         else:
-            print '\n### fringing mask not available for this filter'
+            print('\n### fringing mask not available for this filter')
     else:
-        print '\n### fringing correction already applyed to this image'
+        print('\n### fringing correction already applyed to this image')
     return imgout, maskname
 
 #########################################################

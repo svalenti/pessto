@@ -96,7 +96,7 @@ def telluric_atmo(imgstd):
         ntt.util.delete(imgout)
     else:
         _imgout = ''
-        print '### telluric correction with model not possible '
+        print('### telluric correction with model not possible ')
     return _imgout
 
 
@@ -156,7 +156,7 @@ def checkwavestd(imgex, _interactive):
     try:        import pyfits
     except:     from astropy.io import fits as pyfits
 
-    print '\n### Warning: check in wavelenght with sky lines not performed\n'
+    print('\n### Warning: check in wavelenght with sky lines not performed\n')
     if _interactive in ['yes', 'YES', 'Yes', 'Y', 'y']:
         answ = raw_input(
             '\n### Do you want to check the wavelengh calibration with tellurich lines [[y]/n]? ')
@@ -165,7 +165,7 @@ def checkwavestd(imgex, _interactive):
     else:
         answ = 'y'
     if answ in ['y', 'yes']:
-        print '\n### check wavelength calibration with tellurich lines \n'
+        print('\n### check wavelength calibration with tellurich lines \n')
 	# sky
         _skyfile = ntt.__path__[0] + '/standard/ident/sky_new_0.fits'
         skyff = 1 - (pyfits.open(_skyfile)[0].data)
@@ -173,7 +173,7 @@ def checkwavestd(imgex, _interactive):
         cd1 = pyfits.open(_skyfile)[0].header.get('CD1_1')
         skyxx = np.arange(len(skyff))
         skyaa = crval1 + (skyxx) * cd1
-        
+
 	# object
         atmofile = ntt.efoscspec1Ddef.atmofile(imgex, 'atmo2_' + imgex)
         atmoff = 1 - (pyfits.open(atmofile)[0].data[0][0])
@@ -385,10 +385,10 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
         if setup not in sens:
             sens[setup] = []
         if tpe == 'obj':
-            print '\n### setup= ', setup, '\n### objects= ', objectlist['obj'][setup], '\n'
+            print('\n### setup= ', setup, '\n### objects= ', objectlist['obj'][setup], '\n')
             for img in objectlist['obj'][setup]:
                 #              hdr=readhdr(img)
-                print '\n\n### next object= ', img, ' ', ntt.util.readkey3(ntt.util.readhdr(img), 'object'), '\n'
+                print('\n\n### next object= ', img, ' ', ntt.util.readkey3(ntt.util.readhdr(img), 'object'), '\n')
                 if os.path.isfile(re.sub('.fits', '_ex.fits', img)):
                     if ntt.util.readkey3(ntt.util.readhdr(re.sub('.fits', '_ex.fits', img)), 'quality') == 'Rapid':
                         ntt.util.delete(re.sub('.fits', '_ex.fits', img))
@@ -414,7 +414,7 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
                     if 'database/ap' + re.sub('_ex.fits', '', imgex) not in outputfile:
                         outputfile.append(
                             'database/ap' + re.sub('_ex.fits', '', imgex))
-            print '\n### all object with this setup extracted\n'
+            print('\n### all object with this setup extracted\n')
         if liststandard:
             standardlist = liststandard
             _type = 'stdfromdreducer'
@@ -427,17 +427,17 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
                 _type = ''
         if _type == 'stdfromdreducer' and len(extracted) >= 1:
             _outputsens2 = ntt.util.searchsens(extracted[0], standardlist)[0]
-            print '\n### using standard from reducer ' + str(_outputsens2)
+            print('\n### using standard from reducer ' + str(_outputsens2))
         elif _type not in ['stdsens', 'stdfromdreducer'] and len(extracted) >= 1:
             _outputsens2 = ntt.util.searchsens(extracted[0], '')[0]
             os.system('cp ' + _outputsens2 + ' .')
             _outputsens2 = string.split(_outputsens2, '/')[-1]
-            print '\n### no standard in the list, using standard from archive'
+            print('\n### no standard in the list, using standard from archive')
         else:
             for simg in standardlist:
-                print '\n###  standard for setup ' + \
+                print('\n###  standard for setup ' + \
                       str(setup) + ' = ', simg, ' ', ntt.util.readkey3(
-                          ntt.util.readhdr(simg), 'object'), '\n'
+                          ntt.util.readhdr(simg), 'object'), '\n')
                 simgex = ntt.util.extractspectrum(
                     simg, dv, False, False, _interactive, 'std', automaticex=_automaticex)
                 ntt.util.updateheader(
@@ -466,7 +466,7 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
                     outputfile.append(simgex)
                 if setup[0] == 'Gr13' and setup[1] == 'Free':
                     if os.path.isfile(re.sub('Free', 'GG495', simg)):
-                        print '\n### extract standard frame with blocking filter to correct for second order contamination\n'
+                        print('\n### extract standard frame with blocking filter to correct for second order contamination\n')
                         simg2 = re.sub('Free', 'GG495', simg)
                         simgex2 = ntt.util.extractspectrum(simg2, dv, False, False, _interactive, 'std',
                                                            automaticex=_automaticex)
@@ -483,7 +483,7 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
                                 simgex2, _interactive)
                         ntt.util.updateheader(
                             simgex2, 0, {'TRACE1': [simg2, 'Originating file']})
-            print '\n### standard available: ', sens[setup]
+            print('\n### standard available: ', sens[setup])
             if tpe == 'obj':
                 if len(sens[setup]) > 1:
                     goon = 'no'
@@ -514,8 +514,8 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
 
                 if setup[0] == 'Gr13' and setup[1] == 'Free':
                     if os.path.isfile(re.sub('Free', 'GG495', stdused)):
-                        print '\n### compute sensitivity function of grim 13 with blocking filter ' \
-                              'to correct for second order contamination \n'
+                        print('\n### compute sensitivity function of grim 13 with blocking filter ' \
+                              'to correct for second order contamination \n')
                         stdused2 = re.sub('Free', 'GG495', stdused)
                         if not ntt.util.readkey3(ntt.util.readhdr(stdused2), 'STDNAME'):
                             ntt.util.updateheader(stdused2, 0, {
@@ -620,14 +620,14 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
                 if imgasci not in outputfile:
                     outputfile.append(imgasci)
 
-    print '\n### adding keywords for phase 3 ....... '
+    print('\n### adding keywords for phase 3 ....... ')
     for img in outputfile:
         if str(img)[-5:] == '.fits':
             try:
                 ntt.util.phase3header(img)  # phase 3 definitions
                 ntt.util.updateheader(img, 0, {'quality': ['Final', '']})
             except:
-                print 'Warning: ' + img + ' is not a fits file'
+                print('Warning: ' + img + ' is not a fits file')
             try:
                 if int(re.sub('\.', '', str(pyfits.__version__))[:2]) <= 30:
                     aa = 'HIERARCH '
@@ -647,7 +647,7 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
             imm.flush()
             imm.close()
 
-    print outputfile
+    print(outputfile)
     reduceddata = ntt.rangedata(outputfile)
     f = open('logfile_spec1d_' + str(reduceddata) +
              '_' + str(datenow) + '.raw.list', 'w')
