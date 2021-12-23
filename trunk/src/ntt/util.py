@@ -11,8 +11,8 @@ def ReadAscii2(ascifile):
     vec1, vec2 = [], []
     for line in ss:
         if line[0] != '#':
-            vec1.append(float(string.split(line)[0]))
-            vec2.append(float(string.split(line)[1]))
+            vec1.append(float(line.split()[0]))
+            vec2.append(float(line.split()[1]))
     return vec1, vec2
 
 
@@ -28,7 +28,7 @@ def readlist(listfile):
     if '*' in listfile:
         imglist = glob.glob(listfile)
     elif ',' in listfile:
-        imglist = string.split(listfile, sep=',')
+        imglist = listfile.split(sep=',')
     else:
         try:
             hdulist = pyfits.open(listfile)
@@ -83,7 +83,7 @@ def delete(listfile):
                 ff = re.sub('\n', '', ff)
                 imglist.append(ff)
     elif ',' in listfile:
-        imglist = string.split(listfile, sep=',')
+        imglist = listfile.split(sep=',')
     else:
         imglist = [listfile]
     lista = []
@@ -206,7 +206,7 @@ def readkey3(hdr, keyword):
                 import re
 
                 try:
-                    value = re.sub('-', '', string.split(value, 'T')[0])
+                    value = re.sub('-', '', value.split('T')[0])
                 except:
                     pass
             elif keyword == 'ut':
@@ -214,7 +214,7 @@ def readkey3(hdr, keyword):
                 import re
 
                 try:
-                    value = string.split(value, 'T')[1]
+                    value = value.split('T')[1]
                 except:
                     pass
             elif keyword == 'JD':
@@ -228,9 +228,9 @@ def readkey3(hdr, keyword):
             import datetime
 
             _date = readkey3(hdr, 'DATE-OBS')
-            a = (datetime.datetime.strptime(string.split(_date, '.')[0], "20%y-%m-%dT%H:%M:%S") - datetime.timedelta(
+            a = (datetime.datetime.strptime(_date.split('.')[0], "20%y-%m-%dT%H:%M:%S") - datetime.timedelta(
                 .5)).isoformat()
-            value = re.sub('-', '', string.split(a, 'T')[0])
+            value = re.sub('-', '', a.split('T')[0])
         else:
             try:
                 value = hdr.get(keyword)
@@ -424,8 +424,8 @@ def display_image(img, frame, _z1, _z2, scale, _xcen=0.5, _ycen=0.5, _xsize=1, _
                 answ0 = 'n'
 
             while answ0 == 'n':
-                _z11 = float(string.split(string.split(sss[0])[0], '=')[1])
-                _z22 = float(string.split(string.split(sss[0])[1], '=')[1])
+                _z11 = float(sss[0].split()[0].split('=')[1])
+                _z22 = float(sss[0].split()[1].split('=')[1])
                 z11 = raw_input('>>> z1 = ? [' + str(_z11) + '] ? ')
                 z22 = raw_input('>>> z2 = ? [' + str(_z22) + '] ? ')
                 if not z11:
@@ -445,8 +445,8 @@ def display_image(img, frame, _z1, _z2, scale, _xcen=0.5, _ycen=0.5, _xsize=1, _
                 elif answ0 == 'no' or answ0 == 'NO':
                     answ0 = 'n'
         if goon:
-            _z1, _z2 = string.split(string.split(sss[0])[0], '=')[
-                1], string.split(string.split(sss[0])[1], '=')[1]
+            _z1, _z2 = sss[0].split()[0].split('=')[
+                1], sss[0].split()[1].split('=')[1]
     else:
         print('Warning: image ' + str(img) + ' not found in the directory ')
     return _z1, _z2, goon
@@ -621,9 +621,9 @@ def readstandard(standardfile):
     magnitude = []
     for i in liststd:
         if i[0] != '#':
-            star.append(string.split(i)[0])
-            _ra = string.split(string.split(i)[1], ':')
-            _dec = string.split(string.split(i)[2], ':')
+            star.append(i.split()[0])
+            _ra = i.split()[1].split(':')
+            _dec = i.split()[2].split(':')
             ra.append(
                 (float(_ra[0]) + ((float(_ra[1]) + (float(_ra[2]) / 60.)) / 60.)) * 15)
             if '-' in str(_dec[0]):
@@ -633,7 +633,7 @@ def readstandard(standardfile):
                 dec.append(
                     float(_dec[0]) + ((float(_dec[1]) + (float(_dec[2]) / 60.)) / 60.))
             try:
-                magnitude.append(string.split(i)[3])
+                magnitude.append(i.split()[3])
             except:
                 magnitude.append(999)
     return np.array(star), np.array(ra), np.array(dec), np.array(magnitude)
@@ -681,9 +681,9 @@ def readspectrum(img):
         try:
             WAT = head['WAT2_001']
             pix = array(range(1, naxis1 + 1, 1))
-            crpix1 = string.split(string.split(WAT, '"')[1])[0]
-            crval1 = string.split(string.split(WAT, '"')[1])[3]
-            cdelt1 = string.split(string.split(WAT, '"')[1])[4]
+            crpix1 = WAT.split('"')[1].split()[0]
+            crval1 = WAT.split('"')[1].split()[3]
+            cdelt1 = WAT.split('"')[1].split()[4]
             lam = (pix - float(crpix1)) * float(cdelt1) + float(crval1)
         except:
             graf = 0
@@ -812,7 +812,7 @@ def airmass(img, overwrite=True, _observatory='lasilla'):
         _date = _date[0:4] + '-' + _date[4:6] + '-' + _date[6:8]
         _RA = ntt.util.readkey3(hdr, 'RA') / 15
         _DEC = ntt.util.readkey3(hdr, 'DEC')
-        f = file('airmass.txt', 'w')
+        f = open('airmass.txt', 'w')
         f.write('mst = mst ("' + str(_date) + '",' + str(_UT) +
                 ', obsdb ("' + str(_observatory) + '", "longitude"))\n')
         f.write(
@@ -1142,7 +1142,7 @@ def spectraresolution2(img0, ww=25):
     ff = dd[start:stop]
     lines = []
     for i in ff:
-        lines.append(float(string.split(i)[2]))
+        lines.append(float(i.split()[2]))
     lines = np.compress((aa[0] < np.array(lines)) & (
         np.array(lines) < aa[-1]), np.array(lines))
     cursor = ''
@@ -1162,7 +1162,7 @@ def spectraresolution2(img0, ww=25):
         'new3.fits', cursor='_cursor', spec2='', new_ima='', overwri='yes', Stdout=1)
     fw = []
     for i in aaa[1:]:
-        fw.append(float(string.split(string.split(i, '=')[-1], 'k')[0]))
+        fw.append(float(i.split('=')[-1].split('k')[0]))
     ntt.delete('new3.fits,_cursor')
     # return mean(fw)
     return (aa[0] + ((aa[-1] - aa[0]) / 2)) / np.mean(fw)
@@ -1276,7 +1276,7 @@ def extractspectrum(img, dv, _ext_trace, _dispersionline, _interactive, _type, a
     _grism = ntt.util.readkey3(hdr, 'grism')
     iraf.specred.dispaxi = 2
     imgex = re.sub('.fits', '_ex.fits', img)
-    imgfast = re.sub(string.split(img, '_')[-2] + '_', '', img)
+    imgfast = re.sub(img.split('_')[-2] + '_', '', img)
     # imgfast=re.sub(str(MJDtoday)+'_','',img)
     if not os.path.isfile(imgex) and not os.path.isfile(
             'database/ap' + re.sub('.fits', '', img)) and not os.path.isfile(

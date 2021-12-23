@@ -112,12 +112,12 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
             arcref = ntt.util.searcharc(img, '')[0]
             if arcfile[0] == '/':
                 os.system('cp ' + arcfile + ' ' +
-                          string.split(arcfile, '/')[-1])
-                arcfile = string.split(arcfile, '/')[-1]
-            arcref = string.split(arcref, '/')[-1]
+                          arcfile.split('/')[-1])
+                arcfile = arcfile.split('/')[-1]
+            arcref = arcref.split('/')[-1]
             if arcref:
                 os.system('cp ' + arcref + ' .')
-                arcref = string.split(arcref, '/')[-1]
+                arcref = arcref.split('/')[-1]
                 if not os.path.isdir('database/'):
                     os.mkdir('database/')
                 if os.path.isfile(ntt.util.searcharc(img, '')[1] + '/database/id' + re.sub('.fits', '', arcref)):
@@ -192,7 +192,7 @@ def efoscfastredu(imglist, _listsens, _listarc, _ext_trace, _dispersionline, _co
                                            flux='yes', ignorea='yes', extinction=_extinctdir + _extinction,
                                            observatory=_observatory, airmass=_airmass, exptime=_exptime,
                                            fnu='no')
-                    hedvec = {'SENSFUN': [string.split(sensfile, '/')[-1], 'sensitivity function'],
+                    hedvec = {'SENSFUN': [sensfile.split('/')[-1], 'sensitivity function'],
                               'FILETYPE': [22208, '1D wavelength and flux calibrated spectrum '],
                               'SNR': [ntt.util.StoN2(imgf, False), 'Average S/N ratio'],
                               'BUNIT': ['erg/cm2/s/Angstrom', 'Flux Calibration Units'], 'TRACE1': [imgex, '']}

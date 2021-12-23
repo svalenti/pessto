@@ -147,7 +147,7 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
     iraf.tvmark(2, 'tmpone.coo', mark="circle", number='yes',
                 label='no', radii=8, nxoffse=5, nyoffse=5, color=204, txsize=2)
     xycoo = iraf.proto.fields('tmpone.coo', '1,2', Stdout=1)
-    x0, y0 = string.split(xycoo[0])
+    x0, y0 = xycoo[0].split()
     x0 = float(x0)
     y0 = float(y0)
     xcum0 = readkey3(readhdr(lista2[0]), 'xcum')
@@ -199,7 +199,7 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
                 gggg = iraf.digiphot.daophot.phot(
                     lista2[i], "tmpone.coo", output="pippo." + str(j) + ".mag", verify='no', interac='no', Stdout=1)
                 try:
-                    float(string.split(gggg[0])[3])
+                    float(gggg[0].split()[3])
                     answ = 'y'
                 except:
                     print('\n### warning')
@@ -210,7 +210,7 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
                 iraf.image.tv.imexamine(lista2[
                                         i], 1, logfile='tmpone.coo', keeplog='yes', xformat='', yformat='', wcs='logical')
                 xycoo = iraf.proto.fields('tmpone.coo', '1,2', Stdout=1)
-                x2, y2 = string.split(xycoo[0])
+                x2, y2 = xycoo[0].split()
                 f = open('tmpone.coo', 'w')
                 f.write(str(x2) + ' ' + str(y2) + '\n')
                 f.close()
@@ -219,7 +219,7 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
                 gggg = iraf.digiphot.daophot.phot(
                     lista2[i], "tmpone.coo", output='pippo.' + str(j) + '.mag', verify='no', interac='no', Stdout=1)
                 try:
-                    float(string.split(gggg[0])[3])
+                    float(gggg[0].split()[3])
                     answ = 'y'
                 except:
                     print('\n### warning')
@@ -245,7 +245,7 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
     data0, hdr0 = pyfits.getdata(lista[0], 0, header=True)
     delete(illum_frame)
     pyfits.writeto(illum_frame, float32(data), hdr0)
-    flatfield0 = string.split(flatfield, '/')[-1]
+    flatfield0 = flatfield.split('/')[-1]
     ntt.util.updateheader(
         illum_frame, 0, {'MKILLUM': [flatfield0, 'flat field']})
     display_image(illum_frame, 1, '', '', False)
@@ -293,10 +293,14 @@ def doflatsofi(flats, _doflat, illum, _output):
                     ii = 0
                     nn = 0
                     for img in images:
-                        onoffvalue = float(string.split(iraf.imstat(
-                            img + '[500:600,900:1000]', Stdout=1)[1])[2])
-                        maskvalue = float(string.split(iraf.imstat(
-                            img + '[100:200,900:1000]', Stdout=1)[1])[2])
+                        #onoffvalue = float(string.split(iraf.imstat(
+                        #    img + '[500:600,900:1000]', Stdout=1)[1])[2])
+                        str_onoffvalue = iraf.imstat(img + '[500:600,900:1000]', Stdout=1)[1]
+                        onoffvalue = float(str_onoffvalue.split()[2])
+                        #maskvalue = float(string.split(iraf.imstat(
+                        #    img + '[100:200,900:1000]', Stdout=1)[1])[2])
+                        str_maskvalue = iraf.imstat(img + '[100:200,900:1000]', Stdout=1)[1]
+                        maskvalue = float(str_maskvalue.split()[2])
                         if onoffvalue >= onofflimit[_filter]:
                             onoff = 'ON'
                         else:
@@ -308,10 +312,14 @@ def doflatsofi(flats, _doflat, illum, _output):
 #                        display_image(img,1,'','',False)
                         print(onoff, mask, onoffvalue, maskvalue, img, tipo[nn])
                     for img in images:
-                        onoffvalue = float(string.split(iraf.imstat(
-                            img + '[500:600,900:1000]', Stdout=1)[1])[2])
-                        maskvalue = float(string.split(iraf.imstat(
-                            img + '[100:200,900:1000]', Stdout=1)[1])[2])
+                        #onoffvalue = float(string.split(iraf.imstat(
+                        #    img + '[500:600,900:1000]', Stdout=1)[1])[2])
+                        str_onoffvalue = iraf.imstat(img + '[500:600,900:1000]', Stdout=1)[1]
+                        onoffvalue = float(str_onoffvalue.split()[2])
+                        #maskvalue = float(string.split(iraf.imstat(
+                        #    img + '[100:200,900:1000]', Stdout=1)[1])[2])
+                        str_maskvalue = iraf.imstat(img + '[100:200,900:1000]', Stdout=1)[1]
+                        maskvalue = float(str_maskvalue.split()[2])
                         if onoffvalue >= onofflimit[_filter]:
                             onoff = 'ON'
                         else:

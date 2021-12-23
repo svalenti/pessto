@@ -201,9 +201,9 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
             _object_name = readkey3(hdr, 'object')
             _OBID = (readkey3(hdr, 'esoid'), _grism)
             if string.count(_object_name, '/') or string.count(_object_name, '.') or string.count(_object_name, ' '):
-                nameobj = string.split(_object_name, '/')[0]
-                nameobj = string.split(nameobj, ' ')[0]
-                nameobj = string.split(nameobj, '.')[0]
+                nameobj = _object_name.split('/')[0]
+                nameobj = nameobj.split(' ')[0]
+                nameobj = nameobj.split('.')[0]
             else:
                 nameobj = _object_name
             if _grism not in fieldlist:
@@ -383,8 +383,8 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
             arcfile = ntt.util.searcharc(obj0, '')[0]
             if arcfile[0] == '/':
                 os.system('cp ' + arcfile + ' ' +
-                          string.split(arcfile, '/')[-1])
-                arcfile = string.split(arcfile, '/')[-1]
+                          arcfile.split('/')[-1])
+                arcfile = arcfile.split('/')[-1]
             lamps[_grism] = [arcfile]
 
         if _grism in lamps:
@@ -400,8 +400,8 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                 datea = readkey3(readhdr(arcfile), 'date-night')
                 if arcfile[0] == '/':
                     os.system('cp ' + arcfile + ' ' +
-                              string.split(arcfile, '/')[-1])
-                    arcfile = string.split(arcfile, '/')[-1]
+                              arcfile.split('/')[-1])
+                    arcfile = arcfile.split('/')[-1]
 
                 if _doflat:
                     if listflat:
@@ -460,7 +460,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                 else:
                     print(arcref)
                     os.system('cp ' + arcref + ' .')
-                    arcref = string.split(arcref, '/')[-1]
+                    arcref = arcref.split('/')[-1]
                     if not os.path.isdir('database/'):
                         os.mkdir('database/')
                     if os.path.isfile(ntt.util.searcharc(obj0, '')[1] + '/database/id' + re.sub('.fits', '', arcref)):

@@ -88,7 +88,8 @@ def vizq2(_ra, _dec, catalogue, radius):
         _name.append(aa[2])
 
     dictionary = {'ra': _ra, 'dec': _dec, 'id': _name}
-    sss = string.split(cat[catalogue][2], ',')
+    #sss = string.split(cat[catalogue][2], ',')
+    sss = cat[catalogue][2].split(',')
     for ii in sss:
         dictionary[ii] = []
     for ii in bb[3:]:
@@ -357,9 +358,11 @@ def readtxt(ascifile):
     columnname = []
     for i in range(0, len(ss)):
         if ss[i][0] == '#' and 'nfields' in ss[i]:
-            num = int(string.split(ss[i])[-1])
+            #num = int(string.split(ss[i])[-1])
+            num = int(ss[i].split()[-1])
             for g in range(1, num + 1):
-                columnname.append(string.split(ss[i + g])[1])
+                #columnname.append(string.split(ss[i + g])[1])
+                columnname.append(ss[i + g].split()[1])
             break
     ascidic = {}
     #    try:
@@ -373,7 +376,8 @@ def readtxt(ascifile):
     for i in range(0, len(ss)):
         if ss[i][0] != '#':
             for j in range(0, len(columnname)):
-                ascidic[columnname[j]].append(string.split(ss[i])[j])
+                #ascidic[columnname[j]].append(string.split(ss[i])[j])
+                ascidic[columnname[j]].append(ss[i].split()[j])
     return ascidic
 
 
@@ -752,7 +756,8 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
                 #
                 phot = iraf.noao.digiphot.daophot.phot(image=img, output='', coords='tmp.one', verify='no',
                                                        interactive='no', Stdout=1)
-                mag0 = float(string.split(phot[0])[4])
+                #mag0 = float(string.split(phot[0])[4])
+                mag0 = float(phot[0].split()[4])
                 #                mag=mag0-kk[filters[_filter]]*float(_airmass)
                 mag = mag0 - 2.5 * \
                     math.log10(float(_exptime)) - \
@@ -1213,9 +1218,8 @@ def querysloan(ra1, dec1, radius, mr1, mr2):
                         str(radius) + ' ) N' + ' where P.objID = N.objID').readlines()
     _id, _ra, _dec, _u, _g, _r, _i, _z, _type = [], [], [], [], [], [], [], [], []
     for i in righe[1:]:
-        if len(string.split(i, ',')) == 9:
-            _id0, _ra0, _dec0, _u0, _g0, _r0, _i0, _z0, _type0 = string.split(
-                i, ',')
+        if len(i.split(',')) == 9:
+            _id0, _ra0, _dec0, _u0, _g0, _r0, _i0, _z0, _type0 = i.split(',')
             if mr1 and mr2:
                 if mr1 <= float(_r0) <= mr2:
                     _id.append(_id0)
@@ -1714,8 +1718,8 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
         array(am1) < magsel11), array(catvec['dec'], float))
     xusno, yusno = [], []
     for i in apixcut:
-        xusno.append(float(string.split(i)[0]))
-        yusno.append(float(string.split(i)[1]))
+        xusno.append(float(i.split()[0]))
+        yusno.append(float(i.split()[1]))
     xusno, yusno = array(xusno), array(yusno)
     #################################################################
     if verbose:
@@ -1802,8 +1806,8 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
                 ime = iraf.imexam(input=img, frame=1, logfile='', keeplog='yes', imagecur='tmp.one', wcs='logical',
                                   use_disp='no', Stdout=1)
                 try:
-                    _fwhm2 = median(compress(array(string.split(ime[3])[-3:], float) < 99,
-                                             (array(string.split(ime[3])[-3:], float))))
+                    _fwhm2 = median(compress(array(ime[3].split()[-3:], float) < 99,
+                                             (array(ime[3].split()[-3:], float))))
                     fwhm2.append(_fwhm2)
                 except:
                     pass
@@ -1816,7 +1820,8 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
         if 'rms' in _ccmap1[_ccmap1.index('Wcs mapping status') + 1]:
             try:
                 rmsx, rmsy = array(
-                    string.split(string.split(_ccmap1[_ccmap1.index('Wcs mapping status') + 1], ':')[-1])[0:2], float)
+                    #string.split(string.split(_ccmap1[_ccmap1.index('Wcs mapping status') + 1], ':')[-1])[0:2], float)
+                    _ccmap1[_ccmap1.index('Wcs mapping status') + 1].split(':')[-1].split()[0:2], float)
                 if float(rmsx) < 2. and float(rmsy) < 2.:
                     _ccmap1 = iraf.ccmap('STDIN', 'STDOUT', images=img, Stdin=vettoretran, fitgeome=fitgeo, xcolum=3,
                                          xxorder=2, yyorder=2, ycolum=4, lngcolum=1, latcolumn=2, lngunit='degrees',
@@ -1827,7 +1832,8 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
                     print('\n### update astrometry with non linear order')
             except:
                 rmsx, rmsy = array(
-                    string.split(string.split(_ccmap1[_ccmap1.index('Wcs mapping status') + 1], ':')[-1])[0:2])
+                    #string.split(string.split(_ccmap1[_ccmap1.index('Wcs mapping status') + 1], ':')[-1])[0:2])
+                    _ccmap1[_ccmap1.index('Wcs mapping status') + 1].split(':')[-1].split()[0:2])
             rasys = 0.0000278
             decsys = 0.0000278
         else:
@@ -1886,7 +1892,8 @@ def deg2HMS(ra='', dec='', round=False):
       RA, DEC= '', ''
       if dec:
           if string.count(str(dec),':')==2:
-              dec00=string.split(dec,':')
+              #dec00=string.split(dec,':')
+              dec00=dec.split(':')
               dec0, dec1, dec2 = float(dec00[0]),float(dec00[1]),float(dec00[2])
               if '-' in str(dec0):
                  DEC=(-1)*((dec2/60.+dec1)/60.+((-1)*dec0))
@@ -1902,7 +1909,8 @@ def deg2HMS(ra='', dec='', round=False):
                 DEC = '+'+'00'[len(str(dec0)):]+str(dec0)+':'+'00'[len(str(dec1)):]+str(dec1)+':'+'00'[len(str(int(dec2))):]+str(dec2)[:6]
       if ra:
           if string.count(str(ra),':')==2:
-              ra00=string.split(ra,':')
+              #ra00=string.split(ra,':')
+              ra00=ra.split(':')
               ra0,ra1,ra2=float(ra00[0]),float(ra00[1]),float(ra00[2])
               RA=((ra2/60.+ra1)/60.+ra0)*15.
           else:

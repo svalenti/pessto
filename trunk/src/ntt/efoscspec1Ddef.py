@@ -142,7 +142,7 @@ def fluxcalib2d(img2d, sensfun):  # flux calibrate 2d images
     ntt.util.delete(img2df)
     pyfits.writeto(img2df, np.float32(data2d), hdr2d)
     ntt.util.updateheader(
-        img2df, 0, {'SENSFUN': [string.split(sensfun, '/')[-1], '']})
+        img2df, 0, {'SENSFUN': [sensfun.split('/')[-1], '']})
     ntt.util.updateheader(img2df, 0, {
                           'BUNIT': ['10^20 erg/cm2/s/Angstrom', 'Physical unit of array values']})
     return img2df
@@ -432,7 +432,7 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
         elif _type not in ['stdsens', 'stdfromdreducer'] and len(extracted) >= 1:
             _outputsens2 = ntt.util.searchsens(extracted[0], '')[0]
             os.system('cp ' + _outputsens2 + ' .')
-            _outputsens2 = string.split(_outputsens2, '/')[-1]
+            _outputsens2 = _outputsens2.split('/')[-1]
             print('\n### no standard in the list, using standard from archive')
         else:
             for simg in standardlist:

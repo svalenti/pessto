@@ -33,7 +33,7 @@ def findaperture(img, _interactive=False):
     try:
         for line in open('database/ap' + re.sub('.fits', '', img)):
             if "center" in line:
-                center = float(string.split(line)[1])
+                center = float(line.split()[1])
     except:
         center = 9999
     return center
@@ -265,9 +265,9 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                 _object = ntt.util.readkey3(
                     ntt.util.readhdr(listmerge[0]), 'object')
                 if string.count(_object, '/') or string.count(_object, '.') or string.count(_object, ' '):
-                    nameobj = string.split(_object, '/')[0]
-                    nameobj = string.split(nameobj, ' ')[0]
-                    nameobj = string.split(nameobj, '.')[0]
+                    nameobj = _object.split('/')[0]
+                    nameobj = nameobj.split(' ')[0]
+                    nameobj = nameobj.split('.')[0]
                 else:
                     nameobj = _object
                 _date = ntt.util.readkey3(

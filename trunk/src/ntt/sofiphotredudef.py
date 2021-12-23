@@ -28,8 +28,8 @@ def pesstocombine(imglist, _combine, _rejection, outputimage):
     ff.close()
     x, y = [], []
     for i in a:
-        x.append(float(string.split(i)[0]))
-        y.append(float(string.split(i)[1]))
+        x.append(float(i.split()[0]))
+        y.append(float(i.split()[1]))
     x, y = array(x), array(y)
     if ntt.util.readkey3(ntt.util.readhdr(imglist[0]), 'instrume') == 'sofi':
         ref_cumoffsetx0 = ntt.util.readkey3(
@@ -66,8 +66,8 @@ def pesstocombine(imglist, _combine, _rejection, outputimage):
             ff.close()
             x2, y2 = [], []
             for i in b:
-                x2.append(float(string.split(i)[0]))
-                y2.append(float(string.split(i)[1]))
+                x2.append(float(i.split()[0]))
+                y2.append(float(i.split()[1]))
             xdist, ydist, iref = [], [], []
             for i in range(len(x2)):
                 dist = sqrt((x2[i] - x1) ** 2 + (y2[i] - y1) ** 2)
@@ -185,8 +185,8 @@ def registersofi(imglist):
     ff.close()
     x, y = [], []
     for i in a:
-        x.append(float(string.split(i)[0]))
-        y.append(float(string.split(i)[1]))
+        x.append(float(i.split()[0]))
+        y.append(float(i.split()[1]))
     x, y = array(x), array(y)
 
     if ntt.util.readkey3(hdr0, 'instrume') == 'sofi':
@@ -222,8 +222,8 @@ def registersofi(imglist):
             ff.close()
             x2, y2 = [], []
             for i in b:
-                x2.append(float(string.split(i)[0]))
-                y2.append(float(string.split(i)[1]))
+                x2.append(float(i.split()[0]))
+                y2.append(float(i.split()[1]))
             xdist, ydist, iref = [], [], []
             for i in range(len(x2)):
                 dist = sqrt((x2[i] - x1) ** 2 + (y2[i] - y1) ** 2)
@@ -441,7 +441,7 @@ def searchill(flat, listill):
     illfile = ''
     if listill:
         for ill in listill:
-            if string.split(flat, '/')[-1] in readkey3(readhdr(ill), 'MKILLUM'):
+            if flat.split('/')[-1] in readkey3(readhdr(ill), 'MKILLUM'):
                 illfile = ill
     return illfile, directory
 
@@ -757,9 +757,9 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
             _dec = readkey3(hdro, 'DEC')
             _OBID = (readkey3(hdro, 'esoid'), _setup)
             if string.count(_object_name, '/') or string.count(_object_name, '.') or string.count(_object_name, ' '):
-                nameobj = string.split(_object_name, '/')[0]
-                nameobj = string.split(nameobj, ' ')[0]
-                nameobj = string.split(nameobj, '.')[0]
+                nameobj = _object_name.split('/')[0]
+                nameobj = nameobj.split(' ')[0]
+                nameobj = nameobj.split('.')[0]
             else:
                 nameobj = _object_name
             if _OBID not in OBID:
@@ -799,7 +799,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                 for imgill in listill:
                     print(flat[_set], _set)
                     print(imgill)
-                    if string.split(flat[_set], '/')[-1] in readkey3(readhdr(imgill),
+                    if flat[_set].split('/')[-1] in readkey3(readhdr(imgill),
                                                                      'MKILLUM'):  # popen(imgill)[0].header.get('MKILLUM'):
                         ill[_set] = imgill
             else:
@@ -827,7 +827,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     img = fieldlist[field][_set][0]
                     if _doill and _set in ill:
                         if str(ill[_set])[0] == '/':
-                            _illum = string.split(ill[_set], '/')[-1]
+                            _illum = ill[_set].split('/')[-1]
                             ntt.util.delete(_illum)
                             iraf.images.imutil.imcopy(
                                 ill[_set], output=_illum, verbose='no')
@@ -837,7 +837,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                         _illum = ''
                     if _doflat and flat[_set]:
                         if str(flat[_set])[0] == '/':
-                            _masterflat = string.split(flat[_set], '/')[-1]
+                            _masterflat = flat[_set].split('/')[-1]
                             os.system('rm -rf  ' + _masterflat)
                             iraf.images.imutil.imcopy(
                                 flat[_set], output=_masterflat, verbose='no')
@@ -850,9 +850,9 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                         _date = readkey3(readhdr(image), 'date-night')
                         if string.count(_object_name, '/') or string.count(_object_name, '.') or string.count(
                                 _object_name, ' '):
-                            nameobj = string.split(_object_name, '/')[0]
-                            nameobj = string.split(nameobj, ' ')[0]
-                            nameobj = string.split(nameobj, '.')[0]
+                            nameobj = _object_name.split('/')[0]
+                            nameobj = nameobj.split(' ')[0]
+                            nameobj = nameobj.split('.')[0]
                         else:
                             nameobj = _object_name
                         if field not in fieldlist2:
@@ -1072,9 +1072,9 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                 _setup = readkey3(hdron, 'filter')
                 if string.count(_object_name, '/') or string.count(_object_name, '.') or string.count(_object_name,
                                                                                                       ' '):
-                    nameobj = string.split(_object_name, '/')[0]
-                    nameobj = string.split(nameobj, ' ')[0]
-                    nameobj = string.split(nameobj, '.')[0]
+                    nameobj = _object_name.split('/')[0]
+                    nameobj = nameobj.split(' ')[0]
+                    nameobj = nameobj.split('.')[0]
                 else:
                     nameobj = _object_name
                 nameobj = nameobj + '_' + str(_date)
@@ -1120,13 +1120,13 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
 
                         ddd = raw_input('select list ON [ 0,1,2,3 ] ')
                         listaon1 = []
-                        for ii in string.split(ddd, ','):
+                        for ii in ddd.split(','):
                             listaon1.append(listaon[int(ii)])
                         print(listaon1)
 
                         ddd1 = raw_input('select list OFF [ 0,1,2 ] ')
                         listaoff1 = []
-                        for ii in string.split(ddd1, ','):
+                        for ii in ddd1.split(','):
                             listaoff1.append(listaoff[int(ii)])
                         print(listaoff1)
 

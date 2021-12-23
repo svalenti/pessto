@@ -480,8 +480,8 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                 for masterbias in biasneeded:
                     if masterbias[0] == '/':
                         os.system('cp ' + masterbias + ' ' +
-                                  string.split(masterbias, '/')[-1])
-                        masterbias = string.split(masterbias, '/')[-1]
+                                  masterbias.split('/')[-1])
+                        masterbias = masterbias.split('/')[-1]
 
                     tmasterbias = re.sub('.fits', '_' + setup[0] + '_' + setup[1] + '_' + str(MJDtoday)
                                          + '.fits', masterbias)
@@ -770,7 +770,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                     arcref = ntt.util.searcharc(nameout0, '')[0]
                     if arcref:
                         os.system('cp ' + arcref + ' .')
-                        arcref = string.split(arcref, '/')[-1]
+                        arcref = arcref.split('/')[-1]
                         if not os.path.isdir('database/'):
                             os.mkdir('database/')
                         if os.path.isfile(ntt.util.searcharc(nameout0, '')[1] +

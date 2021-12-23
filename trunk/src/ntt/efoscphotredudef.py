@@ -285,7 +285,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                             if _bias:
                                 if _bias[0] == '/':
                                     os.system('cp ' + _bias + ' .')
-                                    _bias = string.split(_bias, '/')[-1]
+                                    _bias = _bias.split('/')[-1]
                                     _zerocor = 'yes'
                                 else:
                                     _zerocor = 'yes'
@@ -409,7 +409,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                 if _bias:  # bias  ###
                     if _bias[0] == '/':
                         os.system('cp ' + _bias + ' .')
-                        _bias = string.split(_bias, '/')[-1]
+                        _bias = _bias.split('/')[-1]
                     _zerocor = 'yes'
                 else:
                     _zerocor = 'no'
@@ -419,7 +419,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
             if _flat:  # flat  ###
                 if _flat[0] == '/':
                     os.system('cp ' + _flat + ' .')
-                    _flat = string.split(_flat, '/')[-1]
+                    _flat = _flat.split('/')[-1]
                 _flatcor = 'yes'
             else:
                 _flatcor = 'no'
@@ -931,7 +931,7 @@ def fringing2(img, fmask, _interactive, _verbose=False):
                 _filter + '_' + str(MJDtoday) + '.fits'
             delete(maskname)
             if _trim and not _trimmask:
-                _trim = '[' + string.split(_trim, '[')[1]
+                _trim = '[' + _trim.split('[')[1]
                 iraf.ccdred.ccdproc(fmask, output=maskname, overscan="no", trim="yes", zerocor="no",
                                     trimsec=_trim, flatcor="no", zero="", Stdout=1)
             elif _trim and _trimmask:
