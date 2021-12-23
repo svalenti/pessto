@@ -7,28 +7,28 @@ from ntt import efoscphotredudef
 from ntt.util import readkey3, readhdr, delete, correctcard
 from optparse import OptionParser
 
-description="> make friging and badpixelmask " 
+description="> make friging and badpixelmask "
 usage= "%prog \t  [listframes ]"
 
 if __name__ == "__main__":
      parser = OptionParser(usage=usage,description=description,version="%prog 1.0")
      parser.add_option("-F", "--listflat",dest="listflat",default='',type="str", help='use flats from this list')
      option,args = parser.parse_args()
-     if len(args)>1:  
+     if len(args)>1:
           sys.argv.append('--help')
           option,args = parser.parse_args()
-     elif len(args)==1: 
+     elif len(args)==1:
           files=ntt.util.readlist(args[0])
      else:
           listfile=glob.glob('*fits')
-          print '\n### making the list with raw data in the current directory ...... please wait'
+          print('\n### making the list with raw data in the current directory ...... please wait')
           files=[]
           for img in listfile:
                hdr=readhdr(img)
                _object=readkey3(hdr,'object')
                _filter=readkey3(hdr,'filter')
                _type=''
-               if img not in [readkey3(hdr,'ARCFILE'),readkey3(hdr,'ORIGFILE')]: 
+               if img not in [readkey3(hdr,'ARCFILE'),readkey3(hdr,'ORIGFILE')]:
                     _type='not good'
                if not _type and readkey3(hdr,'instrume')!='sofi':
                     _type='not good'
@@ -41,13 +41,13 @@ if __name__ == "__main__":
                          if str(readkey3(hdr,'xcum'))!='None' and str(readkey3(hdr,'ycum'))!='None':
                               _type='image'
                     if not _type:
-                         print '\n### '+readkey3(hdr,'object'),readkey3(hdr,'filter'),str(readkey3(hdr,'xcum')),str(readkey3(hdr,'ycum'))
+                         print('\n### '+readkey3(hdr,'object'),readkey3(hdr,'filter'),str(readkey3(hdr,'xcum')),str(readkey3(hdr,'ycum')))
                          answ=raw_input('\n### What is it: image,flat,bias,illumin [1], other [2] ? [2] ')
                          if not answ:  answ='2'
                          if answ=='1':     _type='image'
                          elif answ=='2':   _type='not good'
                     if _type=='image': files.append(img)
-               print _type,img,_object,_filter
+               print(_type,img,_object,_filter)
 
      import datetime
      MJDtoday=55927+(datetime.date.today()-datetime.date(2012, 01, 01)).days

@@ -189,7 +189,7 @@ if __name__ == "__main__":
                 _ra1, _dec1, _name = ntt.util.correctobject(
                     image, filenameobjects)
                 if _name:
-                    print '### ', str(_ra1), str(_dec1), str(_name)
+                    print('### ', str(_ra1), str(_dec1), str(_name))
                     _RA = _ra1
                     _DEC = _dec1
                     _object0 = _object = str(_name)
@@ -200,9 +200,9 @@ if __name__ == "__main__":
             else:
                 _object0 = ntt.util.readkey3(hdr, 'object')
             if useheader:
-                print '\n\tNote: If the object has been reported to the TNS and has been classified as a supernova please give the name of the object as a SN designation (e.g. SN2016abc).'
-                print '\tIf however the TNS object has been given a classification other than supernova, please report the AT name here (e.g. AT2016abc).'
-                print '\tFinally, if the source is not on the TNS give the name as reported by the discovery survey (see PESSTO Marshall).'
+                print('\n\tNote: If the object has been reported to the TNS and has been classified as a supernova please give the name of the object as a SN designation (e.g. SN2016abc).')
+                print('\tIf however the TNS object has been given a classification other than supernova, please report the AT name here (e.g. AT2016abc).')
+                print('\tFinally, if the source is not on the TNS give the name as reported by the discovery survey (see PESSTO Marshall).')
 
                 _object = raw_input(
                     '\nWhat is the name of the object  in spectral frame `' + image + '`  [' + _object0 + '] ? ')
@@ -228,7 +228,7 @@ if __name__ == "__main__":
                     _instrume = '34'
                     goon = 'no'
                 else:
-                    print '\nThe instrument is not recognised. Which instrument was used? '
+                    print('\nThe instrument is not recognised. Which instrument was used? ')
                     _instrume = raw_input('SOFI [34] or EFOSC [31] ?')
                 if _instrume in ['31', '34']:
                     goon = 'no'
@@ -241,7 +241,7 @@ if __name__ == "__main__":
                 if _slit == 'long_slit_1':
                     _slit = '1.0'
                 else:
-                    print '\nThe slit width is not found. Which slit width was used? '
+                    print('\nThe slit width is not found. Which slit width was used? ')
                     _slit = raw_input('slit (1.0,1.5,2.0,.....) [1.0] ? ')
                     if not _slit:
                         _slit = '1.0'
@@ -259,7 +259,7 @@ if __name__ == "__main__":
                 _contrib0 = _contrib
             goon = 'yes'
             while goon == 'yes':
-                print spectralTypesString
+                print(spectralTypesString)
                 _objtype = raw_input(
                     '\nWhat is the spectral type of the object in spectral frame `' + image + '`  [' + _objtype0 + '] ? ')
                 if not _objtype:
@@ -276,7 +276,7 @@ if __name__ == "__main__":
                         _objtype = spectralTypesDict[str(_objtype)]
                         goon = 'no'
                 if goon == 'yes':
-                    print '\n Warning: value not valid, try again \n'
+                    print('\n Warning: value not valid, try again \n')
 
             #_host=raw_input('which is the host '+image+'  ['+_host0+'] ? ')
             # if not _host: _host=_host0
@@ -324,7 +324,7 @@ if __name__ == "__main__":
                  str(_airmass), str(_dichroic), str(_grism), str(
                     _filter), str(_RA), str(_DEC), str(_iauname),
                  _objtype, _redshift, _host, object1, object2)
-            print line
+            print(line)
             f.write(line)
             f.close()
 

@@ -106,7 +106,7 @@ if __name__ == "__main__":
         flatlist = {}
         flatlist2 = {}
         filterlist = []
-        print 'making the list with raw data in the current directory ...... please wait'
+        print('making the list with raw data in the current directory ...... please wait')
         for img in listfile:
             hdr = ntt.util.readhdr(img)
             _type = ''
@@ -152,9 +152,9 @@ if __name__ == "__main__":
                         elif 'focus' in _object.lower():
                             _type = 'not good'
                     if not _type:
-                        print 'warning: object not recognized '
+                        print('warning: object not recognized ')
                         _object = ntt.util.readkey3(hdr, 'object')
-                        print img, _object, _imagetype, _filter
+                        print(img, _object, _imagetype, _filter)
                         answ = raw_input('what is it: bias [1], flat [3], object[4], test [5] ?  [5] ')
                         if not answ:
                             answ = '5'
@@ -179,11 +179,11 @@ if __name__ == "__main__":
             if _type == 'bias':
                 biaslist.append(img)
 
-        print '\n ####  select good  bias ###### \n'
+        print('\n ####  select good  bias ###### \n')
         biaslist = ntt.efoscphotredudef.rejectbias(biaslist, True,sigmabias)
         files = list(biaslist) + list(sciencelist)
         for _filter in filterlist:
-            print '\n###### check flat with filter ' + str(_filter) + '##### \n'
+            print('\n###### check flat with filter ' + str(_filter) + '##### \n')
             if _filter not in flatlist.keys():
                 if _filter in flatlist2.keys():
                     if len(flatlist2[_filter]) >= 3: flatlist[_filter] = flatlist2[_filter]
@@ -194,8 +194,8 @@ if __name__ == "__main__":
                 flatlist[_filter] = ntt.efoscphotredudef.rejectflat(flatlist[_filter], True)
                 files = files + flatlist[_filter]
 
-        print '\n  writing the list in listfiles, if you want to reduce again the data using the files ' \
-              'selected use the option \n listfiles \n'
+        print('\n  writing the list in listfiles, if you want to reduce again the data using the files ' \
+              'selected use the option \n listfiles \n')
         time.sleep(1)
         _interactive = 'True'
         f = open('listfiles', 'w')
@@ -214,5 +214,4 @@ if __name__ == "__main__":
         ntt.util.archivingtar(outputlist, rawfile)
 
     stoptime = time.time()
-    print 'runnning time ' + str(stoptime - starttime)
-
+    print('runnning time ' + str(stoptime - starttime))

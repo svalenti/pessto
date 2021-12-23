@@ -58,4 +58,4 @@ if __name__ == "__main__":
         outputlist = []
     if len(outputlist) >= 1:
         ntt.util.archivingtar(outputlist, rawfile)
-        print '\n### tar file: ' + re.sub('raw.list', 'tar.gz', rawfile)
+        print('\n### tar file: ' + re.sub('raw.list', 'tar.gz', rawfile))

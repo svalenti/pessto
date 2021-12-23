@@ -4,7 +4,7 @@ import string,os,re,sys
 import ntt
 from optparse import OptionParser
 
-description="> make friging mask" 
+description="> make friging mask"
 usage= "%prog  listframes"
 
 if __name__ == "__main__":
@@ -22,7 +22,7 @@ if __name__ == "__main__":
          sys.argv.append('--help')
          option,args = parser.parse_args()
 
-     if option.interactive==None:  _interactive=False 
+     if option.interactive==None:  _interactive=False
      else:                         _interactive=True
      _rejection=option.rejection
      _combine=option.combine
@@ -32,5 +32,4 @@ if __name__ == "__main__":
      ntt.util.phase3header(img)  #  phase 3 definitions
      ntt.util.airmass(img)  #  phase 3 definitions
      ntt.util.updateheader(img,0,{'quality':['Final','']})
-     print '\n###fringing file= '+str(output)
-     
+     print('\n###fringing file= '+str(output))

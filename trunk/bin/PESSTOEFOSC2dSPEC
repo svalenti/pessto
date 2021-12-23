@@ -37,7 +37,7 @@ if __name__ == "__main__":
     else:
         listfile = glob.glob('EFOSC*fits')
         files = []
-        print 'making the list with raw data in the current directory ...... please wait'
+        print('making the list with raw data in the current directory ...... please wait')
         for img in listfile:
             _type = ''
             hdr0 = ntt.util.readhdr(img)
@@ -65,10 +65,10 @@ if __name__ == "__main__":
                 if not _type and _imagetype == 'IMAGE':
                     _type = 'image'
                 if not _type:
-                    print 'warning: object not recognized '
+                    print('warning: object not recognized ')
                     _object = ntt.util.readkey3(hdr0, 'object')
                     _filter = ntt.util.readkey3(hdr0, 'filter')
-                    print img, _object, _imagetype, _filter
+                    print(img, _object, _imagetype, _filter)
                     answ = raw_input('what is it: bias [1], flat [3], object[4], not spectra [5] ?  [5] ')
                     if not answ:  answ = '5'
                     if answ == '1':
@@ -115,7 +115,7 @@ if __name__ == "__main__":
         rawfile=[]
     if len(outputlist) >= 1:
         ntt.util.archivingtar(outputlist, rawfile)
-        print '\n### tar file: ' + re.sub('raw.list', 'tar.gz', rawfile)
-        print "\n### collect all 2d-frames in a list and run:  PESSTOEFOSC1dSPEC listfiles"
+        print('\n### tar file: ' + re.sub('raw.list', 'tar.gz', rawfile))
+        print("\n### collect all 2d-frames in a list and run:  PESSTOEFOSC1dSPEC listfiles")
     stoptime = time.time()
-    print 'runnning time ' + str(stoptime - starttime)
+    print('runnning time ' + str(stoptime - starttime))

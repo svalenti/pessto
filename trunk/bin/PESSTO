@@ -26,11 +26,11 @@ def aiuto(verbose):  # ##################                ####################
     direc = re.sub('PESSTOEFOSCPHOT\n', '', os.popen(
         'which PESSTOEFOSCPHOT').readlines()[0])
     righe = glob.glob(direc + 'PESSTO*')
-    print "#" * 30 + "       PESSTO      " + "#" * 30
+    print("#" * 30 + "       PESSTO      " + "#" * 30)
     for r in righe:
         prog = string.split(r, '/')[-1]
-        print prog, '-h  (show the help message)'
-    print "#" * 60 + "   @stefano"
+        print(prog, '-h  (show the help message)')
+    print("#" * 60 + "   @stefano")
 
 
 if __name__ == "__main__":

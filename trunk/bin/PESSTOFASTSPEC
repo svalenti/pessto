@@ -43,8 +43,6 @@ if __name__ == "__main__":
     imglist = ntt.util.readlist(args[0])
     outputfile = ntt.efoscfastspecdef.efoscfastredu(imglist, _listsens, _listarc, _trace, _dispersionline, _cosmic,
                                                     _interactive)
-    print '\n#######################################\n### end of reduction \n### output files:'
+    print('\n#######################################\n### end of reduction \n### output files:')
     for img in outputfile:
-        print img
-
-
+        print(img)

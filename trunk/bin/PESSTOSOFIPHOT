@@ -34,7 +34,7 @@ if __name__ == "__main__":
         files = ntt.util.readlist(args[0])
     else:
         listfile = glob.glob('*fits')
-        print '\n### making the list with raw data in the current directory ...... please wait'
+        print('\n### making the list with raw data in the current directory ...... please wait')
         files = []
         for img in listfile:
             hdr = ntt.util.readhdr(img)
@@ -56,8 +56,8 @@ if __name__ == "__main__":
                 if str(ntt.util.readkey3(hdr, 'xcum')) != 'None' and str(ntt.util.readkey3(hdr, 'ycum')) != 'None':
                     _type = 'image'
             if not _type:
-                print '\n### ' + ntt.util.readkey3(hdr, 'object'), ntt.util.readkey3(hdr, 'filter'), \
-                    str(ntt.util.readkey3(hdr, 'xcum')), str(ntt.util.readkey3(hdr, 'ycum'))
+                print('\n### ' + ntt.util.readkey3(hdr, 'object'), ntt.util.readkey3(hdr, 'filter'), \
+                    str(ntt.util.readkey3(hdr, 'xcum')), str(ntt.util.readkey3(hdr, 'ycum')))
                 answ = raw_input('\n### What is it: image,flat,bias,illumin [1], other [2] ? [2] ')
                 if not answ:  answ = '2'
                 if answ == '1':
@@ -98,4 +98,4 @@ if __name__ == "__main__":
                                                             _interactive, _regi, _verbose, method)
     if len(outputlist) >= 1:
         ntt.util.archivingtar(outputlist, rawfile)
-        print '\n### tar file: ' + re.sub('raw.list', 'tar.gz', rawfile)
+        print('\n### tar file: ' + re.sub('raw.list', 'tar.gz', rawfile))

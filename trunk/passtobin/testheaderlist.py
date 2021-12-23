@@ -46,14 +46,14 @@ keyword['sofi']['2D']={}
 typeobj={'R':float,'S':str,'I':int,'L':bool}
 
 from optparse import OptionParser
-description="> check header " 
+description="> check header "
 usage= "%prog \t listframes [option] "
 
 if __name__ == "__main__":
     parser = OptionParser(usage=usage,description=description,version="%prog 1.0")
     parser.add_option("-v", "--verbose",dest="verbose",action="store_true")
     option,args = parser.parse_args()
-    if len(args)<1: 
+    if len(args)<1:
         sys.argv.append('--help')
     option,args = parser.parse_args()
     lista=ntt.util.readlist(args[0])
@@ -63,36 +63,35 @@ if __name__ == "__main__":
         hdr=readhdr(img)
         _instrume=readkey3(hdr,'instrume')
         _type=readkey3(hdr,'tech').lower()
-        print img,_type,_instrume
+        print(img,_type,_instrume)
         for key in keyword[_instrume]['all'].keys():
             if readkey3(hdr,key)==None:
-                print key,readkey3(hdr,key)
+                print(key,readkey3(hdr,key))
             else:
-                if type(readkey3(hdr,key)) is not typeobj[keyword[_instrume]['all'][key]]: 
-                    print key,readkey3(hdr,key)
+                if type(readkey3(hdr,key)) is not typeobj[keyword[_instrume]['all'][key]]:
+                    print(key,readkey3(hdr,key))
                 else:
                     if option.verbose:
-                        print  key,readkey3(hdr,key)
+                        print(key,readkey3(hdr,key))
         for key in keyword[_instrume][_type].keys():
             if readkey3(hdr,key)==None:
-                print key,readkey3(hdr,key)
+                print(key,readkey3(hdr,key))
             else:
-                if type(readkey3(hdr,key)) is not typeobj[keyword[_instrume][_type][key]]: 
-                    print key,readkey3(hdr,key)
+                if type(readkey3(hdr,key)) is not typeobj[keyword[_instrume][_type][key]]:
+                    print(key,readkey3(hdr,key))
                 else:
                     if option.verbose:
-                        print  key,readkey3(hdr,key)
+                        print(key,readkey3(hdr,key))
         naxis=readkey3(hdr,'naxis')
         if naxis==2: aa='2D'
         else:       aa='1D'
-        print aa
+        print(aa)
         for key in keyword[_instrume][aa].keys():
             if readkey3(hdr,key)==None:
-                print key,readkey3(hdr,key)
+                print(key,readkey3(hdr,key))
             else:
-                if type(readkey3(hdr,key)) is not typeobj[keyword[_instrume][aa][key]]: 
-                    print key,readkey3(hdr,key)
+                if type(readkey3(hdr,key)) is not typeobj[keyword[_instrume][aa][key]]:
+                    print(key,readkey3(hdr,key))
                 else:
                     if option.verbose:
-                        print  key,readkey3(hdr,key)
-            
+                        print (key,readkey3(hdr,key))

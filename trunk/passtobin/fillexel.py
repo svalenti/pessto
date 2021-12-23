@@ -57,20 +57,20 @@ if __name__ == "__main__":
     lista = ntt.sofiphotredudef.sortbyJD(lista)
     for img in lista:
         hdr = readhdr(img)
-        print readkey3(hdr, 'ORIGFILE')
-        print readkey3(hdr, 'ARCFILE')
-        print readkey3(hdr, 'OBJECT')
-        print readkey3(hdr, 'date-obs')
+        print(readkey3(hdr, 'ORIGFILE'))
+        print(readkey3(hdr, 'ARCFILE'))
+        print(readkey3(hdr, 'OBJECT'))
+        print(readkey3(hdr, 'date-obs'))
         OBID = readkey3(hdr, 'HIERARCH ESO OBS ID')
         _object = readkey3(hdr, 'object')
         _start = readkey3(hdr, 'HIERARCH ESO OBS START')
         _end = str(Y) + '-' + str(M) + '-' + str(D) + 'T' + \
             str(H) + ':' + str(m) + ':' + str(s)
-        print 'A \t  OB done fully within constraints \nB \t OB mostly with in constrain\nC \t not usefull for science\n'
+        print('A \t  OB done fully within constraints \nB \t OB mostly with in constrain\nC \t not usefull for science\n')
         _QC = raw_input('QC Grade (A,B,C) [A] ?')
         if not _QC:
             _QC = 'A'
-        print 'seeing,clouds,wind (1.0,clear,low)'
+        print('seeing,clouds,wind (1.0,clear,low)')
         _observcond = raw_input('observing conditions [1.5,clear,10km/s]?')
         if not _observcond:
             _observcond = '1.5,clear,10km/s'
@@ -81,11 +81,11 @@ if __name__ == "__main__":
         line = str(OBID) + '\t' + str(_object) + '\t' + str(_start) + '\t' + str(_end) + '\t' + str(_QC) + '\t' + str(_observcond) +\
             '\t' + str(_RA) + '\t' + str(_DEC) + '\t' + \
             str(_origfile) + '\t' + str(_comments) + '\n'
-        print line
+        print(line)
         if os.path.isfile(_output):
             f = open(_output, 'a')
         else:
             f = open(_output, 'w')
         f.write(line)
         f.close()
-        print '\n info stored in  ' + str(_output)
+        print('\n info stored in  ' + str(_output))
