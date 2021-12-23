@@ -19,22 +19,22 @@ expat libraries to be installed.
 On Debian and its derivatives (Ubuntu, Mint, Devuan, Raspbian etc.):
 
 ```code
-    sudo apt install gcc make flex
-    sudo apt install libcurl4-openssl-dev libexpat-dev libreadline-dev
+sudo apt install gcc make flex
+sudo apt install libcurl4-openssl-dev libexpat-dev libreadline-dev
 ```
 
 On Fedora and its derivatives (Redhat, Scientific Linux etc.)
 
 ```code
-    sudo dnf install gcc make perl flex
-    sudo dnf install libcurl-devel expat-devel readline-devel
+sudo dnf install gcc make perl flex
+sudo dnf install libcurl-devel expat-devel readline-devel
 ```
 
 On MacOS X, you need to have the XCode tools installed. If you
 haven't, you can install them with:
 
 ```code
-    xcode-select --install
+xcode-select --install
 ```
 
 Click "Install" to download and install Xcode Command Line Tools.
@@ -46,8 +46,8 @@ name and version as base directory. Thus, distribution files can be
 unpacked with the command
 
 ```code
-    tar zxf /<path>/iraf-2.16.1-2021.06.14.tar.gz
-    cd iraf-2.16.1-2021.06.14/
+tar zxf /<path>/iraf-2.16.1-2021.06.14.tar.gz
+cd iraf-2.16.1-2021.06.14/
 ```
 
 
@@ -57,7 +57,7 @@ In the source directory, execute the install script to create needed
 links:
 
 ```code
-    ./install 		# execute the install script
+./install 		# execute the install script
 ```
 
 The script will prompt you for the path to the default image 
@@ -68,7 +68,7 @@ directory in your PATH before proceeding to the `<make>` step.
 In BASH this can be done with the command:
 
 ```code
-    export PATH=/path/to/iraf/bin/:$PATH
+export PATH=/path/to/iraf/bin/:$PATH
 ```
 
 where `</path/to/iraf/bin/>` is the binary files path specified to 
@@ -77,8 +77,8 @@ the install script.
 Now you can configure the system for the proper architecture and build:
 
 ```code
-    make <arch>
-    make sysgen 2>&1 | tee build.log  # this takes some time (~17 min. for me) and prints lots of warnings
+make <arch>
+make sysgen 2>&1 | tee build.log  # this takes some time (~17 min. for me) and prints lots of warnings
 ```
 
 For `<arch>`, use the proper IRAF architecture name:
@@ -104,17 +104,18 @@ IRAF comes with a small set of basic tests to ensure that the build
 works fine.  To execute the tests, run:
 
 ```code
-    ./test/run_tests
+./test/run_tests
 ```
 
 
 
 ## Anaconda environment and dependencies
 
-We will create an anaconda environment with python 3 and the necessary dependencies taken from the stsci channel:
+We will create an anaconda environment with python 3 and the necessary dependencies taken from the stsci/astroconda channel:
 
 ```code
-    conda create -n pessto python=3.7 stsci  # be patient, this takes some time to finish as well
+conda config --add channels http://ssb.stsci.edu/astroconda
+conda create -n pessto python=3.7 stsci  # be patient, this takes some time to finish as well
 ```
 
 ### PyRAF
@@ -123,8 +124,8 @@ The installation instructions are found here: https://iraf-community.github.io/p
 Once the anaconda environment has been created, we can proceed to install PyRAF:
 
 ```code
-    conda activate pessto
-    pip3 install pyraf
+conda activate pessto
+pip3 install pyraf
 ```
 
 
