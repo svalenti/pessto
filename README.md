@@ -135,7 +135,15 @@ pip3 install pyraf
 
 # PESSTO Pipeline
 
-You can install the pipeline in the usual way...
+For now, the best option is to install the pipeline by cloning the repository and using the pessto conda environment with python 3:
+
+```code
+git clone https://github.com/svalenti/pessto.git
+cd pessto
+git checkout python3  # temporary branch for development
+cd pessto/trunk
+python setup.py install
+```
 
 
 
