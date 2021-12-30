@@ -8,7 +8,7 @@ Thanks to the community that has made IRAF compatible with the latest OS and com
 
 ## IRAF
 
-The installation instructions are found here: https://iraf-community.github.io/install.html.
+The installation instructions are taken from here: https://iraf-community.github.io/install.html.
 For more information about the latest release at the time I wrote this, check here: https://github.com/iraf-community/iraf/releases/tag/v2.16.1+2021.06.14.
 
 ### System Requirements and Dependencies
@@ -121,7 +121,7 @@ conda install -c conda-forge astromatic-swarp
 
 ### PyRAF
 
-The installation instructions are found here: https://iraf-community.github.io/pyraf.html.
+The installation instructions are taken from here: https://iraf-community.github.io/pyraf.html.
 Once the anaconda environment has been created, we can proceed to install PyRAF:
 
 ```code
