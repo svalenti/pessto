@@ -145,9 +145,24 @@ cd pessto/trunk
 python setup.py install
 ```
 
+## Test
 
+First, you need to download the test data, which you can do manually from the wiki page or using `gdown` as I show below:
 
+```code
+mkdir pessto_test
+cd pessto_test
+pip install gdown
+gdown --id 1KSDqJLKURIoVxvFEfLUPoQmz0x-mHAnv
+tar zxf PESSTO_Pipeline_Installation_Test_Data.tgz
+rm PESSTO_Pipeline_Installation_Test_Data.tgz
+```
 
+Now you can run the test in the usual way:
+
+```code
+PESSTOFASTSPEC -i EFOSC.2012-04-12T00\:21\:13.429.fits
+```
 
 
 # Reporting Issues
