@@ -67,17 +67,17 @@ if __name__ == "__main__":
         _end = str(Y) + '-' + str(M) + '-' + str(D) + 'T' + \
             str(H) + ':' + str(m) + ':' + str(s)
         print('A \t  OB done fully within constraints \nB \t OB mostly with in constrain\nC \t not usefull for science\n')
-        _QC = raw_input('QC Grade (A,B,C) [A] ?')
+        _QC = input('QC Grade (A,B,C) [A] ?')
         if not _QC:
             _QC = 'A'
         print('seeing,clouds,wind (1.0,clear,low)')
-        _observcond = raw_input('observing conditions [1.5,clear,10km/s]?')
+        _observcond = input('observing conditions [1.5,clear,10km/s]?')
         if not _observcond:
             _observcond = '1.5,clear,10km/s'
         _RA = readkey3(hdr, 'RA')
         _DEC = readkey3(hdr, 'DEC')
         _origfile = readkey3(hdr, 'ARCFILE')
-        _comments = raw_input('comments ? ')
+        _comments = input('comments ? ')
         line = str(OBID) + '\t' + str(_object) + '\t' + str(_start) + '\t' + str(_end) + '\t' + str(_QC) + '\t' + str(_observcond) +\
             '\t' + str(_RA) + '\t' + str(_DEC) + '\t' + \
             str(_origfile) + '\t' + str(_comments) + '\n'
