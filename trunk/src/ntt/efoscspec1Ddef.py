@@ -158,7 +158,7 @@ def checkwavestd(imgex, _interactive):
 
     print('\n### Warning: check in wavelenght with sky lines not performed\n')
     if _interactive in ['yes', 'YES', 'Yes', 'Y', 'y']:
-        answ = raw_input(
+        answ = input(
             '\n### Do you want to check the wavelengh calibration with tellurich lines [[y]/n]? ')
         if not answ:
             answ = 'y'
@@ -192,7 +192,7 @@ def checkwavestd(imgex, _interactive):
         shift = 0
     zro = pyfits.open(imgex)[0].header.get('CRVAL1')
     if _interactive in ['yes', 'YES', 'Yes', 'Y', 'y']:
-        answ = raw_input(
+        answ = input(
             '\n### do you want to correct the wavelengh calibration with this shift: ' + str(shift) + ' [[y]/n] ? ')
         if not answ:
             answ = 'y'
@@ -262,7 +262,7 @@ def sensfunction(standardfile, _function, _order, _interactive):
         if _interactive.lower() != 'yes':
             ntt.util.delete(_outputsens)
         else:
-            answ = raw_input(
+            answ = input(
                 'sensitivity function already computed, do you want to do it again [[y]/n] ? ')
             if not answ:
                 answ = 'y'
@@ -489,7 +489,7 @@ def efoscspec1Dredu(files, _interactive, _ext_trace, _dispersionline, liststanda
                 if len(sens[setup]) > 1:
                     goon = 'no'
                     while goon != 'yes':
-                        stdused = raw_input(
+                        stdused = input(
                             '\n### more than one standard for this setup, which one do you want to use [' + sens[setup][
                                 0] + '] ?')
                         if not stdused:

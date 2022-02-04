@@ -290,7 +290,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                           'of ON and OFF flats \n' + \
                         str(len(flat['ON'])) + '  ' + str(len(flat['OFF'])))
                     print('\n### image ' + str(img))
-                    answ = raw_input(
+                    answ = input(
                         'ON/OFF/REJECT/STOP [' + str(_type) + ']  ok (ON[n]/OFF[f]/r/s) [' + _type + '] ? ')
                     if not answ:
                         answ = _type
@@ -470,14 +470,14 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                     print(arcref, arcfile)
                     #                        time.sleep(5)
                     #                        os.system('rm -rf database/idarc_20130417_GR_56975')
-                    #                        raw_input('ddd')
+                    #                        input('ddd')
                     identific = iraf.longslit.reidentify(referenc=arcref, images=arcfile, interac='NO',  # _interact,
                                                          section='column 10', shift=0.0,
                                                          coordli='direc$standard/ident/Lines_XeAr_SOFI.dat',
                                                          overrid='yes', step=0, newaps='no', nsum=5, nlost=2,
                                                          mode='h', verbose='yes', Stdout=1)
                     #                        print identific
-                    #                        raw_input('ddd')
+                    #                        input('ddd')
                     identific = iraf.longslit.reidentify(referenc=arcref, images=arcfile, interac=_interact,
                                                          section='column 10', shift=1.0,
                                                          coordli='direc$standard/ident/Lines_XeAr_SOFI.dat',
@@ -486,9 +486,9 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                     #                        fitsfile = ntt.efoscspec2Ddef.continumsub('new3.fits', 6, 1)
                     # I need to run twice I don't know why
                     #                        print identific
-                    #                        raw_input('ddd')
+                    #                        input('ddd')
                     if _interactive:
-                        answ = raw_input(
+                        answ = input(
                             '\n### do you like the identification [[y]/n]')
                         if not answ:
                             answ = 'y'
@@ -526,7 +526,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                                                              overrid='yes', step=0, newaps='no', nsum=5, nlost=2,
                                                              mode='h', verbose='yes', Stdout=1)
 
-                        answ = raw_input('\n### is it ok now ? [[y]/n] ')
+                        answ = input('\n### is it ok now ? [[y]/n] ')
                         if not answ:
                             answ = 'y'
                         if answ in ['n', 'N', 'no', 'NO', 'No']:
@@ -623,7 +623,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                         str(readkey3(readhdr(listatemp[j]), 'JD')), str(
                             readkey3(readhdr(listatemp[j]), 'JD')))
                     if _interactive:
-                        answ = raw_input('\n### ok [[y]/n] ? ')
+                        answ = input('\n### ok [[y]/n] ? ')
                         if not answ:
                             answ = 'y'
                     else:
@@ -635,7 +635,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
                         num2 = listatemp.index(listasub[j])
                         image2 = listasub[j]
                     else:
-                        image2 = raw_input(
+                        image2 = input(
                             'which image do you want to subtract')
                         num2 = listatemp.index(image2)
                     imgoutsub = field + '_' + str(_date) + '_' + str(_grism) + '_' + str(MJDtoday) + '_' + str(
@@ -716,7 +716,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
 
                             delete('_tmp.fits')
                             if _interactive:
-                                answ = raw_input(
+                                answ = input(
                                     'do you want to correct the wavelengh calibration with this shift: ' + str(
                                         shift) + ' [[y]/n] ? ')
                                 if not answ:

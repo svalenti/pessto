@@ -129,7 +129,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                 print('\n### warning: object not recognized ')
                 _object = readkey3(hdr, 'object')
                 print(img, _object, _imagetype)
-                answ = raw_input(
+                answ = input(
                     'what is it: bias [1], flat [3], object[4], test [5] ?  [5] ')
                 if not answ:
                     answ = '5'
@@ -142,7 +142,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                         objectlist[_filter] = []
                     objectlist[_filter].append(img)
                 elif answ == '3':
-                    tt = raw_input('dome or sky [d/[s]] ? ')
+                    tt = input('dome or sky [d/[s]] ? ')
                     if tt == 's':
                         _type = 'flat'
                         _filter = readkey3(hdr, 'filter')
@@ -245,7 +245,7 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                             if masterbiasfile and _interactive:
                                 aa, bb, cc = display_image(
                                     masterbiasfile, 1, '', '', False)
-                                answ = raw_input(
+                                answ = input(
                                     'is the masterbias ok [[y]/n] ?')
                                 if not answ:
                                     answ = 'y'
@@ -342,12 +342,12 @@ def efoscreduction(imglist, _interactive, _doflat, _dobias, listflat, listbias, 
                                 aa, bb, cc = display_image(
                                     masterflat, 1, '', '', False)
                                 if masterflat and _interactive:
-                                    answ = raw_input(
+                                    answ = input(
                                         'is the masterflat ok [[y]/n] ?')
                                     if not answ:
                                         answ = 'y'
                                     if answ.lower() in ['n', 'no']:
-                                        answ1 = raw_input(
+                                        answ1 = input(
                                             'try again [[y]/n] ?')
                                         if not answ1:
                                             answ1 = 'y'
@@ -811,7 +811,7 @@ def rejectflat(lista, _interactive):
             print(result)
             answ = 'nn'
             while answ not in ['g', 'G', 'b', 's']:
-                answ = raw_input('good/bad  [[g]/b/G(all good)/s(stop)]? ')
+                answ = input('good/bad  [[g]/b/G(all good)/s(stop)]? ')
                 if not answ:
                     answ = 'g'
                 if answ not in ['g', 'G', 'b', 's']:
@@ -869,7 +869,7 @@ def rejectbias(lista, _interactive, nn=10):
             print(result)
             answ = 'nn'
             while answ not in ['g', 'G', 'b', 's']:
-                answ = raw_input('good/bad  [[g]/b/G(all good)/s(stop) ] ? ')
+                answ = input('good/bad  [[g]/b/G(all good)/s(stop) ] ? ')
                 if not answ:
                     answ = 'g'
                 if answ not in ['g', 'G', 'b', 's']:

@@ -417,7 +417,7 @@ def display_image(img, frame, _z1, _z2, scale, _xcen=0.5, _ycen=0.5, _xsize=1, _
                 goon = False
 
         if scale and goon:
-            answ0 = raw_input('>>> Cuts OK ? [y/n] ? [y] ')
+            answ0 = input('>>> Cuts OK ? [y/n] ? [y] ')
             if not answ0:
                 answ0 = 'y'
             elif answ0 == 'no' or answ0 == 'NO':
@@ -426,8 +426,8 @@ def display_image(img, frame, _z1, _z2, scale, _xcen=0.5, _ycen=0.5, _xsize=1, _
             while answ0 == 'n':
                 _z11 = float(sss[0].split()[0].split('=')[1])
                 _z22 = float(sss[0].split()[1].split('=')[1])
-                z11 = raw_input('>>> z1 = ? [' + str(_z11) + '] ? ')
-                z22 = raw_input('>>> z2 = ? [' + str(_z22) + '] ? ')
+                z11 = input('>>> z1 = ? [' + str(_z11) + '] ? ')
+                z22 = input('>>> z2 = ? [' + str(_z22) + '] ? ')
                 if not z11:
                     z11 = _z11
                 else:
@@ -439,7 +439,7 @@ def display_image(img, frame, _z1, _z2, scale, _xcen=0.5, _ycen=0.5, _xsize=1, _
                 print(z11, z22)
                 sss = iraf.display(img, frame, fill='yes', xcen=_xcen, ycen=_ycen, xsize=_xsize, ysize=_ysize,
                                    erase=_erase, zrange='no', zscale='no', z1=z11, z2=z22, Stdout=1)
-                answ0 = raw_input('>>> Cuts OK ? [y/n] ? [y] ')
+                answ0 = input('>>> Cuts OK ? [y/n] ? [y] ')
                 if not answ0:
                     answ0 = 'y'
                 elif answ0 == 'no' or answ0 == 'NO':
@@ -785,7 +785,7 @@ def archivefile(img, overwrite=True):
     outputfile = ntt.util.readkey3(ntt.util.readhdr(img), 'ARCFILE')
     print(outputfile)
     if not overwrite and os.path.isfile(outputfile):
-        answ = raw_input('overwrite file ' + outputfile + ' [[y]/n]? ')
+        answ = input('overwrite file ' + outputfile + ' [[y]/n]? ')
         if not answ:
             answ = 'y'
     else:
@@ -1031,7 +1031,7 @@ def StoN(img, ran=50):
     #   from pylab import ion,plot,show
     #   ion()
     #   plot(xxmed,sntot,'-r')
-    #   raw_input('dd')
+    #   input('dd')
     #   show()
     #   plot(xx,yy,'-b')
     #   show()
@@ -1288,7 +1288,7 @@ def extractspectrum(img, dv, _ext_trace, _dispersionline, _interactive, _type, a
             if _interactive in ['Yes', 'yes', 'YES', 'y', 'Y']:
                 answ = 'x'
                 while answ not in ['o', 'n', 's']:
-                    answ = raw_input(
+                    answ = input(
                         '\n### New extraction [n], extraction with old parameters [o], skip extraction [s] ? [o]')
                     if not answ:
                         answ = 'o'
@@ -1304,7 +1304,7 @@ def extractspectrum(img, dv, _ext_trace, _dispersionline, _interactive, _type, a
             if _interactive in ['Yes', 'yes', 'YES', 'y', 'Y']:
                 answ = 'x'
                 while answ not in ['y', 'n']:
-                    answ = raw_input(
+                    answ = input(
                         '\n### do you want to extract again [[y]/n] ? ')
                     if not answ:
                         answ = 'y'
@@ -1320,7 +1320,7 @@ def extractspectrum(img, dv, _ext_trace, _dispersionline, _interactive, _type, a
             question = 'yes'
             while question == 'yes':
                 _z1, _z2, goon = ntt.util.display_image(img, 1, '', '', False)
-                dist = raw_input(
+                dist = input(
                     '\n### At which line do you want to extract the spectrum [' + str(dv['line'][_grism]) + '] ? ')
                 if not dist:
                     dist = 400
@@ -1336,7 +1336,7 @@ def extractspectrum(img, dv, _ext_trace, _dispersionline, _interactive, _type, a
             if lista:
                 for ii in lista:
                     print(ii)
-                _reference = raw_input(
+                _reference = input(
                     '\### which object do you want to use for the trace [' + str(lista[0]) + '] ? ')
                 if not _reference:
                     _reference = lista[0]

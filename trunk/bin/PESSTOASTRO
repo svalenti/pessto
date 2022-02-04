@@ -137,7 +137,7 @@ if __name__ == "__main__":
                     xuser, yuser, zuser = string.split(ime[0])
                     dist, pos0, pos1 = ntt.efoscastrodef.crossmatchxy([float(xuser)], [float(yuser)], catvec['x'],
                                                                       catvec['y'], 200)
-                    number = raw_input(
+                    number = input(
                         'which number it is ' + str(int(pos1[0]) + 1) + ' (green numbers) ? ')
                     if not number:
                         number = int(pos1[0])
@@ -149,7 +149,7 @@ if __name__ == "__main__":
                           range(0, len(catvec['x']))]
                     iraf.tvmark(1, 'STDIN', Stdin=list(aa), mark="circle", number='yes', label='no', radii=5,
                                 nxoffse=-5, nyoffse=5, color=204, txsize=4)
-                    answ = raw_input(
+                    answ = input(
                         'are red catalog objects close to blue detections [y/n] [n] ? ')
                     if not answ:
                         answ = 'no'
@@ -199,7 +199,7 @@ if __name__ == "__main__":
                                                'CSYER1': [rasys, 'Systematic error (RA_m - Ra_ref)'],
                                                'CSYER2': [decsys, 'Systematic error (DEC_m - DEC_ref)']})
 
-                # raw_input('dddd')
+                # input('dddd')
             # ##############################################
             else:
                 #_interactive=True

@@ -69,7 +69,7 @@ if __name__ == "__main__":
                     _object = ntt.util.readkey3(hdr0, 'object')
                     _filter = ntt.util.readkey3(hdr0, 'filter')
                     print(img, _object, _imagetype, _filter)
-                    answ = raw_input('what is it: bias [1], flat [3], object[4], not spectra [5] ?  [5] ')
+                    answ = input('what is it: bias [1], flat [3], object[4], not spectra [5] ?  [5] ')
                     if not answ:  answ = '5'
                     if answ == '1':
                         _type = 'bias'

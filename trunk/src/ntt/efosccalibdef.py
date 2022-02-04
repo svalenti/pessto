@@ -26,7 +26,7 @@ def makefringingmask(listimg, _output, _interactive, _combine='average', _reject
                 answ = 'xxx'
                 while answ.lower() not in ['y', 'n', 's', 'a']:
                     iraf.display(img, frame=1, fill='yes')
-                    answ = raw_input(
+                    answ = input(
                         'use this image (yes,no,stop (not more images),all) [[y]/n/s/a] ? ')
                     if not answ:
                         answ = 'y'
@@ -108,7 +108,7 @@ def makefringing(listimg, _output, _xorder, _yorder, _interactive, combine='aver
                 answ = 'xxx'
                 while answ.lower() not in ['y', 'n', 's', 'a']:
                     iraf.display(img, frame=1, fill='yes')
-                    answ = raw_input(
+                    answ = input(
                         'use this image (yes,no,stop (not more images),all) [[y]/n/s/a] ? ')
                     if not answ:
                         answ = 'y'

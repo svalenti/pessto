@@ -26,7 +26,7 @@ def makeflat(lista):
     output = name_duplicate(
         lista[3], 'flat_' + str(_date) + '_' + str(_filter) + '_' + str(MJDtoday), '')
     if os.path.isfile(output):
-        answ = raw_input('file already prooduced, do again [y/[n]] ? ')
+        answ = input('file already prooduced, do again [y/[n]] ? ')
         if not answ:
             answ = 'n'
     else:
@@ -190,7 +190,7 @@ def makeillumination(lista,flatfield):#,outputfile,illum_frame):
                     label='no', radii=8, nxoffse=5, nyoffse=5, color=204, txsize=2)
         answ = 'n'
         while answ != 'y':
-            answ = raw_input('selected the right one [[y]/n] ?')
+            answ = input('selected the right one [[y]/n] ?')
             if not answ:
                 answ = 'y'
             if answ in ['y', 'YES', 'yes', 'Y']:
@@ -282,7 +282,7 @@ def doflatsofi(flats, _doflat, illum, _output):
                     mflat = makeflat(images)
                     listaflat.append(mflat)
                     display_image(mflat, 1, '', '', False)
-                    raw_input('go on ')
+                    input('go on ')
                 elif len(images) != 8:  # % 8 == 0:
                     print('\n###  to compute a flat field you need a sequence of 8 calibration files in the following orders:')
                     print('OFF  OFFMASK  ONMASK  ON  ON   ONMASK   OFFMASK     OFF\n')
@@ -330,7 +330,7 @@ def doflatsofi(flats, _doflat, illum, _output):
                             mask = 'MASK'
                         display_image(img, 1, '', '', False)
                         print(onoff, mask, onoffvalue, maskvalue, img, tipo[nn])
-                        answ = raw_input('ok  [[y]/n/r/s] ? ')
+                        answ = input('ok  [[y]/n/r/s] ? ')
                         if not answ:
                             answ = 'y'
                         if answ == 'y':

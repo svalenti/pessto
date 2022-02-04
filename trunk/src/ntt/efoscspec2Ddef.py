@@ -47,7 +47,7 @@ def choseflat(obj, listflat, setup, _JD0, _interactive):
         for flat in listflat:
             _JDf = ntt.util.readkey3(ntt.util.readhdr(flat), 'JD')
             ntt.util.display_image(flat, 1, '', '', False)
-            answ = raw_input(
+            answ = input(
                 '### good/bad/stop(enough files, go on) [[g],b,s]')
             if not answ:
                 answ = 'g'
@@ -329,7 +329,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
     if len(check2) > 0:
         for ii in check2:
             print('\n###Warning: flat with setup ' + str(ii) + ' are missing')
-            answ = raw_input(
+            answ = input(
                 '\n### skip this setup from reduction [s] or exit [e] or go on [g] ? [s] ')
             if not answ:
                 answ = 's'
@@ -347,7 +347,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
     if len(check1) > 0:
         for ii in check1:
             print('\n###Warning: arc with setup ' + str(ii) + ' are missing')
-            answ = raw_input(
+            answ = input(
                 '\n### skip this setup from reduction [s] or exit [e] or go on [g] ?  [s] ')
             if not answ:
                 answ = 's'
@@ -459,7 +459,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
         if _interactive:
             print('### ' + str(listobject))
             print('### ' + str(setup))
-            answ = raw_input('### do you want to reduce this setup [[y],n] ? ')
+            answ = input('### do you want to reduce this setup [[y],n] ? ')
             if not answ:
                 answ = 'y'
         else:
@@ -598,7 +598,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                                                    clean='no', function='spline3', order=_order, sample='*', mode='ql')
                             # print _order, _inter, masterflat
                             # print minpixel, maxpixel
-                            #raw_input('test flat')
+                            #input('test flat')
 
                             ###################################################
                             # iraf.specred.response(masterflat, normaliz=masterflat + '[' + str(minpixel) + ':' + str(
@@ -783,7 +783,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                                                              overrid='yes', step=0, newaps='no', nsum=5, nlost=2,
                                                              cradius=10, mode='h', verbose='yes', Stdout=1)
                         if _interactive:
-                            answ = raw_input(
+                            answ = input(
                                 '### do you like the identification [[y]/n]')
                             if not answ:
                                 answ = 'y'
@@ -804,7 +804,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                                                                  coordli='direc$standard/ident/Lines_HgCdHeNeAr600.dat',
                                                                  newaps='no', nsum=5, nlost=2, cradius=10, mode='h',
                                                                  verbose='yes', Stdout=1)
-                            answ = raw_input('### is it ok now [[y]/n]')
+                            answ = input('### is it ok now [[y]/n]')
                             if not answ:
                                 answ = 'y'
                             if answ in ['n', 'N', 'no', 'NO', 'No']:
@@ -863,7 +863,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                             't' + nameout0)[0].header.get('CRVAL2')
                         print('\n### check wavelengh calibration, found a shift of ' + str(shift) + ' Angstrom \n')
                         if _interactive:
-                            answ = raw_input(
+                            answ = input(
                                 '### do you want to correct the wavelengh calibration with this shift: ' + str(
                                     shift) + ' [[y]/n] ? ')
                             if not answ:
@@ -913,7 +913,7 @@ def efoscspecreduction(files, _interactive, _dobias, _doflat, _listflat, _listbi
                             #                        print wavelmin,wavelmax
                             #                        print float(readkey3(hdr,'NAXIS2'))
                             #                        print ((wavelmax*.1)-(wavelmin*.1))/float(readkey3(hdr,'NAXIS2'))
-                            #                        raw_input('sss')
+                            #                        input('sss')
                             hedvec['VOCLASS'] = [
                                 'SPECTRUM V1.0', 'VO Data Model']
                             hedvec['VOPUB'] = ['ESO/SAF',

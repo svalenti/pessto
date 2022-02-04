@@ -817,7 +817,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                                 readkey3(readhdr(image), 'ycum')))
                         except:
                             print('### ', image, ' dither  not define')
-                    answ = raw_input('\n### do you want to reduce this object ' + str(field) + ' and filter ' + str(
+                    answ = input('\n### do you want to reduce this object ' + str(field) + ' and filter ' + str(
                         _set) + ' [[y],n] ? ')
                     if not answ:
                         answ = 'y'
@@ -933,7 +933,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
             lista = ntt.sofiphotredudef.sortbyJD(lista)
             if len(lista) <= 3:
                 print('\n### warning: less than 4 images')
-                answ = raw_input('Are you sure you want to go on ? [[y]/n]')
+                answ = input('Are you sure you want to go on ? [[y]/n]')
                 if not answ:
                     answ = 'y'
             else:
@@ -970,7 +970,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     asxx = 'yes'
                     while asxx == 'yes':
                         asxx = 'no'
-                        num = raw_input(
+                        num = input(
                             '\n### How many positions has this mask [' + str(len(_xcum)) + '] ? ')
                         if not num:
                             num = int(len(_xcum))
@@ -1026,7 +1026,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                             answ0 = 2
                         else:
                             answ0 = 1
-                        answ = raw_input(
+                        answ = input(
                             'is this ON[1] or OFF[2] ? [' + str(answ0) + '] ')
                         if not answ:
                             answ = answ0
@@ -1054,7 +1054,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     asxx = 'yes'
                     while asxx == 'yes':
                         asxx = 'no'
-                        num = raw_input(
+                        num = input(
                             '\n### How many positions has this mask [' + str(len(listaon)) + '] ? ')
                         if not num:
                             num = int(len(listaon))
@@ -1105,7 +1105,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     print('\n### select manually the images on and off to use ')
                     listaout = []
                     skyfile = []
-                    goon = raw_input('stop this step ? [n/y]')
+                    goon = input('stop this step ? [n/y]')
                     while goon not in ['yes', 'YES', 'Y', 'y']:
                         print('liston')
                         kk = 0
@@ -1118,13 +1118,13 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                             print(gg, kk)
                             kk = kk + 1
 
-                        ddd = raw_input('select list ON [ 0,1,2,3 ] ')
+                        ddd = input('select list ON [ 0,1,2,3 ] ')
                         listaon1 = []
                         for ii in ddd.split(','):
                             listaon1.append(listaon[int(ii)])
                         print(listaon1)
 
-                        ddd1 = raw_input('select list OFF [ 0,1,2 ] ')
+                        ddd1 = input('select list OFF [ 0,1,2 ] ')
                         listaoff1 = []
                         for ii in ddd1.split(','):
                             listaoff1.append(listaoff[int(ii)])
@@ -1136,7 +1136,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                         listaout = listaout + listaout0
                         skyfile = skyfile + skyfile0
 
-                        goon = raw_input('stop this step ? [n/y]')
+                        goon = input('stop this step ? [n/y]')
 
             if listaout:
                 outputobject = outputobject + listaout

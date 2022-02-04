@@ -84,7 +84,7 @@ def calibrationsofi(imgex, stdex, stdref, outputfile, _interactive):
     # or std and sn shifts are different\n'
     answ = 'yes'
     while answ == 'yes':
-        answ = raw_input('\n### which shift you want to use for the standard ? \n - same as the supernova (' +
+        answ = input('\n### which shift you want to use for the standard ? \n - same as the supernova (' +
                          str(_shiftex) + ')[s] \n' + ' - not shift [n] \n - shift in Ang [' + str(_shiftstd) +
                          ']\n shift [' + str(_shiftstd) + '] ')
         if not answ:
@@ -288,7 +288,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                     answ= 'n'
                 else:
                   if os.path.isfile(outputimage) and _interactive:
-                    answ = raw_input(
+                    answ = input(
                         'combine frame of dithered spectra already created. Do you want to make it again [[y]/n] ? ')
                     if not answ:
                         answ = 'y'
@@ -297,7 +297,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
 #################
                 if answ in ['Yes', 'y', 'Y', 'yes']:
                     if _interactive:
-                        automaticmerge = raw_input(
+                        automaticmerge = input(
                             '\n### Do you want to try to find the dither bethween frames automatically [[y]/n]')
                         if not automaticmerge:
                             automaticmerge = 'yes'
@@ -361,7 +361,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                                     ntt.util.readhdr(img), 'xcum')
                             print('\n### position from  dither header: ' + str(_offset))
                             print('### position identified interactively: ' + str(_center2))
-                            offset3 = raw_input(
+                            offset3 = input(
                                 '\n### which is the right position [' + str(_center2) + '] ?')
                             if not offset3:
                                 offset3 = _center2
@@ -600,7 +600,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                                              'Data product category']})
                     print('\n### ', standardfile, ' \n')
                     if len(standardfile) >= 2:
-                        standardfile0 = raw_input(
+                        standardfile0 = input(
                             'which one do you want to use [' + str(standardfile[0]) + '] ? ')
                         if not standardfile0:
                             standardfile0 = standardfile[0]

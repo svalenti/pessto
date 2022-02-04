@@ -1158,7 +1158,7 @@ def fitcol(col, dmag, band, color, fissa=''):
     kid = fig.canvas.mpl_connect('key_press_event', onkeypress)
     cid = fig.canvas.mpl_connect('button_press_event', onclick)
     plt.draw()
-    raw_input(
+    input(
         'left-click mark bad, right-click unmark, <d> remove. Return to exit ...')
     plt.close()
     if _fixcol == '':
@@ -1689,7 +1689,7 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
         display_image(img, 1, '', '', False)
         iraf.tvmark(1, 'STDIN', Stdin=list(apix1), mark="circle", number='yes', label='no', radii=20, nxoffse=5,
                     nyoffse=5, color=205, txsize=4)
-        raw_input('mark catalogue ' + str(len(apix1)))
+        input('mark catalogue ' + str(len(apix1)))
     else:
         #        ss=datetime.datetime.now()
         time.sleep(.7)
@@ -1725,7 +1725,7 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
     if verbose:
         iraf.tvmark(1, 'STDIN', Stdin=list(apixcut), mark="circle", number='yes', label='no', radii=8, nxoffse=5,
                     nyoffse=5, color=204, txsize=2)
-        raw_input('brightest ' + str(number) + ' objects')
+        input('brightest ' + str(number) + ' objects')
 
     ##############    sextractor   ##################
     if len(xpix) >= number:
@@ -1741,7 +1741,7 @@ def efoscastrometry2(lista, catalogue, _interactive, number, sexvec, catvec, gue
             sexpix.append(str(xpix[i]) + ' ' + str(ypix[i]))
         iraf.tvmark(1, 'STDIN', Stdin=list(sexpix), mark="circle", number='yes', label='no', radii=8, nxoffse=5,
                     nyoffse=5, color=206, txsize=2)
-        raw_input('print sex ' + str(len(sexpix)))
+        input('print sex ' + str(len(sexpix)))
 
     xsex, ysex = array(xpix), array(ypix)
     fwsex = array(fw)

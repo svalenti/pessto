@@ -58,7 +58,7 @@ if __name__ == "__main__":
             if not _type:
                 print('\n### ' + ntt.util.readkey3(hdr, 'object'), ntt.util.readkey3(hdr, 'filter'), \
                     str(ntt.util.readkey3(hdr, 'xcum')), str(ntt.util.readkey3(hdr, 'ycum')))
-                answ = raw_input('\n### What is it: image,flat,bias,illumin [1], other [2] ? [2] ')
+                answ = input('\n### What is it: image,flat,bias,illumin [1], other [2] ? [2] ')
                 if not answ:  answ = '2'
                 if answ == '1':
                     _type = 'image'

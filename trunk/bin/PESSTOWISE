@@ -141,19 +141,19 @@ if __name__ == "__main__":
     if not _observer0:
         _observer0 = 'NULL'
 
-    _observer = raw_input('Who were the observers that took the spectral frame (comma-delimited list) `' +
+    _observer = input('Who were the observers that took the spectral frame (comma-delimited list) `' +
                           lista[0] + '`  [' + _observer0 + '] ? ')
     if not _observer:
         _observer = _observer0
     else:
         _observer0 = _observer
-    _reducer = raw_input('\nWho reduced the spectral frame (comma-delimited list) `' +
+    _reducer = input('\nWho reduced the spectral frame (comma-delimited list) `' +
                          lista[0] + '`  [' + _reducer0 + ']? ')
 
     _quality = ntt.util.readkey3(ntt.util.readhdr(lista[0]), 'quality')
     if _quality not in ['Rapid', 'Final', 'Low', 'Med', 'High']:
         while _quality not in ['Rapid', 'Final', 'Low', 'Med', 'High']:
-            _quality = raw_input(
+            _quality = input(
                 '\nWhat is the quality of the spectrum [[Rapid]/Final/Low/Med/High] ? ')
             if not _quality:
                 _quality = 'Rapid'
@@ -204,7 +204,7 @@ if __name__ == "__main__":
                 print('\tIf however the TNS object has been given a classification other than supernova, please report the AT name here (e.g. AT2016abc).')
                 print('\tFinally, if the source is not on the TNS give the name as reported by the discovery survey (see PESSTO Marshall).')
 
-                _object = raw_input(
+                _object = input(
                     '\nWhat is the name of the object  in spectral frame `' + image + '`  [' + _object0 + '] ? ')
                 if not _object:
                     _object = _object0
@@ -229,7 +229,7 @@ if __name__ == "__main__":
                     goon = 'no'
                 else:
                     print('\nThe instrument is not recognised. Which instrument was used? ')
-                    _instrume = raw_input('SOFI [34] or EFOSC [31] ?')
+                    _instrume = input('SOFI [34] or EFOSC [31] ?')
                 if _instrume in ['31', '34']:
                     goon = 'no'
                 #   slit
@@ -242,16 +242,16 @@ if __name__ == "__main__":
                     _slit = '1.0'
                 else:
                     print('\nThe slit width is not found. Which slit width was used? ')
-                    _slit = raw_input('slit (1.0,1.5,2.0,.....) [1.0] ? ')
+                    _slit = input('slit (1.0,1.5,2.0,.....) [1.0] ? ')
                     if not _slit:
                         _slit = '1.0'
             # print('Please insert bibcode string (eg 2011MNRAS.tmp.1220V) ')
-            #_publish=raw_input('Is the spectrum published '+image+'  ['+_publish0+'] ? ')
+            #_publish=input('Is the spectrum published '+image+'  ['+_publish0+'] ? ')
             # if not _publish:_publish=_publish0
             # else: _publish0=_publish
             if _publish0 != 'NULL':
                 print('Please insert reference  (eg Valenti et al 2011) ')
-                _contrib = raw_input(
+                _contrib = input(
                     'first author and year of ' + image + '  [' + _contrib0 + '] ? ')
             if not _contrib:
                 _contrib = _contrib0
@@ -260,7 +260,7 @@ if __name__ == "__main__":
             goon = 'yes'
             while goon == 'yes':
                 print(spectralTypesString)
-                _objtype = raw_input(
+                _objtype = input(
                     '\nWhat is the spectral type of the object in spectral frame `' + image + '`  [' + _objtype0 + '] ? ')
                 if not _objtype:
                     _objtype = _objtype0
@@ -278,11 +278,11 @@ if __name__ == "__main__":
                 if goon == 'yes':
                     print('\n Warning: value not valid, try again \n')
 
-            #_host=raw_input('which is the host '+image+'  ['+_host0+'] ? ')
+            #_host=input('which is the host '+image+'  ['+_host0+'] ? ')
             # if not _host: _host=_host0
             # else: _host0=_host
             _host = _host0
-            _redshift = raw_input(
+            _redshift = input(
                 '\nWhat is the redshift of the host galaxy in ' + image + '  [' + _redshift0 + '] ? ')
             if not _redshift:
                 _redshift = _redshift0
@@ -290,7 +290,7 @@ if __name__ == "__main__":
                 _redshift0 = _redshift
 
             while _spectype not in ['Object', 'Host', 'Sky', 'Arcs']:
-                _spectype = raw_input(
+                _spectype = input(
                     '\nWhat type of spectrum is this [Object, Host, Sky, Arcs] ? ')
                 if not _spectype:
                     _spectype = 'Object'
