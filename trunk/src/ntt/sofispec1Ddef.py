@@ -365,7 +365,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                                 '\n### which is the right position [' + str(_center2) + '] ?')
                             if not offset3:
                                 offset3 = _center2
-                            offsetvec.append(offset3)
+                            offsetvec.append(eval(offset3))
                             line = str(offset3) + '   0\n'
                             f.write(line)
                         f.close()
