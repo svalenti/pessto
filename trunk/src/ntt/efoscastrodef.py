@@ -1,4 +1,7 @@
 import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+matplotlib.use('TKAgg')
 
 def xpa(arg):
     # print "LOGX:: Entering `xpa` method/function in %(__file__)s" % globals()
@@ -846,7 +849,7 @@ def zeropoint(img, _field, method='iraf', verbose=False, _interactive=False):
                     result[filters[_filter] + col] = [a, b, RR]
                 else:
                     print('do zeropoint interactively')
-                    import pylab as plt
+                    #import pylab as plt
 
                     a, sa, b, sb = ntt.efoscastrodef.fitcol(
                         colore, zero, _filter, col, 0.0)
@@ -962,7 +965,7 @@ def onkeypress(event):
     # globals()
     global idd, _col, _dmag, testo, lines, pol, sss, f, fixcol, sigmaa, sigmab
     import numpy as np
-    import pylab as plt
+    #import pylab as plt
 
     xdata, ydata = event.xdata, event.ydata
     dist = np.sqrt((xdata - _col) ** 2 + (ydata - _dmag) ** 2)
@@ -1026,7 +1029,7 @@ def onclick(event):
     # globals()
     global idd, _col, _dmag, testo, lines, pol, sss, f, fixcol, sigmaa, sigmab
     import numpy as np
-    import pylab as plt
+    #import pylab as plt
 
     xdata, ydata = event.xdata, event.ydata
 
@@ -1097,7 +1100,7 @@ def fitcol(col, dmag, band, color, fissa=''):
     # print "LOGX:: Entering `fitcol` method/function in %(__file__)s" %
     # globals()
     global idd, _col, _dmag, testo, lines, pol, sss, f, fixcol, sigmaa, sigmab
-    import pylab as plt
+    #import pylab as plt
     import numpy as np
 
     plt.ion()

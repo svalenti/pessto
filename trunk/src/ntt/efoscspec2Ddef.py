@@ -151,18 +151,22 @@ def checkwavelength_arc(xx1, yy1, xx2, yy2, xmin, xmax, inter=True):
     if inter:
         # import matplotlib as mpl
         #   mpl.use("TKAgg")
-        import pylab as pl
-        pl.ion()
-        pl.clf()
+        #import pylab as pl
+        import matplotlib
+        import matplotlib.pyplot as plt
+        matplotlib.use('TKAgg')
+
+        plt.ion()
+        plt.clf()
         ratio = np.trapz(yy1, xx1) / np.trapz(yy2, xx2)
         yy3 = np.array(yy2) * float(ratio)
         xx4 = xx1 + result
-        pl.plot(xx1, yy1, label='spectrum')
-        pl.plot(xx2, yy3, label='reference sky', lw=2.5)
-        pl.plot(xx4, yy1, label='shifted spectrum')
-        pl.legend(numpoints=1, markerscale=1.5)
+        plt.plot(xx1, yy1, label='spectrum')
+        plt.plot(xx2, yy3, label='reference sky', lw=2.5)
+        plt.plot(xx4, yy1, label='shifted spectrum')
+        plt.legend(numpoints=1, markerscale=1.5)
         if xmin != '' and xmax != '':
-            pl.xlim(xmin, xmax)
+            plt.xlim(xmin, xmax)
     return result
 
 
