@@ -170,14 +170,14 @@ PESSTOFASTSPEC -i EFOSC.2012-04-12T00\:21\:13.429.fits
 ### Matplotlib backend
 
 **Note that this issue has been fixed in v3.0.0.**
-Many MacOS users have encountered the same error output (e.g., issues [#46](https://github.com/svalenti/pessto/issues/46) [#52](https://github.com/svalenti/pessto/issues/52), [#53](https://github.com/svalenti/pessto/issues/53), [#57](https://github.com/svalenti/pessto/issues/57)):
+Many **MacOS** users have encountered the same error output (e.g., issues [#46](https://github.com/svalenti/pessto/issues/46) [#52](https://github.com/svalenti/pessto/issues/52), [#53](https://github.com/svalenti/pessto/issues/53), [#57](https://github.com/svalenti/pessto/issues/57)):
 
 ```code
-	...
-	...
-	libc++abi.dylib: terminating with uncaught exception of type NSException
-	Abort trap: 6
-	PANIC in `/Users/.../noao/bin.macosx/x_apextract.e': Write to IPC with no reader
+...
+...
+libc++abi.dylib: terminating with uncaught exception of type NSException
+Abort trap: 6
+PANIC in `/Users/.../noao/bin.macosx/x_apextract.e': Write to IPC with no reader
 ```
 
 If your error looks similar to this one, make sure that you are using the correct matplotlib backend (**TKAgg**). You can manually add this line every time you import matplotlib:
@@ -190,7 +190,7 @@ If your error looks similar to this one, make sure that you are using the correc
 or modify your `~/.matplotlib/matplotlibrc` file, adding:
 
 ```code
-	backend : TKAgg
+backend : TKAgg
 ``` 
 
 If the file doesn't exist, create one.
