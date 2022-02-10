@@ -5,11 +5,11 @@ This new pipeline is compatible with Python 3 and 64bit archs, and finally solve
 Thanks to the community that has made IRAF compatible with the latest OS and computers.
 
 
-
+___
 ## IRAF
 
 The installation instructions are taken from here: https://iraf-community.github.io/install.html.
-For more information about the latest release at the time I wrote this, check here: https://github.com/iraf-community/iraf/releases/tag/v2.16.1+2021.06.14.
+For more information about the latest release at the time I wrote this, check here: https://github.com/iraf-community/iraf/releases.
 
 ### System Requirements and Dependencies
 
@@ -39,19 +39,16 @@ xcode-select --install
 
 Click "Install" to download and install Xcode Command Line Tools.
 
-### Unpack the IRAF Distribution
+### Compile the Sources
 
 The source distribution file is built as a tarball with the package
 name and version as base directory. Thus, distribution files can be
 unpacked with the command
 
 ```code
-tar zxf /<path>/iraf-2.16.1-2021.06.14.tar.gz
-cd iraf-2.16.1-2021.06.14/
+tar zxf /<path>/iraf-2.17.tar.gz
+cd iraf-2.17/
 ```
-
-
-### Build from Sources
 
 In the source directory, execute the install script to create needed
 links:
@@ -107,8 +104,10 @@ works fine.  To execute the tests, run:
 ./test/run_tests
 ```
 
+The details of the tests are described [here](https://github.com/iraf-community/iraf/blob/main/test/README.md).
 
 
+___
 ## Anaconda environment and dependencies
 
 We will create an anaconda environment with python 3, the necessary dependencies taken from the stsci/astroconda channel and the SWarp package:
@@ -132,7 +131,7 @@ pip3 install pyraf
 
 
 
-
+___
 # PESSTO Pipeline
 
 For now, the best option is to install the pipeline by cloning the repository and using the pessto conda environment with python 3:
@@ -164,7 +163,7 @@ Now you can run the test in the usual way:
 PESSTOFASTSPEC -i EFOSC.2012-04-12T00\:21\:13.429.fits
 ```
 
-
+___
 # Common Issues
 
 ### Matplotlib backend
@@ -183,8 +182,8 @@ PANIC in `/Users/.../noao/bin.macosx/x_apextract.e': Write to IPC with no reader
 If your error looks similar to this one, make sure that you are using the correct matplotlib backend (**TKAgg**). You can manually add this line every time you import matplotlib:
 
 ```code
-	import matplotlib
-	matplotlib.use("TKAgg")
+import matplotlib
+matplotlib.use("TKAgg")
 ```
 
 or modify your `~/.matplotlib/matplotlibrc` file, adding:
@@ -195,6 +194,7 @@ backend : TKAgg
 
 If the file doesn't exist, create one.
 
+___
 # Reporting Issues
 
 To report any problem, [open an issue](https://github.com/svalenti/pessto/issues) (preferred option) or contact me directly at t.e.muller-bravo@ice.csic.es.
