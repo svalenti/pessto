@@ -180,7 +180,7 @@ Many MacOS users have encountered the same error output (e.g., issues [#46](http
 	PANIC in `/Users/.../noao/bin.macosx/x_apextract.e': Write to IPC with no reader
 ```
 
-If you error looks similar to this one, make sure that you are using the correct matplotlib backend (**TKAgg**). You can manually add this line every time you import matplotlib:
+If your error looks similar to this one, make sure that you are using the correct matplotlib backend (**TKAgg**). You can manually add this line every time you import matplotlib:
 
 ```code
 	import matplotlib
