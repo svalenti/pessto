@@ -283,8 +283,8 @@ def my_convolve_with_FFT2(image1, kernel):
     r2, c2 = kernel.shape
     r = r1 + r2 - 1
     c = c1 + c2 - 1
-    padr = (r - r1) / 2  # add to each side
-    padc = (c - c1) / 2  # add to each of top and bottom
+    padr = (r - r1) // 2  # add to each side
+    padc = (c - c1) // 2  # add to each of top and bottom
 
     # pad the edges, with the same values found on the edges
     lside = np.empty((image1.shape[0], padc))
