@@ -4,6 +4,7 @@ This is the installation guide for the PESSTO pipeline, used to reduce the data 
 This new pipeline is compatible with Python 3 and 64bit archs, and finally solves the issues with the Mac M1 chip.
 Thanks to the community that has made IRAF compatible with the latest OS and computers.
 
+**Thanks to Ken for pointing out that Iraf/Pyraf versions compatible with Python 3 existed. Thanks to Carys and Cosimo that helped test the new version of the pipeline and find solutions to different issues that were found.**
 
 ___
 ## IRAF
@@ -147,7 +148,7 @@ python setup.py install
 ## Fix cursor issue for macOS
 
 The latest Mac computers with the M1 chip have an issue when using the pyraf display: the cursor freezer when hovered over the display. 
-To solve this, I found a workaround in (https://github.com/iraf-community/pyraf/issues/107). To make life easier for the user, 
+To solve this, I found a workaround in https://github.com/iraf-community/pyraf/issues/107. To make life easier for the user, 
 there is a script included in the repository (`fix_cursor_macos.py`). Simply run this script using your anaconda environment used to 
 install the pipeline:
 
@@ -160,7 +161,6 @@ python fix_cursor_macos.py
 This will download the `Ptkplot.py` file from the repository and replace your local copy of this file (in your anaconda environment), which 
 is the one "causing" the issue. The changes replace the red cross that appears on the pyraf display with a more modest one (a small price for a
 solution).
-
 
 ## Test
 
