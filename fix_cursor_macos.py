@@ -5,7 +5,7 @@ import wget
 import pyraf
 import shutil
 
-fixed_file_url = 'https://github.com/svalenti/pessto/blob/python3/Ptkplot.py'
+fixed_file_url = 'https://raw.githubusercontent.com/svalenti/pessto/python3/Ptkplot.py'
 wget.download(fixed_file_url)
 
 pyraf_path = pyraf.__path__[0]
