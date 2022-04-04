@@ -152,7 +152,7 @@ class PyrafCanvas(Canvas):
 
     def activateSWCursor(self, x=None, y=None, type=None):
         # hideTkCursor(self)
-         self['cursor'] = 'tcross'
+        self['cursor'] = 'tcross'
         # ignore type for now since only one type of software cursor
         # is implemented
         self.update_idletasks()
