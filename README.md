@@ -144,6 +144,24 @@ cd pessto/trunk
 python setup.py install
 ```
 
+## Fix cursor issue for macOS
+
+The latest Mac computers with the M1 chip have an issue when using the pyraf display: the cursor freezer when hovered over the display. 
+To solve this, I found a workaround in (https://github.com/iraf-community/pyraf/issues/107). To make life easier for the user, 
+there is a script included in the repository (`fix_cursor_macos.py`). Simply run this script using your anaconda environment used to 
+install the pipeline:
+
+```code
+conda activate pessto
+pip install wget  # necessary to run the script
+python fix_cursor_macos.py
+```
+
+This will download the `Ptkplot.py` file from the repository and replace your local copy of this file (in your anaconda environment), which 
+is the one "causing" the issue. The changes replace the red cross that appears on the pyraf display with a more modest one (a small price for a
+solution).
+
+
 ## Test
 
 First, you need to download the test data, which you can do manually from the wiki page or using `gdown` as I show below:
