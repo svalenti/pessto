@@ -108,7 +108,6 @@ works fine.  To execute the tests, run:
 The details of the tests are described [here](https://github.com/iraf-community/iraf/blob/main/test/README.md).
 
 
-___
 ## Anaconda environment and dependencies
 
 We will create an anaconda environment with python 3, the necessary dependencies taken from the stsci/astroconda channel and the SWarp package:
@@ -116,10 +115,13 @@ We will create an anaconda environment with python 3, the necessary dependencies
 ```code
 conda config --add channels http://ssb.stsci.edu/astroconda
 conda create -n pessto python=3.7 stsci  # be patient, this takes some time to finish as well
+conda activate pessto
 conda install -c conda-forge astromatic-swarp
+pip install PyObjC  # necessary for macOS only
 ```
 
-### PyRAF
+
+## PyRAF
 
 The installation instructions are taken from here: https://iraf-community.github.io/pyraf.html.
 Once the anaconda environment has been created, we can proceed to install PyRAF:
@@ -145,6 +147,7 @@ cd pessto/trunk
 python setup.py install
 ```
 
+
 ## Fix cursor issue for macOS
 
 The latest Mac computers with the M1 chip have an issue when using the pyraf display: the cursor freezer when hovered over the display. 
@@ -154,13 +157,15 @@ install the pipeline:
 
 ```code
 conda activate pessto
-pip install wget  # necessary to run the script
+pip install certifi  # to install certificates for macOS
 python fix_cursor_macos.py
 ```
 
 This will download the `Ptkplot.py` file from the repository and replace your local copy of this file (in your anaconda environment), which 
 is the one "causing" the issue. The changes replace the red cross that appears on the pyraf display with a more modest one (a small price for a
 solution).
+
+**Note:** If you get any error, please check the [Common Issues](#common-issues) section below.
 
 ## Test
 
@@ -184,9 +189,10 @@ PESSTOFASTSPEC -i EFOSC.2012-04-12T00\:21\:13.429.fits
 ___
 # Common Issues
 
-### Matplotlib backend
+**Note that these issues should have already been fixed in v3.0.0.**
 
-**Note that this issue has been fixed in v3.0.0.**
+## Matplotlib backend
+
 Many **MacOS** users have encountered the same error output (e.g., issues [#46](https://github.com/svalenti/pessto/issues/46) [#52](https://github.com/svalenti/pessto/issues/52), [#53](https://github.com/svalenti/pessto/issues/53), [#57](https://github.com/svalenti/pessto/issues/57)):
 
 ```code
@@ -212,8 +218,63 @@ backend : TKAgg
 
 If the file doesn't exist, create one.
 
+
+
+## Could not import aqutil
+
+**MacOS** needs an additional package which can be installed with the following command:
+
+```code
+pip install PyObjC
+```
+
+For more information about **PyObjC**, check [this link](https://pyobjc.readthedocs.io/en/latest/).
+
+
+
+## CERTIFICATE_VERIFY_FAILED
+
+**MacOS** users might get the following error:
+
+```code
+urllib.error.URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate
+```
+
+To solve this problem, the certificates need to be installed. Check [this link](https://exerror.com/urllib-error-urlerror-urlopen-error-ssl-certificate_verify_failed-certificate-verify-failed-unable-to-get-local-issuer-certificate/) for possible solutions.
+
+
+## Unsupported pickle protocol: 5
+
+If you get an error like:
+
+```code
+Could not import aqutil
+
+Limited graphics available on OSX (aqutil not loaded)
+
+Traceback (most recent call last):
+  File "fix_cursor_macos.py", line 4, in <module>
+    import pyraf
+  ...
+  ...
+  ...
+  File ".../anaconda3/envs/pessto/lib/python3.7/site-packages/pyraf/sqliteshelve.py", line 108, in __getitem__
+    return pickle.loads(result[0])
+ValueError: unsupported pickle protocol: 5
+```
+
+To make life easier for the user, there is a script included in the repository (`fix_pickle_macos.py`) to fix this. Simply run these commands:
+
+```code
+conda activate pessto
+pip3 install pickle5  # to install certificates for macOS
+python fix_pickle_macos.py
+```
+
+or you can manually fix this by going to the file `sqliteshelve.py` (under `~/anaconda3/envs/pessto/lib/python3.7/site-packages/pyraf/`) and change `import pickle` for `import pickle5 as pickle` (hopefully, this should be fixed in future pyraf versions).
+
 ___
 # Reporting Issues
 
-To report any problem, [open an issue](https://github.com/svalenti/pessto/issues) (preferred option) or contact me directly at t.e.muller-bravo@ice.csic.es.
+To report any problem, [open an issue](https://github.com/svalenti/pessto/issues) (preferred option) or contact me directly at t.e.muller-bravo@ice.csic.es or via Slack.
 
