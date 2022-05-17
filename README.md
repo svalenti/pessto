@@ -1,6 +1,6 @@
 # Pipeline Installation Guide
 
-This is the installation guide for the PESSTO pipeline, used to reduce the data from the NTT telescope.
+This is the installation guide for the ePESSTO+ data-reduction pipeline, used to reduce data (photometry and spectroscopy) obtained with the New Technology Telescope (NTT).
 This new pipeline is compatible with Python 3 and 64bit archs, and finally solves the issues with the Mac M1 chip.
 Thanks to the community that has made IRAF compatible with the latest OS and computers.
 
@@ -142,8 +142,8 @@ For now, the best option is to install the pipeline by cloning the repository an
 ```code
 git clone https://github.com/svalenti/pessto.git
 cd pessto
-git checkout python3  # temporary branch for development
 cd pessto/trunk
+conda activate pessto  # unless you are already using the pessto environment
 python setup.py install
 ```
 
@@ -189,7 +189,7 @@ PESSTOFASTSPEC -i EFOSC.2012-04-12T00\:21\:13.429.fits
 ___
 # Common Issues
 
-**Note that these issues should have already been fixed in v3.0.0.**
+**Note that some of these issues should have already been fixed in v3.0.0.**
 
 ## Matplotlib backend
 
@@ -267,7 +267,7 @@ To make life easier for the user, there is a script included in the repository (
 
 ```code
 conda activate pessto
-pip3 install pickle5  # to install certificates for macOS
+pip3 install pickle5
 python fix_pickle_macos.py
 ```
 

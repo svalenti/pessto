@@ -8,7 +8,7 @@ pyraf_path = pyraf.__path__[0]
 
 # ---------------------------
 # this fixes the cursor issue
-fixed_file_url = 'https://raw.githubusercontent.com/svalenti/pessto/python3/Ptkplot.py'
+fixed_file_url = 'https://raw.githubusercontent.com/svalenti/pessto/master/Ptkplot.py'
 data = requests.get(fixed_file_url)
 
 with open('Ptkplot.py', 'wb')as file:
