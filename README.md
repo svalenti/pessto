@@ -248,12 +248,8 @@ To solve this problem, the certificates need to be installed. Check [this link](
 If you get an error like:
 
 ```code
-Could not import aqutil
-
-Limited graphics available on OSX (aqutil not loaded)
-
 Traceback (most recent call last):
-  File "fix_cursor_macos.py", line 4, in <module>
+  File "xxxxxxx.py", line x, in <module>
     import pyraf
   ...
   ...
