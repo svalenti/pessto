@@ -119,7 +119,7 @@ if __name__ == "__main__":
 \tObject Type Codes
 \t=================
 """
-    for k, v in spectralTypesDict.iteritems():
+    for k, v in spectralTypesDict.items():
         v = str(v).ljust(6, ' ')
         spectralTypesString += "\t%(v)s %(k)s\n" % locals()
 
