@@ -62,15 +62,17 @@ The script will prompt you for the path to the default image
 directory, the cache directory and the binary files directory.
 Usually, you can everywhere use the default settings when asked from 
 the install script. You will need to include the binary files 
-directory in your PATH before proceeding to the `<make>` step.
+directory in your PATH before proceeding to the `<make>` step. 
+The iraf command shortcut also needs to be added.
 In BASH this can be done with the command:
 
 ```code
 export PATH=/path/to/iraf/bin/:$PATH
+export iraf=/path/to/iraf/
 ```
 
 where `</path/to/iraf/bin/>` is the binary files path specified to 
-the install script.
+the install script and `</path/to/iraf/>` where iraf is installed.
 
 Now you can configure the system for the proper architecture and build:
 
