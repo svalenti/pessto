@@ -143,7 +143,6 @@ For now, the best option is to install the pipeline by cloning the repository an
 
 ```code
 git clone https://github.com/svalenti/pessto.git
-cd pessto
 cd pessto/trunk
 conda activate pessto  # unless you are already using the pessto environment
 python setup.py install
