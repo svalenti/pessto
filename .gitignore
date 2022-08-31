@@ -30,3 +30,4 @@ Test_data_GR18_new
 Test_data_GR20
 trunk/src/ntt.egg-info
 trunk/src/ntt/*.pyc
+.idea/
