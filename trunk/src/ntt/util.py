@@ -719,13 +719,13 @@ def defsex(namefile):
     f.close()
     ff = open(namefile, 'w')
     for i in ss:
-        if string.count(i, 'PARAMETERS_NAME') == 1:
+        if i.count('PARAMETERS_NAME') == 1:
             ff.write('PARAMETERS_NAME  "' +
                      ntt.__path__[0] + '/standard/sex/default.param"\n')
-        elif string.count(i, 'FILTER_NAME') == 1:
+        elif i.count('FILTER_NAME') == 1:
             ff.write('FILTER_NAME  "' +
                      ntt.__path__[0] + '/standard/sex/default.conv"\n')
-        elif string.count(i, 'STARNNW_NAME') == 1:
+        elif i.count('STARNNW_NAME') == 1:
             ff.write('STARNNW_NAME "' +
                      ntt.__path__[0] + '/standard/sex/default.nnw"\n')
         else:
@@ -755,16 +755,16 @@ def defswarp(namefile, imgname, _combine, gain=''):
     f.close()
     ff = open(namefile, 'w')
     for i in ss:
-        if string.count(i, 'IMAGEOUT_NAME') == 1:
+        if i.count('IMAGEOUT_NAME') == 1:
             ff.write('IMAGEOUT_NAME    ' + str(imgname) +
                      '  # Output filename \n')
-        elif string.count(i, 'WEIGHTOUT_NAME') == 1:
+        elif i.count('WEIGHTOUT_NAME') == 1:
             ff.write('WEIGHTOUT_NAME   ' + str(
                 re.sub('.fits', '.weight.fits', imgname)) + '  # Output weight-map filename  \n')
-        elif string.count(i, 'COMBINE_TYPE') == 1:
+        elif i.count('COMBINE_TYPE') == 1:
             ff.write('COMBINE_TYPE    ' + str(_combine) +
                      '  # MEDIAN,AVERAGE,MIN,MAX,WEIGHTED,CHI2 \n')
-        elif string.count(i, 'GAIN_DEFAULT') == 1:
+        elif i.count('GAIN_DEFAULT') == 1:
             if gain:
                 ff.write('GAIN_DEFAULT    ' + str(gain) +
                          '  # Default gain if no FITS keyword found \n')

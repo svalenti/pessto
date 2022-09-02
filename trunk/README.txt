@@ -5,6 +5,8 @@
 #                                INSTALLATION
 ###########################################################################
 
+THIS README IS OBSOLETE!!!
+
 NTT is written in python and requires the following package:
 
 - Python 2.5 or Python 2.6 or Python 2.7

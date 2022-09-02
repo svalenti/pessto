@@ -200,7 +200,7 @@ def sofispecreduction(files, _interactive, _doflat, listflat, _docross, _verbose
             _dec = readkey3(hdr, 'DEC')
             _object_name = readkey3(hdr, 'object')
             _OBID = (readkey3(hdr, 'esoid'), _grism)
-            if string.count(_object_name, '/') or string.count(_object_name, '.') or string.count(_object_name, ' '):
+            if _object_name.count('/') or _object_name.count('.') or _object_name.count(' '):
                 nameobj = _object_name.split('/')[0]
                 nameobj = nameobj.split(' ')[0]
                 nameobj = nameobj.split('.')[0]

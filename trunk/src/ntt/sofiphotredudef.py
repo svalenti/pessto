@@ -286,7 +286,7 @@ def pesstocombine2(imglist, _combine, outputimage):
     hdr0 = ntt.util.readhdr(imglist[0])
     _ron = ntt.util.readkey3(hdr0, 'ron')
     _gain = ntt.util.readkey3(hdr0, 'gain')
-    inputimg = string.join(imglist, ",")
+    inputimg = ",".join(imglist)
     nameswarp = ntt.util.defswarp(
         'default.swarp', outputimage, _combine, gain=_gain)
     os.system('swarp  ' + str(inputimg) + ' > _logsex')
@@ -391,9 +391,13 @@ def crosstalk(inname, outname):
     iraf.images(_doprint=0, Stdout=0)
     iraf.imutil(_doprint=0, Stdout=0)
     iraf.imgeom(_doprint=0, Stdout=0)
-    iraf.ctio(_doprint=0, Stdout=0)
+    #iraf.ctio(_doprint=0, Stdout=0)
+    iraf.artdata(_doprint=0, Stdout=0)
     toforget = ['imgeom.blkavg', 'imutil.imcopy',
-                'imutil.imarith', 'ctio.imcreate']
+                'imutil.imarith',
+                #'ctio.imcreate',
+                'artdata.mkpattern'
+                ]
     for t in toforget:
         iraf.unlearn(t)
 
@@ -404,8 +408,8 @@ def crosstalk(inname, outname):
     iraf.imutil.imarith("temp_sum.fits", "*", 1.4e-5,
                         "temp_alpha.fits", verbose='no')
     iraf.imgeom.blkrep("temp_alpha.fits", "temp_corr_A.fits", 1024, 1)
-    iraf.ctio.imcreate("temp_corr_B.fits", naxis=2,
-                       naxis1=1024, naxis2=1024, header='new')
+    #iraf.ctio.imcreate("temp_corr_B.fits", naxis=2, naxis1=1024, naxis2=1024, header='new')
+    iraf.artdata.mkpattern("temp_corr_B.fits", ndim=2, ncols=1024, nlines=1024)
     #  calculate the second part of the correction
     iraf.imutil.imcopy(
         "temp_corr_A.fits[*,1:512]", "temp_corr_B.fits[*,513:1024]", verbose='no')
@@ -756,7 +760,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
             _ra = readkey3(hdro, 'RA')
             _dec = readkey3(hdro, 'DEC')
             _OBID = (readkey3(hdro, 'esoid'), _setup)
-            if string.count(_object_name, '/') or string.count(_object_name, '.') or string.count(_object_name, ' '):
+            if _object_name.count('/') or _object_name.count('.') or _object_name.count(' '):
                 nameobj = _object_name.split('/')[0]
                 nameobj = nameobj.split(' ')[0]
                 nameobj = nameobj.split('.')[0]
@@ -848,8 +852,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                     for image in fieldlist[field][_set]:
                         _object_name = readkey3(readhdr(image), 'object')
                         _date = readkey3(readhdr(image), 'date-night')
-                        if string.count(_object_name, '/') or string.count(_object_name, '.') or string.count(
-                                _object_name, ' '):
+                        if _object_name.count('/') or _object_name.count('.') or _object_name.count(' '):
                             nameobj = _object_name.split('/')[0]
                             nameobj = nameobj.split(' ')[0]
                             nameobj = nameobj.split('.')[0]
@@ -1070,8 +1073,7 @@ def sofireduction(imglist, listill, listflat, _docross, _doflat, _doill, _intera
                 _object_name = readkey3(hdron, 'object')
                 _date = readkey3(hdron, 'date-night')
                 _setup = readkey3(hdron, 'filter')
-                if string.count(_object_name, '/') or string.count(_object_name, '.') or string.count(_object_name,
-                                                                                                      ' '):
+                if _object_name.count('/') or _object_name.count('.') or _object_name.count(' '):
                     nameobj = _object_name.split('/')[0]
                     nameobj = nameobj.split(' ')[0]
                     nameobj = nameobj.split('.')[0]

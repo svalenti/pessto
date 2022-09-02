@@ -264,7 +264,7 @@ def sofispec1Dredu(files, _interactive, _ext_trace, _dispersionline, _automatice
                 listmerge = ntt.sortbyJD(listmerge)
                 _object = ntt.util.readkey3(
                     ntt.util.readhdr(listmerge[0]), 'object')
-                if string.count(_object, '/') or string.count(_object, '.') or string.count(_object, ' '):
+                if _object.count('/') or _object.count('.') or _object.count(' '):
                     nameobj = _object.split('/')[0]
                     nameobj = nameobj.split(' ')[0]
                     nameobj = nameobj.split('.')[0]

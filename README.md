@@ -168,6 +168,32 @@ solution).
 
 **Note:** If you get any error, please check the [Common Issues](#common-issues) section below.
 
+## SExtractor
+
+If you want to reduce SOFI photometry, [SExtractor](https://www.astromatic.net/software/sextractor/) needs to be installed. 
+For MacOS, this can be easily done with the following command (thanks Lluís):
+
+```code
+brew install sextractor
+```
+
+For Linux systems, this might take a few more steps. I tried `sudo apt-get install sextractor`, but this does not work 
+(on Ubuntu 22.04 at least). However, in https://sextractor.readthedocs.io/en/latest/Installing.html is explained how to 
+install from source. The steps are summarised below:
+
+```code
+# dependencies
+sudo apt-get update
+sudo apt-get install -y libgl1-mesa-glx sextractor scamp libatlas-base-dev libatlas3-base libfftw3-3 libfftw3-dev libtool autoconf
+
+git clone https://github.com/astromatic/sextractor.git
+cd sextractor
+sh ./autogen.sh
+./configure
+make -j
+sudo make install
+```
+
 ## Test
 
 First, you need to download the test data, which you can do manually from the wiki page or using `gdown` as I show below:
@@ -186,6 +212,8 @@ Now you can run the test in the usual way:
 ```code
 PESSTOFASTSPEC -i EFOSC.2012-04-12T00\:21\:13.429.fits
 ```
+
+Note that this only tests the EFOSC2 reduction part, not SOFI!
 
 ___
 # Common Issues
