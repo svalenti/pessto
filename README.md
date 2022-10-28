@@ -298,6 +298,13 @@ python fix_pickle_macos.py
 
 or you can manually fix this by going to the file `sqliteshelve.py` (under `~/anaconda3/envs/pessto/lib/python3.7/site-packages/pyraf/`) and change `import pickle` for `import pickle5 as pickle` (hopefully, this should be fixed in future pyraf versions).
 
+
+## Other Issues
+
+The pipeline installation does not work with miniconda, so full anaconda should be installed.
+
+The default shell in Ventura MacOS is `zsh`, but the pipeline does not seem to work with it. Try switching e.g. to `bash`.
+
 ___
 # Reporting Issues
 
