@@ -31,3 +31,4 @@ Test_data_GR20
 trunk/src/ntt.egg-info
 trunk/src/ntt/*.pyc
 .idea/
+trunk/src/ntt/__pycache__/
