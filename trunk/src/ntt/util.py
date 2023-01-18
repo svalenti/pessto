@@ -1142,6 +1142,9 @@ def spectraresolution2(img0, ww=25):
     ff = dd[start:stop]
     lines = []
     for i in ff:
+        if 'INDEF' in i:
+            print(f'skipping unidentified line: {i.split()[1]}')
+            continue
         lines.append(float(i.split()[2]))
     lines = np.compress((aa[0] < np.array(lines)) & (
         np.array(lines) < aa[-1]), np.array(lines))
