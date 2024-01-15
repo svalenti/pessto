@@ -10,7 +10,7 @@ ___
 ## IRAF
 
 The installation instructions are taken from here: https://iraf-community.github.io/install.html.
-For more information about the latest release at the time I wrote this, check here: https://github.com/iraf-community/iraf/releases.
+For more information about the latest release at the time I wrote this, check here: https://github.com/iraf-community/iraf/releases. If you are interested in the very latest release (v2.18), check https://iraf.noirlab.edu/release. Note that this hasn't been tested with the pipeline!
 
 ### System Requirements and Dependencies
 
