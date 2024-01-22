@@ -133,7 +133,7 @@ conda activate pessto
 pip3 install pyraf
 ```
 
-
+If you get an error complaining about **X11** not being found during the installation of pyraf, please follow the instructions on https://github.com/iraf-community/x11iraf to install it. 
 
 
 ___
