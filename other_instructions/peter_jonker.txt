@@ -1,0 +1,35 @@
+I used the following for an M2: Next, there is no python <3.8 for the M2:
+So the problem was there's no native build for python below 3.8 for Apple Silicon. As a workaround you can follow this steps to emulate x86_64 architecture in M1 Apple Silicon (ARM).
+
+## create empty environment
+conda create -n pessto
+
+## activate
+conda activate pessto
+
+## use x86_64 architecture channel(s)
+conda config --env --set subdir osx-64
+
+## install python, numpy, etc. (add more packages here...)
+conda install python=3.7 stsci
+conda install -c conda-forge astromatic-swarp
+pip install PyObjC
+pip3 install pyraf
+git clone https://github.com/svalenti/pessto.git
+cd /Users/pjonker/software/pessto/trunk
+python setup.py install
+pip install certifi  # to install certificates for macOS
+
+cd ../
+pip3 install pickle5
+python fix_pickle_macos.py
+python fix_cursor_macos.py
+
+brew install sextractor
+
+mkdir pessto_test
+cd pessto_test
+pip install gdown
+gdown --id 1KSDqJLKURIoVxvFEfLUPoQmz0x-mHAnv
+tar zxf PESSTO_Pipeline_Installation_Test_Data.tgz
+rm PESSTO_Pipeline_Installation_Test_Data.tgz

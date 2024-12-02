@@ -1,0 +1,43 @@
+Hi Mat. I installed the pipeline on a M3 Pro Chipset and couldn't get it to work with osx-arm64 (probably didn't try hard enough, and wasn't linking well with IRAF/PyRAF). If you change the arch to osx-64, it is straightforward as below (after you've installed IRAF)
+
+## Install IRAF
+
+Download https://github.com/iraf-community/iraf/archive/refs/tags/v2.18.tar.gz
+tar zxf iraf-2.18.tar.gz
+cd iraf-2.18/
+
+make 2>&1 | tee build.log
+make test
+
+sudo make install
+make inplace
+
+# Add this to the .zshrc
+export PATH="/Users/avinash/.iraf/bin:$PATH"
+
+## Create and Install Conda Environment
+
+conda install python=3.7
+conda create -n pessto
+conda config --env --set subdir osx-64
+
+## Install Conda Packages:
+
+conda config --add channels http://ssb.stsci.edu/astroconda
+conda install stsci
+conda install -c conda-forge astromatic-swarp
+pip install PyObjC
+pip install pyraf
+
+## Install the Pipeline:
+
+git clone https://github.com/svalenti/pessto.git
+cd pessto/trunk
+python setup.py install
+
+## Fix cursor issue for macOS:
+
+pip install certifi # to install certificates for macOS
+python fix_cursor_macos.py
+pip install pickle5
+python fix_pickle_macos.py

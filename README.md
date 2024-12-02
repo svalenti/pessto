@@ -1,140 +1,58 @@
 # Pipeline Installation Guide
 
 This is the installation guide for the ePESSTO+ data-reduction pipeline, used to reduce data (photometry and spectroscopy) obtained with the New Technology Telescope (NTT).
-This new pipeline is compatible with Python 3 and 64bit archs, and finally solves the issues with the Mac M1 chip.
+This new pipeline is compatible with Python 3 and 64bit archs, and finally solves the issues with the Mac M1/M2/M3 chips.
 Thanks to the community that has made IRAF compatible with the latest OS and computers.
 
 **Thanks to Ken for pointing out that Iraf/Pyraf versions compatible with Python 3 existed. Thanks to Carys and Cosimo that helped test the new version of the pipeline and find solutions to different issues that were found.**
 
 ___
+# Pre-requirements
+
 ## IRAF
 
-The installation instructions are taken from here: https://iraf-community.github.io/install.html.
-For more information about the latest release at the time I wrote this, check here: https://github.com/iraf-community/iraf/releases. If you are interested in the very latest release (v2.18), check https://iraf.noirlab.edu/release (note that this hasn't been tested with the pipeline!).
+IRAF has very recently (late-ish 2024) become easy to install on new computers, i.e. there is no need to install "from source" anymore. Just follow the instructions on https://iraf-community.github.io/install.html, under "Linux" or "macOS" depending on your OS. For Linux, it is as simple as running `sudo apt install astro-iraf`.
 
-### System Requirements and Dependencies
-
-The distributed binaries require the readline or libedit, curl, and
-expat libraries to be installed.
-
-On Debian and its derivatives (Ubuntu, Mint, Devuan, Raspbian etc.):
-
-```code
-sudo apt install gcc make flex
-sudo apt install libcurl4-openssl-dev libexpat-dev libreadline-dev
-```
-
-On Fedora and its derivatives (Redhat, Scientific Linux etc.)
-
-```code
-sudo dnf install gcc make perl flex
-sudo dnf install libcurl-devel expat-devel readline-devel
-```
-
-On MacOS X, you need to have the XCode tools installed. If you
-haven't, you can install them with:
-
-```code
-xcode-select --install
-```
-
-Click "Install" to download and install Xcode Command Line Tools.
-
-### Compile the Sources
-
-The source distribution file is built as a tarball with the package
-name and version as base directory. Thus, distribution files can be
-unpacked with the command
-
-```code
-tar zxf /<path>/iraf-2.17.tar.gz
-cd iraf-2.17/
-```
-
-In the source directory, execute the install script to create needed
-links:
-
-```code
-./install 		# execute the install script
-```
-
-The script will prompt you for the path to the default image 
-directory, the cache directory and the binary files directory.
-Usually, you can everywhere use the default settings when asked from 
-the install script. You will need to include the binary files 
-directory in your PATH before proceeding to the `<make>` step. 
-The iraf command shortcut also needs to be added.
-In BASH this can be done with the command:
-
-```code
-export PATH=/path/to/iraf/bin/:$PATH
-export iraf=/path/to/iraf/
-```
-
-where `</path/to/iraf/bin/>` is the binary files path specified to 
-the install script and `</path/to/iraf/>` where iraf is installed.
-
-Now you can configure the system for the proper architecture and build:
-
-```code
-make <arch>
-make sysgen 2>&1 | tee build.log  # this takes some time (~17 min. for me) and prints lots of warnings
-```
-
-For `<arch>`, use the proper IRAF architecture name:
-
-`<arch>`   | Operating system | Supported CPU types
------------|------------------|---------------------------------------
-`linux64`  | Linux 64 bit     | x86_64, arm64, mips64, ppc64, riscv64, alpha
-`linux`    | Linux 32 bit     | i386, x32, arm, mips
-`macos64`  | macOS 64 bit     | arm64
-`macintel` | macOS 64 bit     | x86_64
-`macosx`   | macOS 32 bit     | i386
-`freebsd64`| FreeBSD 64 bit   | x86_64
-`freebsd`  | FreeBSD 32 bit   | i386, arm
-`hurd`     | GNU HURD 32 bit  | i386
-
-Note that Cygwin and big endian architectures like macosx/ppc are not
-supported anymore.
-
-
-### Test the Build
-
-IRAF comes with a small set of basic tests to ensure that the build
-works fine.  To execute the tests, run:
-
-```code
-./test/run_tests
-```
-
-The details of the tests are described [here](https://github.com/iraf-community/iraf/blob/main/test/README.md).
+The latest-release information can be found at https://github.com/iraf-community/iraf/releases.
 
 
 ## Anaconda environment and dependencies
 
-We will create an anaconda environment with python 3, the necessary dependencies taken from the stsci/astroconda channel and the SWarp package:
+We will create an anaconda environment with python 3, the necessary dependencies taken from the stsci/astroconda channel and the SWarp package.
+
+### Linux
 
 ```code
 conda config --add channels http://ssb.stsci.edu/astroconda
-conda create -n pessto python=3.7 stsci  # be patient, this takes some time to finish as well
+conda create -n pessto python=3.7 stsci  # be patient, this takes some time to finish
 conda activate pessto
 conda install -c conda-forge astromatic-swarp
-pip install PyObjC  # necessary for macOS only
 ```
 
+### MacOS
+
+```code
+conda create -n pessto
+conda activate pessto
+conda config --env --set subdir osx-64  # use x86_64 architecture channel(s)
+conda config --add channels http://ssb.stsci.edu/astroconda
+conda install python=3.7 stsci  # be patient, this takes some time to finish
+conda install -c conda-forge astromatic-swarp
+pip install PyObjC  # necessary for macOS only
+pip install certifi  # to install certificates for macOS
+```
+
+Please, also check the solutions others have provided under https://github.com/svalenti/pessto/tree/master/other_instructions in case you run into any issues.
 
 ## PyRAF
 
-The installation instructions are taken from here: https://iraf-community.github.io/pyraf.html.
-Once the anaconda environment has been created, we can proceed to install PyRAF:
+Once the anaconda environment has been created, we can proceed to install PyRAF in the following way:
 
 ```code
-conda activate pessto
 pip3 install pyraf
 ```
 
 If you get an error complaining about **X11** not being found during the installation of pyraf, please follow the instructions on https://github.com/iraf-community/x11iraf to install it. 
-
 
 ___
 # PESSTO Pipeline
@@ -142,16 +60,22 @@ ___
 For now, the best option is to install the pipeline by cloning the repository and using the pessto conda environment with python 3:
 
 ```code
+conda activate pessto  # unless you are already using the pessto environment
 git clone https://github.com/svalenti/pessto.git
 cd pessto/trunk
-conda activate pessto  # unless you are already using the pessto environment
-python setup.py install
+pip install .
 ```
+MacOS user will **also** need to run the following scripts in the pessto repo (details are explained further below):
 
+```code
+pip3 install pickle5
+python fix_pickle_macos.py
+python fix_cursor_macos.py
+```
 
 ## Fix cursor issue for macOS
 
-The latest Mac computers with the M1 chip have an issue when using the pyraf display: the cursor freezer when hovered over the display. 
+The latest Mac computers with the M1/M2/M3 chip have an issue when using the pyraf display: the cursor freezer when hovered over the display. 
 To solve this, I found a workaround in https://github.com/iraf-community/pyraf/issues/107. To make life easier for the user, 
 there is a script included in the repository (`fix_cursor_macos.py`). Simply run this script using your anaconda environment used to 
 install the pipeline:
@@ -247,8 +171,6 @@ backend : TKAgg
 
 If the file doesn't exist, create one.
 
-
-
 ## Could not import aqutil
 
 **MacOS** needs an additional package which can be installed with the following command:
@@ -259,8 +181,6 @@ pip install PyObjC
 
 For more information about **PyObjC**, check [this link](https://pyobjc.readthedocs.io/en/latest/).
 
-
-
 ## CERTIFICATE_VERIFY_FAILED
 
 **MacOS** users might get the following error:
@@ -270,7 +190,6 @@ urllib.error.URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certifica
 ```
 
 To solve this problem, the certificates need to be installed. Check [this link](https://exerror.com/urllib-error-urlerror-urlopen-error-ssl-certificate_verify_failed-certificate-verify-failed-unable-to-get-local-issuer-certificate/) for possible solutions.
-
 
 ## Unsupported pickle protocol: 5
 
@@ -308,5 +227,5 @@ The default shell in Ventura MacOS is `zsh`, but the pipeline does not seem to w
 ___
 # Reporting Issues
 
-To report any problem, [open an issue](https://github.com/svalenti/pessto/issues) (preferred option) or contact me directly at t.e.muller-bravo@ice.csic.es or via Slack.
+To report any problem, [open an issue](https://github.com/svalenti/pessto/issues) (preferred option) or contact me directly at t.e.muller-bravo@tcd.ie or via Slack.
 
