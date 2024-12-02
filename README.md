@@ -15,6 +15,19 @@ IRAF has very recently (late-ish 2024) become easy to install on new computers, 
 
 The latest-release information can be found at https://github.com/iraf-community/iraf/releases.
 
+Don't forget to add your IRAF bin path to your paths. For **Linux**, add this to your `.bashrc` file:
+
+```code
+export PATH="/home/<username>/.iraf/bin:$PATH"
+```
+
+or for **macOS**, add this to your `.zshrc` file:
+
+```code
+export PATH="/Users/<username>/.iraf/bin:$PATH"
+```
+
+**Note that the exact location of your IRAF bin directory might depend on how IRAF was installed.**
 
 ## Anaconda environment and dependencies
 
